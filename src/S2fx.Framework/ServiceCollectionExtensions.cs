@@ -24,8 +24,6 @@ namespace Microsoft.Extensions.DependencyInjection {
             //Data accessing
             {
                 services.AddTransient<IDynamicEntityRepositoryResolver, DynamicEntityRepositoryResolver>();
-
-                // Unit of Work
                 services.AddTransient<IUnitOfWorkManager, DefaultUnitOfWorkManager>();
                 services.AddTransient<IDbNameConvention, S2DbNameConvention>();
             }
