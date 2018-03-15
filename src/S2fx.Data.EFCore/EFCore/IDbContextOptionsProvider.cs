@@ -1,32 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace S2fx.Data.EFCore {
 
     public interface IDbContextOptionsProvider {
-        S2DbContextOptions Options { get; }
+        DbContextOptions<S2DbContext> Options { get; }
     }
 
     public abstract class AbstractDbContextOptionsProvider : IDbContextOptionsProvider {
-        private static S2DbContextOptions s_options = null;
+        private static S2DbContextOptionsBuilder s_optionsBuilder = null;
 
-        public S2DbContextOptions Options => GetOrCreateOptions();
+        public DbContextOptions<S2DbContext> Options => GetOrCreateOptions();
 
         public AbstractDbContextOptionsProvider() {
 
         }
 
-        private S2DbContextOptions GetOrCreateOptions() {
-            if (s_options == null) {
-                s_options = this.CreateOptions();
-                return s_options;
+        private DbContextOptions<S2DbContext> GetOrCreateOptions() {
+            if (s_optionsBuilder == null) {
+                s_optionsBuilder = this.CreateOptionsBuilder();
+                return s_optionsBuilder.Options;
             }
             else {
-                return s_options;
+                return s_optionsBuilder.Options;
             }
         }
 
-        protected abstract S2DbContextOptions CreateOptions();
+        protected abstract S2DbContextOptionsBuilder CreateOptionsBuilder();
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using S2fx.Model;
+using S2fx.Model.Entities;
 
 namespace S2fx.Data.EFCore {
 

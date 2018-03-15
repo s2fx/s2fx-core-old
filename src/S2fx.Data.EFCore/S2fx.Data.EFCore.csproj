@@ -6,8 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-4870" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.2" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-4892" />
   </ItemGroup>
 
   <ItemGroup>

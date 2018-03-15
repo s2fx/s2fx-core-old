@@ -1,11 +1,11 @@
-﻿using OrchardCore.Modules.Manifest;
+using S2fx.Environment.Extensions;
 
-[assembly: Module(
-    Name = "S2fx.Data.Npgsql",
+[assembly: S2Module(
+    Name = "EFCoreNpgsql",
     Author = "BinaryStar Technologies Yunnan LLC.",
     Website = "http://www.sandwych.com",
     Version = "0.1.0",
     Description = "The support of Npgsql",
-    Dependencies = new string[] { "S2fx.Core", "S2fx.Core.EFCore" },
+    Dependencies = new string[] { "EFCore" },
     Category = "Data"
 )]

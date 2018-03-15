@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace S2fx.Data.UnitOfWork {
 
     public abstract class AbstractUnitOfWork : IUnitOfWork {
+
         public IUnitOfWork Parent { get; set; }
 
         public Guid Id { get; }
@@ -14,7 +16,9 @@ namespace S2fx.Data.UnitOfWork {
 
         public bool IsTransactional { get; private set; }
 
-        public abstract IDbTransaction Transaction { get; }
+        public abstract IDbConnection DbConnection { get; }
+
+        public abstract IDbTransaction DbTransaction { get; }
 
         public UnitOfWorkStatus State { get; protected set; } = UnitOfWorkStatus.NotStarted;
 

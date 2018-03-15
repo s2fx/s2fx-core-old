@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using S2fx.Model;
-using S2fx.Model.Annotations;
 
-namespace S2fx.Metadata.Model {
+namespace S2fx.Model.Metadata {
 
-    [Table("meta_entity")]
-    public class MetaEntity : AbstractEntity {
+    public class EntityInfo : AbstractMetadata {
+
         public string Name { get; set; }
+
         public string DisplayName { get; set; }
+
+        public Type Type { get; set; }
+
     }
 
 }

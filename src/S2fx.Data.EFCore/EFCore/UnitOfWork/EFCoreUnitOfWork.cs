@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,9 @@ namespace S2fx.Data.EFCore.UnitOfWork {
 
         public DbContext DbContext { get; }
 
-        public override IDbTransaction Transaction => _wrappedTransaction;
+        public override IDbConnection DbConnection => _dbContext.Database.GetDbConnection();
+
+        public override IDbTransaction DbTransaction => _wrappedTransaction;
 
         public EFCoreUnitOfWork(DbContext dbContext) {
             _dbContext = dbContext;
@@ -40,8 +43,8 @@ namespace S2fx.Data.EFCore.UnitOfWork {
 
             try {
                 await this.SaveChangesAsync();
-                if (this.Transaction != null) {
-                    this.Transaction.Commit();
+                if (this.DbTransaction != null) {
+                    this.DbTransaction.Commit();
                 }
             }
             catch {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace S2fx.Model {
+
     public enum CascadeMethod {
         Persist,
         Merge,
@@ -10,4 +11,5 @@ namespace S2fx.Model {
         Remove,
         All
     }
+
 }

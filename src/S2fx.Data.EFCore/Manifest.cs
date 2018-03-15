@@ -1,7 +1,7 @@
-﻿using OrchardCore.Modules.Manifest;
+using S2fx.Environment.Extensions;
 
-[assembly: Module(
-    Name = "S2fx.Data.EFCore",
+[assembly: S2Module(
+    Name = "EFCore",
     Author = "BinaryStar Technologies Yunnan LLC.",
     Website = "http://www.sandwych.com",
     Version = "0.1.0",

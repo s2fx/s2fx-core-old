@@ -13,7 +13,7 @@ namespace S2fx.Environment.Extensions {
 
     public class S2ModuleManager : IS2ModuleManager {
 
-        public async Task InstallAsync(Module module, bool withDemoData = false) {
+        public Task InstallAsync(Module module, bool withDemoData = false) {
             throw new NotImplementedException();
         }
 

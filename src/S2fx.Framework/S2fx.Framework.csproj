@@ -7,12 +7,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.0" />
-    <PackageReference Include="OrchardCore.Modules.Abstractions" Version="1.0.0-beta2-4870" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.1" />
+    <PackageReference Include="OrchardCore.Environment.Extensions.Abstractions" Version="1.0.0-beta2-4892" />
+    <PackageReference Include="OrchardCore.Environment.Shell.Abstractions" Version="1.0.0-beta2-4892" />
+    <PackageReference Include="OrchardCore.Modules.Abstractions" Version="1.0.0-beta2-4892" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Environment\Configuration\" />
+    <Folder Include="Environment\Shell\" />
+    <Folder Include="Model\Metadata\Loaders\" />
   </ItemGroup>
 
 </Project>

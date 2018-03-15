@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using S2fx.Model.Entities;
 
 namespace S2fx.Data.EFCore {
 

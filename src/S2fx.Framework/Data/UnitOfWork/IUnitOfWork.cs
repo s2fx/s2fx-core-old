@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,8 @@ namespace S2fx.Data.UnitOfWork {
         TimeSpan Timeout { get; }
         bool IsTransactional { get; }
         IUnitOfWork Parent { get; }
-        IDbTransaction Transaction { get; }
+        IDbConnection DbConnection { get; }
+        IDbTransaction DbTransaction { get; }
         UnitOfWorkStatus State { get; }
 
         Task BeginAsync(UnitOfWorkOptions options);

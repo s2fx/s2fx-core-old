@@ -4,22 +4,23 @@ using System.Collections.Generic;
 using System.Text;
 using S2fx.Environment.Extensions;
 using S2fx.Model;
+using S2fx.Model.Entities;
+using S2fx.Data.EFCore.Mapping;
 
 namespace S2fx.Data.EFCore {
 
     public class S2DbContext : DbContext {
-        private readonly IExtensionProvider _extensionProvider;
+        private readonly IEFCoreModelMapper _modelMapper;
 
-        public S2DbContext(IDbContextOptionsProvider optionsProvider, IExtensionProvider extensionProvider) : base(optionsProvider.Options) {
-            _extensionProvider = extensionProvider;
+        public S2DbContext(IDbContextOptionsProvider optionsProvider, IEFCoreModelMapper modelMapper) : base(optionsProvider.Options) {
+            _modelMapper = modelMapper;
+
+            //TODO FIXME
+            this.Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            var entityTypes = _extensionProvider.GetAllRelationEntityTypes();
-            foreach (var type in entityTypes) {
-                var entityTypeBuilder = modelBuilder.Entity(type);
-                entityTypeBuilder.HasKey(nameof(IEntity.Id));
-            }
+            _modelMapper.RegisterAllEntities(modelBuilder);
         }
 
     }

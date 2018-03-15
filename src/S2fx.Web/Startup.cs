@@ -8,6 +8,7 @@ using OrchardCore.Modules;
 namespace S2fx.Web {
     public class Startup : StartupBase {
         public override void ConfigureServices(IServiceCollection services) {
+
             /*
             services.AddScoped<IPermissionProvider, Permissions>();
             services.AddScoped<IDisplayDriver<ISite>, SmtpSettingsDisplayDriver>();
@@ -15,10 +16,11 @@ namespace S2fx.Web {
 
             services.AddScoped<IConfigureOptions<SmtpSettings>, SmtpSettingsConfiguration>();
             services.AddScoped<ISmtpService, SmtpService>();
-            */
+            */ 
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
+
             routes.MapAreaRoute
             (
                 name: "Home",

@@ -1,11 +1,11 @@
-using OrchardCore.Modules.Manifest;
+using S2fx.Environment.Extensions;
 
-[assembly: Module(
-    Name = "S2fx.Core",
+[assembly: S2Module(
+    Name = "Core",
     Author = "BinaryStar Technologies Yunnan LLC.",
     Website = "http://www.sandwych.com",
     Version = "0.1.0",
     Description = "Core module",
-    Dependencies = new string[] { "S2fx.EFCore" },
+    Dependencies = new string[] { "EFCore" },
     Category = "Core"
 )]
