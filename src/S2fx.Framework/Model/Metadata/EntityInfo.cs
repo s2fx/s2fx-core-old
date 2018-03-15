@@ -10,7 +10,7 @@ namespace S2fx.Model.Metadata {
 
         public string DisplayName { get; set; }
 
-        public Type Type { get; set; }
+        public Type ClrType { get; set; }
 
     }
 

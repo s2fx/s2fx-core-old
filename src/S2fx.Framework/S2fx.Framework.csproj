@@ -17,7 +17,6 @@
   <ItemGroup>
     <Folder Include="Environment\Configuration\" />
     <Folder Include="Environment\Shell\" />
-    <Folder Include="Model\Metadata\Loaders\" />
   </ItemGroup>
 
 </Project>

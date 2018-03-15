@@ -8,6 +8,7 @@ using S2fx.Data.UnitOfWork;
 using S2fx.Environment.Extensions;
 using S2fx.Environment.Extensions.Entity;
 using S2fx.Model;
+using S2fx.Model.Metadata.Loaders;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
@@ -32,6 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             //model
             {
                 services.AddSingleton<IEntityManager, EntityManager>();
+                services.AddTransient<IClrTypeEntityMetadataLoader, ClrTypeEntityMetadataLoader>();
             }
         }
 

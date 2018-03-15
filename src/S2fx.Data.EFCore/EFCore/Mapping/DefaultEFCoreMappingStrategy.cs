@@ -21,19 +21,19 @@ namespace S2fx.Data.EFCore.Mapping {
 
 
             //Register entity type
-            var entity = modelBuilder.Entity(entityInfo.Type);
+            var entity = modelBuilder.Entity(entityInfo.ClrType);
 
             //Set the `Id` property as primary key
             entity.HasKey(nameof(IEntity.Id));
 
             //TODO
-            if (entityInfo.Type.IsImplementsInterface<IAuditedEntity>()) {
+            if (entityInfo.ClrType.IsImplementsInterface<IAuditedEntity>()) {
                 entity.Ignore(nameof(IAuditedEntity.CreatedBy));
                 entity.Ignore(nameof(IAuditedEntity.UpdatedBy));
             }
 
             //Process property's name convention.
-            var efEntityType = modelBuilder.Model.GetEntityTypes().Single(x => x.ClrType == entityInfo.Type);
+            var efEntityType = modelBuilder.Model.GetEntityTypes().Single(x => x.ClrType == entityInfo.ClrType);
             foreach (var p in efEntityType.GetProperties()) {
                 p.Relational().ColumnName = _dbNameConvention.EntityPropertyToColumn(p.Name);
             }

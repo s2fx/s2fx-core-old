@@ -4,7 +4,7 @@ using System.Text;
 
 namespace S2fx.Model.Metadata {
 
-    public class ModuleDescriptor : AbstractMetadata {
+    public class S2ModuleInfo : AbstractMetadata {
     }
 
 }

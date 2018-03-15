@@ -14,6 +14,8 @@ namespace S2fx.Model.Metadata {
 
         public TableAttribute GetTableAttribute() =>
             this.Attributes.SingleOrDefault(x => x is TableAttribute) as TableAttribute;
+
+        public Type ClrType { get; set; }
     }
 
 }
