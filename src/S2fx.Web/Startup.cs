@@ -16,7 +16,7 @@ namespace S2fx.Web {
 
             services.AddScoped<IConfigureOptions<SmtpSettings>, SmtpSettingsConfiguration>();
             services.AddScoped<ISmtpService, SmtpService>();
-            */ 
+            */
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {

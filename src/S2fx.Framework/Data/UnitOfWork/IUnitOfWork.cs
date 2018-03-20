@@ -15,8 +15,8 @@ namespace S2fx.Data.UnitOfWork {
         IDbTransaction DbTransaction { get; }
         UnitOfWorkStatus State { get; }
 
-        Task BeginAsync(UnitOfWorkOptions options);
-        Task BeginAsync();
+        void Begin(UnitOfWorkOptions options);
+        void Begin();
         Task SaveChangesAsync();
         Task CompleteAsync();
     }

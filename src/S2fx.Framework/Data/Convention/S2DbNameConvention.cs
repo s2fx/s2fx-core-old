@@ -8,16 +8,16 @@ namespace S2fx.Data.Convention {
 
     public class S2DbNameConvention : IDbNameConvention {
 
-        public string EntityToTable(string moduleName, string entityName) =>
-            this.MakeDbObjectFullName(moduleName, entityName);
+        public string EntityToTable(string entityFullName) =>
+            ToSnakeCase(entityFullName.Replace(".", ""));
 
         public string EntityPropertyToColumn(string propertyName) =>
             ToSnakeCase(propertyName);
 
 
         public string MakeDbObjectFullName(string moduleName, string objName) {
-            var fullName = moduleName + '_' + objName;
-            return fullName.Replace('.', '_').ToLowerInvariant();
+            var fullName = moduleName + '.' + objName;
+            return ToSnakeCase(fullName);
         }
 
         private static string ToSnakeCase(string input) {

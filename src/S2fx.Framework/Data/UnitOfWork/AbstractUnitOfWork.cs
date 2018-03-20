@@ -26,19 +26,18 @@ namespace S2fx.Data.UnitOfWork {
             this.Id = Guid.NewGuid();
         }
 
-        public virtual async Task BeginAsync(UnitOfWorkOptions options) {
+        public virtual void Begin(UnitOfWorkOptions options) {
             if (this.State != UnitOfWorkStatus.NotStarted) {
                 throw new InvalidOperationException("This UoW already started!");
             }
 
             this.Timeout = options.Timeout;
             this.IsTransactional = options.IsTransactional;
-            await this.BeginUowAsync();
+            this.BeginUow();
             this.State = UnitOfWorkStatus.Started;
         }
 
-        public Task BeginAsync() =>
-            this.BeginAsync(UnitOfWorkOptions.DefaultOptions);
+        public virtual void Begin() => this.Begin(UnitOfWorkOptions.DefaultOptions);
 
         public abstract Task CompleteAsync();
 
@@ -46,6 +45,6 @@ namespace S2fx.Data.UnitOfWork {
 
         public abstract void Dispose();
 
-        protected abstract Task BeginUowAsync();
+        protected abstract void BeginUow();
     }
 }

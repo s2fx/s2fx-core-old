@@ -14,37 +14,46 @@ namespace S2fx.Environment.Extensions.Entity {
 
     public class EntityHarvester : IEntityHarvester {
         private readonly IEnumerable<IEntityMetadataProvider> _providers;
-        private readonly IShellDescriptorManager _shellDescriptorManager;
+        //private readonly IShellDescriptorManager _shellDescriptorManager;
         private readonly IHostingEnvironment _environment;
 
         public EntityHarvester(IEnumerable<IEntityMetadataProvider> providers,
-                               IShellDescriptorManager shellDescriptorManager,
+                               //IShellDescriptorManager shellDescriptorManager,
                                IHostingEnvironment environment) {
             _providers = providers;
-            _shellDescriptorManager = shellDescriptorManager;
+            //_shellDescriptorManager = shellDescriptorManager;
             _environment = environment;
         }
 
         public async Task<IEnumerable<FeatureEntities>> HarvestEntitiesAsync() {
-            var shell = await _shellDescriptorManager.GetShellDescriptorAsync();
+            //var shell = await _shellDescriptorManager.GetShellDescriptorAsync();
+            var modules = _environment.GetApplication().ModuleNames.Select(m => _environment.GetModule(m));
 
-            var featureEntities = new Dictionary<string, IEnumerable<EntityInfo>>();
+            var featureEntities = new Dictionary<string, IEnumerable<MetaEntity>>();
             foreach (var provider in _providers) {
-                foreach (var moduleName in _environment.GetApplication().ModuleNames) {
-                    var entities = provider.GetEntitiesMetadata(moduleName);
-                    if (featureEntities.TryGetValue(moduleName, out var oldEntities)) {
-                        featureEntities[moduleName] = oldEntities.Union(entities);
-                    }
-                    else {
-                        featureEntities.Add(moduleName, entities);
+                foreach (var module in modules) {
+                    var entities = provider.GetEntitiesMetadata(module.Name);
+                    if (module.ModuleInfo is S2ModuleAttribute moduleAttr) {
+                        var s2ModuleName = moduleAttr.Name;
+                        if (featureEntities.TryGetValue(s2ModuleName, out var oldEntities)) {
+                            featureEntities[s2ModuleName] = oldEntities.Union(entities);
+                        }
+                        else {
+                            featureEntities.Add(s2ModuleName, entities);
+                        }
                     }
                 }
             }
 
-            var enabledFeatureIds = new HashSet<string>(shell.Features.Select(x => x.Id));
+            /*
+            var enabledFeatureIds = new HashSet<string>(_)
+                //new HashSet<string>(shell.Features.Select(x => _environment.GetModule(x.Id).ModuleInfo.Name));
 
-            return featureEntities.Where(x => enabledFeatureIds.Contains(x.Key))
+            featureEntities.Where(x => enabledFeatureIds.Contains(x.Key))
                 .Select(x => new FeatureEntities(x.Key, x.Value))
+                .ToArray();
+                */
+            return featureEntities.Select(x => new FeatureEntities(x.Key, x.Value))
                 .ToArray();
         }
     }

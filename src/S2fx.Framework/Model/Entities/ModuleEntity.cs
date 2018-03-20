@@ -8,10 +8,10 @@ using S2fx.Model.Metadata;
 
 namespace S2fx.Model.Entities {
 
-    [Entity, Table("core_module"), DisplayName("Module")]
-    public class ModuleEntity : AbstractAuditedEntity, IMetaModule {
+    [Entity("Core.Module"), DisplayName("Module")]
+    public class ModuleEntity : AbstractAuditedEntity {
         public string Name { get; set; }
-
+        public string DisplayName { get; set; }
         public string State { get; set; }
     }
 

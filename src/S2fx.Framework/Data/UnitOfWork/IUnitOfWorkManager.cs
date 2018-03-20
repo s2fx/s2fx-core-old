@@ -8,8 +8,8 @@ namespace S2fx.Data.UnitOfWork {
     public interface IUnitOfWorkManager {
         IUnitOfWork Current { get; }
 
-        Task<IUnitOfWork> BeginAsync(UnitOfWorkOptions options);
+        IUnitOfWork Begin(UnitOfWorkOptions options);
 
-        Task<IUnitOfWork> BeginAsync();
+        IUnitOfWork Begin();
     }
 }

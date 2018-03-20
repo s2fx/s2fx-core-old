@@ -8,9 +8,9 @@ namespace S2fx.Environment.Extensions.Entity {
 
     public class FeatureEntities {
         public string Feature { get; }
-        public IEnumerable<EntityInfo> Entities { get; }
+        public IEnumerable<MetaEntity> Entities { get; }
 
-        public FeatureEntities(string feature, IEnumerable<EntityInfo> entities) {
+        public FeatureEntities(string feature, IEnumerable<MetaEntity> entities) {
             this.Feature = feature;
             this.Entities = entities;
         }

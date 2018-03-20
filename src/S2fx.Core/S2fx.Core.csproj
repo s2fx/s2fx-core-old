@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\S2fx.Data.EFCore\S2fx.Data.EFCore.csproj" />
+    <ProjectReference Include="..\S2fx.Framework\S2fx.Framework.csproj" />
   </ItemGroup>
 
 </Project>

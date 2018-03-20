@@ -14,7 +14,14 @@ namespace S2fx.Utility {
         public static bool IsImplementsInterface<T>(this Type type) =>
             type.IsImplementsInterface(typeof(T));
 
+        public static bool IsImplementsClass(this Type type, Type baseClassType) =>
+            baseClassType.IsAssignableFrom(type);
 
+        public static bool IsImplementsClass<T>(this Type type) =>
+            typeof(T).IsAssignableFrom(type);
+
+        public static bool IsPrimitiveOrString(this Type type) =>
+            type.IsPrimitive || type == typeof(string);
 
     }
 

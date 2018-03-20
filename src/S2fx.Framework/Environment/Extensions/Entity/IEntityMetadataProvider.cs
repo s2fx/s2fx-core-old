@@ -8,7 +8,7 @@ namespace S2fx.Environment.Extensions.Entity {
 
     public interface IEntityMetadataProvider {
 
-        IEnumerable<EntityInfo> GetEntitiesMetadata(string moduleName);
+        IEnumerable<MetaEntity> GetEntitiesMetadata(string moduleName);
 
     }
 

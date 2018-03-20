@@ -7,6 +7,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="Npgsql" Version="3.2.7" />
     <PackageReference Include="OrchardCore.Application.Mvc.Targets" Version="1.0.0-beta2-4892" />
     <PackageReference Include="OrchardCore.Hosting.Console" Version="1.0.0-beta2-4892" />
   </ItemGroup>
@@ -15,8 +16,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\S2fx.Core\S2fx.Core.csproj" />
-    <ProjectReference Include="..\S2fx.Data.EFCore.Npgsql\S2fx.Data.EFCore.Npgsql.csproj" />
-    <ProjectReference Include="..\S2fx.Data.EFCore\S2fx.Data.EFCore.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate.PostgreSQL\S2fx.Data.NHibernate.PostgreSQL.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate\S2fx.Data.NHibernate.csproj" />
     <ProjectReference Include="..\S2fx.Web\S2fx.Web.csproj" />
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ using S2fx.Model.Annotations;
 
 namespace S2fx.Model.Entities {
 
-    [Table("core_sequence"), Entity, DisplayName("Sequence")]
+    [Entity("Core.Sequence"), DisplayName("Sequence")]
     public class SequenceEntity : AbstractAuditedEntity {
 
         [Required(AllowEmptyStrings = false)]

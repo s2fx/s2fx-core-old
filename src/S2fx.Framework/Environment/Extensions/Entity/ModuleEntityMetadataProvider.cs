@@ -23,14 +23,17 @@ namespace S2fx.Environment.Extensions.Entity {
             _clrEntityLoader = clrEntityLoader;
         }
 
-        public IEnumerable<EntityInfo> GetEntitiesMetadata(string moduleName) {
+        public IEnumerable<MetaEntity> GetEntitiesMetadata(string moduleName) {
 
             var assembly = _environment.GetModule(moduleName).Assembly;
             var entityTypes = assembly.ExportedTypes
-                .Where(t => t.IsClass | t.IsPublic && t.GetCustomAttributes<EntityAttribute>().Count() > 0);
+                .Where(t => t.GetCustomAttribute<EntityAttribute>() != null);
 
             foreach (var et in entityTypes) {
-                yield return _clrEntityLoader.LoadClrType(et);
+                if (!et.IsClass || !et.IsPublic || et.IsAbstract) {
+                    throw new InvalidOperationException($"The entity `{et.FullName}` must be a non-abstract public class and must have the Entity attribute");
+                }
+                yield return _clrEntityLoader.LoadEntityByClr(et);
             }
         }
     }

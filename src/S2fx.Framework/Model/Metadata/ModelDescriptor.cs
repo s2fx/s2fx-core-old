@@ -9,7 +9,7 @@ namespace S2fx.Model.Metadata {
     /// </summary>
     public class ModelDescriptor {
 
-        public IList<EntityInfo> Entities { get; set; } = new List<EntityInfo>();
+        public IList<MetaEntity> Entities { get; set; } = new List<MetaEntity>();
 
     }
 

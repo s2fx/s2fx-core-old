@@ -1,31 +1,41 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using S2fx.Model.Annotations;
 
 namespace S2fx.Model.Entities {
 
-    [Table("core_selection"), Entity, DisplayName("Selection")]
+    [Entity(EntityName), DisplayName("Selection")]
     public class SelectionEntity : AbstractAuditedEntity {
+        public const string EntityName = "Core.Selection";
 
-        public string ModuleName { get; set; }
+        [Required]
+        public virtual string ModuleName { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        public virtual string Name { get; set; }
 
+        [OneToManyProperty(SelectionItemEntity.EntityName, nameof(SelectionItemEntity.Selection))]
         public virtual ICollection<SelectionItemEntity> Items { get; set; }
     }
 
-    [Table("core_selection_item"), Entity, DisplayName("Selection Item")]
+    [Entity(EntityName), DisplayName("Selection Item")]
     public class SelectionItemEntity : AbstractAuditedEntity {
+        public const string EntityName = "Core.SelectionItem";
 
+        [ManyToOneProperty(SelectionEntity.EntityName, nameof(SelectionEntity.Items)), Required]
         public virtual SelectionEntity Selection { get; set; }
 
-        public int Order { get; set; }
+        [Required]
+        public virtual int Order { get; set; }
 
-        public string Value { get; set; }
+        [Required]
+        public virtual string Value { get; set; }
 
-        public string Label { get; set; }
+        [Required]
+        public virtual string Label { get; set; }
     }
 }

@@ -5,6 +5,6 @@ using System.Text;
 namespace S2fx.Model.Metadata.Loaders {
 
     public interface IClrTypeEntityMetadataLoader {
-        EntityInfo LoadClrType(Type entityType);
+        MetaEntity LoadEntityByClr(Type entityType);
     }
 }

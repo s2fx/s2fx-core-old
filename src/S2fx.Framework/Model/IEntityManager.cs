@@ -7,8 +7,9 @@ namespace S2fx.Model {
 
     public interface IEntityManager {
 
-        EntityInfo GetEntity(string moduleName, string entityName);
-        IEnumerable<EntityInfo> GetEnabledEntities();
+        MetaEntity GetEntityByClrType(Type entityType);
+        MetaEntity GetEntity(string fullName);
+        IEnumerable<MetaEntity> GetEnabledEntities();
     }
 
 }

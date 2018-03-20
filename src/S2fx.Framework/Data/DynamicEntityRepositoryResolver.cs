@@ -5,6 +5,20 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace S2fx.Data {
 
+    public interface IDynamicEntityRepositoryResolver {
+
+        IRepository ResolveRepository(Type entityType);
+    }
+
+    public static class DynamicEntityRepositoryResolverExtensions {
+
+        public static IRepository ResolveRepository(this IDynamicEntityRepositoryResolver resolver, string entityTypeFullName) {
+            var entityType = Type.GetType(entityTypeFullName);
+            return resolver.ResolveRepository(entityType);
+        }
+
+    }
+
     public class DynamicEntityRepositoryResolver : IDynamicEntityRepositoryResolver {
         private readonly IServiceProvider _services;
 

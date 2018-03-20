@@ -15,15 +15,15 @@ namespace S2fx.Data.UnitOfWork {
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<IUnitOfWork> BeginAsync(UnitOfWorkOptions options) {
+        public IUnitOfWork Begin(UnitOfWorkOptions options) {
             var uow = _serviceProvider.GetService<IUnitOfWork>();
-            await uow.BeginAsync(options);
+            uow.Begin(options);
             return uow;
         }
 
-        public async Task<IUnitOfWork> BeginAsync() {
+        public IUnitOfWork Begin() {
             var uow = _serviceProvider.GetService<IUnitOfWork>();
-            await uow.BeginAsync(UnitOfWorkOptions.DefaultOptions);
+            uow.Begin(UnitOfWorkOptions.DefaultOptions);
             return uow;
         }
     }

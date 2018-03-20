@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\S2fx.Core\S2fx.Core.csproj" />
-    <ProjectReference Include="..\..\src\S2fx.Data.EFCore\S2fx.Data.EFCore.csproj" />
     <ProjectReference Include="..\..\src\S2fx.Framework\S2fx.Framework.csproj" />
   </ItemGroup>
 

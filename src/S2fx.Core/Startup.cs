@@ -8,16 +8,7 @@ namespace S2fx.Core {
     public class Startup : StartupBase {
 
         public override void ConfigureServices(IServiceCollection services) {
-            /*
-            services.AddScoped<IPermissionProvider, Permissions>();
-            services.AddScoped<IDisplayDriver<ISite>, SmtpSettingsDisplayDriver>();
-            services.AddScoped<INavigationProvider, AdminMenu>();
-
-            services.AddScoped<IConfigureOptions<SmtpSettings>, SmtpSettingsConfiguration>();
-            services.AddScoped<ISmtpService, SmtpService>();
-            */
-            services.AddS2fx();
-
+            services.AddSlipStreamFramework();
             services.AddTransient<ITestService, TestService>();
         }
     }

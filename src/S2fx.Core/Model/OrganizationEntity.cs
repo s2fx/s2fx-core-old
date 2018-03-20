@@ -8,13 +8,18 @@ using S2fx.Model.Entities;
 
 namespace S2fx.Model {
 
-    [Entity, Table("core_organization"), DisplayName("Organization")]
-    public class OrganizationEntity : AbstractAuditedEntity {
+    [Entity(EntityName), DisplayName("Organization")]
+    public class OrganizationEntity : AbstractAuditedEntity, IHierarchyEntity<OrganizationEntity> {
+        public const string EntityName = "Core.Organization";
 
         public string Name { get; set; }
 
+        [ManyToOneProperty(EntityName)]
         public OrganizationEntity Parent { get; set; }
 
+        public long RangeLeft { get; set; }
+
+        public long RangeRight { get; set; }
     }
 
 }

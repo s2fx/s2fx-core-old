@@ -6,6 +6,6 @@ using S2fx.Environment.Extensions;
     Website = "http://www.sandwych.com",
     Version = "0.1.0",
     Description = "Core module",
-    Dependencies = new string[] { "EFCore" },
+    Dependencies = new string[] { },
     Category = "Core"
 )]

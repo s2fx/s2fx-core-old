@@ -15,6 +15,7 @@ namespace S2fx.Model {
             typeof(SelectionEntity),
             typeof(SelectionItemEntity),
             typeof(SequenceEntity),
+            typeof(RoleEntity),
         };
 
         public static IEnumerable<Type> BuiltInEntityTypes => s_builtInEntityTypes;

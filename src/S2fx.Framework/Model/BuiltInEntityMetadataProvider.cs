@@ -19,12 +19,14 @@ namespace S2fx.Model {
             _loader = loader;
         }
 
-        public IEnumerable<EntityInfo> GetEntitiesMetadata(string moduleName) {
+        public IEnumerable<MetaEntity> GetEntitiesMetadata(string moduleName) {
 
-            var entityTypes = BuiltInModel.BuiltInEntityTypes;
+            var assembly = Assembly.GetExecutingAssembly();
+            var entityTypes = assembly.ExportedTypes
+                .Where(t => t.GetCustomAttribute<EntityAttribute>() != null);
 
             foreach (var et in entityTypes) {
-                yield return _loader.LoadClrType(et);
+                yield return _loader.LoadEntityByClr(et);
             }
         }
     }
