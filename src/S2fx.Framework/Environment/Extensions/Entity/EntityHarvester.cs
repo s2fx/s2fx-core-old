@@ -27,7 +27,9 @@ namespace S2fx.Environment.Extensions.Entity {
 
         public async Task<IEnumerable<EntityDescriptor>> HarvestEntitiesAsync() {
             //var shell = await _shellDescriptorManager.GetShellDescriptorAsync();
-            var modules = _environment.GetApplication().ModuleNames.Select(m => _environment.GetModule(m));
+            var modules = _environment.GetApplication().ModuleNames
+                    .Select(m => _environment.GetModule(m))
+                    .Where(m => m.ModuleInfo is S2ModuleAttribute);
 
             var allEntities = new List<EntityDescriptor>();
             foreach (var module in modules) {
@@ -37,11 +39,11 @@ namespace S2fx.Environment.Extensions.Entity {
             return allEntities;
         }
 
-        private async Task<IEnumerable<EntityDescriptor>> HarvestEntitiesInModuleAsync(Module module) {
+        private async Task<IEnumerable<EntityDescriptor>> HarvestEntitiesInModuleAsync(Module orchardModule) {
             var entities = new List<EntityDescriptor>();
             foreach (var provider in _inspectors) {
-                if (module.ModuleInfo is S2ModuleAttribute moduleAttr) {
-                    var entitiesInModule = await provider.InspectEntitiesAsync(module.Name);
+                if (orchardModule.ModuleInfo is S2ModuleAttribute moduleAttr) {
+                    var entitiesInModule = await provider.InspectEntitiesAsync(orchardModule, moduleAttr.Key);
                     entities.AddRange(entitiesInModule);
                 }
             }

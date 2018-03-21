@@ -5,7 +5,7 @@ using System.Text;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Impl;
 using NHibernate.Mapping.ByCode.Impl.CustomizersImpl;
-using S2fx.Data.Convention;
+using S2fx.Convention;
 using S2fx.Model;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
@@ -94,8 +94,8 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             var m2mProperty = property as ManyToManyMetaProperty;
             var refEntity = _entityManager.GetEntity(m2mProperty.RefEntityName);
             var refProperty = refEntity.Properties[m2mProperty.MappedByPropertyName];
-            var joinTableThisSideFkColumn = this.NameConvention.EntityPropertyToColumn(entity.Name.Split('.').Skip(1).First() + "Id");
-            var joinTableOtherSideFkColumn = this.NameConvention.EntityPropertyToColumn(refEntity.Name.Split('.').Skip(1).First() + "Id");
+            var joinTableThisSideFkColumn = this.NameConvention.EntityPropertyToColumn(entity.Name.Split('.').Last() + "Id");
+            var joinTableOtherSideFkColumn = this.NameConvention.EntityPropertyToColumn(refEntity.Name.Split('.').Last() + "Id");
 
             var bagMappingAction = new Action<IBagPropertiesMapper>(mapper => {
                 mapper.Table(m2mProperty.JoinTable);

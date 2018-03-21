@@ -11,7 +11,7 @@ using S2fx.Model.Metadata;
 using System.ComponentModel;
 using S2fx.Model.Metadata.Loaders;
 using S2fx.Model.Metadata.Types;
-using S2fx.Data.Convention;
+using S2fx.Convention;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using S2fx.Model.Entities;
@@ -37,12 +37,11 @@ namespace S2fx.Environment.Extensions.Entity {
             this.Logger = logger;
         }
 
-        public Task<IEnumerable<EntityDescriptor>> InspectEntitiesAsync(string moduleId) {
-            var module = _environment.GetModule(moduleId);
-            var moduleName = module.ModuleInfo.Name;
+        public Task<IEnumerable<EntityDescriptor>> InspectEntitiesAsync(OrchardCore.Modules.Module module, string moduleKey) {
+            var s2ModuleAttr = (S2ModuleAttribute)module.ModuleInfo;
             var assembly = module.Assembly;
             var entityTypes = this.InspectEntitiesInAssembly(assembly);
-            if (moduleId == WellKnownConstants.CoreModuleId) {
+            if (module.ModuleInfo.Id == WellKnownConstants.CoreModuleId) {
                 entityTypes = entityTypes.Concat(this.InspectEntitiesInAssembly(typeof(UserEntity).Assembly));
             }
 
@@ -52,11 +51,11 @@ namespace S2fx.Environment.Extensions.Entity {
                     throw new InvalidOperationException($"The entity `{entityClrType.FullName}` must be a non-abstract public class and must have the Entity attribute");
                 }
                 var entityAttr = entityClrType.GetCustomAttribute<EntityAttribute>();
-                var entityName = entityAttr.Name ?? _nameConvention.EntityClrTypeNameToEntity(moduleName, entityClrType.Name);
-                var descriptor = new EntityDescriptor(moduleName, entityName, _clrSqlEntityType, new string[] { }, entityClrType);
+                var entityName = entityAttr.Name ?? _nameConvention.EntityClrTypeNameToEntity(s2ModuleAttr.Key, entityClrType.Name);
+                var descriptor = new EntityDescriptor(s2ModuleAttr.Key, entityName, _clrSqlEntityType, new string[] { }, entityClrType);
                 entities.Add(descriptor);
                 if (this.Logger.IsEnabled(LogLevel.Information)) {
-                    this.Logger.LogInformation($"Found entity [{entityName}] in module [{moduleName}]");
+                    this.Logger.LogInformation($"Found entity '{entityName}' in module '{module.ModuleInfo.Id}'");
                 }
             }
 

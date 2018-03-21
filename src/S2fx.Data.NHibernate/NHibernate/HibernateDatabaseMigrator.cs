@@ -21,9 +21,11 @@ namespace S2fx.Data.NHibernate {
         public async Task MigrateSchemeAsync() {
 
             this.Logger.LogInformation("Starting to migrate the schema of database...");
+            var startTime = DateTime.UtcNow;
             var update = new SchemaUpdate(_cfg);
             await update.ExecuteAsync(false, true);
-            this.Logger.LogInformation("The schema of Database has been migrated successfully.");
+            var elapsedTime = DateTime.UtcNow - startTime;
+            this.Logger.LogInformation("The schema of Database has been migrated successfully. Elapsed time: {0}", elapsedTime);
         }
 
     }

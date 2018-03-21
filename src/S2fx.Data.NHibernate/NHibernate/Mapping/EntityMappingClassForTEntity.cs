@@ -5,7 +5,7 @@ using System.Text;
 using System.Reflection;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using S2fx.Data.Convention;
+using S2fx.Convention;
 using S2fx.Model;
 using S2fx.Model.Entities;
 using S2fx.Utility;

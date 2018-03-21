@@ -19,13 +19,13 @@ namespace S2fx.Environment.Extensions {
             this.Logger = logger;
         }
 
-        public async Task InstallAsync(string moduleName, bool withDemoData = false) {
-            this.Logger.LogInformation("Installing module: {0}", moduleName);
+        public async Task InstallAsync(string moduleId, bool withDemoData = false) {
+            this.Logger.LogInformation("Installing module: {0}", moduleId);
             throw new NotImplementedException();
         }
 
-        public async Task UninstallAsync(string moduleName) {
-            this.Logger.LogInformation("Uninstalling module: {0}", moduleName);
+        public async Task UninstallAsync(string moduleId) {
+            this.Logger.LogInformation("Uninstalling module: {0}", moduleId);
             throw new NotImplementedException();
         }
     }

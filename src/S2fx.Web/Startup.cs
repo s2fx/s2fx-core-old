@@ -1,12 +1,20 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OrchardCore.Modules;
 
 namespace S2fx.Web {
     public class Startup : StartupBase {
+
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration) {
+            _configuration = configuration;
+        }
+
         public override void ConfigureServices(IServiceCollection services) {
 
             /*
@@ -21,13 +29,16 @@ namespace S2fx.Web {
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
 
-            routes.MapAreaRoute
-            (
+            routes.MapAreaRoute(
                 name: "Home",
-                areaName: "S2fx.Web",
+                areaName: "S2fx.web",
                 template: "",
                 defaults: new { controller = "Home", action = "Index" }
             );
+
+
+            app.UseStaticFiles();
         }
+
     }
 }

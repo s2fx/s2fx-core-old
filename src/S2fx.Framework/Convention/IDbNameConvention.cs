@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace S2fx.Data.Convention {
+namespace S2fx.Convention {
 
     public interface IDbNameConvention {
         string EntityToTable(string entityFullName);

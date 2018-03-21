@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using S2fx.Data;
-using S2fx.Data.Convention;
+using S2fx.Convention;
 using S2fx.Data.UnitOfWork;
 using S2fx.Environment.Extensions;
 using S2fx.Environment.Extensions.Entity;

@@ -1,7 +1,8 @@
 using S2fx.Environment.Extensions;
 
 [assembly: S2Module(
-    Name = "Core",
+    key: "Core",
+    Name = "SlipStream Core Module",
     Author = "BinaryStar Technologies Yunnan LLC.",
     Website = "http://www.sandwych.com",
     Version = "0.1.0",

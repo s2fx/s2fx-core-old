@@ -1,0 +1,9 @@
+[
+    {
+        "inputs": [
+            "Assets/scss/index.scss"
+        ],
+        "output": "wwwroot/css/index.css"
+    }
+   
+]

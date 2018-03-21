@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using S2fx.Data.Convention;
+using S2fx.Convention;
 using S2fx.Model.Annotations;
 
 namespace S2fx.Model.Metadata.Types {

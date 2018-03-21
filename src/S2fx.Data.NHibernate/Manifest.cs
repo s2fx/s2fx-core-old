@@ -1,6 +1,7 @@
 using S2fx.Environment.Extensions;
 
 [assembly: S2Module(
+    key: "NHibernate",
     Name = "NHibernate",
     Author = "BinaryStar Technologies Yunnan LLC.",
     Website = "http://www.sandwych.com",

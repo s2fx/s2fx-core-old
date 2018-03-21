@@ -6,7 +6,7 @@ namespace S2fx {
 
     public static class WellKnownConstants {
         public const string CoreModuleId = "S2fx.Core";
-        public const string CoreModuleName = "Core";
+        public const string CoreModuleKey = "Core";
     }
 
 }

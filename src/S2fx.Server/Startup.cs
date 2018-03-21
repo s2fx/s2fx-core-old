@@ -30,17 +30,18 @@ namespace S2fx.Server {
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+
             if (env.IsDevelopment()) {
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else {
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseModules(builder => {
-                builder.UseStaticFilesModules();
-            });
+            app.UseStaticFiles();
+
+            app.UseModules();
         }
     }
 }
