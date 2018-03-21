@@ -26,8 +26,8 @@ namespace S2fx.Model.Entities {
 
         public virtual string Email { get; set; }
 
-        //[ManyToManyProperty]
-        //public virtual ICollection<RoleEntity> Roles { get; set; }
+        [ManyToManyProperty(mappedBy: "Users", joinTable: "core_user_role")]
+        public virtual ICollection<RoleEntity> Roles { get; set; }
     }
 
 }

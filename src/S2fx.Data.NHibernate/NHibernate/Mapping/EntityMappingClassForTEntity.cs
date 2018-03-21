@@ -50,12 +50,12 @@ namespace S2fx.Data.NHibernate.Mapping {
 
             this.Id(x => x.Id, mapper => {
                 mapper.Column(_nameConvention.EntityPropertyToColumn(nameof(IEntity.Id)));
-                mapper.Generator(Generators.SequenceIdentity);
+                mapper.Generator(Generators.Native);
             });
 
             foreach (var property in this.MetaEntity.Properties.Values.Where(x => x.Name != "Id")) {
                 var mapper = _propertyMappers[property.Type.Name];
-                mapper.MapProperty(this.CustomizersHolder, this.ExplicitDeclarationsHolder, this.PropertyPath, property);
+                mapper.MapProperty(this.CustomizersHolder, this.ExplicitDeclarationsHolder, this.PropertyPath, this.MetaEntity, property);
             }
         }
 

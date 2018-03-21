@@ -20,14 +20,6 @@ namespace S2fx.Data.Convention {
             return ToSnakeCase(fullName);
         }
 
-        public string DefaultJoinTableName(string entityName1, string propertyName1, string entityName2, string propertyName2) {
-            var tuples = new[] { (entityName1, propertyName1), (entityName2, propertyName2) };
-            var sortedTuples = tuples.OrderBy(t => t.Item1);
-            var t1 = sortedTuples.ElementAt(0);
-            var t2 = sortedTuples.ElementAt(1);
-            return $"ref_{t1.Item1}_{t1.Item2}__{t2.Item1}_{t2.Item2}";
-        }
-
         public string EntityClrTypeNameToEntity(string moduleName, string typeName) =>
             moduleName + '.' + (typeName.EndsWith("Entity") ? typeName.Substring(0, typeName.Length - "Entity".Length) : typeName);
 

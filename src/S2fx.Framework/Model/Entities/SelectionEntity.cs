@@ -30,7 +30,7 @@ namespace S2fx.Model.Entities {
         public virtual SelectionEntity Selection { get; set; }
 
         [Required]
-        public virtual int Order { get; set; }
+        public virtual int SequenceOrder { get; set; }
 
         [Required]
         public virtual string Value { get; set; }

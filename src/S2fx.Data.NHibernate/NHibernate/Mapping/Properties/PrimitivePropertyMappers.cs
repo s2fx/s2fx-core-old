@@ -19,6 +19,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
+            MetaEntity entity,
             MetaProperty property) {
             var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
@@ -55,7 +56,12 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.StringTypeName;
         public StringPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
 
-        public override void MapProperty(ICustomizersHolder customizerHolder, IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder, PropertyPath currentPropertyPath, MetaProperty property) {
+        public override void MapProperty(
+            ICustomizersHolder customizerHolder,
+            IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
+            PropertyPath currentPropertyPath,
+            MetaEntity entity,
+            MetaProperty property) {
             var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
                 if (property.Length > 0) {
@@ -82,7 +88,12 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.ByteArrayTypeName;
         public ByteArrayPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
 
-        public override void MapProperty(ICustomizersHolder customizerHolder, IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder, PropertyPath currentPropertyPath, MetaProperty property) {
+        public override void MapProperty(
+            ICustomizersHolder customizerHolder,
+            IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
+            PropertyPath currentPropertyPath,
+            MetaEntity entity,
+            MetaProperty property) {
             var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
                 if (property.Length > 0) {

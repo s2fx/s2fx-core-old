@@ -6,8 +6,8 @@ namespace S2fx.Model.Annotations {
 
     public abstract class AbstractRelationPropertyAttribute : AbstractPropertyAttribute {
         public CascadeMethod Cascade { get; set; } = CascadeMethod.All;
-        public string RefEntity { get; set; }
-        public string MappedBy { get; set; }
+        public string RefEntity { get; }
+        public string MappedBy { get; }
 
         public AbstractRelationPropertyAttribute(string refEntity, string mappedBy) {
             this.RefEntity = refEntity;

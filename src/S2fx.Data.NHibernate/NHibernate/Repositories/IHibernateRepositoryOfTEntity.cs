@@ -6,7 +6,7 @@ using S2fx.Model.Entities;
 
 namespace S2fx.Data.NHibernate {
 
-    public interface INhRepository<TEntity> : IRepository<TEntity>
+    public interface IHibernateRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity {
 
         ISession DbSession { get; }

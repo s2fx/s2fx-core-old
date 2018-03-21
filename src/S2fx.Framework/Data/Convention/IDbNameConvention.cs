@@ -8,7 +8,6 @@ namespace S2fx.Data.Convention {
         string EntityToTable(string entityFullName);
         string EntityPropertyToColumn(string propertyName);
         string MakeDbObjectFullName(string moduleName, string viewName);
-        string DefaultJoinTableName(string entityName1, string propertyName1, string entity2, string propertyName2);
         string EntityClrTypeNameToEntity(string moduleName, string typeName);
     }
 }

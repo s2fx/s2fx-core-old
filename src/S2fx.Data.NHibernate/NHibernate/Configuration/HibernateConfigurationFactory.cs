@@ -12,10 +12,10 @@ namespace S2fx.Data.NHibernate {
 
     }
 
-    public class NhConfigurationFactory : INhConfigurationFactory {
+    public class HibernateConfigurationFactory : INhConfigurationFactory {
         private readonly IModelMapper _mapper;
 
-        public NhConfigurationFactory(IModelMapper mapper) {
+        public HibernateConfigurationFactory(IModelMapper mapper) {
             _mapper = mapper;
         }
 

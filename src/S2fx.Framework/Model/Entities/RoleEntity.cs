@@ -15,8 +15,8 @@ namespace S2fx.Model.Entities {
 
         public virtual string DisplayName { get; set; }
 
-        //[ManyToManyProperty]
-        //public virtual ICollection<UserEntity> Users { get; set; }
+        [ManyToManyProperty(mappedBy: "Roles", joinTable: "core_user_role")]
+        public virtual ICollection<UserEntity> Users { get; set; }
     }
 
 }

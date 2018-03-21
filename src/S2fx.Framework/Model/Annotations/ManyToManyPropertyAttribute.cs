@@ -11,7 +11,7 @@ namespace S2fx.Model.Annotations {
 
         public string JoinTable { get; }
 
-        public ManyToManyPropertyAttribute(string refEntity = null, string mappedBy = null, string joinTable = null) : base(refEntity, mappedBy) {
+        public ManyToManyPropertyAttribute(string mappedBy, string joinTable, string refEntity = null) : base(refEntity, mappedBy) {
             this.JoinTable = joinTable;
         }
 

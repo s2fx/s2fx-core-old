@@ -5,17 +5,23 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using S2fx.Data.Convention;
 using S2fx.Model.Annotations;
 
 namespace S2fx.Model.Metadata.Types {
 
     public interface IRelationPropertyType : IPropertyType {
-
     }
 
     public abstract class AbstractRelationPropertyType : AbstractPropertyType, IRelationPropertyType {
 
         protected IServiceProvider Services { get; }
+
+        protected void ValidateCollectionPropertyType(PropertyInfo propertyInfo, string refEntityName) {
+            if (!propertyInfo.PropertyType.IsGenericType || propertyInfo.PropertyType.GetGenericTypeDefinition() != typeof(ICollection<>)) {
+                throw new EntityDefinitionException($"The property '{propertyInfo.Name}' of entity '{refEntityName}' must be a ICollection<T>");
+            }
+        }
     }
 
     public class ManyToOnePropertyType : AbstractRelationPropertyType {
@@ -26,6 +32,8 @@ namespace S2fx.Model.Metadata.Types {
             var requiredAttr = propertyInfo.GetCustomAttribute<RequiredAttribute>();
             var manyToOneAttr = propertyInfo.GetCustomAttribute<ManyToOnePropertyAttribute>();
             var mappedByPropertyName = manyToOneAttr.MappedBy ?? "Id";
+            var refEntityClrType = propertyInfo.PropertyType;
+            var refEntityAttr = refEntityClrType.GetCustomAttribute<EntityAttribute>();
             return new ManyToOneMetaProperty {
                 Name = propertyInfo.Name,
                 Type = this,
@@ -34,7 +42,7 @@ namespace S2fx.Model.Metadata.Types {
                 IsRequired = requiredAttr != null ? true : false,
                 Length = -1,
                 MappedByPropertyName = mappedByPropertyName,
-                RefEntityName = manyToOneAttr.RefEntity,
+                RefEntityName = manyToOneAttr.RefEntity ?? refEntityAttr.Name,
             };
         }
 
@@ -46,6 +54,10 @@ namespace S2fx.Model.Metadata.Types {
 
         public override MetaProperty LoadClrProperty(PropertyInfo propertyInfo) {
             var oneToManyAttr = propertyInfo.GetCustomAttribute<OneToManyPropertyAttribute>();
+            var refEntityClrType = propertyInfo.PropertyType.GetGenericArguments().First();
+            var refEntityAttr = refEntityClrType.GetCustomAttribute<EntityAttribute>();
+            var refEntityName = oneToManyAttr.RefEntity ?? refEntityAttr.Name;
+            this.ValidateCollectionPropertyType(propertyInfo, refEntityName);
             return new OneToManyMetaProperty {
                 Name = propertyInfo.Name,
                 Type = this,
@@ -53,7 +65,7 @@ namespace S2fx.Model.Metadata.Types {
                 ClrPropertyInfo = propertyInfo,
                 Length = -1,
                 MappedByPropertyName = oneToManyAttr.MappedBy,
-                RefEntityName = oneToManyAttr.RefEntity,
+                RefEntityName = refEntityName,
             };
         }
 
@@ -72,9 +84,31 @@ namespace S2fx.Model.Metadata.Types {
 
     public class ManyToManyPropertyType : AbstractRelationPropertyType {
         public override string Name => "ManyToMany";
+        private readonly IDbNameConvention _nameConvention;
+
+        public ManyToManyPropertyType(IDbNameConvention nameConvention) {
+            _nameConvention = nameConvention;
+        }
 
         public override MetaProperty LoadClrProperty(PropertyInfo propertyInfo) {
-            throw new NotImplementedException();
+            var thisEntityName = propertyInfo.DeclaringType.GetCustomAttribute<EntityAttribute>().Name;
+            var manyToManyAttr = propertyInfo.GetCustomAttribute<ManyToManyPropertyAttribute>();
+            var refEntityClrType = propertyInfo.PropertyType.GetGenericArguments().First();
+            var refEntityAttr = refEntityClrType.GetCustomAttribute<EntityAttribute>();
+            var refEntityName = manyToManyAttr.RefEntity ?? refEntityAttr.Name;
+            var mappedByPropertyName = manyToManyAttr.MappedBy;
+            var joinTable = manyToManyAttr.JoinTable;
+            this.ValidateCollectionPropertyType(propertyInfo, refEntityName);
+            return new ManyToManyMetaProperty {
+                Name = propertyInfo.Name,
+                Type = this,
+                Attributes = propertyInfo.GetCustomAttributes(),
+                ClrPropertyInfo = propertyInfo,
+                Length = -1,
+                MappedByPropertyName = mappedByPropertyName,
+                RefEntityName = refEntityName,
+                JoinTable = joinTable,
+            };
         }
     }
 }

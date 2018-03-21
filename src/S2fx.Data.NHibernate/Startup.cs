@@ -22,8 +22,8 @@ namespace S2fx.Data.NHibernate {
 
             //Unit of work
             //services.AddTransient<ISessionFactory, NH.Cfg.Configuration>();
-            services.AddTransient<IUnitOfWork, NhUnitOfWork>();
-            services.AddScoped(typeof(IRepository<>), typeof(DefaultNhRepository<>));
+            services.AddTransient<IUnitOfWork, HibernateUnitOfWork>();
+            services.AddScoped(typeof(IRepository<>), typeof(DefaultHibernateRepository<>));
 
             //entity mapping
             services.AddTransient(typeof(EntityMappingClass<>), typeof(EntityMappingClass<>));
@@ -31,7 +31,7 @@ namespace S2fx.Data.NHibernate {
             this.AddBuiltinPropertyMappers(services);
 
             //register nhibernate ISessionFactory 
-            services.AddTransient<INhConfigurationFactory, NhConfigurationFactory>();
+            services.AddTransient<INhConfigurationFactory, HibernateConfigurationFactory>();
 
             //register NH's Configuration to container
             services.AddSingleton<Configuration>(sp => sp.GetService<INhConfigurationFactory>().Create());
@@ -40,7 +40,7 @@ namespace S2fx.Data.NHibernate {
             services.AddSingleton<ISessionFactory>(sp => sp.GetService<Configuration>().BuildSessionFactory());
 
             //migrator
-            services.AddTransient<IDatabaseMigrator, NhDatabaseMigrator>();
+            services.AddTransient<IDatabaseMigrator, HibernateDatabaseMigrator>();
         }
 
         private void AddBuiltinPropertyMappers(IServiceCollection services) {

@@ -10,8 +10,6 @@ namespace S2fx.Model.Annotations {
         public override string PropertyTypeName => "ManyToOne";
 
         public ManyToOnePropertyAttribute(string refEntity = null, string mappedBy = null) : base(refEntity, mappedBy) {
-            this.RefEntity = refEntity;
-            this.MappedBy = mappedBy;
         }
     }
 

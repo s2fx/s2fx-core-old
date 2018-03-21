@@ -12,14 +12,14 @@ using S2fx.Model.Entities;
 
 namespace S2fx.Data.NHibernate {
 
-    public class DefaultNhRepository<TEntity> : INhRepository<TEntity>
+    public class DefaultHibernateRepository<TEntity> : IHibernateRepository<TEntity>
         where TEntity : class, IEntity {
 
         public ISession DbSession { get; }
 
         public IQueryable<TEntity> Table => this.DbSession.Query<TEntity>();
 
-        public DefaultNhRepository(ISession dbSession) {
+        public DefaultHibernateRepository(ISession dbSession) {
             this.DbSession = dbSession ?? throw new ArgumentNullException(nameof(dbSession));
         }
 

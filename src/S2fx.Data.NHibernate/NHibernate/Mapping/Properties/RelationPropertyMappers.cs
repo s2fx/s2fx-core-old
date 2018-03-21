@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Impl;
@@ -19,6 +20,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         public override void MapProperty(ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
+            MetaEntity entity,
             MetaProperty property) {
             var m2oProperty = property as ManyToOneMetaProperty;
             var mappingAction = new Action<IManyToOneMapper>(mapper => {
@@ -43,6 +45,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         public override void MapProperty(ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
+            MetaEntity entity,
             MetaProperty property) {
 
             var o2mProperty = property as OneToManyMetaProperty;
@@ -66,6 +69,55 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             customizerHolder.AddCustomizer(next, bagMappingAction);
 
             modelExplicitDeclarationsHolder.AddAsOneToManyRelation(property.ClrPropertyInfo);
+            modelExplicitDeclarationsHolder.AddAsBag(property.ClrPropertyInfo);
+
+        }
+    }
+
+
+    public class ManyToManyPropertyMapper : AbstractPropertyMapper {
+        private readonly IEntityManager _entityManager;
+
+        public override string PropertyTypeName => BuiltinPropertyTypeNames.ManyToManyTypeName;
+
+        public ManyToManyPropertyMapper(IDbNameConvention nameConvention, IEntityManager entityManager) : base(nameConvention) {
+            _entityManager = entityManager;
+        }
+
+        public override void MapProperty(ICustomizersHolder customizerHolder,
+            IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
+            PropertyPath currentPropertyPath,
+            MetaEntity entity,
+            MetaProperty property) {
+
+
+            var m2mProperty = property as ManyToManyMetaProperty;
+            var refEntity = _entityManager.GetEntity(m2mProperty.RefEntityName);
+            var refProperty = refEntity.Properties[m2mProperty.MappedByPropertyName];
+            var joinTableThisSideFkColumn = this.NameConvention.EntityPropertyToColumn(entity.Name.Split('.').Skip(1).First() + "Id");
+            var joinTableOtherSideFkColumn = this.NameConvention.EntityPropertyToColumn(refEntity.Name.Split('.').Skip(1).First() + "Id");
+
+            var bagMappingAction = new Action<IBagPropertiesMapper>(mapper => {
+                mapper.Table(m2mProperty.JoinTable);
+                mapper.Inverse(true);
+                mapper.Key(keyMapper => {
+                    keyMapper.Column(joinTableThisSideFkColumn);
+                    keyMapper.NotNullable(true);
+                    keyMapper.OnDelete(OnDeleteAction.Cascade);
+                });
+            });
+
+            var m2mMappingAction = new Action<IManyToManyMapper>(mapper => {
+                mapper.Class(refEntity.ClrType);
+                mapper.Column(joinTableOtherSideFkColumn);
+            });
+
+            var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
+
+            customizerHolder.AddCustomizer(next, m2mMappingAction);
+            customizerHolder.AddCustomizer(next, bagMappingAction);
+
+            modelExplicitDeclarationsHolder.AddAsManyToManyItemRelation(property.ClrPropertyInfo);
             modelExplicitDeclarationsHolder.AddAsBag(property.ClrPropertyInfo);
 
         }

@@ -17,6 +17,8 @@ namespace S2fx.Model.Metadata {
         public override void AcceptVisitor(IModelMetadataVisitor visitor) {
             visitor.VisitEntity(this);
         }
+
+        public override string ToString() => $"[{this.Name}]{this.DisplayName}";
     }
 
 }

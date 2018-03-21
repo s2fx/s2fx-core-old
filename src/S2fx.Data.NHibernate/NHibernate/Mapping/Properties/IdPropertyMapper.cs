@@ -18,6 +18,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         public override void MapProperty(ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
+            MetaEntity entity,
             MetaProperty property) {
             var mappingAction = new Action<IClassMapper>(mapper => {
                 mapper.Id(idMapper => {

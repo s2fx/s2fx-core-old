@@ -5,7 +5,7 @@ using NHibernate.Cfg;
 
 namespace S2fx.Data.NHibernate {
 
-    public interface INhDbProvider {
+    public interface IHibernateDbProvider {
 
         void SetupConfiguration(Configuration cfg);
 

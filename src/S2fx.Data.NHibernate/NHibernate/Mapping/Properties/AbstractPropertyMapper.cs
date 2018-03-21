@@ -21,6 +21,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
+            MetaEntity enttiy,
             MetaProperty property);
     }
 

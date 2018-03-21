@@ -10,7 +10,7 @@ using S2fx.Data.UnitOfWork;
 
 namespace S2fx.Data.NHibernate.UnitOfWork {
 
-    public class NhUnitOfWork : AbstractUnitOfWork {
+    public class HibernateUnitOfWork : AbstractUnitOfWork {
 
         private readonly ISessionFactory _sessionFactory;
         private ISession _dbSession;
@@ -28,7 +28,7 @@ namespace S2fx.Data.NHibernate.UnitOfWork {
             }
         }
 
-        public NhUnitOfWork(ISessionFactory sessionFactory) {
+        public HibernateUnitOfWork(ISessionFactory sessionFactory) {
             _sessionFactory = sessionFactory;
         }
 
