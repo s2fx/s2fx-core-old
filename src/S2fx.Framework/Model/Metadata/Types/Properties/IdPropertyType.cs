@@ -9,13 +9,13 @@ namespace S2fx.Model.Metadata.Types {
         Type ClrType { get; }
     }
 
-    public class IdPropertyType : IIdPropertyType {
+    public class IdPropertyType : AbstractPropertyType, IIdPropertyType {
 
-        public string Name => "Id";
+        public override string Name => "Id";
 
         public Type ClrType => typeof(long);
 
-        public MetaProperty ToMetaProperty(PropertyInfo propertyInfo) {
+        public override MetaProperty LoadClrProperty(PropertyInfo propertyInfo) {
             return new IdMetaProperty() {
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),

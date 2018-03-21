@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using OrchardCore.Logging;
 
 namespace S2fx.Server {
     public class Program {
@@ -17,6 +18,7 @@ namespace S2fx.Server {
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseNLogWeb()
                 .Build();
     }
 }

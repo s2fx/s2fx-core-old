@@ -9,21 +9,21 @@ using S2fx.Model.Metadata;
 
 namespace S2fx.Data.NHibernate.Mapping {
 
-    public interface INhModelMapper {
+    public interface IModelMapper {
         void MapAllEntities(Configuration cfg);
     }
 
-    public class NhModelMapper : INhModelMapper {
+    public class ModelMapper : IModelMapper {
         private readonly IServiceProvider _services;
         private readonly IEntityManager _entityManager;
 
-        public NhModelMapper(IServiceProvider services, IEntityManager entityManager) {
+        public ModelMapper(IServiceProvider services, IEntityManager entityManager) {
             _services = services;
             _entityManager = entityManager;
         }
 
         public void MapAllEntities(Configuration cfg) {
-            var mapper = new ModelMapper();
+            var mapper = new global::NHibernate.Mapping.ByCode.ModelMapper();
 
             var entities = _entityManager.GetEnabledEntities();
             foreach (var entityInfo in entities) {
@@ -36,7 +36,7 @@ namespace S2fx.Data.NHibernate.Mapping {
         }
 
         private IConformistHoldersProvider GetEntityClassMapping(MetaEntity entityInfo) {
-            var classMappingType = typeof(NhEntityMappingClass<>).MakeGenericType(entityInfo.ClrType);
+            var classMappingType = typeof(EntityMappingClass<>).MakeGenericType(entityInfo.ClrType);
             var classMapping = _services.GetService(classMappingType) as IConformistHoldersProvider;
             return classMapping;
         }

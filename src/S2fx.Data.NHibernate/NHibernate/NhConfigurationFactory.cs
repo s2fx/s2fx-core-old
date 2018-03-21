@@ -13,9 +13,9 @@ namespace S2fx.Data.NHibernate {
     }
 
     public class NhConfigurationFactory : INhConfigurationFactory {
-        private readonly INhModelMapper _mapper;
+        private readonly IModelMapper _mapper;
 
-        public NhConfigurationFactory(INhModelMapper mapper) {
+        public NhConfigurationFactory(IModelMapper mapper) {
             _mapper = mapper;
         }
 
@@ -23,6 +23,7 @@ namespace S2fx.Data.NHibernate {
             var cfg = new Configuration();
             cfg.UseNpgsql();
             cfg.SetConnectionString("Host=localhost;Database=s2fxdb;Username=s2fx;Password=s2fx");
+            cfg.SetProperty("hbm2ddl.keywords", "auto-quote");
             _mapper.MapAllEntities(cfg);
             return cfg;
         }

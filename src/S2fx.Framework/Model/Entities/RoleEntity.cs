@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 using S2fx.Model.Annotations;
 
 namespace S2fx.Model.Entities {
@@ -11,8 +10,13 @@ namespace S2fx.Model.Entities {
     public class RoleEntity : AbstractAuditedEntity {
         public const string EntityName = "Core.Role";
 
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
+        [Required]
+        public virtual string Name { get; set; }
+
+        public virtual string DisplayName { get; set; }
+
+        //[ManyToManyProperty]
+        //public virtual ICollection<UserEntity> Users { get; set; }
     }
 
 }

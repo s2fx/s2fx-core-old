@@ -14,7 +14,7 @@ using NHibernate;
 
 namespace S2fx.Data.NHibernate.Mapping {
 
-    public class NhEntityMappingClass<TEntity> : ClassMapping<TEntity>
+    public class EntityMappingClass<TEntity> : ClassMapping<TEntity>
         where TEntity : class, IEntity {
 
         private readonly IDbNameConvention _nameConvention;
@@ -22,7 +22,7 @@ namespace S2fx.Data.NHibernate.Mapping {
         private readonly Dictionary<string, Properties.IPropertyMapper> _propertyMappers = new Dictionary<string, Properties.IPropertyMapper>();
         protected MetaEntity MetaEntity { get; }
 
-        public NhEntityMappingClass(IEnumerable<Properties.IPropertyMapper> propertyMappers,
+        public EntityMappingClass(IEnumerable<Properties.IPropertyMapper> propertyMappers,
             IDbNameConvention nameConvention,
             IEntityManager entityManager) {
             _entityManager = entityManager;
@@ -50,6 +50,7 @@ namespace S2fx.Data.NHibernate.Mapping {
 
             this.Id(x => x.Id, mapper => {
                 mapper.Column(_nameConvention.EntityPropertyToColumn(nameof(IEntity.Id)));
+                mapper.Generator(Generators.SequenceIdentity);
             });
 
             foreach (var property in this.MetaEntity.Properties.Values.Where(x => x.Name != "Id")) {

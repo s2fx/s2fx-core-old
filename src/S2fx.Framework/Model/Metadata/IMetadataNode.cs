@@ -4,7 +4,8 @@ using System.Text;
 
 namespace S2fx.Model.Metadata {
 
-    public class S2ModuleInfo : AbstractMetadata {
+    public interface IMetadataNode {
+        void AcceptVisitor(IModelMetadataVisitor visitor);
     }
 
 }

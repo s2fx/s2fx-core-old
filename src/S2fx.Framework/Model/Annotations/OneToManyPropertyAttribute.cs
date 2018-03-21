@@ -10,12 +10,8 @@ namespace S2fx.Model.Annotations {
     public class OneToManyPropertyAttribute : AbstractRelationPropertyAttribute {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.OneToManyTypeName;
         public bool IsOrphanRemoval { get; set; } = true;
-        public string MappedBy { get; }
-        public string RefEntity { get; }
 
-        public OneToManyPropertyAttribute(string refEntity, string mappedBy) {
-            this.RefEntity = refEntity;
-            this.MappedBy = mappedBy;
+        public OneToManyPropertyAttribute(string mappedBy, string refEntity = null) : base(refEntity, mappedBy) {
         }
     }
 }

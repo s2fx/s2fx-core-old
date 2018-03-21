@@ -8,15 +8,28 @@ using Microsoft.Extensions.DependencyInjection;
 using S2fx.Environment.Extensions.Entity;
 using S2fx.Model.Metadata;
 using System.Linq;
+using S2fx.Model.Metadata.Types;
 
 namespace S2fx.Model {
 
+    public interface IEntityManager {
+
+        MetaEntity GetEntityByClrType(Type entityType);
+        MetaEntity GetEntity(string fullName);
+        IEnumerable<MetaEntity> GetEnabledEntities();
+
+        Task LoadAsync();
+    }
+
     public class EntityManager : IEntityManager {
         private readonly IServiceProvider _services;
-        private readonly Dictionary<string, MetaEntity> _entities = new Dictionary<string, MetaEntity>();
+        private readonly IEntityHarvester _harvester;
+        private readonly ConcurrentDictionary<string, MetaEntity> _entities =
+            new ConcurrentDictionary<string, MetaEntity>();
 
-        public EntityManager(IServiceProvider services) {
+        public EntityManager(IServiceProvider services, IEntityHarvester entityHarvester) {
             _services = services;
+            _harvester = entityHarvester;
         }
 
         public IEnumerable<MetaEntity> GetEnabledEntities() {
@@ -25,6 +38,9 @@ namespace S2fx.Model {
         }
 
         public MetaEntity GetEntity(string fullName) {
+            if (string.IsNullOrEmpty(fullName)) {
+                throw new ArgumentNullException(nameof(fullName));
+            }
             this.EnsureEntitiesLoaded();
             return _entities[fullName];
         }
@@ -32,19 +48,20 @@ namespace S2fx.Model {
         public MetaEntity GetEntityByClrType(Type entityType) =>
             this.GetEntity(_entities.Single(pair => pair.Value.ClrType == entityType).Key);
 
+        public async Task LoadAsync() {
+
+            var entityDescriptors = await _harvester.HarvestEntitiesAsync();
+            foreach (var descriptor in entityDescriptors) {
+                if (!_entities.ContainsKey(descriptor.Name)) {
+                    var entity = await descriptor.Type.LoadAsync(descriptor);
+                    _entities.AddOrUpdate(descriptor.Name, entity, (x, y) => entity);
+                }
+            }
+        }
+
         private void EnsureEntitiesLoaded() {
             if (_entities.Count == 0) {
-                var entityHarvester = _services.GetService<IEntityHarvester>();
-                var featureEntities = Task.Run(entityHarvester.HarvestEntitiesAsync).Result;
-                lock (this) {
-                    foreach (var fe in featureEntities) {
-                        foreach (var entity in fe.Entities) {
-                            if (!_entities.ContainsKey(entity.Name)) {
-                                _entities.Add(entity.Name, entity);
-                            }
-                        }
-                    }
-                }
+                Task.Run(this.LoadAsync).Wait();
             }
         }
 

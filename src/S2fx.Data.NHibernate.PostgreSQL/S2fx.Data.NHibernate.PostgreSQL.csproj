@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="3.2.7" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-4892" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-4923" />
   </ItemGroup>
 
   <ItemGroup>

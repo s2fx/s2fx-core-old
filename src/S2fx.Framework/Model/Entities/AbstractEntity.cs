@@ -16,14 +16,14 @@ namespace S2fx.Model.Entities {
     public abstract class AbstractAuditedEntity : AbstractEntity, IAuditedEntity {
 
         [ManyToOneProperty(UserEntity.EntityName)]
-        public UserEntity CreatedBy { get; set; }
+        public virtual UserEntity CreatedBy { get; set; }
 
         [ManyToOneProperty(UserEntity.EntityName)]
-        public UserEntity UpdatedBy { get; set; }
+        public virtual UserEntity UpdatedBy { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public virtual DateTime CreatedOn { get; set; }
 
-        public DateTime? UpdatedOn { get; set; }
+        public virtual DateTime? UpdatedOn { get; set; }
 
     }
 }

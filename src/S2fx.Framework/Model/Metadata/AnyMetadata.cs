@@ -7,7 +7,8 @@ using S2fx.Utility;
 
 namespace S2fx.Model.Metadata {
 
-    public abstract class AbstractMetadata {
+    public abstract class AnyMetadata : IMetadataNode {
+
         public IEnumerable<Attribute> Attributes { get; set; }
 
         public AbstractPropertyAttribute GetPropertyAttribute(Type attributeType) =>
@@ -16,6 +17,8 @@ namespace S2fx.Model.Metadata {
 
         public T GetPropertyAttribute<T>() where T : AbstractPropertyAttribute =>
             GetPropertyAttribute(typeof(T)) as T;
+
+        public abstract void AcceptVisitor(IModelMetadataVisitor visitor);
 
     }
 

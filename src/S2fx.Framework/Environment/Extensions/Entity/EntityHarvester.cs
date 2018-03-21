@@ -13,49 +13,41 @@ using OrchardCore.Environment.Shell.Descriptor.Models;
 namespace S2fx.Environment.Extensions.Entity {
 
     public class EntityHarvester : IEntityHarvester {
-        private readonly IEnumerable<IEntityMetadataProvider> _providers;
+        private readonly IEnumerable<IModuleEntityInspector> _inspectors;
         //private readonly IShellDescriptorManager _shellDescriptorManager;
         private readonly IHostingEnvironment _environment;
 
-        public EntityHarvester(IEnumerable<IEntityMetadataProvider> providers,
+        public EntityHarvester(IEnumerable<IModuleEntityInspector> inspectors,
                                //IShellDescriptorManager shellDescriptorManager,
                                IHostingEnvironment environment) {
-            _providers = providers;
+            _inspectors = inspectors;
             //_shellDescriptorManager = shellDescriptorManager;
             _environment = environment;
         }
 
-        public async Task<IEnumerable<FeatureEntities>> HarvestEntitiesAsync() {
+        public async Task<IEnumerable<EntityDescriptor>> HarvestEntitiesAsync() {
             //var shell = await _shellDescriptorManager.GetShellDescriptorAsync();
             var modules = _environment.GetApplication().ModuleNames.Select(m => _environment.GetModule(m));
 
-            var featureEntities = new Dictionary<string, IEnumerable<MetaEntity>>();
-            foreach (var provider in _providers) {
-                foreach (var module in modules) {
-                    var entities = provider.GetEntitiesMetadata(module.Name);
-                    if (module.ModuleInfo is S2ModuleAttribute moduleAttr) {
-                        var s2ModuleName = moduleAttr.Name;
-                        if (featureEntities.TryGetValue(s2ModuleName, out var oldEntities)) {
-                            featureEntities[s2ModuleName] = oldEntities.Union(entities);
-                        }
-                        else {
-                            featureEntities.Add(s2ModuleName, entities);
-                        }
-                    }
+            var allEntities = new List<EntityDescriptor>();
+            foreach (var module in modules) {
+                var entities = await this.HarvestEntitiesInModuleAsync(module);
+                allEntities.AddRange(entities);
+            }
+            return allEntities;
+        }
+
+        private async Task<IEnumerable<EntityDescriptor>> HarvestEntitiesInModuleAsync(Module module) {
+            var entities = new List<EntityDescriptor>();
+            foreach (var provider in _inspectors) {
+                if (module.ModuleInfo is S2ModuleAttribute moduleAttr) {
+                    var entitiesInModule = await provider.InspectEntitiesAsync(module.Name);
+                    entities.AddRange(entitiesInModule);
                 }
             }
-
-            /*
-            var enabledFeatureIds = new HashSet<string>(_)
-                //new HashSet<string>(shell.Features.Select(x => _environment.GetModule(x.Id).ModuleInfo.Name));
-
-            featureEntities.Where(x => enabledFeatureIds.Contains(x.Key))
-                .Select(x => new FeatureEntities(x.Key, x.Value))
-                .ToArray();
-                */
-            return featureEntities.Select(x => new FeatureEntities(x.Key, x.Value))
-                .ToArray();
+            return entities;
         }
+
     }
 
 }

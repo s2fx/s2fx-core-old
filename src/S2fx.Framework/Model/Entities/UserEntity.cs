@@ -13,18 +13,21 @@ namespace S2fx.Model.Entities {
         public const string EntityName = "Core.User";
 
         [Required]
-        public string Login { get; set; }
+        public virtual string Login { get; set; }
 
         [Required]
-        public string FullName { get; set; }
+        public virtual string FullName { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public virtual string Password { get; set; }
 
 
-        public byte[] Image { get; set; }
+        public virtual byte[] Image { get; set; }
 
-        public string Email { get; set; }
+        public virtual string Email { get; set; }
+
+        //[ManyToManyProperty]
+        //public virtual ICollection<RoleEntity> Roles { get; set; }
     }
 
 }

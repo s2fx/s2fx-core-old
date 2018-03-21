@@ -40,8 +40,7 @@ namespace S2fx.Model.Metadata.Loaders {
             var entityAttribute = entityType.GetCustomAttribute<EntityAttribute>() ?? throw new InvalidOperationException();
             var displayName = entityType.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? entityAttribute.Name;
 
-
-            var entityInfo = new MetaEntity() {
+            var entity = new MetaEntity() {
                 Name = entityAttribute.Name,
                 DisplayName = displayName,
                 ClrType = entityType,
@@ -55,18 +54,19 @@ namespace S2fx.Model.Metadata.Loaders {
                     continue;
                 }
 
-                var propInfo = this.LoadPropertyByClr(clrPropertyInfo);
-                entityInfo.Properties.Add(propInfo.Name, propInfo);
+                var property = this.LoadPropertyByClr(clrPropertyInfo);
+                property.Entity = entity;
+                entity.Properties.Add(property.Name, property);
             }
 
-            return entityInfo;
+            return entity;
         }
 
         private MetaProperty LoadPropertyByClr(PropertyInfo clrPropertyInfo) {
 
             var propType = this.InferPropertyType(clrPropertyInfo);
 
-            return propType.ToMetaProperty(clrPropertyInfo);
+            return propType.LoadClrProperty(clrPropertyInfo);
         }
 
         private IPropertyType InferPropertyType(PropertyInfo clrPropertyInfo) {
@@ -85,7 +85,6 @@ namespace S2fx.Model.Metadata.Loaders {
                 return _propertyTypes.Single(x => x.Name == propAttr.PropertyTypeName);
             }
             else {
-                //TODO exception message
                 throw new EntityDefinitionException(
                     $"Invalid property type [{clrType.FullName}] in entity [{clrPropertyInfo.DeclaringType.FullName}#{clrPropertyInfo.Name}]");
             }
@@ -100,58 +99,6 @@ namespace S2fx.Model.Metadata.Loaders {
                 && this.IsNotNullablePrimitivePropertyType(t.GetGenericArguments().First());
 
         private bool IsNotNullablePrimitivePropertyType(Type t) => _primitivePropertyTypes.ContainsKey(t);
-
-        /*
-        private MetaProperty LoadIdProperty(PropertyInfo clrPropertyInfo) {
-            throw new NotImplementedException();
-            propInfo = new MetaProperty() {
-                Name = clrPropertyInfo.Name,
-                Attributes = clrPropertyInfo.GetCustomAttributes(),
-                ClrPropertyInfo = clrPropertyInfo,
-                PropertyType = propType
-            };
-        }
-
-        private MetaProperty LoadPrimitiveProperty(PropertyInfo clrPropertyInfo) {
-            throw new NotImplementedException();
-            propInfo = new MetaProperty() {
-                Name = clrPropertyInfo.Name,
-                Attributes = clrPropertyInfo.GetCustomAttributes(),
-                ClrPropertyInfo = clrPropertyInfo,
-                PropertyType = propType
-            };
-        }
-
-        private MetaProperty LoadManyToOneProperty(PropertyInfo clrPropertyInfo) {
-            var m2oAttr = clrPropertyInfo.GetCustomAttribute<ManyToOnePropertyAttribute>();
-            if (m2oAttr == null) {
-                throw new InvalidOperationException();
-            }
-            propInfo = new ManyToOneEntityPropertyInfo() {
-                Name = clrPropertyInfo.Name,
-                Attributes = clrPropertyInfo.GetCustomAttributes(),
-                ClrPropertyInfo = clrPropertyInfo,
-                PropertyType = propType,
-                MappedBy = m2oAttr.MappedBy,
-                RefEntity = m2oAttr.RefEntity
-            };
-        }
-
-        private MetaProperty LoadOneToManyProperty(PropertyInfo clrPropertyInfo) {
-            var o2mAttr = clrPropertyInfo.GetCustomAttribute<OneToManyPropertyAttribute>();
-            if (o2mAttr == null) {
-                throw new InvalidOperationException();
-            }
-            propInfo = new OneToManyEntityPropertyInfo() {
-                Name = clrPropertyInfo.Name,
-                Attributes = clrPropertyInfo.GetCustomAttributes(),
-                ClrPropertyInfo = clrPropertyInfo,
-                PropertyType = propType,
-                MappedBy = o2mAttr.MappedBy,
-                RefEntity = o2mAttr.RefEntity,
-            };
-        }
-        */
     }
 
 }

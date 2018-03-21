@@ -7,10 +7,13 @@ namespace S2fx.Model.Metadata {
     /// <summary>
     /// Contains a snapshot of a tenant's entities(in enabled features).
     /// </summary>
-    public class ModelDescriptor {
+    public class MetaModel : AnyMetadata {
 
         public IList<MetaEntity> Entities { get; set; } = new List<MetaEntity>();
 
+        public override void AcceptVisitor(IModelMetadataVisitor visitor) {
+            visitor.VisitModel(this);
+        }
     }
 
 }

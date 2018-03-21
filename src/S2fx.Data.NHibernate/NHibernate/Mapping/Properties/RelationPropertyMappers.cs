@@ -20,8 +20,10 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
             MetaProperty property) {
+            var m2oProperty = property as ManyToOneMetaProperty;
             var mappingAction = new Action<IManyToOneMapper>(mapper => {
                 mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.NotNullable(m2oProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);
@@ -42,9 +44,10 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
             MetaProperty property) {
+
             var o2mProperty = property as OneToManyMetaProperty;
-            var refEntity = _entityManager.GetEntity(o2mProperty.RefEntity);
-            var refProperty = refEntity.Properties[o2mProperty.MappedBy];
+            var refEntity = _entityManager.GetEntity(o2mProperty.RefEntityName);
+            var refProperty = refEntity.Properties[o2mProperty.MappedByPropertyName];
 
             var bagMappingAction = new Action<IBagPropertiesMapper>(mapper => {
                 mapper.Inverse(true);

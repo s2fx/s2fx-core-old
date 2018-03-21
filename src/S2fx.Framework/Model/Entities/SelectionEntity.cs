@@ -18,7 +18,7 @@ namespace S2fx.Model.Entities {
         [Required]
         public virtual string Name { get; set; }
 
-        [OneToManyProperty(SelectionItemEntity.EntityName, nameof(SelectionItemEntity.Selection))]
+        [OneToManyProperty(nameof(SelectionItemEntity.Selection))]
         public virtual ICollection<SelectionItemEntity> Items { get; set; }
     }
 

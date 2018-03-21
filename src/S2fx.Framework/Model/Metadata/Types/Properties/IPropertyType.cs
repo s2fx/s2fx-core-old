@@ -8,7 +8,7 @@ namespace S2fx.Model.Metadata {
     public interface IPropertyType {
 
         string Name { get; }
-        MetaProperty ToMetaProperty(PropertyInfo propertyInfo);
+        MetaProperty LoadClrProperty(PropertyInfo propertyInfo);
 
     }
 

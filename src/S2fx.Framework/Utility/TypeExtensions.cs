@@ -23,6 +23,14 @@ namespace S2fx.Utility {
         public static bool IsPrimitiveOrString(this Type type) =>
             type.IsPrimitive || type == typeof(string);
 
+        public static bool IsNullableValueType(this Type type) =>
+            type.IsGenericType
+            && type.GetGenericTypeDefinition() == typeof(Nullable<>)
+            && type.GetGenericArguments().First().IsValueType;
+
+        public static bool IsNullableType(this Type type) =>
+            !type.IsValueType || type.IsNullableValueType();
+
     }
 
 }

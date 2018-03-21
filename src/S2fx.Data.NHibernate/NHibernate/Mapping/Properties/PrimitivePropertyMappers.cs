@@ -20,8 +20,10 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
             MetaProperty property) {
+            var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
                 mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.NotNullable(primitiveProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);
@@ -54,6 +56,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         public StringPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
 
         public override void MapProperty(ICustomizersHolder customizerHolder, IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder, PropertyPath currentPropertyPath, MetaProperty property) {
+            var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
                 if (property.Length > 0) {
                     mapper.Length(property.Length);
@@ -62,6 +65,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
                     mapper.Length(int.MaxValue);
                 }
                 mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.NotNullable(primitiveProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);
@@ -79,6 +83,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         public ByteArrayPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
 
         public override void MapProperty(ICustomizersHolder customizerHolder, IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder, PropertyPath currentPropertyPath, MetaProperty property) {
+            var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
                 if (property.Length > 0) {
                     mapper.Length(property.Length);
@@ -87,6 +92,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
                     mapper.Length(int.MaxValue);
                 }
                 mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.NotNullable(primitiveProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);

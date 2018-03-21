@@ -1,0 +1,460 @@
+2018-03-21 17:41:11.3290|Default|0HLCF1VFP04KG:00000001||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|ERROR|The view 'Index' was not found. Searched locations: /.Modules/S2fx.Web/Views/Home/Index.cshtml, /.Modules/S2fx.Web/Views/Shared/Index.cshtml, /Areas/S2fx.Web/Views/Home/Index.zh-CN.cshtml, /Areas/S2fx.Web/Views/Home/Index.zh-Hans.cshtml, /Areas/S2fx.Web/Views/Home/Index.zh.cshtml, /Areas/S2fx.Web/Views/Home/Index.cshtml, /Areas/S2fx.Web/Views/Shared/Index.zh-CN.cshtml, /Areas/S2fx.Web/Views/Shared/Index.zh-Hans.cshtml, /Areas/S2fx.Web/Views/Shared/Index.zh.cshtml, /Areas/S2fx.Web/Views/Shared/Index.cshtml, /Views/Shared/Index.zh-CN.cshtml, /Views/Shared/Index.zh-Hans.cshtml, /Views/Shared/Index.zh.cshtml, /Views/Shared/Index.cshtml 
+2018-03-21 17:41:11.5926|Default|0HLCF1VFP04KG:00000001||Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|ERROR|An unhandled exception has occurred while executing the request System.InvalidOperationException: The view 'Index' was not found. The following locations were searched:
+/.Modules/S2fx.Web/Views/Home/Index.cshtml
+/.Modules/S2fx.Web/Views/Shared/Index.cshtml
+/Areas/S2fx.Web/Views/Home/Index.zh-CN.cshtml
+/Areas/S2fx.Web/Views/Home/Index.zh-Hans.cshtml
+/Areas/S2fx.Web/Views/Home/Index.zh.cshtml
+/Areas/S2fx.Web/Views/Home/Index.cshtml
+/Areas/S2fx.Web/Views/Shared/Index.zh-CN.cshtml
+/Areas/S2fx.Web/Views/Shared/Index.zh-Hans.cshtml
+/Areas/S2fx.Web/Views/Shared/Index.zh.cshtml
+/Areas/S2fx.Web/Views/Shared/Index.cshtml
+/Views/Shared/Index.zh-CN.cshtml
+/Views/Shared/Index.zh-Hans.cshtml
+/Views/Shared/Index.zh.cshtml
+/Views/Shared/Index.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewResult.<ExecuteResultAsync>d__26.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeResultAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResultFilterAsync>d__24.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResourceFilter>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeFilterPipelineAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeAsync>d__15.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at OrchardCore.Modules.ModularTenantRouterMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantRouterMiddleware.cs:line 82
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at OrchardCore.Modules.ModularTenantContainerMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantContainerMiddleware.cs:line 75
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at OrchardCore.Modules.ModularTenantContainerMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantContainerMiddleware.cs:line 91
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.<Invoke>d__7.MoveNext()    at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewResult.<ExecuteResultAsync>d__26.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeResultAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResultFilterAsync>d__24.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResourceFilter>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeFilterPipelineAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeAsync>d__15.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at OrchardCore.Modules.ModularTenantRouterMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantRouterMiddleware.cs:line 82
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at OrchardCore.Modules.ModularTenantContainerMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantContainerMiddleware.cs:line 75
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at OrchardCore.Modules.ModularTenantContainerMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantContainerMiddleware.cs:line 91
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.<Invoke>d__7.MoveNext()
+2018-03-21 17:42:10.7670|None|0HLCF2026U8QF:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:42:11.0432|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 17:42:11.0735|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 17:42:11.1023|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 17:42:11.1192|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:42:11.1355|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:42:11.1655|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:42:11.2039|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:42:11.2183|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:42:11.2330|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:42:11.4605|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 17:42:11.4695|None|0HLCF2026U8QF:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 17:42:11.4830|Default|0HLCF2026U8QF:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:42:11.9149|Default|0HLCF2026U8QF:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 17:42:12.7068|Default|0HLCF2026U8QF:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|DEBUG|Found entity [Core.Organization] in module [S2fx.Core] 
+2018-03-21 17:42:13.2840|Default|0HLCF2026U8QF:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:42:14.0774|Default|0HLCF2026U8QF:00000001||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|ERROR|The view 'Index' was not found. Searched locations: /.Modules/S2fx.Web/Views/Home/Index.cshtml, /.Modules/S2fx.Web/Views/Shared/Index.cshtml, /Areas/S2fx.Web/Views/Home/Index.zh-CN.cshtml, /Areas/S2fx.Web/Views/Home/Index.zh-Hans.cshtml, /Areas/S2fx.Web/Views/Home/Index.zh.cshtml, /Areas/S2fx.Web/Views/Home/Index.cshtml, /Areas/S2fx.Web/Views/Shared/Index.zh-CN.cshtml, /Areas/S2fx.Web/Views/Shared/Index.zh-Hans.cshtml, /Areas/S2fx.Web/Views/Shared/Index.zh.cshtml, /Areas/S2fx.Web/Views/Shared/Index.cshtml, /Views/Shared/Index.zh-CN.cshtml, /Views/Shared/Index.zh-Hans.cshtml, /Views/Shared/Index.zh.cshtml, /Views/Shared/Index.cshtml 
+2018-03-21 17:42:14.0936|Default|0HLCF2026U8QF:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 1783.0395ms 
+2018-03-21 17:42:14.1766|Default|0HLCF2026U8QF:00000001||Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|ERROR|An unhandled exception has occurred while executing the request System.InvalidOperationException: The view 'Index' was not found. The following locations were searched:
+/.Modules/S2fx.Web/Views/Home/Index.cshtml
+/.Modules/S2fx.Web/Views/Shared/Index.cshtml
+/Areas/S2fx.Web/Views/Home/Index.zh-CN.cshtml
+/Areas/S2fx.Web/Views/Home/Index.zh-Hans.cshtml
+/Areas/S2fx.Web/Views/Home/Index.zh.cshtml
+/Areas/S2fx.Web/Views/Home/Index.cshtml
+/Areas/S2fx.Web/Views/Shared/Index.zh-CN.cshtml
+/Areas/S2fx.Web/Views/Shared/Index.zh-Hans.cshtml
+/Areas/S2fx.Web/Views/Shared/Index.zh.cshtml
+/Areas/S2fx.Web/Views/Shared/Index.cshtml
+/Views/Shared/Index.zh-CN.cshtml
+/Views/Shared/Index.zh-Hans.cshtml
+/Views/Shared/Index.zh.cshtml
+/Views/Shared/Index.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewResult.<ExecuteResultAsync>d__26.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeResultAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResultFilterAsync>d__24.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResourceFilter>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeFilterPipelineAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeAsync>d__15.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at OrchardCore.Modules.ModularTenantRouterMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantRouterMiddleware.cs:line 82
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at OrchardCore.Modules.ModularTenantContainerMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantContainerMiddleware.cs:line 75
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at OrchardCore.Modules.ModularTenantContainerMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantContainerMiddleware.cs:line 91
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.<Invoke>d__7.MoveNext()    at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewResult.<ExecuteResultAsync>d__26.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeResultAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResultFilterAsync>d__24.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResourceFilter>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeFilterPipelineAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeAsync>d__15.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at OrchardCore.Modules.ModularTenantRouterMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantRouterMiddleware.cs:line 82
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at OrchardCore.Modules.ModularTenantContainerMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantContainerMiddleware.cs:line 75
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at OrchardCore.Modules.ModularTenantContainerMiddleware.<Invoke>d__4.MoveNext() in C:\projects\orchard2\src\OrchardCore\OrchardCore.Modules\ModularTenantContainerMiddleware.cs:line 91
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.<Invoke>d__7.MoveNext()
+2018-03-21 17:42:14.6893|Default|0HLCF2026U8QF:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 3897.2386ms 500 text/html; charset=utf-8 
+2018-03-21 17:44:31.9864|None|0HLCF21CCJD0U:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:44:32.1736|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 17:44:32.1921|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 17:44:32.2100|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 17:44:32.2241|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:44:32.2377|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:44:32.2497|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:44:32.2810|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:44:32.3064|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:44:32.3239|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:44:32.8215|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 17:44:32.8539|None|0HLCF21CCJD0U:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 17:44:32.8716|Default|0HLCF21CCJD0U:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:44:33.2008|Default|0HLCF21CCJD0U:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 17:44:34.0565|Default|0HLCF21CCJD0U:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|DEBUG|Found entity [Core.Organization] in module [S2fx.Core] 
+2018-03-21 17:44:34.5756|Default|0HLCF21CCJD0U:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:44:39.1353|Default|0HLCF21CCJD0U:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' started. 
+2018-03-21 17:44:42.9337|Default|0HLCF21CCJD0U:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' completed in 3774.1897ms. 
+2018-03-21 17:44:42.9536|Default|0HLCF21CCJD0U:00000001||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|INFO|Executing ViewResult, running view at path /Areas/S2fx.Web/Views/Home/Index.cshtml. 
+2018-03-21 17:44:43.0595|Default|0HLCF21CCJD0U:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 9495.9028ms 
+2018-03-21 17:44:43.1102|Default|0HLCF21CCJD0U:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 11132.012ms 200 text/html; charset=utf-8 
+2018-03-21 17:44:56.5269|None|0HLCF21CCJD0U:00000002||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:44:56.6049|Default|0HLCF21CCJD0U:00000002||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:44:56.6580|Default|0HLCF21CCJD0U:00000002||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:44:56.6880|Default|0HLCF21CCJD0U:00000002||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|INFO|Executing ViewResult, running view at path /Areas/S2fx.Web/Views/Home/Index.cshtml. 
+2018-03-21 17:44:56.7238|Default|0HLCF21CCJD0U:00000002||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 69.6469ms 
+2018-03-21 17:44:56.7594|Default|0HLCF21CCJD0U:00000002||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 233.0508ms 200 text/html; charset=utf-8 
+2018-03-21 17:44:59.3557|None|0HLCF21CCJD0U:00000003||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:44:59.3859|Default|0HLCF21CCJD0U:00000003||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:44:59.4254|Default|0HLCF21CCJD0U:00000003||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:44:59.4381|Default|0HLCF21CCJD0U:00000003||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|INFO|Executing ViewResult, running view at path /Areas/S2fx.Web/Views/Home/Index.cshtml. 
+2018-03-21 17:44:59.4879|Default|0HLCF21CCJD0U:00000003||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 73.1392ms 
+2018-03-21 17:44:59.5217|Default|0HLCF21CCJD0U:00000003||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 138.7332ms 200 text/html; charset=utf-8 
+2018-03-21 17:45:00.6097|None|0HLCF21CCJD0U:00000004||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:45:00.6221|Default|0HLCF21CCJD0U:00000004||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:45:00.6499|Default|0HLCF21CCJD0U:00000004||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:45:00.6935|Default|0HLCF21CCJD0U:00000004||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|INFO|Executing ViewResult, running view at path /Areas/S2fx.Web/Views/Home/Index.cshtml. 
+2018-03-21 17:45:00.7439|Default|0HLCF21CCJD0U:00000004||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 71.0505ms 
+2018-03-21 17:45:00.7743|Default|0HLCF21CCJD0U:00000004||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 164.9869ms 200 text/html; charset=utf-8 
+2018-03-21 17:46:55.0105|None|0HLCF22N0HDFE:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:46:55.1810|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 17:46:55.1810|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 17:46:55.2103|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 17:46:55.2247|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:46:55.2390|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:46:55.2515|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:46:55.2891|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:46:55.2985|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:46:55.3414|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:46:55.6654|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 17:46:55.6859|None|0HLCF22N0HDFE:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 17:46:55.7081|Default|0HLCF22N0HDFE:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:46:55.9978|Default|0HLCF22N0HDFE:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 17:46:56.7559|Default|0HLCF22N0HDFE:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|DEBUG|Found entity [Core.Organization] in module [S2fx.Core] 
+2018-03-21 17:46:57.5104|Default|0HLCF22N0HDFE:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:47:00.2203|Default|0HLCF22N0HDFE:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' started. 
+2018-03-21 17:47:03.7092|Default|0HLCF22N0HDFE:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' completed in 3477.5822ms. 
+2018-03-21 17:47:03.7335|Default|0HLCF22N0HDFE:00000001||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|INFO|Executing ViewResult, running view at path /Areas/S2fx.Web/Views/Home/Index.cshtml. 
+2018-03-21 17:47:03.8344|Default|0HLCF22N0HDFE:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 7554.6997ms 
+2018-03-21 17:47:03.8920|Default|0HLCF22N0HDFE:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 8905.7174ms 200 text/html; charset=utf-8 
+2018-03-21 17:47:49.0748|None|0HLCF23759QL6:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:47:49.3493|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 17:47:49.3890|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 17:47:49.4080|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 17:47:49.4558|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:47:49.4844|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:47:49.5353|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:47:49.6012|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:47:49.6249|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:47:49.7211|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:47:50.4673|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 17:47:50.5039|None|0HLCF23759QL6:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 17:47:50.8357|Default|0HLCF23759QL6:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:47:51.4755|Default|0HLCF23759QL6:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 17:47:52.6692|Default|0HLCF23759QL6:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|DEBUG|Found entity [Core.Organization] in module [S2fx.Core] 
+2018-03-21 17:47:53.4050|Default|0HLCF23759QL6:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:47:55.9759|Default|0HLCF23759QL6:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' started. 
+2018-03-21 17:47:59.0682|Default|0HLCF23759QL6:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' completed in 3072.3238ms. 
+2018-03-21 17:47:59.0878|Default|0HLCF23759QL6:00000001||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|INFO|Executing ViewResult, running view at path /Areas/S2fx.Web/Views/Home/Index.cshtml. 
+2018-03-21 17:47:59.2037|Default|0HLCF23759QL6:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 7377.8293ms 
+2018-03-21 17:47:59.2584|Default|0HLCF23759QL6:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 10187.2972ms 200 text/html; charset=utf-8 
+2018-03-21 17:48:28.2396|None|0HLCF23ILRJKR:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:48:28.4333|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 17:48:28.4510|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 17:48:28.4653|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 17:48:28.4772|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:48:28.4772|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:48:28.5028|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:48:28.5331|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:48:28.5407|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:48:28.5583|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:48:28.8162|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 17:48:28.8381|None|0HLCF23ILRJKR:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 17:48:28.8611|Default|0HLCF23ILRJKR:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:48:29.0940|Default|0HLCF23ILRJKR:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 17:48:30.0746|Default|0HLCF23ILRJKR:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Organization] in module [S2fx.Core] 
+2018-03-21 17:48:30.5182|Default|0HLCF23ILRJKR:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:48:32.7355|Default|0HLCF23ILRJKR:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' started. 
+2018-03-21 17:48:35.4584|Default|0HLCF23ILRJKR:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' completed in 2709.5151ms. 
+2018-03-21 17:48:35.4790|Default|0HLCF23ILRJKR:00000001||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|INFO|Executing ViewResult, running view at path /Areas/S2fx.Web/Views/Home/Index.cshtml. 
+2018-03-21 17:48:35.5800|Default|0HLCF23ILRJKR:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 5948.9276ms 
+2018-03-21 17:48:35.6392|Default|0HLCF23ILRJKR:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 7397.019ms 200 text/html; charset=utf-8 
+2018-03-21 17:53:53.7266|None|0HLCF26JNDHRJ:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:53:53.9172|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 17:53:53.9492|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 17:53:53.9774|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 17:53:54.0100|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:53:54.0640|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:53:54.0938|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:53:54.1319|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:53:54.1377|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:53:54.1532|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:53:54.4216|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 17:53:54.4319|None|0HLCF26JNDHRJ:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 17:53:54.4319|Default|0HLCF26JNDHRJ:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:53:54.6827|Default|0HLCF26JNDHRJ:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 17:54:00.0690|Default|0HLCF26JNDHRJ:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Organization] in module [S2fx.Core] 
+2018-03-21 17:54:58.8610|None|0HLCF2777PD25:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:54:59.1141|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 17:54:59.1366|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 17:54:59.1746|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 17:54:59.1919|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:54:59.2185|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:54:59.2282|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:54:59.2578|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:54:59.2868|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:54:59.3029|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:54:59.5344|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 17:54:59.5497|None|0HLCF2777PD25:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 17:54:59.5775|Default|0HLCF2777PD25:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:54:59.8672|Default|0HLCF2777PD25:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 17:56:15.1796|None|0HLCF27U0DKCE:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 17:56:15.3563|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 17:56:15.3729|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 17:56:15.3856|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 17:56:15.3856|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:56:15.4231|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:56:15.4375|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:56:15.4753|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 17:56:15.5057|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 17:56:15.5223|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 17:56:15.7576|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 17:56:15.7748|None|0HLCF27U0DKCE:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 17:56:15.7932|Default|0HLCF27U0DKCE:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 17:56:16.1006|Default|0HLCF27U0DKCE:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 17:56:16.7262|Default|0HLCF27U0DKCE:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Organization] in module [Core] 
+2018-03-21 17:56:17.2924|Default|0HLCF27U0DKCE:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executing action method S2fx.Web.Controllers.HomeController.Index (S2fx.Web) with arguments ((null)) - ModelState is Valid 
+2018-03-21 17:56:19.2750|Default|0HLCF27U0DKCE:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' started. 
+2018-03-21 17:56:22.0219|Default|0HLCF27U0DKCE:00000001||OrchardCore.Mvc.SharedViewCompilerProvider|DEBUG|Compilation of the generated code for the Razor file at 'C:\dev\github\s2fx\s2fx\src\S2fx.Server\Areas\S2fx.Web\Views\Home\Index.cshtml' completed in 2735.3841ms. 
+2018-03-21 17:56:22.0440|Default|0HLCF27U0DKCE:00000001||Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor|INFO|Executing ViewResult, running view at path /Areas/S2fx.Web/Views/Home/Index.cshtml. 
+2018-03-21 17:56:22.1531|Default|0HLCF27U0DKCE:00000001||Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|INFO|Executed action S2fx.Web.Controllers.HomeController.Index (S2fx.Web) in 5760.542ms 
+2018-03-21 17:56:22.1957|Default|0HLCF27U0DKCE:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request finished in 7029.0851ms 200 text/html; charset=utf-8 
+2018-03-21 18:00:10.0408|None|0HLCF2A3VB86L:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 18:00:10.2040|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 18:00:10.2195|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 18:00:10.2300|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 18:00:10.2431|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 18:00:10.2686|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 18:00:10.2821|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 18:00:10.3129|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 18:00:10.3421|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 18:00:10.3601|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 18:00:10.7228|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 18:00:10.7548|None|0HLCF2A3VB86L:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 18:00:10.7749|Default|0HLCF2A3VB86L:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 18:00:11.0553|Default|0HLCF2A3VB86L:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 18:00:11.7391|Default|0HLCF2A3VB86L:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Organization] in module [Core] 
+2018-03-21 18:00:11.7504|Default|0HLCF2A3VB86L:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Module] in module [Core] 
+2018-03-21 18:00:11.7588|Default|0HLCF2A3VB86L:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Permission] in module [Core] 
+2018-03-21 18:00:11.7588|Default|0HLCF2A3VB86L:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Role] in module [Core] 
+2018-03-21 18:00:11.7794|Default|0HLCF2A3VB86L:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Selection] in module [Core] 
+2018-03-21 18:00:11.7908|Default|0HLCF2A3VB86L:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.SelectionItem] in module [Core] 
+2018-03-21 18:00:11.7908|Default|0HLCF2A3VB86L:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Sequence] in module [Core] 
+2018-03-21 18:00:11.8087|Default|0HLCF2A3VB86L:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.User] in module [Core] 
+2018-03-21 18:01:17.4845|None|0HLCF2AO2FGLO:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 18:01:17.7162|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 18:01:17.7319|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 18:01:17.7444|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 18:01:17.7444|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 18:01:17.7748|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 18:01:17.7748|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 18:01:17.8178|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 18:01:17.8234|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 18:01:17.8398|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 18:01:18.1312|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 18:01:18.1693|None|0HLCF2AO2FGLO:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 18:01:18.1873|Default|0HLCF2AO2FGLO:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 18:01:18.4829|Default|0HLCF2AO2FGLO:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 18:01:19.1701|Default|0HLCF2AO2FGLO:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Organization] in module [Core] 
+2018-03-21 18:01:19.2445|Default|0HLCF2AO2FGLO:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Module] in module [Core] 
+2018-03-21 18:01:19.3330|Default|0HLCF2AO2FGLO:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Permission] in module [Core] 
+2018-03-21 18:01:19.3776|Default|0HLCF2AO2FGLO:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Role] in module [Core] 
+2018-03-21 18:01:19.4030|Default|0HLCF2AO2FGLO:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Selection] in module [Core] 
+2018-03-21 18:01:19.4234|Default|0HLCF2AO2FGLO:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.SelectionItem] in module [Core] 
+2018-03-21 18:01:19.4593|Default|0HLCF2AO2FGLO:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Sequence] in module [Core] 
+2018-03-21 18:01:19.4715|Default|0HLCF2AO2FGLO:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.User] in module [Core] 
+2018-03-21 18:02:42.6819|None|0HLCF2BHBNST2:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 18:02:42.8698|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 18:02:42.8905|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 18:02:42.9082|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 18:02:42.9218|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 18:02:42.9381|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 18:02:42.9515|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 18:02:43.0228|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 18:02:43.0565|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 18:02:43.0868|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 18:02:43.3507|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 18:02:43.3597|None|0HLCF2BHBNST2:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 18:02:43.3769|Default|0HLCF2BHBNST2:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 18:02:43.6852|Default|0HLCF2BHBNST2:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 18:02:44.5199|Default|0HLCF2BHBNST2:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Organization] in module [Core] 
+2018-03-21 18:02:44.5291|Default|0HLCF2BHBNST2:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Module] in module [Core] 
+2018-03-21 18:02:44.5291|Default|0HLCF2BHBNST2:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Permission] in module [Core] 
+2018-03-21 18:02:44.5437|Default|0HLCF2BHBNST2:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Role] in module [Core] 
+2018-03-21 18:02:44.5564|Default|0HLCF2BHBNST2:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Selection] in module [Core] 
+2018-03-21 18:02:44.5564|Default|0HLCF2BHBNST2:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.SelectionItem] in module [Core] 
+2018-03-21 18:02:44.5737|Default|0HLCF2BHBNST2:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Sequence] in module [Core] 
+2018-03-21 18:02:44.6023|Default|0HLCF2BHBNST2:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.User] in module [Core] 
+2018-03-21 18:03:15.2219|None|0HLCF2BR4OC34:00000001||Microsoft.AspNetCore.Hosting.Internal.WebHost|INFO|Request starting HTTP/1.1 GET http://localhost:59129/   
+2018-03-21 18:03:15.4418|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Start creation of shells 
+2018-03-21 18:03:15.5246|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Creating shell context for tenant Default 
+2018-03-21 18:03:15.5672|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|INFO|Creating shell context for tenant Default 
+2018-03-21 18:03:15.5804|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 18:03:15.5988|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 18:03:15.6311|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 18:03:15.6642|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.Builders.ShellContextFactory|DEBUG|Creating described context for tenant Default 
+2018-03-21 18:03:15.6722|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Composing blueprint 
+2018-03-21 18:03:15.6917|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.Builders.CompositionStrategy|DEBUG|Done composing blueprint 
+2018-03-21 18:03:15.9713|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.ShellHost|DEBUG|Registering shell context for tenant Default 
+2018-03-21 18:03:15.9857|None|0HLCF2BR4OC34:00000001||OrchardCore.Environment.Shell.ShellHost|INFO|Done creating shells 
+2018-03-21 18:03:16.0041|Default|0HLCF2BR4OC34:00000001||OrchardCore.Modules.ModularTenantRouterMiddleware|INFO|Begin Routing Request 
+2018-03-21 18:03:16.2613|Default|0HLCF2BR4OC34:00000001||Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|INFO|User profile is available. Using 'C:\Users\oldrev\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2018-03-21 18:03:16.8425|Default|0HLCF2BR4OC34:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Organization] in module [Core] 
+2018-03-21 18:03:16.8925|Default|0HLCF2BR4OC34:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Module] in module [Core] 
+2018-03-21 18:03:16.9223|Default|0HLCF2BR4OC34:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Permission] in module [Core] 
+2018-03-21 18:03:16.9423|Default|0HLCF2BR4OC34:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Role] in module [Core] 
+2018-03-21 18:03:16.9800|Default|0HLCF2BR4OC34:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Selection] in module [Core] 
+2018-03-21 18:03:16.9932|Default|0HLCF2BR4OC34:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.SelectionItem] in module [Core] 
+2018-03-21 18:03:17.0139|Default|0HLCF2BR4OC34:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.Sequence] in module [Core] 
+2018-03-21 18:03:17.0258|Default|0HLCF2BR4OC34:00000001||S2fx.Environment.Extensions.Entity.ClrTypeModuleEntityInspector|INFO|Found entity [Core.User] in module [Core] 

@@ -22,8 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection {
             //environment
             {
                 services.AddTransient<IEntityHarvester, EntityHarvester>();
-                services.AddTransient<IEntityMetadataProvider, ModuleEntityMetadataProvider>();
-                services.AddTransient<IEntityMetadataProvider, BuiltInEntityMetadataProvider>();
+                services.AddTransient<IModuleEntityInspector, ClrTypeModuleEntityInspector>();
+                //services.AddTransient<IModuleEntityInspector, Buil>();
             }
 
             //Data accessing
@@ -39,6 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection {
                 services.AddTransient<IClrTypeEntityMetadataLoader, ClrTypeEntityMetadataLoader>();
 
                 //meta data
+                services.RegisterAllEntityTypes();
                 services.RegisterAllPropertyTypes();
             }
         }
@@ -50,6 +51,16 @@ namespace Microsoft.Extensions.DependencyInjection {
                 .Where(t => t.IsPublic && t.IsClass && !t.IsAbstract && t.IsImplementsInterface<IPropertyType>());
             foreach (var pt in propertyTypes) {
                 services.AddSingleton(typeof(IPropertyType), pt);
+            }
+        }
+
+        private static void RegisterAllEntityTypes(this IServiceCollection services) {
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var entityTypes = assembly.ExportedTypes
+                .Where(t => t.IsPublic && t.IsClass && !t.IsAbstract && t.IsImplementsInterface<IEntityType>());
+            foreach (var pt in entityTypes) {
+                services.AddSingleton(typeof(IEntityType), pt);
             }
         }
 

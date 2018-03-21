@@ -26,8 +26,8 @@ namespace S2fx.Data.NHibernate {
             services.AddScoped(typeof(IRepository<>), typeof(DefaultNhRepository<>));
 
             //entity mapping
-            services.AddTransient(typeof(NhEntityMappingClass<>), typeof(NhEntityMappingClass<>));
-            services.AddTransient<INhModelMapper, NhModelMapper>();
+            services.AddTransient(typeof(EntityMappingClass<>), typeof(EntityMappingClass<>));
+            services.AddTransient<IModelMapper, ModelMapper>();
             this.AddBuiltinPropertyMappers(services);
 
             //register nhibernate ISessionFactory 

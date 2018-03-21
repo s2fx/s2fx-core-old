@@ -4,7 +4,7 @@ using System.Text;
 
 namespace S2fx.Model.Metadata {
 
-    public class MetaEntity : AbstractMetadata {
+    public class MetaEntity : AnyMetadata {
 
         public string Name { get; set; }
 
@@ -13,6 +13,10 @@ namespace S2fx.Model.Metadata {
         public Type ClrType { get; set; }
 
         public IDictionary<string, MetaProperty> Properties { get; } = new Dictionary<string, MetaProperty>();
+
+        public override void AcceptVisitor(IModelMetadataVisitor visitor) {
+            visitor.VisitEntity(this);
+        }
     }
 
 }
