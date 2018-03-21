@@ -5,9 +5,9 @@ using NHibernate.Cfg;
 
 namespace S2fx.Data.NHibernate {
 
-    public class S2NhConfiguration : Configuration {
+    public class S2HibernateConfiguration : Configuration {
 
-        public S2NhConfiguration() : base() {
+        public S2HibernateConfiguration() : base() {
         }
     }
 

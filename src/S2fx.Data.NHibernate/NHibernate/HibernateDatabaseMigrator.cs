@@ -22,7 +22,7 @@ namespace S2fx.Data.NHibernate {
 
             this.Logger.LogInformation("Starting to migrate the schema of database...");
             var update = new SchemaUpdate(_cfg);
-            await update.ExecuteAsync(true, true);
+            await update.ExecuteAsync(false, true);
             this.Logger.LogInformation("The schema of Database has been migrated successfully.");
         }
 

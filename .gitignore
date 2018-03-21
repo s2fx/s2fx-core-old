@@ -2,6 +2,7 @@ build
 bin
 Bin
 obj
+App_Data
 BenchmarkDotNet.Artifacts
 _ReSharper*
 *.swp

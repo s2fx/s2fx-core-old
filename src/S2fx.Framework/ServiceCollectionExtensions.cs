@@ -24,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection {
                 services.AddTransient<IEntityHarvester, EntityHarvester>();
                 services.AddTransient<IModuleEntityInspector, ClrTypeModuleEntityInspector>();
                 //services.AddTransient<IModuleEntityInspector, Buil>();
+                services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
             }
 
             //Data accessing

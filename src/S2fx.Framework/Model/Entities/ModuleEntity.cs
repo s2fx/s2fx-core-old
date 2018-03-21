@@ -13,6 +13,7 @@ namespace S2fx.Model.Entities {
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string State { get; set; }
+        public string Version { get; set; }
     }
 
 }
