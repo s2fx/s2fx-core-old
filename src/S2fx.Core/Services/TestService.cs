@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using S2fx.Data;
-using S2fx.Model.Entities;
+using S2fx.Model.Builtin;
 
 namespace S2fx.Metadata.Services {
 

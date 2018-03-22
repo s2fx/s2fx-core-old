@@ -1,7 +1,6 @@
-using S2fx.Environment.Extensions;
+using OrchardCore.Modules.Manifest;
 
-[assembly: S2Module(
-    key: "Web",
+[assembly: Module(
     Name = "Web",
     Author = "BinaryStar Technologies Yunnan LLC.",
     Website = "http://www.sandwych.com",

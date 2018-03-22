@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NHibernate;
-using S2fx.Model.Entities;
+using S2fx.Model;
 
 namespace S2fx.Data.NHibernate {
 

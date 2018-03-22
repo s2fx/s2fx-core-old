@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using S2fx.Model.Annotations;
-using S2fx.Model.Entities;
 
 namespace S2fx.Model {
 

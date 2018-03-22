@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using S2fx.Model.Annotations;
 using S2fx.Utility;
+using System.ComponentModel;
 
 namespace S2fx.Model.Metadata.Types {
 
@@ -32,11 +33,12 @@ namespace S2fx.Model.Metadata.Types {
             var requiredAttr = propertyInfo.GetCustomAttribute<RequiredAttribute>();
             var isNullableType = propertyInfo.PropertyType.IsNullableType();
             return new PrimitiveMetaProperty() {
+                Name = propertyInfo.Name,
+                DisplayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? propertyInfo.Name,
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
                 Length = primitiveAttr != null ? primitiveAttr.Length : -1,
-                Name = propertyInfo.Name,
                 IsRequired = requiredAttr != null ? true : !isNullableType,
             };
 

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using S2fx.Model.Annotations;
 
-namespace S2fx.Model.Entities {
+namespace S2fx.Model.Builtin {
 
     [Entity("Core.Permission"), DisplayName("Permission")]
     public class PermissionEntry : AbstractAuditedEntity {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
@@ -36,6 +37,7 @@ namespace S2fx.Model.Metadata.Types {
             var refEntityAttr = refEntityClrType.GetCustomAttribute<EntityAttribute>();
             return new ManyToOneMetaProperty {
                 Name = propertyInfo.Name,
+                DisplayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? propertyInfo.Name,
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
@@ -60,6 +62,7 @@ namespace S2fx.Model.Metadata.Types {
             this.ValidateCollectionPropertyType(propertyInfo, refEntityName);
             return new OneToManyMetaProperty {
                 Name = propertyInfo.Name,
+                DisplayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? propertyInfo.Name,
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
@@ -101,6 +104,7 @@ namespace S2fx.Model.Metadata.Types {
             this.ValidateCollectionPropertyType(propertyInfo, refEntityName);
             return new ManyToManyMetaProperty {
                 Name = propertyInfo.Name,
+                DisplayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? propertyInfo.Name,
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,

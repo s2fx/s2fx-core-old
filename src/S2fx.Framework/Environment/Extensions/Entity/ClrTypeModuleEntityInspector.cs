@@ -7,14 +7,12 @@ using Microsoft.AspNetCore.Hosting;
 using OrchardCore.Environment.Extensions;
 using OrchardCore.Modules;
 using S2fx.Model.Annotations;
-using S2fx.Model.Metadata;
 using System.ComponentModel;
-using S2fx.Model.Metadata.Loaders;
-using S2fx.Model.Metadata.Types;
 using S2fx.Convention;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using S2fx.Model.Entities;
+using S2fx.Model.Builtin;
+using S2fx.Model.Metadata.Types;
 
 namespace S2fx.Environment.Extensions.Entity {
 
@@ -37,8 +35,7 @@ namespace S2fx.Environment.Extensions.Entity {
             this.Logger = logger;
         }
 
-        public Task<IEnumerable<EntityDescriptor>> InspectEntitiesAsync(OrchardCore.Modules.Module module, string moduleKey) {
-            var s2ModuleAttr = (S2ModuleAttribute)module.ModuleInfo;
+        public Task<IEnumerable<EntityDescriptor>> InspectEntitiesAsync(OrchardCore.Modules.Module module) {
             var assembly = module.Assembly;
             var entityTypes = this.InspectEntitiesInAssembly(assembly);
             if (module.ModuleInfo.Id == WellKnownConstants.CoreModuleId) {
@@ -51,8 +48,8 @@ namespace S2fx.Environment.Extensions.Entity {
                     throw new InvalidOperationException($"The entity `{entityClrType.FullName}` must be a non-abstract public class and must have the Entity attribute");
                 }
                 var entityAttr = entityClrType.GetCustomAttribute<EntityAttribute>();
-                var entityName = entityAttr.Name ?? _nameConvention.EntityClrTypeNameToEntity(s2ModuleAttr.Key, entityClrType.Name);
-                var descriptor = new EntityDescriptor(s2ModuleAttr.Key, entityName, _clrSqlEntityType, new string[] { }, entityClrType);
+                var entityName = entityAttr.Name;
+                var descriptor = new EntityDescriptor(module.ModuleInfo.Id, entityName, _clrSqlEntityType, new string[] { }, entityClrType);
                 entities.Add(descriptor);
                 if (this.Logger.IsEnabled(LogLevel.Information)) {
                     this.Logger.LogInformation($"Found entity '{entityName}' in module '{module.ModuleInfo.Id}'");

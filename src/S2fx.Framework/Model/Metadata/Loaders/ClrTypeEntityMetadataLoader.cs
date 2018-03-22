@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using S2fx.Utility;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.Extensions.Logging.Abstractions;
+using S2fx.Model;
 using S2fx.Model.Metadata.Types;
 
 namespace S2fx.Model.Metadata.Loaders {
@@ -39,7 +40,6 @@ namespace S2fx.Model.Metadata.Loaders {
 
             var entityAttribute = entityType.GetCustomAttribute<EntityAttribute>() ?? throw new InvalidOperationException();
             var displayName = entityType.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? entityAttribute.Name;
-
             var entity = new MetaEntity() {
                 Name = entityAttribute.Name,
                 DisplayName = displayName,

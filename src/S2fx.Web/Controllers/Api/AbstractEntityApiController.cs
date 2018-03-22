@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using S2fx.Model.Entities;
+using S2fx.Model;
 
 namespace S2fx.Web.Controllers.Api {
 

@@ -11,7 +11,7 @@ namespace S2fx.Model.Metadata {
     public class MetaProperty : AnyMetadata {
 
         public string Name { get; set; }
-
+        public string DisplayName { get; set; }
         public MetaEntity Entity { get; set; }
         public IPropertyType Type { get; set; }
         public PropertyInfo ClrPropertyInfo { get; set; }

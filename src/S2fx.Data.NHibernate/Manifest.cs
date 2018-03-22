@@ -1,7 +1,7 @@
+using OrchardCore.Modules.Manifest;
 using S2fx.Environment.Extensions;
 
-[assembly: S2Module(
-    key: "NHibernate",
+[assembly: Module(
     Name = "NHibernate",
     Author = "BinaryStar Technologies Yunnan LLC.",
     Website = "http://www.sandwych.com",

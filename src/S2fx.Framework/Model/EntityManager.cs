@@ -6,9 +6,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using S2fx.Environment.Extensions.Entity;
-using S2fx.Model.Metadata;
 using System.Linq;
-using S2fx.Model.Metadata.Types;
+using S2fx.Model.Metadata;
 
 namespace S2fx.Model {
 

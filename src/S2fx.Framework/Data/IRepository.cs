@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using S2fx.Model.Entities;
+using S2fx.Model;
 
 namespace S2fx.Data {
 

@@ -16,9 +16,7 @@ namespace S2fx.Model.Metadata {
 
         public Version Version { get; set; }
 
-        public Module OrchardModuleInfo { get; set; }
-
-        public S2ModuleAttribute S2ModuleInfo => this.OrchardModuleInfo.ModuleInfo as S2ModuleAttribute;
+        public Module Module { get; set; }
 
         public override void AcceptVisitor(IModelMetadataVisitor visitor) =>
             visitor.VisitModule(this);

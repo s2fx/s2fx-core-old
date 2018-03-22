@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using S2fx.Model.Metadata;
-using S2fx.Model.Entities;
 
-namespace S2fx.Model {
+namespace S2fx.Model.Builtin {
 
     public static class BuiltInModel {
 

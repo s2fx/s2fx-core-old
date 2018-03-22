@@ -1,7 +1,6 @@
-using S2fx.Environment.Extensions;
+using OrchardCore.Modules.Manifest;
 
-[assembly: S2Module(
-    key: "Core",
+[assembly: Module(
     Name = "SlipStream Core Module",
     Author = "BinaryStar Technologies Yunnan LLC.",
     Website = "http://www.sandwych.com",

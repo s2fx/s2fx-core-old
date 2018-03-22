@@ -10,10 +10,11 @@ using S2fx.Data.UnitOfWork;
 using S2fx.Environment.Extensions;
 using S2fx.Environment.Extensions.Entity;
 using S2fx.Model;
-using S2fx.Model.Metadata.Loaders;
 using S2fx.Utility;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
+using S2fx.Setup.Services;
+using S2fx.Model.Metadata.Loaders;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
@@ -42,6 +43,11 @@ namespace Microsoft.Extensions.DependencyInjection {
                 //meta data
                 services.RegisterAllEntityTypes();
                 services.RegisterAllPropertyTypes();
+            }
+
+            //Setup
+            {
+                services.AddTransient<ISetupService, SetupService>();
             }
         }
 

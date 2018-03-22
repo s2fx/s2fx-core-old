@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using S2fx.Model.Builtin;
 
-namespace S2fx.Model.Entities {
+namespace S2fx.Model {
 
     public interface IEntity {
 

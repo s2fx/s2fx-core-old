@@ -9,9 +9,7 @@ using OrchardCore.Modules;
 using System.Reflection;
 using S2fx.Data;
 using S2fx.Model.Annotations;
-using S2fx.Model.Entities;
 using OrchardCore.Environment.Shell;
-using S2fx.Model;
 using S2fx.Environment.Configuration;
 
 namespace S2fx.Web.Controllers {

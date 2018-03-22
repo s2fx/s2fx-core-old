@@ -6,7 +6,7 @@ using System.Text;
 using S2fx.Model.Annotations;
 using S2fx.Model.Metadata;
 
-namespace S2fx.Model.Entities {
+namespace S2fx.Model.Builtin {
 
     [Entity("Core.Module"), DisplayName("Module")]
     public class ModuleEntity : AbstractAuditedEntity {

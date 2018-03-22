@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using S2fx.Model.Annotations;
 
-namespace S2fx.Model.Entities {
+namespace S2fx.Model.Builtin {
 
     [Entity(EntityName), DisplayName("Role")]
     public class RoleEntity : AbstractAuditedEntity {

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Linq;
 using S2fx.Model;
-using S2fx.Model.Entities;
 
 namespace S2fx.Data.NHibernate {
 
