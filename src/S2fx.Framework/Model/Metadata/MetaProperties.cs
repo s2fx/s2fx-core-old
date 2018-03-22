@@ -12,6 +12,7 @@ namespace S2fx.Model.Metadata {
 
         public string Name { get; set; }
         public string DisplayName { get; set; }
+        public bool IsReadOnly { get; set; } = false;
         public MetaEntity Entity { get; set; }
         public IPropertyType Type { get; set; }
         public PropertyInfo ClrPropertyInfo { get; set; }
@@ -47,5 +48,7 @@ namespace S2fx.Model.Metadata {
         public string JoinTable { get; set; }
     }
 
-
+    public class EnumerableMetaProperty : MetaProperty {
+        public bool IsRequired { get; set; } = false;
+    }
 }

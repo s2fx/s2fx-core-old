@@ -81,6 +81,9 @@ namespace S2fx.Model.Metadata.Loaders {
                 return clrType.IsConstructedGenericType && clrType.GetGenericTypeDefinition() == typeof(Nullable<>) ?
                     _primitivePropertyTypes[clrType.GetGenericArguments().First()] : _primitivePropertyTypes[clrType];
             }
+            else if (propAttr == null && this.IsClrEnumType(clrType)) {
+                return _propertyTypes.Single(x => x.Name == "Enumerable");
+            }
             else if (propAttr != null) {
                 return _propertyTypes.Single(x => x.Name == propAttr.PropertyTypeName);
             }
@@ -89,6 +92,8 @@ namespace S2fx.Model.Metadata.Loaders {
                     $"Invalid property type [{clrType.FullName}] in entity [{clrPropertyInfo.DeclaringType.FullName}#{clrPropertyInfo.Name}]");
             }
         }
+
+        private bool IsClrEnumType(Type t) => true;
 
         private bool IsPrimitivePropertyType(Type t) =>
             this.IsNotNullablePrimitivePropertyType(t) || this.IsNullablePrimitivePropertyType(t);

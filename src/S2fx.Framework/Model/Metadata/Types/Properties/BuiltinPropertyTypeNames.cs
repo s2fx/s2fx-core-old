@@ -19,6 +19,8 @@ namespace S2fx.Model.Metadata.Types {
         public const string ManyToOneTypeName = "ManyToOne";
         public const string OneToManyTypeName = "OneToMany";
         public const string ManyToManyTypeName = "ManyToMany";
+        public const string EnumerableTypeName = "Enumerable";
+        public const string VersionTypeName = "Version";
     }
 
 }

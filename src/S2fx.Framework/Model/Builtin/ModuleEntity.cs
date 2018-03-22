@@ -12,7 +12,7 @@ namespace S2fx.Model.Builtin {
     public class ModuleEntity : AbstractAuditedEntity {
         public string Name { get; set; }
         public string DisplayName { get; set; }
-        public string State { get; set; }
+        public ModuleStatus State { get; set; }
         public string Version { get; set; }
     }
 
