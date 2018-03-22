@@ -31,10 +31,10 @@ namespace S2fx.Data.NHibernate {
             this.AddBuiltinPropertyMappers(services);
 
             //register nhibernate ISessionFactory 
-            services.AddTransient<INhConfigurationFactory, HibernateConfigurationFactory>();
+            services.AddTransient<IHibernateConfigurationFactory, HibernateConfigurationFactory>();
 
             //register NH's Configuration to container
-            services.AddSingleton<Configuration>(sp => sp.GetService<INhConfigurationFactory>().Create());
+            services.AddSingleton<Configuration>(sp => sp.GetService<IHibernateConfigurationFactory>().Create());
 
             //register NH's ISessionFactory 
             services.AddSingleton<ISessionFactory>(sp => sp.GetService<Configuration>().BuildSessionFactory());

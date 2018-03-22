@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OrchardCore.Modules;
+using S2fx.Environment.Configuration;
+using S2fx.Web.Environment.Configuration;
 
 namespace S2fx.Web {
     public class Startup : StartupBase {
@@ -25,6 +27,10 @@ namespace S2fx.Web {
             services.AddScoped<IConfigureOptions<SmtpSettings>, SmtpSettingsConfiguration>();
             services.AddScoped<ISmtpService, SmtpService>();
             */
+
+            //Add settings to Service Collection
+            services.AddSingleton(this.LoadSettings());
+
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
@@ -36,8 +42,12 @@ namespace S2fx.Web {
                 defaults: new { controller = "Home", action = "Index" }
             );
 
-
             app.UseStaticFiles();
+        }
+
+        private S2Settings LoadSettings() {
+            var loader = new MvcConfigurationLoader(this._configuration);
+            return loader.GetSettings();
         }
 
     }

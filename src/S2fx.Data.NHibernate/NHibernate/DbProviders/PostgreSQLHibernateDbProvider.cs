@@ -6,7 +6,9 @@ using NHibernate.Driver;
 
 namespace S2fx.Data.NHibernate.PostgreSQL {
 
-    public class NhPostgreSQLNhDbProvider : IHibernateDbProvider {
+    public class PostgreSQLHibernateDbProvider : IHibernateDbProvider {
+
+        public string Name => "PostgreSQL";
 
         public void SetupConfiguration(Configuration cfg) {
             cfg.SetProperty(global::NHibernate.Cfg.Environment.ConnectionDriver, typeof(NpgsqlDriver).FullName);

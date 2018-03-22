@@ -6,6 +6,7 @@ using NHibernate.Cfg;
 namespace S2fx.Data.NHibernate {
 
     public interface IHibernateDbProvider {
+        string Name { get; }
 
         void SetupConfiguration(Configuration cfg);
 

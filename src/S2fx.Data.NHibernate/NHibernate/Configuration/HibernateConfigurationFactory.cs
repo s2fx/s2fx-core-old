@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using System.Text;
 using NHibernate.Cfg;
 using S2fx.Data.NHibernate.Mapping;
+using S2fx.Environment.Configuration;
 
 namespace S2fx.Data.NHibernate {
 
-    public interface INhConfigurationFactory {
+    public interface IHibernateConfigurationFactory {
 
         Configuration Create();
 
     }
 
-    public class HibernateConfigurationFactory : INhConfigurationFactory {
+    public class HibernateConfigurationFactory : IHibernateConfigurationFactory {
         private readonly IModelMapper _mapper;
+        private readonly S2Settings _settings;
 
-        public HibernateConfigurationFactory(IModelMapper mapper) {
+        public HibernateConfigurationFactory(
+            S2Settings settings, IModelMapper mapper) {
+            _settings = settings;
             _mapper = mapper;
         }
 
         public Configuration Create() {
             var cfg = new Configuration();
             cfg.UseNpgsql();
-            cfg.SetConnectionString("Host=localhost;Database=s2fxdb;Username=s2fx;Password=s2fx");
+            cfg.SetConnectionString(_settings.Db.DefaultConnectionString);
             cfg.SetProperty("hbm2ddl.keywords", "auto-quote");
             _mapper.MapAllEntities(cfg);
             return cfg;

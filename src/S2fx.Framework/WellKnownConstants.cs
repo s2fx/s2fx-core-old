@@ -7,6 +7,7 @@ namespace S2fx {
     public static class WellKnownConstants {
         public const string CoreModuleId = "S2fx.Core";
         public const string CoreModuleKey = "Core";
+        public const string SlipstreamConfigurationSection = "Slipstream";
     }
 
 }

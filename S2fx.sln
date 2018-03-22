@@ -30,8 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Data.NHibernate", "src\S2fx.Data.NHibernate\S2fx.Data.NHibernate.csproj", "{E2641D3A-B88C-4471-A0FE-70724C45CA4A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Data.NHibernate.PostgreSQL", "src\S2fx.Data.NHibernate.PostgreSQL\S2fx.Data.NHibernate.PostgreSQL.csproj", "{55FC17C6-A97B-414E-82B2-06E7CDE6CCB1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,10 +60,6 @@ Global
 		{E2641D3A-B88C-4471-A0FE-70724C45CA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2641D3A-B88C-4471-A0FE-70724C45CA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2641D3A-B88C-4471-A0FE-70724C45CA4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55FC17C6-A97B-414E-82B2-06E7CDE6CCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55FC17C6-A97B-414E-82B2-06E7CDE6CCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55FC17C6-A97B-414E-82B2-06E7CDE6CCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55FC17C6-A97B-414E-82B2-06E7CDE6CCB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,7 +74,6 @@ Global
 		{7E2E7CED-D776-4FCA-A703-FCA11EE83110} = {56D5DCC2-F956-402F-AE23-D782C148374F}
 		{9FF030E1-8880-40B3-9640-CA98866A1CB3} = {56D5DCC2-F956-402F-AE23-D782C148374F}
 		{E2641D3A-B88C-4471-A0FE-70724C45CA4A} = {56D5DCC2-F956-402F-AE23-D782C148374F}
-		{55FC17C6-A97B-414E-82B2-06E7CDE6CCB1} = {56D5DCC2-F956-402F-AE23-D782C148374F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59F4E74C-DAE3-4194-BDFF-7EFF3A7D1921}
