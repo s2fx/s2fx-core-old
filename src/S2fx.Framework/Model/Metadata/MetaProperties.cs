@@ -19,7 +19,7 @@ namespace S2fx.Model.Metadata {
         public int Length { get; set; } = -1;
         public string DbName { get; set; } = null;
 
-        public override void AcceptVisitor(IModelMetadataVisitor visitor) {
+        public override void AcceptVisitor(IMetadataVisitor visitor) {
             visitor.VisitProperty(this);
         }
     }

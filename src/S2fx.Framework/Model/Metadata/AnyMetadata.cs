@@ -18,7 +18,7 @@ namespace S2fx.Model.Metadata {
         public T GetPropertyAttribute<T>() where T : AbstractPropertyAttribute =>
             GetPropertyAttribute(typeof(T)) as T;
 
-        public abstract void AcceptVisitor(IModelMetadataVisitor visitor);
+        public abstract void AcceptVisitor(IMetadataVisitor visitor);
 
     }
 

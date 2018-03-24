@@ -78,17 +78,9 @@ namespace S2fx.Model {
                 }
 
                 //处理约定
-                var entityConventions = _services.GetServices<IMetadataConvention<MetaEntity>>();
-                var propertyConventions = _services.GetServices<IMetadataConvention<MetaProperty>>();
+                var conventionVisitor = _services.GetRequiredService<ConventionMetadataVisitor>();
                 foreach (var metaEntity in _entities.Values) {
-                    foreach (var ec in entityConventions) {
-                        ec.Apply(metaEntity);
-                    }
-                    foreach (var metaProperty in metaEntity.Properties.Values) {
-                        foreach (var pc in propertyConventions) {
-                            pc.Apply(metaProperty);
-                        }
-                    }
+                    conventionVisitor.VisitEntity(metaEntity);
                 }
 
                 _isLoaded = true;

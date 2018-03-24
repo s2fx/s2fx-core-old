@@ -17,7 +17,7 @@ namespace S2fx.Model.Metadata {
 
         public string DbName { get; set; }
 
-        public override void AcceptVisitor(IModelMetadataVisitor visitor) {
+        public override void AcceptVisitor(IMetadataVisitor visitor) {
             visitor.VisitEntity(this);
         }
 

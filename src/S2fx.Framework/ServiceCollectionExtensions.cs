@@ -52,6 +52,7 @@ namespace Microsoft.Extensions.DependencyInjection {
                 //meta data
                 services.RegisterAllEntityTypes();
                 services.RegisterAllPropertyTypes();
+                services.AddTransient<ConventionMetadataVisitor>();
             }
 
             //Remoting 

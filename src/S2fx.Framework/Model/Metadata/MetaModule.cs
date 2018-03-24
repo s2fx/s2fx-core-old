@@ -6,7 +6,7 @@ using S2fx.Environment.Extensions;
 
 namespace S2fx.Model.Metadata {
 
-    public class MetaModule : AnyMetadata {
+    public class MetaModule {
 
         public string Name { get; set; }
 
@@ -17,10 +17,6 @@ namespace S2fx.Model.Metadata {
         public Version Version { get; set; }
 
         public Module Module { get; set; }
-
-        public override void AcceptVisitor(IModelMetadataVisitor visitor) =>
-            visitor.VisitModule(this);
-
     }
 
 }

@@ -5,7 +5,7 @@ using System.Text;
 namespace S2fx.Model.Metadata {
 
     public interface IMetadataNode {
-        void AcceptVisitor(IModelMetadataVisitor visitor);
+        void AcceptVisitor(IMetadataVisitor visitor);
     }
 
 }

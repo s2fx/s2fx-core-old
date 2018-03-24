@@ -4,17 +4,13 @@ using System.Text;
 
 namespace S2fx.Model.Metadata {
 
-    public interface IModelMetadataVisitor {
+    public interface IMetadataVisitor {
 
         void VisitAny(AnyMetadata any);
 
-        void VisitModel(MetaModel model);
-
-        void VisitEntity(MetaEntity property);
+        void VisitEntity(MetaEntity entity);
 
         void VisitProperty(MetaProperty property);
-
-        void VisitModule(MetaModule module);
     }
 
 }
