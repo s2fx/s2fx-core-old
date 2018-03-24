@@ -4,16 +4,17 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using OrchardCore.Users;
 using S2fx.Model.Annotations;
 
 namespace S2fx.Model.Builtin {
 
     [Entity(EntityName), DisplayName("User")]
-    public class UserEntity : AbstractAuditedEntity {
+    public class UserEntity : AbstractAuditedEntity, IUser {
         public const string EntityName = "Core.User";
 
         [Required, MaxLength(64)]
-        public virtual string Login { get; set; }
+        public virtual string UserName { get; set; }
 
         [Required, MaxLength(64)]
         public virtual string FullName { get; set; }
