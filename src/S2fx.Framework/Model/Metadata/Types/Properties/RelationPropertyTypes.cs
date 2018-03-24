@@ -38,7 +38,7 @@ namespace S2fx.Model.Metadata.Types {
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
-                Length = -1,
+                MaxLength = -1,
                 MappedByPropertyName = mappedByPropertyName,
                 RefEntityName = manyToOneAttr.RefEntity ?? refEntityAttr.Name,
             };
@@ -62,7 +62,7 @@ namespace S2fx.Model.Metadata.Types {
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
-                Length = -1,
+                MaxLength = -1,
                 MappedByPropertyName = oneToManyAttr.MappedBy,
                 RefEntityName = refEntityName,
             };
@@ -99,7 +99,7 @@ namespace S2fx.Model.Metadata.Types {
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
-                Length = -1,
+                MaxLength = -1,
                 MappedByPropertyName = mappedByPropertyName,
                 RefEntityName = refEntityName,
                 JoinTable = joinTable,

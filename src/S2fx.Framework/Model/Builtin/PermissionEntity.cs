@@ -11,20 +11,20 @@ namespace S2fx.Model.Builtin {
     public class PermissionEntry : AbstractAuditedEntity {
 
         [Required, MaxLength(256)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         [MaxLength(256)]
-        public string DisplayName { get; set; }
+        public virtual string DisplayName { get; set; }
 
-        public bool CanCreate { get; set; }
+        public virtual bool CanCreate { get; set; }
 
-        public bool CanReadSingle { get; set; }
+        public virtual bool CanReadSingle { get; set; }
 
-        public bool CanReadMany { get; set; } = false;
+        public virtual bool CanReadMany { get; set; } = false;
 
-        public bool CanUpdate { get; set; }
+        public virtual bool CanUpdate { get; set; }
 
-        public bool CanDelete { get; set; }
+        public virtual bool CanDelete { get; set; }
     }
 
 }

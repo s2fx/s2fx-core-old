@@ -14,6 +14,7 @@ using S2fx.Environment.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using S2fx.Web.Api.Metadata;
 using S2fx.Web.Remoting;
+using S2fx.Model.Builtin;
 
 namespace S2fx.Web.Controllers {
 
@@ -24,10 +25,8 @@ namespace S2fx.Web.Controllers {
             _migrator = migrator;
         }
 
-        public IActionResult Index() {
-
-            Task.Run(() => _migrator.MigrateSchemeAsync()).Wait();
-
+        public async Task<IActionResult> Index() {
+            await _migrator.MigrateSchemeAsync();
             return View();
         }
     }

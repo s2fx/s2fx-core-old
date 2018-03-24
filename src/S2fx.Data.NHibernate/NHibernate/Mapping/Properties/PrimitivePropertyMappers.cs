@@ -56,8 +56,8 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             MetaProperty property) {
             var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                if (property.Length > 0) {
-                    mapper.Length(property.Length);
+                if (property.MaxLength > 0) {
+                    mapper.Length(property.MaxLength);
                 }
                 else {
                     mapper.Type(NHibernateUtil.StringClob);
@@ -77,6 +77,15 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
 
     public class DateTimePropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.DateTimeTypeName;
+
+        public override void MapProperty(
+            ICustomizersHolder customizerHolder,
+            IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
+            PropertyPath currentPropertyPath,
+            MetaEntity entity,
+            MetaProperty property) {
+            base.MapProperty(customizerHolder, modelExplicitDeclarationsHolder, currentPropertyPath, entity, property);
+        }
     }
 
     public class TimeSpanPropertyMapper : AbstractPrimitivePropertyMapper {
@@ -94,8 +103,8 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             MetaProperty property) {
             var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                if (property.Length > 0) {
-                    mapper.Length(property.Length);
+                if (property.MaxLength > 0) {
+                    mapper.Length(property.MaxLength);
                 }
                 else {
                     mapper.Length(int.MaxValue);

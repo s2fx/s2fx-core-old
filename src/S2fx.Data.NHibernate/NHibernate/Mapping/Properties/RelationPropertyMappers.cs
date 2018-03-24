@@ -99,11 +99,9 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
 
             var bagMappingAction = new Action<IBagPropertiesMapper>(mapper => {
                 mapper.Table(m2mProperty.JoinTable);
-                mapper.Inverse(true);
                 mapper.Key(keyMapper => {
                     keyMapper.Column(joinTableThisSideFkColumn);
                     keyMapper.NotNullable(true);
-                    keyMapper.OnDelete(OnDeleteAction.Cascade);
                 });
             });
 

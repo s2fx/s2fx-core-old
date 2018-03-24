@@ -34,10 +34,12 @@ namespace S2fx.Data.NHibernate {
             services.AddTransient<IHibernateConfigurationFactory, HibernateConfigurationFactory>();
 
             //register NH's Configuration to container
-            services.AddSingleton<Configuration>(sp => sp.GetService<IHibernateConfigurationFactory>().Create());
+            services.AddSingleton<Configuration>(sp => sp.GetRequiredService<IHibernateConfigurationFactory>().Create());
 
             //register NH's ISessionFactory 
-            services.AddSingleton<ISessionFactory>(sp => sp.GetService<Configuration>().BuildSessionFactory());
+            services.AddSingleton<ISessionFactory>(sp => sp.GetRequiredService<Configuration>().BuildSessionFactory());
+
+            services.AddScoped<ISession>(sp => sp.GetRequiredService<ISessionFactory>().OpenSession());
 
             //migrator
             services.AddTransient<IDatabaseMigrator, HibernateDatabaseMigrator>();

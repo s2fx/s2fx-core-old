@@ -34,7 +34,7 @@ namespace S2fx.Model.Builtin {
         public virtual byte[] FileContent { get; set; }
 
         [NotMapped]
-        public string FriendlySizeText => $"{this.Size.ToString()} bytes";
+        public virtual string FriendlySizeText => $"{this.Size.ToString()} bytes";
     }
 
 }

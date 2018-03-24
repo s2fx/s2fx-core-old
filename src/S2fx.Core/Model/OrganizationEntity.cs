@@ -11,14 +11,14 @@ namespace S2fx.Model {
     public class OrganizationEntity : AbstractAuditedEntity, IHierarchyEntity<OrganizationEntity> {
         public const string EntityName = "Core.Organization";
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         [ManyToOneProperty(EntityName)]
-        public OrganizationEntity Parent { get; set; }
+        public virtual OrganizationEntity Parent { get; set; }
 
-        public long RangeLeft { get; set; }
+        public virtual long RangeLeft { get; set; }
 
-        public long RangeRight { get; set; }
+        public virtual long RangeRight { get; set; }
     }
 
 }

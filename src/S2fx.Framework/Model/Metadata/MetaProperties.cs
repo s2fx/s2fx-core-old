@@ -16,7 +16,7 @@ namespace S2fx.Model.Metadata {
         public MetaEntity Entity { get; set; }
         public IPropertyType Type { get; set; }
         public PropertyInfo ClrPropertyInfo { get; set; }
-        public int Length { get; set; } = -1;
+        public int MaxLength { get; set; } = -1;
         public string DbName { get; set; } = null;
         public IList<AbstractMetaPropertyAnnotation> Annotations { get; set; } = new List<AbstractMetaPropertyAnnotation>();
 

@@ -12,21 +12,21 @@ namespace S2fx.Model.Builtin {
     public class SequenceEntity : AbstractAuditedEntity {
 
         [Required(AllowEmptyStrings = false), MaxLength(256)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         [Required(AllowEmptyStrings = true), MaxLength(256)]
-        public string Prefix { get; set; } = "";
+        public virtual string Prefix { get; set; } = "";
 
         [Required(AllowEmptyStrings = true), MaxLength(256)]
-        public string Suffix { get; set; } = "";
+        public virtual string Suffix { get; set; } = "";
 
         [Required]
-        public long InitialValue { get; set; } = 1;
+        public virtual long InitialValue { get; set; } = 1;
 
         [Required]
-        public long Step { get; set; } = 1;
+        public virtual long Step { get; set; } = 1;
 
         [Required]
-        public int Padding { get; set; } = 6;
+        public virtual int Padding { get; set; } = 6;
     }
 }

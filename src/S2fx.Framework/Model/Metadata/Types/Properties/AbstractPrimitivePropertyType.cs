@@ -36,7 +36,6 @@ namespace S2fx.Model.Metadata.Types {
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
-                Length = primitiveAttr != null ? primitiveAttr.Length : -1,
             };
 
         }

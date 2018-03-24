@@ -13,15 +13,15 @@ namespace S2fx.Model.Builtin {
     public class ModuleEntity : AbstractAuditedEntity {
 
         [Required, MaxLength(256)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         [MaxLength(256)]
-        public string DisplayName { get; set; }
+        public virtual string DisplayName { get; set; }
 
-        public ModuleStatus State { get; set; }
+        public virtual ModuleStatus State { get; set; }
 
         [MaxLength(32)]
-        public string Version { get; set; }
+        public virtual string Version { get; set; }
     }
 
 }

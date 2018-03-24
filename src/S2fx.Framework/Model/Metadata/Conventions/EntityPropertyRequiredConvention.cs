@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text;
 using S2fx.Model.Metadata;
@@ -14,7 +15,7 @@ namespace S2fx.Model.Metadata.Conventions {
             if (property is IMetaPropertyWithIsRequired withIsRequired) {
                 var clrType = property.ClrPropertyInfo.PropertyType;
                 withIsRequired.IsRequired =
-                    property.ClrPropertyInfo.GetCustomAttribute<ReadOnlyAttribute>() != null ? true : clrType.IsValueType;
+                    property.ClrPropertyInfo.GetCustomAttribute<RequiredAttribute>() != null ? true : !clrType.IsNullableType();
             }
         }
     }

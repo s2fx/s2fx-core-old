@@ -9,9 +9,9 @@ namespace S2fx.Model {
     public abstract class AbstractEntity : IEntity {
 
         [IdProperty]
-        public long Id { get; set; }
+        public virtual long Id { get; set; }
 
-        public bool IsPersistent => Id <= 0;
+        public virtual bool IsPersistent => Id <= 0;
     }
 
     public abstract class AbstractAuditedEntity : AbstractEntity, IAuditedEntity {

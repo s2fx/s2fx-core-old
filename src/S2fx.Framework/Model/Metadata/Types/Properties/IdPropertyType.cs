@@ -22,8 +22,7 @@ namespace S2fx.Model.Metadata.Types {
                 DisplayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? propertyInfo.Name,
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
-                ClrPropertyInfo = propertyInfo,
-                Length = -1,
+                ClrPropertyInfo = propertyInfo
             };
         }
     }
