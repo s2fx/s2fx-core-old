@@ -22,7 +22,7 @@ namespace S2fx.Data.NHibernate {
 
             //Unit of work
             //services.AddTransient<ISessionFactory, NH.Cfg.Configuration>();
-            services.AddTransient<IUnitOfWork, HibernateUnitOfWork>();
+            services.AddScoped<IUnitOfWork, HibernateUnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(DefaultHibernateRepository<>));
 
             //entity mapping
