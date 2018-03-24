@@ -14,4 +14,8 @@
     <ProjectReference Include="..\S2fx.Core\S2fx.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AspNetCore\WebApi\" />
+  </ItemGroup>
+
 </Project>

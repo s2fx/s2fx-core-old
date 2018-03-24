@@ -12,11 +12,14 @@ using OrchardCore.Environment.Shell;
 using OrchardCore.Environment.Shell.Descriptor;
 using OrchardCore.Environment.Shell.Descriptor.Settings;
 using OrchardCore.Modules;
-using S2fx.Data;
 
 namespace S2fx.Server {
+
     public class Startup {
-        public Startup(IConfiguration configuration) {
+        private readonly IServiceProvider _applicationServices;
+
+        public Startup(IServiceProvider applicationServices, IConfiguration configuration) {
+            _applicationServices = applicationServices;
             Configuration = configuration;
         }
 

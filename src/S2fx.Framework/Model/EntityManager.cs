@@ -16,19 +16,16 @@ namespace S2fx.Model {
         MetaEntity GetEntityByClrType(Type entityType);
         MetaEntity GetEntity(string fullName);
         IEnumerable<MetaEntity> GetEnabledEntities();
-
         Task LoadAsync();
     }
 
     public class EntityManager : IEntityManager {
         private readonly IServiceProvider _services;
-        private readonly IEntityHarvester _harvester;
-        private readonly ConcurrentDictionary<string, MetaEntity> _entities =
-            new ConcurrentDictionary<string, MetaEntity>();
+        private readonly Dictionary<string, MetaEntity> _entities =
+            new Dictionary<string, MetaEntity>();
 
-        public EntityManager(IServiceProvider services, IEntityHarvester entityHarvester) {
+        public EntityManager(IServiceProvider services) {
             _services = services;
-            _harvester = entityHarvester;
         }
 
         public IEnumerable<MetaEntity> GetEnabledEntities() {
@@ -49,11 +46,13 @@ namespace S2fx.Model {
 
         public async Task LoadAsync() {
 
-            var entityDescriptors = await _harvester.HarvestEntitiesAsync();
+            var harvester = _services.GetService<IEntityHarvester>();
+            var entityDescriptors = await harvester.HarvestEntitiesAsync();
+
             foreach (var descriptor in entityDescriptors) {
                 if (!_entities.ContainsKey(descriptor.Name)) {
                     var entity = await descriptor.Type.LoadAsync(descriptor);
-                    _entities.AddOrUpdate(descriptor.Name, entity, (x, y) => entity);
+                    _entities.Add(descriptor.Name, entity);
                 }
             }
         }

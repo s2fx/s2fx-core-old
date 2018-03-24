@@ -7,7 +7,7 @@ namespace S2fx.Environment.Extensions.Entity {
 
     public interface IEntityHarvester {
 
-        Task<IEnumerable<EntityDescriptor>> HarvestEntitiesAsync();
+        Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync();
 
     }
 

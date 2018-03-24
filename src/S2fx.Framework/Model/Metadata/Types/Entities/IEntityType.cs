@@ -8,7 +8,7 @@ namespace S2fx.Model.Metadata.Types {
 
     public interface IEntityType {
         string Name { get; }
-        Task<MetaEntity> LoadAsync(EntityDescriptor descriptor);
+        Task<MetaEntity> LoadAsync(EntityInfo descriptor);
     }
 
 }

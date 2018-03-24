@@ -15,6 +15,8 @@ using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
 using S2fx.Setup.Services;
 using S2fx.Model.Metadata.Loaders;
+using S2fx.Remoting;
+using S2fx.Environment.Extensions.Remoting;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
@@ -23,7 +25,6 @@ namespace Microsoft.Extensions.DependencyInjection {
             //environment
             {
                 services.AddTransient<IEntityHarvester, EntityHarvester>();
-                services.AddTransient<IModuleEntityInspector, ClrTypeModuleEntityInspector>();
                 //services.AddTransient<IModuleEntityInspector, Buil>();
                 services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
             }
@@ -45,10 +46,17 @@ namespace Microsoft.Extensions.DependencyInjection {
                 services.RegisterAllPropertyTypes();
             }
 
+            //Remoting 
+            {
+                services.AddSingleton<IRemoteServiceManager, RemoteServiceManager>();
+                services.AddTransient<IRemoteServiceMetadataProvider, ModuleAssemblyRemoteServiceMetadataProvider>();
+            }
+
             //Setup
             {
                 services.AddTransient<ISetupService, SetupService>();
             }
+
         }
 
         private static void RegisterAllPropertyTypes(this IServiceCollection services) {

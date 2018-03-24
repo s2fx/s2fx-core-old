@@ -11,14 +11,17 @@ using S2fx.Data;
 using S2fx.Model.Annotations;
 using OrchardCore.Environment.Shell;
 using S2fx.Environment.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using S2fx.Web.Api.Metadata;
+using S2fx.Web.Remoting;
 
 namespace S2fx.Web.Controllers {
+
     public class HomeController : Controller {
         private readonly IDatabaseMigrator _migrator;
 
-        public HomeController(IHostingEnvironment env, IDatabaseMigrator migrator, IConfiguration cfg) {
+        public HomeController(IHostingEnvironment env, IDatabaseMigrator migrator) {
             _migrator = migrator;
-            var x = cfg.GetSection(WellKnownConstants.SlipstreamConfigurationSection).Get<S2Settings>();
         }
 
         public IActionResult Index() {

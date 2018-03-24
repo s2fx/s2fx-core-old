@@ -7,7 +7,7 @@ using S2fx.Model;
 
 namespace S2fx.Web.Controllers.Api {
 
-    public abstract class AbstractEntityApiController<TEntity> : Controller
+    public abstract class AbstractEntityApiController<TEntity> : AbstractApiController
         where TEntity : IEntity {
 
         public AbstractEntityApiController() {

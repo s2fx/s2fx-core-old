@@ -1,12 +1,21 @@
 using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using OrchardCore.Modules;
 using S2fx.Environment.Configuration;
+using S2fx.Environment.Extensions.Remoting;
+using S2fx.Remoting;
+using S2fx.Web.Api.Metadata;
+using S2fx.Web.Controllers;
 using S2fx.Web.Environment.Configuration;
+using S2fx.Web.Remoting;
 
 namespace S2fx.Web {
     public class Startup : StartupBase {
@@ -28,6 +37,16 @@ namespace S2fx.Web {
             services.AddScoped<ISmtpService, SmtpService>();
             */
 
+            //Remote services
+            {
+                services.AddTransient<RemoteServiceControllerNameConvention>();
+                services.AddTransient<IConfigureOptions<MvcOptions>, RemoteServiceMvcConfigureOptions>();
+                services.AddTransient<IRemoteServiceProvider, MvcControllerRemoteServiceProvider>();
+
+                //builtin remote services
+                services.AddTransient<MetaEntityRemoteService>();
+            }
+
             //Add settings to Service Collection
             services.AddSingleton(this.LoadSettings());
 
@@ -37,12 +56,15 @@ namespace S2fx.Web {
 
             routes.MapAreaRoute(
                 name: "Home",
-                areaName: "S2fx.web",
+                areaName: "S2fx.Web",
                 template: "",
                 defaults: new { controller = "Home", action = "Index" }
             );
 
             app.UseStaticFiles();
+
+            var appPartManager = app.ApplicationServices.GetRequiredService<ApplicationPartManager>();
+            appPartManager.FeatureProviders.Add(new RemoteServiceControllerFeatureProvider(serviceProvider));
         }
 
         private S2Settings LoadSettings() {
