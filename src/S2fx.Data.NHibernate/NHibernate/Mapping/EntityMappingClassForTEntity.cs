@@ -52,8 +52,12 @@ namespace S2fx.Data.NHibernate.Mapping {
             });
 
             foreach (var property in this.MetaEntity.Properties.Values.Where(x => x.Name != "Id")) {
-                var mapper = _propertyMappers[property.Type.Name];
-                mapper.MapProperty(this.CustomizersHolder, this.ExplicitDeclarationsHolder, this.PropertyPath, this.MetaEntity, property);
+                if (_propertyMappers.TryGetValue(property.Type.Name, out var mapper)) {
+                    mapper.MapProperty(this.CustomizersHolder, this.ExplicitDeclarationsHolder, this.PropertyPath, this.MetaEntity, property);
+                }
+                else {
+                    throw new InvalidOperationException($"Unknown entity property type: '{property.Type.Name}'");
+                }
             }
         }
 

@@ -15,7 +15,7 @@ namespace S2fx.Model.Builtin {
         [Required]
         public virtual long ObjectId { get; set; }
 
-        [Required]
+        [Required, MaxLength(256)]
         public virtual string ObjectName { get; set; }
 
         [ManyToOneProperty, Required]

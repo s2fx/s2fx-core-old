@@ -12,9 +12,10 @@ namespace S2fx.Model.Builtin {
 
         public const string EntityName = "Core.Feature";
 
-        [Required]
+        [Required, MaxLength(256)]
         public virtual string Name { get; set; }
 
+        [MaxLength(256)]
         public virtual string DisplayName { get; set; }
 
         public virtual bool IsInstalled { get; set; }

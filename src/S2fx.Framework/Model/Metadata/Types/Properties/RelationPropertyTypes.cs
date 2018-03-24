@@ -28,7 +28,6 @@ namespace S2fx.Model.Metadata.Types {
         public override string Name => "ManyToOne";
 
         public override MetaProperty LoadClrProperty(PropertyInfo propertyInfo) {
-            var requiredAttr = propertyInfo.GetCustomAttribute<RequiredAttribute>();
             var manyToOneAttr = propertyInfo.GetCustomAttribute<ManyToOnePropertyAttribute>();
             var mappedByPropertyName = manyToOneAttr.MappedBy ?? "Id";
             var refEntityClrType = propertyInfo.PropertyType;
@@ -39,7 +38,6 @@ namespace S2fx.Model.Metadata.Types {
                 Type = this,
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
-                IsRequired = requiredAttr != null ? true : false,
                 Length = -1,
                 MappedByPropertyName = mappedByPropertyName,
                 RefEntityName = manyToOneAttr.RefEntity ?? refEntityAttr.Name,

@@ -12,21 +12,22 @@ namespace S2fx.Model.Builtin {
     public class FileEntity : AbstractAuditedEntity {
         public const string EntityName = "Core.File";
 
-        [Required]
+        [Required, MaxLength(1024)]
         public virtual string Name { get; set; }
 
-        [Required]
+        [Required, MaxLength(2048)]
         public virtual string Path { get; set; }
 
         [Required]
         public virtual long Size { get; set; }
 
-        [Required]
+        [Required, MaxLength(512)]
         public virtual byte[] HashCode { get; set; }
 
-        [Required]
+        [Required, MaxLength(64)]
         public virtual string Storage { get; set; } = "LocalFileSystem";
 
+        [MaxLength(64)]
         public virtual string MimeType { get; set; }
 
         [Lazy]

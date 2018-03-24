@@ -11,13 +11,13 @@ namespace S2fx.Model.Builtin {
     [Entity("Core.Sequence"), DisplayName("Sequence")]
     public class SequenceEntity : AbstractAuditedEntity {
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false), MaxLength(256)]
         public string Name { get; set; }
 
-        [Required(AllowEmptyStrings = true)]
+        [Required(AllowEmptyStrings = true), MaxLength(256)]
         public string Prefix { get; set; } = "";
 
-        [Required(AllowEmptyStrings = true)]
+        [Required(AllowEmptyStrings = true), MaxLength(256)]
         public string Suffix { get; set; } = "";
 
         [Required]

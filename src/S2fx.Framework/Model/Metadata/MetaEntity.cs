@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using OrchardCore.Environment.Extensions.Features;
 
@@ -16,6 +17,10 @@ namespace S2fx.Model.Metadata {
         public IDictionary<string, MetaProperty> Properties { get; } = new Dictionary<string, MetaProperty>();
 
         public string DbName { get; set; }
+
+        public IList<AbstractMetaEntityAnnotation> Annotations { get; set; } = new List<AbstractMetaEntityAnnotation>();
+
+        public AbstractMetaEntityAnnotation FindAnnotation(string name) => this.Annotations.FirstOrDefault(x => x.Name == name);
 
         public override void AcceptVisitor(IMetadataVisitor visitor) {
             visitor.VisitEntity(this);

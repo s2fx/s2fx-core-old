@@ -14,7 +14,7 @@ namespace S2fx.Model.Metadata.Conventions {
         }
 
         public void Apply(MetaEntity entity) {
-            entity.DbName = entity.Name.ToSnakeCase();
+            entity.DbName = entity.Name.Replace(".", "").ToSnakeCase();
         }
 
     }

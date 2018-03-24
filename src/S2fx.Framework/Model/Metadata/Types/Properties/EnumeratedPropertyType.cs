@@ -29,8 +29,6 @@ namespace S2fx.Model.Metadata.Types {
 
             var attrs = propertyInfo.GetCustomAttributes();
             var primitiveAttr = propertyInfo.GetCustomAttribute<EnumerablePropertyAttribute>();
-            var requiredAttr = propertyInfo.GetCustomAttribute<RequiredAttribute>();
-            var isNullableType = propertyInfo.PropertyType.IsNullableType();
             return new EnumerableMetaProperty() {
                 Name = propertyInfo.Name,
                 DisplayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? propertyInfo.Name,
@@ -38,7 +36,6 @@ namespace S2fx.Model.Metadata.Types {
                 Attributes = propertyInfo.GetCustomAttributes(),
                 ClrPropertyInfo = propertyInfo,
                 Length = primitiveAttr != null ? primitiveAttr.Length : -1,
-                IsRequired = requiredAttr != null ? true : !isNullableType,
             };
         }
     }

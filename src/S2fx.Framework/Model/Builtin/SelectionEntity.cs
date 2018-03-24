@@ -12,10 +12,10 @@ namespace S2fx.Model.Builtin {
     public class SelectionEntity : AbstractAuditedEntity {
         public const string EntityName = "Core.Selection";
 
-        [Required]
+        [Required, MaxLength(256)]
         public virtual string ModuleName { get; set; }
 
-        [Required]
+        [Required, MaxLength(256)]
         public virtual string Name { get; set; }
 
         [OneToManyProperty(nameof(SelectionItemEntity.Selection))]
@@ -32,10 +32,10 @@ namespace S2fx.Model.Builtin {
         [Required]
         public virtual int SequenceOrder { get; set; }
 
-        [Required]
+        [Required, MaxLength(256)]
         public virtual string Value { get; set; }
 
-        [Required]
+        [Required, MaxLength(256)]
         public virtual string Label { get; set; }
     }
 }

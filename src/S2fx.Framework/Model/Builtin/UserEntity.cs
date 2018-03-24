@@ -12,18 +12,19 @@ namespace S2fx.Model.Builtin {
     public class UserEntity : AbstractAuditedEntity {
         public const string EntityName = "Core.User";
 
-        [Required]
+        [Required, MaxLength(64)]
         public virtual string Login { get; set; }
 
-        [Required]
+        [Required, MaxLength(64)]
         public virtual string FullName { get; set; }
 
-        [Required]
+        [Required, MaxLength(256)]
         public virtual string Password { get; set; }
 
 
         public virtual byte[] Image { get; set; }
 
+        [MaxLength(256)]
         public virtual string Email { get; set; }
 
         [ManyToManyProperty(mappedBy: "Users", joinTable: "core_user_role")]

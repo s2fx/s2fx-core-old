@@ -11,7 +11,9 @@ namespace S2fx.Utility {
             if (string.IsNullOrEmpty(input)) {
                 return input;
             }
-            return string.Concat(input.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString()))
+            return string.Concat(
+                input.Select((x, i) => 
+                    i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString()))
                 .ToLowerInvariant();
         }
 

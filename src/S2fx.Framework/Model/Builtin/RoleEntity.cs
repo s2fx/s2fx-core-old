@@ -10,9 +10,10 @@ namespace S2fx.Model.Builtin {
     public class RoleEntity : AbstractAuditedEntity {
         public const string EntityName = "Core.Role";
 
-        [Required]
+        [Required, MaxLength(256)]
         public virtual string Name { get; set; }
 
+        [MaxLength(256)]
         public virtual string DisplayName { get; set; }
 
         [ManyToManyProperty(mappedBy: "Roles", joinTable: "core_user_role")]

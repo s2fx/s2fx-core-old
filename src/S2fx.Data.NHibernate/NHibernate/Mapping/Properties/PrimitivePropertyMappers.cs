@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using NHibernate;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Impl;
 using S2fx.Convention;
@@ -59,7 +60,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
                     mapper.Length(property.Length);
                 }
                 else {
-                    mapper.Length(int.MaxValue);
+                    mapper.Type(NHibernateUtil.StringClob);
                 }
                 mapper.Column(property.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);
@@ -70,8 +71,16 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         }
     }
 
+    public class DecimalPropertyMapper : AbstractPrimitivePropertyMapper {
+        public override string PropertyTypeName => BuiltinPropertyTypeNames.DecimalTypeName;
+    }
+
     public class DateTimePropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.DateTimeTypeName;
+    }
+
+    public class TimeSpanPropertyMapper : AbstractPrimitivePropertyMapper {
+        public override string PropertyTypeName => BuiltinPropertyTypeNames.TimeSpanTypeName;
     }
 
     public class ByteArrayPropertyMapper : AbstractPrimitivePropertyMapper {

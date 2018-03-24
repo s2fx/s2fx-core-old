@@ -18,10 +18,13 @@ namespace S2fx.Model.Metadata {
         public PropertyInfo ClrPropertyInfo { get; set; }
         public int Length { get; set; } = -1;
         public string DbName { get; set; } = null;
+        public IList<AbstractMetaPropertyAnnotation> Annotations { get; set; } = new List<AbstractMetaPropertyAnnotation>();
 
         public override void AcceptVisitor(IMetadataVisitor visitor) {
             visitor.VisitProperty(this);
         }
+
+        public AbstractMetaPropertyAnnotation FindAnnotation(string name) => this.Annotations.FirstOrDefault(x => x.Name == name);
     }
 
     public class IdMetaProperty : MetaProperty {
@@ -34,11 +37,11 @@ namespace S2fx.Model.Metadata {
         public MetaProperty MappedBy { get; set; }
     }
 
-    public class PrimitiveMetaProperty : RelationMetaProperty {
+    public class PrimitiveMetaProperty : RelationMetaProperty, IMetaPropertyWithIsRequired {
         public bool IsRequired { get; set; } = false;
     }
 
-    public class ManyToOneMetaProperty : RelationMetaProperty {
+    public class ManyToOneMetaProperty : RelationMetaProperty, IMetaPropertyWithIsRequired {
         public bool IsRequired { get; set; } = false;
     }
 
@@ -49,7 +52,7 @@ namespace S2fx.Model.Metadata {
         public string JoinTable { get; set; }
     }
 
-    public class EnumerableMetaProperty : MetaProperty {
+    public class EnumerableMetaProperty : MetaProperty, IMetaPropertyWithIsRequired {
         public bool IsRequired { get; set; } = false;
     }
 }
