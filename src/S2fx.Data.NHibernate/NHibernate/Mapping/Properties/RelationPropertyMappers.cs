@@ -15,8 +15,6 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
     public class ManyToOnePropertyMapper : AbstractPropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.ManyToOneTypeName;
 
-        public ManyToOnePropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
-
         public override void MapProperty(ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
@@ -24,7 +22,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             MetaProperty property) {
             var m2oProperty = property as ManyToOneMetaProperty;
             var mappingAction = new Action<IManyToOneMapper>(mapper => {
-                mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.Column(property.DbName);
                 mapper.NotNullable(m2oProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
@@ -38,7 +36,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
 
         public override string PropertyTypeName => BuiltinPropertyTypeNames.OneToManyTypeName;
 
-        public OneToManyPropertyMapper(IDbNameConvention nameConvention, IEntityManager entityManager) : base(nameConvention) {
+        public OneToManyPropertyMapper(IEntityManager entityManager) {
             _entityManager = entityManager;
         }
 
@@ -55,7 +53,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             var bagMappingAction = new Action<IBagPropertiesMapper>(mapper => {
                 mapper.Inverse(true);
                 mapper.Key(keyMapper => {
-                    keyMapper.Column(this.NameConvention.EntityPropertyToColumn(refProperty.Name));
+                    keyMapper.Column(property.DbName);
                 });
             });
 
@@ -79,9 +77,11 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         private readonly IEntityManager _entityManager;
 
         public override string PropertyTypeName => BuiltinPropertyTypeNames.ManyToManyTypeName;
+        private readonly IDbNameConvention _nameConvention;
 
-        public ManyToManyPropertyMapper(IDbNameConvention nameConvention, IEntityManager entityManager) : base(nameConvention) {
+        public ManyToManyPropertyMapper(IEntityManager entityManager, IDbNameConvention nameConvention) {
             _entityManager = entityManager;
+            _nameConvention = nameConvention;
         }
 
         public override void MapProperty(ICustomizersHolder customizerHolder,
@@ -94,8 +94,8 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             var m2mProperty = property as ManyToManyMetaProperty;
             var refEntity = _entityManager.GetEntity(m2mProperty.RefEntityName);
             var refProperty = refEntity.Properties[m2mProperty.MappedByPropertyName];
-            var joinTableThisSideFkColumn = this.NameConvention.EntityPropertyToColumn(entity.Name.Split('.').Last() + "Id");
-            var joinTableOtherSideFkColumn = this.NameConvention.EntityPropertyToColumn(refEntity.Name.Split('.').Last() + "Id");
+            var joinTableThisSideFkColumn = _nameConvention.EntityPropertyToColumn(entity.Name.Split('.').Last() + "Id");
+            var joinTableOtherSideFkColumn = _nameConvention.EntityPropertyToColumn(refEntity.Name.Split('.').Last() + "Id");
 
             var bagMappingAction = new Action<IBagPropertiesMapper>(mapper => {
                 mapper.Table(m2mProperty.JoinTable);

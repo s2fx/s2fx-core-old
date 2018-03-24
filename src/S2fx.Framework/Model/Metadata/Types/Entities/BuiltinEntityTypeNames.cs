@@ -5,7 +5,7 @@ using System.Text;
 namespace S2fx.Model.Metadata.Types {
 
     public static class BuiltinEntityTypeNames {
-        public const string ClrSqlEntityTypeName = "ClrSqlEntity";
+        public const string SqlEntityTypeName = "SqlEntity";
     }
 
 }

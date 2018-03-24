@@ -11,10 +11,6 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
 
     public abstract class AbstractPrimitivePropertyMapper : AbstractPropertyMapper {
 
-        public AbstractPrimitivePropertyMapper(IDbNameConvention dbNameConvention)
-            : base(dbNameConvention) {
-        }
-
         public override void MapProperty(
             ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
@@ -23,7 +19,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             MetaProperty property) {
             var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.Column(property.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
@@ -34,27 +30,22 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
 
     public class BooleanPropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.BooleanTypeName;
-        public BooleanPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
     }
 
     public class Int32PropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.Int32TypeName;
-        public Int32PropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
     }
 
     public class Int64PropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.Int64TypeName;
-        public Int64PropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
     }
 
     public class FloatPropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.FloatTypeName;
-        public FloatPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
     }
 
     public class StringPropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.StringTypeName;
-        public StringPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
 
         public override void MapProperty(
             ICustomizersHolder customizerHolder,
@@ -70,7 +61,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
                 else {
                     mapper.Length(int.MaxValue);
                 }
-                mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.Column(property.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
@@ -81,12 +72,10 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
 
     public class DateTimePropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.DateTimeTypeName;
-        public DateTimePropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
     }
 
     public class ByteArrayPropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.ByteArrayTypeName;
-        public ByteArrayPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
 
         public override void MapProperty(
             ICustomizersHolder customizerHolder,
@@ -102,7 +91,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
                 else {
                     mapper.Length(int.MaxValue);
                 }
-                mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.Column(property.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);

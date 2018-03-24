@@ -14,9 +14,13 @@ using S2fx.Utility;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
 using S2fx.Setup.Services;
-using S2fx.Model.Metadata.Loaders;
 using S2fx.Remoting;
 using S2fx.Environment.Extensions.Remoting;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using OrchardCore.Environment.Shell.Descriptor;
+using OrchardCore.Environment.Shell;
+using S2fx.Environment.Shell;
+using S2fx.Model.Metadata.Conventions;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
@@ -24,9 +28,12 @@ namespace Microsoft.Extensions.DependencyInjection {
         public static void AddSlipStreamFramework(this IServiceCollection services) {
             //environment
             {
-                services.AddTransient<IEntityHarvester, EntityHarvester>();
-                //services.AddTransient<IModuleEntityInspector, Buil>();
+                services.AddTransient<IEntityHarvester, BuiltinEntityHarvester>();
+                services.AddTransient<IEntityHarvester, ClrEntityHarvester>();
+
                 services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
+                services.Replace(new ServiceDescriptor(typeof(IShellDescriptorManager), typeof(S2ShellDescriptorManager), ServiceLifetime.Scoped));
+                services.Replace(new ServiceDescriptor(typeof(IShellStateManager), typeof(S2ShellStateManager), ServiceLifetime.Scoped));
             }
 
             //Data accessing
@@ -39,7 +46,8 @@ namespace Microsoft.Extensions.DependencyInjection {
             //model
             {
                 services.AddSingleton<IEntityManager, EntityManager>();
-                services.AddTransient<IClrTypeEntityMetadataLoader, ClrTypeEntityMetadataLoader>();
+
+                services.RegisterBuiltinMetadataConventions();
 
                 //meta data
                 services.RegisterAllEntityTypes();
@@ -59,25 +67,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
         }
 
-        private static void RegisterAllPropertyTypes(this IServiceCollection services) {
 
-            var assembly = Assembly.GetExecutingAssembly();
-            var propertyTypes = assembly.ExportedTypes
-                .Where(t => t.IsPublic && t.IsClass && !t.IsAbstract && t.IsImplementsInterface<IPropertyType>());
-            foreach (var pt in propertyTypes) {
-                services.AddSingleton(typeof(IPropertyType), pt);
-            }
-        }
-
-        private static void RegisterAllEntityTypes(this IServiceCollection services) {
-
-            var assembly = Assembly.GetExecutingAssembly();
-            var entityTypes = assembly.ExportedTypes
-                .Where(t => t.IsPublic && t.IsClass && !t.IsAbstract && t.IsImplementsInterface<IEntityType>());
-            foreach (var pt in entityTypes) {
-                services.AddSingleton(typeof(IEntityType), pt);
-            }
-        }
 
 
     }

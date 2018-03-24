@@ -16,8 +16,6 @@ namespace S2fx.Model.Metadata.Types {
 
     public abstract class AbstractRelationPropertyType : AbstractPropertyType, IRelationPropertyType {
 
-        protected IServiceProvider Services { get; }
-
         protected void ValidateCollectionPropertyType(PropertyInfo propertyInfo, string refEntityName) {
             if (!propertyInfo.PropertyType.IsGenericType || propertyInfo.PropertyType.GetGenericTypeDefinition() != typeof(ICollection<>)) {
                 throw new EntityDefinitionException($"The property '{propertyInfo.Name}' of entity '{refEntityName}' must be a ICollection<T>");
@@ -87,11 +85,6 @@ namespace S2fx.Model.Metadata.Types {
 
     public class ManyToManyPropertyType : AbstractRelationPropertyType {
         public override string Name => "ManyToMany";
-        private readonly IDbNameConvention _nameConvention;
-
-        public ManyToManyPropertyType(IDbNameConvention nameConvention) {
-            _nameConvention = nameConvention;
-        }
 
         public override MetaProperty LoadClrProperty(PropertyInfo propertyInfo) {
             var thisEntityName = propertyInfo.DeclaringType.GetCustomAttribute<EntityAttribute>().Name;

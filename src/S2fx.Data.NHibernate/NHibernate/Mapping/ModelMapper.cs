@@ -25,7 +25,7 @@ namespace S2fx.Data.NHibernate.Mapping {
         public void MapAllEntities(Configuration cfg) {
             var mapper = new global::NHibernate.Mapping.ByCode.ModelMapper();
 
-            var entities = _entityManager.GetEnabledEntities();
+            var entities = _entityManager.GetEntities();
             foreach (var entityInfo in entities) {
                 var entityMapping = this.GetEntityClassMapping(entityInfo);
                 mapper.AddMapping(entityMapping);

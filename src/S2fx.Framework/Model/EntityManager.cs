@@ -8,28 +8,30 @@ using Microsoft.Extensions.DependencyInjection;
 using S2fx.Environment.Extensions.Entity;
 using System.Linq;
 using S2fx.Model.Metadata;
+using S2fx.Model.Metadata.Types;
+using S2fx.Model.Metadata.Conventions;
+using Microsoft.Extensions.Logging;
 
 namespace S2fx.Model {
 
-    public interface IEntityManager {
-
-        MetaEntity GetEntityByClrType(Type entityType);
-        MetaEntity GetEntity(string fullName);
-        IEnumerable<MetaEntity> GetEnabledEntities();
-        Task LoadAsync();
-    }
-
     public class EntityManager : IEntityManager {
+
         private readonly IServiceProvider _services;
         private readonly Dictionary<string, MetaEntity> _entities =
             new Dictionary<string, MetaEntity>();
+        private readonly IList<EntityInfo> _entityInfos = new List<EntityInfo>();
+        private readonly object InitializationLock = new object();
+        private bool _isLoaded = false;
 
-        public EntityManager(IServiceProvider services) {
+        public ILogger Logger { get; }
+
+        public EntityManager(IServiceProvider services, ILogger<EntityManager> logger) {
             _services = services;
+            this.Logger = logger;
         }
 
-        public IEnumerable<MetaEntity> GetEnabledEntities() {
-            this.EnsureEntitiesLoaded();
+        public IEnumerable<MetaEntity> GetEntities() {
+            this.EnsureInitialized();
             return _entities.Values;
         }
 
@@ -37,30 +39,61 @@ namespace S2fx.Model {
             if (string.IsNullOrEmpty(fullName)) {
                 throw new ArgumentNullException(nameof(fullName));
             }
-            this.EnsureEntitiesLoaded();
+            this.EnsureInitialized();
             return _entities[fullName];
         }
 
-        public MetaEntity GetEntityByClrType(Type entityType) =>
-            this.GetEntity(_entities.Single(pair => pair.Value.ClrType == entityType).Key);
-
-        public async Task LoadAsync() {
-
-            var harvester = _services.GetService<IEntityHarvester>();
-            var entityDescriptors = await harvester.HarvestEntitiesAsync();
-
-            foreach (var descriptor in entityDescriptors) {
-                if (!_entities.ContainsKey(descriptor.Name)) {
-                    var entity = await descriptor.Type.LoadAsync(descriptor);
-                    _entities.Add(descriptor.Name, entity);
-                }
-            }
+        public MetaEntity GetEntityByClrType(Type entityType) {
+            this.EnsureInitialized();
+            return this.GetEntity(_entities.Single(pair => pair.Value.ClrType == entityType).Key);
         }
 
-        private void EnsureEntitiesLoaded() {
-            if (_entities.Count == 0) {
-                Task.Run(this.LoadAsync).Wait();
+        public Task<IEnumerable<EntityInfo>> LoadEntitiesAsync() {
+            this.EnsureInitialized();
+            return Task.FromResult(_entityInfos.AsEnumerable());
+        }
+
+        private void EnsureInitialized() {
+
+            if (_isLoaded) {
+                return;
             }
+
+            lock (this.InitializationLock) {
+                var harvesters = _services.GetServices<IEntityHarvester>();
+                var entityTypes = _services.GetServices<IEntityType>();
+                var entityInfos = harvesters.SelectMany(h => Task.Run(h.HarvestEntitiesAsync).Result);
+                this._entities.Clear();
+                foreach (var entityInfo in entityInfos) {
+                    var entityType = entityTypes.Single(x => x.Name == entityInfo.EntityType);
+
+                    if (this.Logger.IsEnabled(LogLevel.Debug)) {
+                        this.Logger.LogDebug("Loading Entity: {0}", entityInfo.Name);
+                    }
+
+                    var metaEntity = Task.Run(() => entityType.LoadAsync(entityInfo)).Result;
+                    if (!_entities.ContainsKey(metaEntity.Name)) {
+                        _entities.Add(metaEntity.Name, metaEntity);
+                    }
+                }
+
+                //处理约定
+                var entityConventions = _services.GetServices<IMetadataConvention<MetaEntity>>();
+                var propertyConventions = _services.GetServices<IMetadataConvention<MetaProperty>>();
+                foreach (var metaEntity in _entities.Values) {
+                    foreach (var ec in entityConventions) {
+                        ec.Apply(metaEntity);
+                    }
+                    foreach (var metaProperty in metaEntity.Properties.Values) {
+                        foreach (var pc in propertyConventions) {
+                            pc.Apply(metaProperty);
+                        }
+                    }
+                }
+
+                _isLoaded = true;
+            }
+
         }
 
     }

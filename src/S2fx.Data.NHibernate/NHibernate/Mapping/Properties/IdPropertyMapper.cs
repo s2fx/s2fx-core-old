@@ -13,8 +13,6 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
     public class IdPropertyMapper : AbstractPropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.IdTypeName;
 
-        public IdPropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
-
         public override void MapProperty(ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
@@ -22,7 +20,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             MetaProperty property) {
             var mappingAction = new Action<IClassMapper>(mapper => {
                 mapper.Id(idMapper => {
-                    idMapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                    idMapper.Column(property.DbName);
                 });
             });
             var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);

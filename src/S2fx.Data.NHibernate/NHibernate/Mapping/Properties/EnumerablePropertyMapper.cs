@@ -15,8 +15,6 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
     public class EnumerablePropertyMapper : AbstractPropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.EnumerableTypeName;
 
-        public EnumerablePropertyMapper(IDbNameConvention nameConvention) : base(nameConvention) { }
-
         public override void MapProperty(ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
@@ -28,7 +26,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
 
             var primitiveProperty = (EnumerableMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                mapper.Column(this.NameConvention.EntityPropertyToColumn(property.Name));
+                mapper.Column(property.DbName);
                 mapper.Type(hibernateEnumType);
                 mapper.NotNullable(primitiveProperty.IsRequired);
             });

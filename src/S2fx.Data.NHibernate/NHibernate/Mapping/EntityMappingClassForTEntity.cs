@@ -16,16 +16,14 @@ namespace S2fx.Data.NHibernate.Mapping {
     public class EntityMappingClass<TEntity> : ClassMapping<TEntity>
         where TEntity : class, IEntity {
 
-        private readonly IDbNameConvention _nameConvention;
         private readonly IEntityManager _entityManager;
         private readonly Dictionary<string, Properties.IPropertyMapper> _propertyMappers = new Dictionary<string, Properties.IPropertyMapper>();
         protected MetaEntity MetaEntity { get; }
 
-        public EntityMappingClass(IEnumerable<Properties.IPropertyMapper> propertyMappers,
-            IDbNameConvention nameConvention,
+        public EntityMappingClass(
+            IEnumerable<Properties.IPropertyMapper> propertyMappers,
             IEntityManager entityManager) {
             _entityManager = entityManager;
-            _nameConvention = nameConvention;
 
             foreach (var pm in propertyMappers) {
                 _propertyMappers.Add(pm.PropertyTypeName, pm);
@@ -42,13 +40,14 @@ namespace S2fx.Data.NHibernate.Mapping {
         }
 
         protected void MapEntityHeader() {
-            Table(_nameConvention.EntityToTable(this.MetaEntity.Name));
+            Table(this.MetaEntity.DbName);
         }
 
         protected void MapEntityProperties() {
 
+            var idProperty = this.MetaEntity.Properties["Id"];
             this.Id(x => x.Id, mapper => {
-                mapper.Column(_nameConvention.EntityPropertyToColumn(nameof(IEntity.Id)));
+                mapper.Column(idProperty.DbName);
                 mapper.Generator(Generators.Native);
             });
 

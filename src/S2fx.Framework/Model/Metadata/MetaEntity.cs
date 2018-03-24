@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using OrchardCore.Environment.Extensions.Features;
 
 namespace S2fx.Model.Metadata {
 
@@ -13,6 +14,8 @@ namespace S2fx.Model.Metadata {
         public Type ClrType { get; set; }
 
         public IDictionary<string, MetaProperty> Properties { get; } = new Dictionary<string, MetaProperty>();
+
+        public string DbName { get; set; }
 
         public override void AcceptVisitor(IModelMetadataVisitor visitor) {
             visitor.VisitEntity(this);

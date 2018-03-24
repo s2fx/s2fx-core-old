@@ -17,6 +17,7 @@ namespace S2fx.Model.Metadata {
         public IPropertyType Type { get; set; }
         public PropertyInfo ClrPropertyInfo { get; set; }
         public int Length { get; set; } = -1;
+        public string DbName { get; set; } = null;
 
         public override void AcceptVisitor(IModelMetadataVisitor visitor) {
             visitor.VisitProperty(this);

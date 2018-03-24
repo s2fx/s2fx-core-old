@@ -9,13 +9,8 @@ using S2fx.Model.Metadata;
 namespace S2fx.Data.NHibernate.Mapping.Properties {
 
     public abstract class AbstractPropertyMapper : IPropertyMapper {
-        protected IDbNameConvention NameConvention { get; }
 
         public abstract string PropertyTypeName { get; }
-
-        public AbstractPropertyMapper(IDbNameConvention dbNameConvention) {
-            this.NameConvention = dbNameConvention;
-        }
 
         public abstract void MapProperty(
             ICustomizersHolder customizerHolder,
