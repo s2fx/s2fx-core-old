@@ -25,7 +25,7 @@ namespace S2fx.Model.Metadata {
 
         public IPropertyType Type { get; set; }
 
-        [DataMember(Name = "Type")]
+        [DataMember(Name = "type")]
         public string PropertyTypeName => this.Type.Name;
 
         public PropertyInfo ClrPropertyInfo { get; set; }

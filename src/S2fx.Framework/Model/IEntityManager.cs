@@ -13,7 +13,7 @@ namespace S2fx.Model {
 
         MetaEntity GetEntity(string fullName);
 
-        IEnumerable<MetaEntity> GetEntities();
+        IReadOnlyDictionary<string, MetaEntity> GetEntities();
 
         Task<IEnumerable<EntityInfo>> LoadEntitiesAsync();
     }

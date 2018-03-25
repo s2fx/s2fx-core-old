@@ -16,7 +16,7 @@ namespace S2fx.Web.Rpc.Metadata {
             _entityManager = entityManager;
         }
 
-        public IEnumerable<MetaEntity> All() {
+        public IReadOnlyDictionary<string, MetaEntity> All() {
             return _entityManager.GetEntities();
         }
 

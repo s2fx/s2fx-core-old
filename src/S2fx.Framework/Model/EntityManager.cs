@@ -30,9 +30,9 @@ namespace S2fx.Model {
             this.Logger = logger;
         }
 
-        public IEnumerable<MetaEntity> GetEntities() {
+        public IReadOnlyDictionary<string, MetaEntity> GetEntities() {
             this.EnsureInitialized();
-            return _entities.Values;
+            return _entities;
         }
 
         public MetaEntity GetEntity(string fullName) {
