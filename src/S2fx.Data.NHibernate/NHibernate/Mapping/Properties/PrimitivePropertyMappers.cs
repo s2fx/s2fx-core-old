@@ -56,8 +56,8 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             MetaProperty property) {
             var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                if (property.MaxLength > 0) {
-                    mapper.Length(property.MaxLength);
+                if (property.MaxLength != null && property.MaxLength > 0) {
+                    mapper.Length(property.MaxLength.Value);
                 }
                 else {
                     mapper.Type(NHibernateUtil.StringClob);
@@ -103,11 +103,11 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             MetaProperty property) {
             var primitiveProperty = (PrimitiveMetaProperty)property;
             var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                if (property.MaxLength > 0) {
-                    mapper.Length(property.MaxLength);
+                if (property.MaxLength != null && property.MaxLength > 0) {
+                    mapper.Length(property.MaxLength.Value);
                 }
                 else {
-                    mapper.Length(int.MaxValue);
+                    mapper.Type(NHibernateUtil.BinaryBlob);
                 }
                 mapper.Column(property.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);

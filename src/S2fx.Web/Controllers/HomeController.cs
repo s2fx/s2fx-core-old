@@ -12,7 +12,7 @@ using S2fx.Model.Annotations;
 using OrchardCore.Environment.Shell;
 using S2fx.Environment.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using S2fx.Web.Api.Metadata;
+using S2fx.Web.Rpc.Metadata;
 using S2fx.Web.Remoting;
 using S2fx.Model.Builtin;
 

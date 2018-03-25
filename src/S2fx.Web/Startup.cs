@@ -12,7 +12,7 @@ using OrchardCore.Modules;
 using S2fx.Environment.Configuration;
 using S2fx.Environment.Extensions.Remoting;
 using S2fx.Remoting;
-using S2fx.Web.Api.Metadata;
+using S2fx.Web.Rpc.Metadata;
 using S2fx.Web.Controllers;
 using S2fx.Web.Environment.Configuration;
 using S2fx.Web.Remoting;
@@ -44,7 +44,7 @@ namespace S2fx.Web {
                 services.AddTransient<IRemoteServiceProvider, MvcControllerRemoteServiceProvider>();
 
                 //builtin remote services
-                services.AddTransient<MetaEntityRemoteService>();
+                services.AddScoped<MetaEntityRemoteService>();
             }
 
             //Add settings to Service Collection

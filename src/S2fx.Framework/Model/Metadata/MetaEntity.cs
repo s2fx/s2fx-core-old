@@ -1,19 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using OrchardCore.Environment.Extensions.Features;
 
 namespace S2fx.Model.Metadata {
 
+    [DataContract]
     public class MetaEntity : AnyMetadata {
 
+        [DataMember]
         public string Name { get; set; }
 
+        [DataMember]
         public string DisplayName { get; set; }
 
         public Type ClrType { get; set; }
 
+        [DataMember]
         public IDictionary<string, MetaProperty> Properties { get; } = new Dictionary<string, MetaProperty>();
 
         public string DbName { get; set; }
