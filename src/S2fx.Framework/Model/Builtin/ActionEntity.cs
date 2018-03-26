@@ -28,6 +28,9 @@ namespace S2fx.Model.Builtin {
 
         [Required]
         public virtual string Definition { get; set; }
+
+        [Required, MaxLength(256)]
+        public virtual string DefinitionKey { get; set; }
     }
 
 }

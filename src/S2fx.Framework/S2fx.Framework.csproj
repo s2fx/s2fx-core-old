@@ -14,6 +14,8 @@
     <PackageReference Include="OrchardCore.Environment.Shell.Abstractions" Version="1.0.0-beta2-4972" />
     <PackageReference Include="OrchardCore.Modules.Abstractions" Version="1.0.0-beta2-4972" />
     <PackageReference Include="OrchardCore.Users.Abstractions" Version="1.0.0-beta2-4972" />
+    <PackageReference Include="Portable.Xaml" Version="0.21.0" />
+    <PackageReference Include="S2fx.LinqToQuerystring.Core" Version="0.7.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
 

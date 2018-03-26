@@ -21,6 +21,7 @@ using OrchardCore.Environment.Shell.Descriptor;
 using OrchardCore.Environment.Shell;
 using S2fx.Environment.Shell;
 using S2fx.Model.Metadata.Conventions;
+using S2fx.Xaml;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
@@ -60,6 +61,12 @@ namespace Microsoft.Extensions.DependencyInjection {
                 services.AddSingleton<IRemoteServiceManager, RemoteServiceManager>();
                 services.AddTransient<IRemoteServiceMetadataProvider, ModuleAssemblyRemoteServiceMetadataProvider>();
             }
+
+            // Xaml 
+            {
+                services.AddTransient<IXamlService, PortableXamlXamlService>();
+            }
+
 
             //Setup
             {
