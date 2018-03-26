@@ -13,10 +13,13 @@ namespace S2fx.Model.Builtin {
         public const string EntityName = "Core.Selection";
 
         [Required, MaxLength(256)]
-        public virtual string ModuleName { get; set; }
+        public virtual string Feature { get; set; }
 
         [Required, MaxLength(256)]
         public virtual string Name { get; set; }
+
+        [Required, MaxLength(256)]
+        public virtual string DisplayName { get; set; }
 
         [OneToManyProperty(nameof(SelectionItemEntity.Selection))]
         public virtual ICollection<SelectionItemEntity> Items { get; set; }

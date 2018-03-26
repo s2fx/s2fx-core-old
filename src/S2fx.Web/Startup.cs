@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using OrchardCore.Modules;
 using S2fx.Environment.Configuration;
-using S2fx.Environment.Extensions.Remoting;
 using S2fx.Remoting;
 using S2fx.Web.Rpc.Metadata;
 using S2fx.Web.Controllers;
@@ -42,7 +41,10 @@ namespace S2fx.Web {
                 services.AddTransient<RemoteServiceControllerNameConvention>();
                 services.AddTransient<IConfigureOptions<MvcOptions>, RemoteServiceMvcConfigureOptions>();
                 services.AddTransient<IRemoteServiceProvider, MvcControllerRemoteServiceProvider>();
+            }
 
+            //RPCs
+            {
                 //builtin remote services
                 services.AddScoped<MetaEntityRemoteService>();
             }

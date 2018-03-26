@@ -5,10 +5,8 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using S2fx.Environment.Extensions.Remoting;
 using S2fx.Remoting;
 using System.Threading.Tasks;
-using OrchardCore.Environment.Extensions;
 
 namespace S2fx.Web.Remoting {
 

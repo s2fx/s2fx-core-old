@@ -6,16 +6,6 @@ using System.Threading.Tasks;
 namespace S2fx.Data {
 
     public interface IDatabaseMigrator {
-
         Task MigrateSchemeAsync();
-
-    }
-
-    public class DatabaseMigrator : IDatabaseMigrator {
-
-        public Task MigrateSchemeAsync() {
-            throw new NotImplementedException();
-        }
-
     }
 }

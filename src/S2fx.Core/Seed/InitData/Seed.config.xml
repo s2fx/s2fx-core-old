@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<seed-data>
+
+    <import file="CoreSelection.xml" entity="Core.Selection" path="/Data/CoreSelections/CoreSelection">
+        <bind>
+            <bind-property from="@Name" property="Name" />
+            <bind-property from="@DisplayName" property="DisplayName" />
+            <bind-property from="@Feature" property="Feature" />
+        </bind>
+    </import>
+
+</seed-data>

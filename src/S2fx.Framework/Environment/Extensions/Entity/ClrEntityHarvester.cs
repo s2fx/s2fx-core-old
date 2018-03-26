@@ -13,6 +13,7 @@ using OrchardCore.Environment.Extensions;
 using System.Reflection;
 using S2fx.Model.Annotations;
 using S2fx.Model.Metadata.Types;
+using S2fx.Environment.Shell;
 
 namespace S2fx.Environment.Extensions.Entity {
 
@@ -23,9 +24,9 @@ namespace S2fx.Environment.Extensions.Entity {
         }
 
         public override async Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync() {
-            var extensions = this.Services.GetRequiredService<IExtensionManager>();
-            var allFeatures = await extensions.LoadFeaturesAsync();
-            var allEntities = allFeatures.SelectMany(x => this.HarvestClrEntityInFeature(x));
+            var shellFeatureService = this.Services.GetRequiredService<IShellFeatureService>();
+            var features = await shellFeatureService.GetEnabledFeatureEntriesAsync();
+            var allEntities = features.SelectMany(x => this.HarvestClrEntityInFeature(x));
             return allEntities;
         }
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+
+    <CoreSelections>
+        <CoreSelection Feature="S2fx.Core" Name="Selection1" DisplayName="Core.Selection 1" />
+        <CoreSelection Feature="S2fx.Core" Name="Selection2" DisplayName="Core.Selection 2" />
+    </CoreSelections>
+    
+</Data>

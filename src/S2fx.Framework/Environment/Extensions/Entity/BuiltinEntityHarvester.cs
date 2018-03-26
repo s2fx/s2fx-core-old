@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Environment.Extensions;
+using S2fx.Environment.Shell;
 
 namespace S2fx.Environment.Extensions.Entity {
 
@@ -18,9 +19,9 @@ namespace S2fx.Environment.Extensions.Entity {
 
         public override async Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync() {
 
-            var extensions = this.Services.GetRequiredService<IExtensionManager>();
-            var allFeatures = await extensions.LoadFeaturesAsync();
-            var coreFeature = allFeatures.Single(x => x.FeatureInfo.Id == WellKnownConstants.CoreModuleId);
+            var shellFeatureServiec = this.Services.GetRequiredService<IShellFeatureService>();
+            var features = await shellFeatureServiec.GetEnabledFeatureEntriesAsync();
+            var coreFeature = features.Single(x => x.FeatureInfo.Id == WellKnownConstants.CoreModuleId);
             var builtinEntityTypes = Assembly.GetExecutingAssembly().ExportedTypes.Where(t => this.IsEntityType(t));
 
             var entityInfos = new List<EntityInfo>(builtinEntityTypes

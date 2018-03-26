@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Environment.Extensions;
-using S2fx.Environment.Extensions.Remoting;
 using S2fx.Remoting.Model;
 
 namespace S2fx.Remoting {

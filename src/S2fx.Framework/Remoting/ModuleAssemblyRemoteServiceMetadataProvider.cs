@@ -8,19 +8,23 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Environment.Extensions;
 using OrchardCore.Environment.Extensions.Features;
+using OrchardCore.Environment.Shell.Descriptor.Models;
 using OrchardCore.Modules;
-using S2fx.Remoting;
+using S2fx.Environment.Shell;
 using S2fx.Remoting.Model;
 
-namespace S2fx.Environment.Extensions.Remoting {
+namespace S2fx.Remoting {
 
     public class ModuleAssemblyRemoteServiceMetadataProvider : IRemoteServiceMetadataProvider {
-        private readonly IExtensionManager _extensions;
+        private readonly IShellFeatureService _shellFeatureService;
         private readonly IHostingEnvironment _environment;
         private readonly ITypeFeatureProvider _typeFeatureProvider;
 
-        public ModuleAssemblyRemoteServiceMetadataProvider(IExtensionManager extensions, IHostingEnvironment environment, ITypeFeatureProvider typeFeatureProvider) {
-            _extensions = extensions;
+        public ModuleAssemblyRemoteServiceMetadataProvider(
+            IShellFeatureService shellFeatureService,
+            IHostingEnvironment environment, ITypeFeatureProvider typeFeatureProvider) {
+
+            _shellFeatureService = shellFeatureService;
             _environment = environment;
             _typeFeatureProvider = typeFeatureProvider;
         }
@@ -29,8 +33,8 @@ namespace S2fx.Environment.Extensions.Remoting {
             var modules = _environment.GetApplication().ModuleNames
                .Select(m => _environment.GetModule(m));
             var descriptors = new List<RemoteServiceInfo>();
-            var allFeatures = Task.Run(_extensions.LoadFeaturesAsync).Result;
-            foreach (var feature in allFeatures) {
+            var features = await _shellFeatureService.GetEnabledFeatureEntriesAsync();
+            foreach (var feature in features) {
                 var serviceImplTypes = feature.ExportedTypes.Where(t => this.IsRemoteService(t));
                 foreach (var serviceImplType in serviceImplTypes) {
                     var serviceMetadata = this.CreateServiceMetadata(feature.FeatureInfo, serviceImplType);
@@ -38,8 +42,6 @@ namespace S2fx.Environment.Extensions.Remoting {
                 }
             }
 
-            //TODO 
-            await Task.CompletedTask;
             return descriptors;
         }
 

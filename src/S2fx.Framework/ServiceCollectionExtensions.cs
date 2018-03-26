@@ -15,58 +15,28 @@ using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
 using S2fx.Setup.Services;
 using S2fx.Remoting;
-using S2fx.Environment.Extensions.Remoting;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using OrchardCore.Environment.Shell.Descriptor;
-using OrchardCore.Environment.Shell;
-using S2fx.Environment.Shell;
 using S2fx.Model.Metadata.Conventions;
 using S2fx.Xaml;
+using S2fx.Environment;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
     public static class ServiceCollectionExtensions {
         public static void AddSlipStreamFramework(this IServiceCollection services) {
+
             //environment
-            {
-                services.AddTransient<IEntityHarvester, BuiltinEntityHarvester>();
-                services.AddTransient<IEntityHarvester, ClrEntityHarvester>();
+            services.AddS2Environment();
 
-                services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
-                services.Replace(new ServiceDescriptor(typeof(IShellDescriptorManager), typeof(S2ShellDescriptorManager), ServiceLifetime.Scoped));
-                services.Replace(new ServiceDescriptor(typeof(IShellStateManager), typeof(S2ShellStateManager), ServiceLifetime.Scoped));
-            }
-
-            //Data accessing
-            {
-                services.AddTransient<IDynamicEntityRepositoryResolver, DynamicEntityRepositoryResolver>();
-                services.AddTransient<IUnitOfWorkManager, DefaultUnitOfWorkManager>();
-                services.AddTransient<IDbNameConvention, S2DbNameConvention>();
-            }
+            services.AddS2fxData();
 
             //model
-            {
-                services.AddSingleton<IEntityManager, EntityManager>();
-
-                services.RegisterBuiltinMetadataConventions();
-
-                //meta data
-                services.RegisterAllEntityTypes();
-                services.RegisterAllPropertyTypes();
-                services.AddTransient<ConventionMetadataVisitor>();
-            }
+            services.AddS2Model();
 
             //Remoting 
-            {
-                services.AddSingleton<IRemoteServiceManager, RemoteServiceManager>();
-                services.AddTransient<IRemoteServiceMetadataProvider, ModuleAssemblyRemoteServiceMetadataProvider>();
-            }
+            services.AddRemoting();
 
             // Xaml 
-            {
-                services.AddTransient<IXamlService, PortableXamlXamlService>();
-            }
-
+            services.AddXamlSupport();
 
             //Setup
             {
