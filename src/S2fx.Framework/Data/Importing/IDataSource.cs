@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using S2fx.Data.Importing.Model;
 
 namespace S2fx.Data.Importing {
 
     public interface IDataSource {
-        string Kind { get; }
+        string Format { get; }
 
-        IEnumerable<object> GetAllRows(DataSourceInfo dataSourceInfo);
+        IEnumerable<object> GetAllRows(Stream stream, string selector);
 
-        Func<object, object> BindInputPropertyGetter(string fromExpression);
+        Func<object, string> BindInputPropertyGetter(string sourceExpression);
     }
 
 }

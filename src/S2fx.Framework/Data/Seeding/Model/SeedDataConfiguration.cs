@@ -6,10 +6,11 @@ using S2fx.Data.Importing.Model;
 
 namespace S2fx.Data.Sedding.Model {
 
+    [XmlRoot("seed-data")]
     public class SeedDataConfiguration {
 
-        [XmlArrayItem("import")]
-        public ImportJobInfo[] Jobs { get; set; }
+        [XmlElement("import")]
+        public ImportDescriptor[] Jobs { get; set; } = new ImportDescriptor[] { };
     }
 
 }

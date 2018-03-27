@@ -44,9 +44,11 @@ namespace S2fx.Model.Metadata {
         public AbstractMetaPropertyAnnotation FindAnnotation(string name) => this.Annotations.FirstOrDefault(x => x.Name == name);
     }
 
+
     [DataContract]
     public class IdMetaProperty : MetaProperty {
     }
+
 
     [DataContract]
     public class RelationMetaProperty : MetaProperty {
@@ -61,11 +63,13 @@ namespace S2fx.Model.Metadata {
         public MetaProperty MappedBy { get; set; }
     }
 
+
     [DataContract]
     public class PrimitiveMetaProperty : MetaProperty, IMetaPropertyWithIsRequired {
         [DataMember]
         public bool IsRequired { get; set; }
     }
+
 
     [DataContract]
     public class ManyToOneMetaProperty : RelationMetaProperty, IMetaPropertyWithIsRequired {
@@ -73,14 +77,17 @@ namespace S2fx.Model.Metadata {
         public bool IsRequired { get; set; }
     }
 
+
     [DataContract]
     public class OneToManyMetaProperty : RelationMetaProperty {
     }
+
 
     [DataContract]
     public class ManyToManyMetaProperty : RelationMetaProperty {
         public string JoinTable { get; set; }
     }
+
 
     [DataContract]
     public class EnumerableMetaProperty : MetaProperty, IMetaPropertyWithIsRequired {

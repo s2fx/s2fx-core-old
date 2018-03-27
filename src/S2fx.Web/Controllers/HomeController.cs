@@ -15,18 +15,25 @@ using Microsoft.Extensions.DependencyInjection;
 using S2fx.Web.Rpc.Metadata;
 using S2fx.Web.Remoting;
 using S2fx.Model.Builtin;
+using S2fx.Data.Seeding;
 
 namespace S2fx.Web.Controllers {
 
     public class HomeController : Controller {
         private readonly IDatabaseMigrator _migrator;
+        private readonly IServiceProvider _services;
 
-        public HomeController(IHostingEnvironment env, IDatabaseMigrator migrator) {
+        public HomeController(IServiceProvider services, IDatabaseMigrator migrator) {
+            _services = services;
             _migrator = migrator;
         }
 
         public async Task<IActionResult> Index() {
             await _migrator.MigrateSchemeAsync();
+
+            var loader = _services.GetService<ISeedDataLoader>();
+            await loader.LoadAllSeedDataAsync();
+
             return View();
         }
     }

@@ -8,8 +8,9 @@ namespace S2fx.Data.Importing {
 
     public interface IDataImporter {
 
-        Task ImportAsync(ImportJob job);
-        Task ImportAsync(IEnumerable<ImportJob> jobs);
+        Task ImportAsync(ImportDescriptor job);
+
+        Task ImportAsync(IEnumerable<ImportDescriptor> jobs);
 
     }
 

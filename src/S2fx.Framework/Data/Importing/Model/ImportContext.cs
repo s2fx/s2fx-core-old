@@ -5,27 +5,24 @@ using S2fx.Model.Metadata;
 
 namespace S2fx.Data.Importing.Model {
 
-    public class ImportJob {
+    public class ImportContext {
 
         public Guid Id { get; } = Guid.NewGuid();
         public string Feature { get; }
         public MetaEntity Entity { get; }
-        public EntityBinder Bind { get; }
-        public DataSourceInfo DataSource { get; }
+        public IList<PropertyBinder> PropertyBinders { get; } = new List<PropertyBinder>();
+        public IDictionary<string, object> Properties { get; } = new Dictionary<string, object>();
         public IEnumerable<Guid> Dependencies { get; }
         public bool CanUpdate { get; }
 
-        public ImportJob(
+        public ImportContext(
             string feature,
             MetaEntity entity,
-            EntityBinder bind, DataSourceInfo dataSource,
             bool canUpdate = false,
             IEnumerable<Guid> dependencies = null) {
 
             this.Feature = feature ?? throw new ArgumentNullException(nameof(entity));
             this.Entity = entity ?? throw new ArgumentNullException(nameof(entity));
-            this.Bind = bind ?? throw new ArgumentNullException(nameof(bind));
-            this.DataSource = dataSource ?? throw new ArgumentNullException(nameof(dataSource));
             this.CanUpdate = canUpdate;
             this.Dependencies = dependencies ?? new Guid[] { };
         }

@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Newtonsoft.Json;
+using System.Xml.Serialization;
 
 namespace S2fx.Data.Importing.Model {
 
 
     public class PropertyBindingInfo {
 
-        [JsonProperty("from")]
-        public string FromExpression { get; set; }
+        [XmlAttribute("source")]
+        public string SourceExpression { get; set; }
 
-        [JsonProperty("property")]
+        [XmlAttribute("property")]
         public string TargetProperty { get; set; }
     }
 
