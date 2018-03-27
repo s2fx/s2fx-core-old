@@ -47,6 +47,8 @@ namespace S2fx.Data {
         Task DeleteManyAsync(Expression<Func<TEntity, bool>> predicate);
 
         Task<long> CountAsync();
+
+        Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate);
     }
 
 }

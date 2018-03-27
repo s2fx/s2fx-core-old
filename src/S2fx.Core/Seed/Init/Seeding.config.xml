@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <seed-data>
 
-    <import file="CoreSelection.xml" format="XML" entity="Core.Selection" path="/Data/CoreSelections/CoreSelection">
+    <import file="CoreSelection.xml" format="XML" entity="Core.Selection" path="/Data/CoreSelections/CoreSelection" 
+            where='it.Name == Name'>
         <bind source="@Name" property="Name" />
         <bind source="@DisplayName" property="DisplayName" />
         <bind source="@Feature" property="Feature" />

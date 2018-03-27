@@ -17,6 +17,7 @@
     <PackageReference Include="Portable.Xaml" Version="0.21.0" />
     <PackageReference Include="S2fx.LinqToQuerystring.Core" Version="0.7.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.2" />
   </ItemGroup>
 
   <ItemGroup>

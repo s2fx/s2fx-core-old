@@ -37,7 +37,7 @@ namespace S2fx.Data.Importing.Model {
         public IFileProvider FileProvider { get; set; }
 
         [XmlElement("bind")]
-        public PropertyBindingInfo[] PropertyBindingInfos { get; set; }
+        public PropertyBindingDescriptors[] PropertyBindings { get; set; }
     }
 
 }

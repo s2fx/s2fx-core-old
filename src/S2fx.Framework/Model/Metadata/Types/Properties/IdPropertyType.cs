@@ -25,6 +25,10 @@ namespace S2fx.Model.Metadata.Types {
                 ClrPropertyInfo = propertyInfo
             };
         }
+
+        public override bool TryParsePropertyValue(string s, out object value) {
+            throw new NotSupportedException();
+        }
     }
 
 }

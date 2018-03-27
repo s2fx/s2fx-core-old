@@ -102,5 +102,8 @@ namespace S2fx.Data.NHibernate {
 
         public Task<long> CountAsync() =>
             this.Table.LongCountAsync();
+
+        public Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate) =>
+            this.Table.LongCountAsync(predicate);
     }
 }

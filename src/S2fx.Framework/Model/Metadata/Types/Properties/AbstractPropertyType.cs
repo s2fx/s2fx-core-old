@@ -10,6 +10,8 @@ namespace S2fx.Model.Metadata.Types {
         public abstract string Name { get; }
 
         public abstract MetaProperty LoadClrProperty(PropertyInfo propertyInfo);
+
+        public abstract bool TryParsePropertyValue(string s, out object value);
     }
 
 }

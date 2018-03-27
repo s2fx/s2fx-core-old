@@ -11,7 +11,7 @@ namespace S2fx.Model {
         [IdProperty]
         public virtual long Id { get; set; }
 
-        public virtual bool IsPersistent => Id <= 0;
+        public virtual bool IsPersistent => Id > 0;
     }
 
     public abstract class AbstractAuditedEntity : AbstractEntity, IAuditedEntity {

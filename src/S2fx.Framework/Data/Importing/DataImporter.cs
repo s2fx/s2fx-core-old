@@ -29,8 +29,8 @@ namespace S2fx.Data.Importing {
 
             using (var stream = job.ImportFileInfo.CreateReadStream()) {
                 var rows = dataSource.GetAllRows(stream, job.Selector);
-                var recordImporterType = typeof(RecordDataImporter<>).MakeGenericType(context.Entity.ClrType);
-                var recordImporter = Activator.CreateInstance(recordImporterType, _services) as IRecordDataImporter;
+                var recordImporterType = typeof(RecordImporter<>).MakeGenericType(context.Entity.ClrType);
+                var recordImporter = Activator.CreateInstance(recordImporterType, _services, job.Where) as IRecordImporter;
 
                 foreach (var row in rows) {
                     await ImportSingleRecordAsync(context, recordImporter, row);
@@ -47,17 +47,45 @@ namespace S2fx.Data.Importing {
             }
         }
 
-        private static async Task ImportSingleRecordAsync(ImportContext context, IRecordDataImporter recordImporter, object row) {
-            var record = Activator.CreateInstance(context.Entity.ClrType);
+        private static async Task ImportSingleRecordAsync(
+            ImportContext context, IRecordImporter recordImporter, object row) {
+
+            var propValues = new Dictionary<string, object>(context.PropertyBinders.Count());
             foreach (var propBind in context.PropertyBinders) {
 
-                var propertyValue = propBind.SourceGetter(row);
-                var propertyInfo = context.Entity.Properties[propBind.TargetProperty];
-                //set the property 
-                //TODO
-                propertyInfo.ClrPropertyInfo.SetValue(record, propertyValue);
+                var propertyValueExpression = propBind.SourceGetter(row);
+                var metaProperty = context.Entity.Properties[propBind.TargetProperty];
+                if (metaProperty.Type.TryParsePropertyValue(propertyValueExpression, out var propertyValue)) {
+                    propValues.Add(metaProperty.Name, propertyValue);
+                }
+                else {
+                    throw new DataImportingException(
+                        $"Unable to parse the expression '{propertyValueExpression}' " +
+                        "for property '{metaProperty.Entity.Name}#{metaProperty.Name}'");
+                }
             }
-            await recordImporter.ImportAsync(record, context.CanUpdate);
+
+            var symbols = propValues
+                .ToDictionary(x => x.Key, x => x.Value);
+
+            var existedRecord = await recordImporter.FindExistedRecordAsync(symbols);
+
+            var needsImportRecord =
+                (existedRecord == null)
+                || (existedRecord != null && context.CanUpdate);
+
+            if (!needsImportRecord) {
+                return;
+            }
+
+            var record = existedRecord ?? Activator.CreateInstance(context.Entity.ClrType);
+
+            foreach (var propPair in propValues) {
+                var metaProperty = context.Entity.Properties[propPair.Key];
+                metaProperty.ClrPropertyInfo.SetValue(record, propPair.Value);
+            }
+
+            await recordImporter.InsertOrUpdateEntityAsync(record, context.CanUpdate);
         }
 
         private ImportContext CreateImportContext(ImportDescriptor job) {
@@ -67,7 +95,7 @@ namespace S2fx.Data.Importing {
             //Populates property binders
             var ds = _dataSources.Single(x => x.Format == job.Format);
 
-            foreach (var pbi in job.PropertyBindingInfos) {
+            foreach (var pbi in job.PropertyBindings) {
                 var sourceGetter = ds.BindInputPropertyGetter(pbi.SourceExpression);
                 var binder = new PropertyBinder(sourceGetter, pbi.TargetProperty);
                 context.PropertyBinders.Add(binder);

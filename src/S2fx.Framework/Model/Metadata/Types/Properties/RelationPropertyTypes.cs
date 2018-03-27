@@ -21,6 +21,10 @@ namespace S2fx.Model.Metadata.Types {
                 throw new EntityDefinitionException($"The property '{propertyInfo.Name}' of entity '{refEntityName}' must be a ICollection<T>");
             }
         }
+
+        public override bool TryParsePropertyValue(string s, out object value) {
+            throw new NotSupportedException();
+        }
     }
 
     public class ManyToOnePropertyType : AbstractRelationPropertyType {
