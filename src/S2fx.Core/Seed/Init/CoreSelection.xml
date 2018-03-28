@@ -6,5 +6,5 @@
         <CoreSelection Feature="S2fx.Core" Name="Selection2" DisplayName="Core.Selection 2" />
         <CoreSelection Feature="S2fx.Core" Name="Selection3" DisplayName="Core.Selection 3" />
     </CoreSelections>
-    
+
 </Data>

@@ -59,7 +59,7 @@ namespace S2fx.Data.Seeding {
 
             foreach (var job in jobs) {
                 if (this.Logger.IsEnabled(LogLevel.Information)) {
-                    this.Logger.LogInformation("Loading seed data: [File={0}, Selector={1}]", job.File, job.Selector);
+                    this.Logger.LogInformation("Loading seed data: [File={0}, Selector={1}]", job.File, job.EntityBinding.Selector);
                     await _importer.ImportAsync(jobs);
                 }
             }

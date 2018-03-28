@@ -28,9 +28,9 @@ namespace S2fx.Data.Importing {
             var dataSource = _dataSources.Single(x => x.Format == job.Format);
 
             using (var stream = job.ImportFileInfo.CreateReadStream()) {
-                var rows = dataSource.GetAllRows(stream, job.Selector);
+                var rows = dataSource.GetAllRows(stream, job.EntityBinding.Selector);
                 var recordImporterType = typeof(RecordImporter<>).MakeGenericType(context.Entity.ClrType);
-                var recordImporter = Activator.CreateInstance(recordImporterType, _services, job.Where) as IRecordImporter;
+                var recordImporter = (IRecordImporter)Activator.CreateInstance(recordImporterType, _services, job.EntityBinding.Where);
 
                 foreach (var row in rows) {
                     await ImportSingleRecordAsync(context, recordImporter, row);
@@ -90,12 +90,12 @@ namespace S2fx.Data.Importing {
 
         private ImportContext CreateImportContext(ImportDescriptor job) {
             var entity = _entityManager.GetEntity(job.Entity);
-            var context = new ImportContext(job.Feature, entity, job.CanUpdate, null);
+            var context = new ImportContext(job.Feature, entity, job.EntityBinding.CanUpdate, null);
 
             //Populates property binders
             var ds = _dataSources.Single(x => x.Format == job.Format);
 
-            foreach (var pbi in job.PropertyBindings) {
+            foreach (var pbi in job.EntityBinding.Properties) {
                 var sourceGetter = ds.BindInputPropertyGetter(pbi.SourceExpression);
                 var binder = new PropertyBinder(sourceGetter, pbi.TargetProperty);
                 context.PropertyBinders.Add(binder);

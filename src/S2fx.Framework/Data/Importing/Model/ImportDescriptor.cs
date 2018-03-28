@@ -18,17 +18,8 @@ namespace S2fx.Data.Importing.Model {
         [XmlAttribute("feature")]
         public string Feature { get; set; }
 
-        [XmlAttribute("update")]
-        public bool CanUpdate { get; set; } = false;
-
         [Required, XmlAttribute("file")]
         public string File { get; set; }
-
-        [Required, XmlAttribute("path")]
-        public string Selector { get; set; }
-
-        [XmlAttribute("where")]
-        public string Where { get; set; }
 
         [XmlIgnore]
         public IFileInfo ImportFileInfo { get; set; }
@@ -36,8 +27,8 @@ namespace S2fx.Data.Importing.Model {
         [XmlIgnore]
         public IFileProvider FileProvider { get; set; }
 
-        [XmlElement("bind")]
-        public PropertyBindingDescriptors[] PropertyBindings { get; set; }
+        [XmlElement("entity")]
+        public EntityBinding EntityBinding { get; set; }
     }
 
 }
