@@ -34,6 +34,9 @@ namespace S2fx.Data.Importing.Model {
 
         [Required, XmlElement("property")]
         public PropertyBinding[] Children { get; set; } = new PropertyBinding[] { };
+
+        [XmlIgnore]
+        public Func<object, string> SourceGetter { get; set; }
     }
 
 }

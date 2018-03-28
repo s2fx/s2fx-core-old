@@ -9,6 +9,7 @@ namespace S2fx.Core {
 
         public override void ConfigureServices(IServiceCollection services) {
             services.AddSlipStreamFramework();
+
             services.AddTransient<ITestService, TestService>();
         }
     }

@@ -9,8 +9,8 @@ namespace S2fx.Data.Importing.Model {
 
     public class ImportDescriptor {
 
-        [Required, XmlAttribute("format")]
-        public string Format { get; set; }
+        [Required, XmlAttribute("data-source")]
+        public string DataSource { get; set; }
 
         [Required, XmlAttribute("entity")]
         public string Entity { get; set; }

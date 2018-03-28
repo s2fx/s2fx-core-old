@@ -11,7 +11,7 @@ namespace S2fx.Data.Importing {
 
         IEnumerable<object> GetAllRows(Stream stream, string selector);
 
-        Func<object, string> BindInputPropertyGetter(string sourceExpression);
+        Func<object, string> CreateInputPropertyValueTextGetter(string sourceExpression);
     }
 
 }

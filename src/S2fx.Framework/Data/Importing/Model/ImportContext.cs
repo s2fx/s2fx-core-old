@@ -10,20 +10,19 @@ namespace S2fx.Data.Importing.Model {
         public Guid Id { get; } = Guid.NewGuid();
         public string Feature { get; }
         public MetaEntity Entity { get; }
-        public IList<PropertyBinder> PropertyBinders { get; } = new List<PropertyBinder>();
         public IDictionary<string, object> Properties { get; } = new Dictionary<string, object>();
         public IEnumerable<Guid> Dependencies { get; }
-        public bool CanUpdate { get; }
+        public EntityBinding EntityBinding { get; }
 
         public ImportContext(
             string feature,
             MetaEntity entity,
-            bool canUpdate = false,
+            EntityBinding entityBinding,
             IEnumerable<Guid> dependencies = null) {
 
             this.Feature = feature ?? throw new ArgumentNullException(nameof(entity));
             this.Entity = entity ?? throw new ArgumentNullException(nameof(entity));
-            this.CanUpdate = canUpdate;
+            this.EntityBinding = entityBinding ?? throw new ArgumentNullException(nameof(entity));
             this.Dependencies = dependencies ?? new Guid[] { };
         }
 

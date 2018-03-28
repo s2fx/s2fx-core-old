@@ -25,7 +25,7 @@ namespace S2fx.Data.Importing {
 
         public async Task ImportAsync(ImportDescriptor job) {
             var context = this.CreateImportContext(job);
-            var dataSource = _dataSources.Single(x => x.Format == job.Format);
+            var dataSource = _dataSources.Single(x => x.Format == job.DataSource);
 
             using (var stream = job.ImportFileInfo.CreateReadStream()) {
                 var rows = dataSource.GetAllRows(stream, job.EntityBinding.Selector);
@@ -50,8 +50,8 @@ namespace S2fx.Data.Importing {
         private static async Task ImportSingleRecordAsync(
             ImportContext context, IRecordImporter recordImporter, object row) {
 
-            var propValues = new Dictionary<string, object>(context.PropertyBinders.Count());
-            foreach (var propBind in context.PropertyBinders) {
+            var propValues = new Dictionary<string, object>(context.EntityBinding.Properties.Count());
+            foreach (var propBind in context.EntityBinding.Properties) {
 
                 var propertyValueExpression = propBind.SourceGetter(row);
                 var metaProperty = context.Entity.Properties[propBind.TargetProperty];
@@ -72,7 +72,7 @@ namespace S2fx.Data.Importing {
 
             var needsImportRecord =
                 (existedRecord == null)
-                || (existedRecord != null && context.CanUpdate);
+                || (existedRecord != null && context.EntityBinding.CanUpdate);
 
             if (!needsImportRecord) {
                 return;
@@ -85,20 +85,19 @@ namespace S2fx.Data.Importing {
                 metaProperty.ClrPropertyInfo.SetValue(record, propPair.Value);
             }
 
-            await recordImporter.InsertOrUpdateEntityAsync(record, context.CanUpdate);
+            await recordImporter.InsertOrUpdateEntityAsync(record, context.EntityBinding.CanUpdate);
         }
 
         private ImportContext CreateImportContext(ImportDescriptor job) {
             var entity = _entityManager.GetEntity(job.Entity);
-            var context = new ImportContext(job.Feature, entity, job.EntityBinding.CanUpdate, null);
+            var context = new ImportContext(job.Feature, entity, job.EntityBinding, null);
 
             //Populates property binders
-            var ds = _dataSources.Single(x => x.Format == job.Format);
+            var ds = _dataSources.Single(x => x.Format == job.DataSource);
 
-            foreach (var pbi in job.EntityBinding.Properties) {
-                var sourceGetter = ds.BindInputPropertyGetter(pbi.SourceExpression);
-                var binder = new PropertyBinder(sourceGetter, pbi.TargetProperty);
-                context.PropertyBinders.Add(binder);
+            foreach (var propertyBinding in job.EntityBinding.Properties) {
+                propertyBinding.SourceGetter = ds.CreateInputPropertyValueTextGetter(propertyBinding.SourceExpression);
+                //var binder = new PropertyBinder(sourceGetter, pbi.TargetProperty);
             }
 
             return context;
