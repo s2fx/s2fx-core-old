@@ -22,7 +22,7 @@ namespace S2fx.Model {
         [ManyToOneProperty(UserEntity.EntityName)]
         public virtual UserEntity UpdatedBy { get; set; }
 
-        public virtual DateTime CreatedOn { get; set; }
+        public virtual DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
         public virtual DateTime? UpdatedOn { get; set; }
 

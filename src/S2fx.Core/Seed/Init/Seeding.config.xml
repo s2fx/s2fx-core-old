@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <seed-data>
 
-    <import file="CoreSelection.xml" data-source="XML" entity="Core.Selection">
+    <import file="CoreSelectionData.xml" data-source="XML" entity="Core.Selection">
         <entity selector="/Data/CoreSelections/CoreSelection" where="it.Name == Name" update="false">
             <property source="@Name" target="Name" />
             <property source="@DisplayName" target="DisplayName" />
             <property source="@Feature" target="Feature" />
+        </entity>
+    </import>
+
+    <import file="SecurityData.xml" data-source="XML" entity="Core.Role">
+        <entity selector="/Data/Roles/Role" where="it.Name == Name" update="false">
+            <property source="@Name" target="Name" />
+            <property source="@DisplayName" target="DisplayName" />
         </entity>
     </import>
 
