@@ -22,9 +22,6 @@ namespace S2fx.Model.Metadata.Types {
             }
         }
 
-        public override bool TryParsePropertyValue(string s, out object value) {
-            throw new NotSupportedException();
-        }
     }
 
     public class ManyToOnePropertyType : AbstractRelationPropertyType {
@@ -46,6 +43,10 @@ namespace S2fx.Model.Metadata.Types {
                 MappedByPropertyName = mappedByPropertyName,
                 RefEntityName = manyToOneAttr.RefEntity ?? refEntityAttr.Name,
             };
+        }
+
+        public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
+            throw new NotSupportedException();
         }
 
     }
@@ -72,17 +73,9 @@ namespace S2fx.Model.Metadata.Types {
             };
         }
 
-        /*
-        protected MetaEntity InferRefEntity(MetaProperty property) {
-            var clrType = property.ClrPropertyInfo.PropertyType;
-            if (clrType.IsGenericType && clrType.GetGenericTypeDefinition() == typeof(ICollection<>)) {
-                return this.Entities.GetEntityByClrType(clrType.GetGenericArguments().First());
-            }
-            else {
-                return this.Entities.GetEntityByClrType(clrType);
-            }
+        public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
+            throw new NotSupportedException();
         }
-        */
     }
 
     public class ManyToManyPropertyType : AbstractRelationPropertyType {
@@ -109,5 +102,10 @@ namespace S2fx.Model.Metadata.Types {
                 JoinTable = joinTable,
             };
         }
+
+        public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
+            throw new NotSupportedException();
+        }
     }
+
 }

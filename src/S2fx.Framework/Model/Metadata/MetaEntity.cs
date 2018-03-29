@@ -18,6 +18,10 @@ namespace S2fx.Model.Metadata {
 
         public Type ClrType { get; set; }
 
+        public int Order { get; set; }
+
+        public IEnumerable<string> Dependencies { get; set; }
+
         [DataMember]
         public IDictionary<string, MetaProperty> Properties { get; } = new Dictionary<string, MetaProperty>();
 

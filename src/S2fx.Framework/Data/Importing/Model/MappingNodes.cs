@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace S2fx.Data.Importing.Model {
 
-    public abstract class BindingNode {
+    public abstract class MappingNode {
         [XmlAttribute("where")]
         public string Where { get; set; }
 
@@ -15,25 +15,28 @@ namespace S2fx.Data.Importing.Model {
 
     }
 
-    public class EntityBinding : BindingNode {
+    public class EntityMapping : MappingNode {
 
         [Required, XmlAttribute("selector")]
         public string Selector { get; set; }
 
-        [Required, XmlElement("property")]
-        public PropertyBinding[] Properties { get; set; } = new PropertyBinding[] { };
+        [Required, XmlElement("map")]
+        public PropertyMapping[] PropertyMappings { get; set; } = new PropertyMapping[] { };
     }
 
-    public class PropertyBinding : BindingNode {
+    public class PropertyMapping : MappingNode {
 
         [XmlAttribute("source")]
         public string SourceExpression { get; set; }
 
-        [XmlAttribute("target")]
+        [XmlAttribute("property")]
         public string TargetProperty { get; set; }
 
-        [Required, XmlElement("property")]
-        public PropertyBinding[] Children { get; set; } = new PropertyBinding[] { };
+        [XmlAttribute("format")]
+        public string Format { get; set; }
+
+        [Required, XmlElement("map")]
+        public PropertyMapping[] Children { get; set; } = new PropertyMapping[] { };
 
         [XmlIgnore]
         public Func<object, string> SourceGetter { get; set; }

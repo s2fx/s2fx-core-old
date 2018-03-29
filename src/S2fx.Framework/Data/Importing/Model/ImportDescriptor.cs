@@ -27,8 +27,8 @@ namespace S2fx.Data.Importing.Model {
         [XmlIgnore]
         public IFileProvider FileProvider { get; set; }
 
-        [XmlElement("entity")]
-        public EntityBinding EntityBinding { get; set; }
+        [XmlElement("map")]
+        public EntityMapping EntityMapping { get; set; }
     }
 
 }

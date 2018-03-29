@@ -26,8 +26,10 @@ namespace S2fx.Model.Metadata.Types {
             };
         }
 
-        public override bool TryParsePropertyValue(string s, out object value) {
-            throw new NotSupportedException();
+        public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
+            var succeed = long.TryParse(value, out var typedValue);
+            result = typedValue;
+            return succeed;
         }
     }
 

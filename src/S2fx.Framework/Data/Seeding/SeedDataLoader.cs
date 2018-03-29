@@ -36,9 +36,15 @@ namespace S2fx.Data.Seeding {
             var allInitData = await _harvester.HarvestInitDataAsync();
             var allDemoData = await _harvester.HarvestDemoDataAsync();
 
+            if (this.Logger.IsEnabled(LogLevel.Information)) {
+                this.Logger.LogInformation("Loading all seed data for initialization...");
+            }
             await this.LoadSeedDataAsync(allInitData.Select(x => x.Feature), false);
 
             if (withDemoData) {
+                if (this.Logger.IsEnabled(LogLevel.Information)) {
+                    this.Logger.LogInformation("Loading all seed data for demostration...");
+                }
                 await this.LoadSeedDataAsync(allDemoData.Select(x => x.Feature), true);
             }
         }
@@ -59,7 +65,7 @@ namespace S2fx.Data.Seeding {
 
             foreach (var job in jobs) {
                 if (this.Logger.IsEnabled(LogLevel.Information)) {
-                    this.Logger.LogInformation("Loading seed data: [File={0}, Selector={1}]", job.File, job.EntityBinding.Selector);
+                    this.Logger.LogInformation("Loading seed data file: [File={0}, Selector={1}]", job.File, job.EntityMapping.Selector);
                     await _importer.ImportAsync(jobs);
                 }
             }

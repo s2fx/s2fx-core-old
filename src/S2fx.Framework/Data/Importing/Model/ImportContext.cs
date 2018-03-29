@@ -12,12 +12,12 @@ namespace S2fx.Data.Importing.Model {
         public MetaEntity Entity { get; }
         public IDictionary<string, object> Properties { get; } = new Dictionary<string, object>();
         public IEnumerable<Guid> Dependencies { get; }
-        public EntityBinding EntityBinding { get; }
+        public EntityMapping EntityBinding { get; }
 
         public ImportContext(
             string feature,
             MetaEntity entity,
-            EntityBinding entityBinding,
+            EntityMapping entityBinding,
             IEnumerable<Guid> dependencies = null) {
 
             this.Feature = feature ?? throw new ArgumentNullException(nameof(entity));
