@@ -13,7 +13,7 @@ namespace S2fx.Remoting {
     public class RemoteServiceManager : IRemoteServiceManager {
         private readonly IServiceProvider _services;
         private bool _loaded = false;
-        public ILogger<RemoteServiceManager> Logger { get; }
+        public ILogger Logger { get; }
         private object InitializationLock = new object();
         private readonly List<RemoteServiceInfo> _remoteServices = new List<RemoteServiceInfo>();
 
@@ -27,6 +27,11 @@ namespace S2fx.Remoting {
             return this._remoteServices;
         }
 
+        public RemoteServiceInfo GetRemoteService(string name) {
+            this.EnsureInitialized();
+            return this._remoteServices.Single(x => x.Name == name);
+        }
+
         public Task<IEnumerable<RemoteServiceInfo>> LoadRemoteServicesAsync() {
             this.EnsureInitialized();
             return Task.FromResult(this._remoteServices.AsEnumerable());
@@ -38,7 +43,6 @@ namespace S2fx.Remoting {
             }
             var remoteServiceProviders = _services.GetServices<IRemoteServiceProvider>();
             var metadataProviders = _services.GetServices<IRemoteServiceMetadataProvider>();
-            var typeFeatureProvider = _services.GetRequiredService<ITypeFeatureProvider>();
             lock (this.InitializationLock) {
                 foreach (var metadataProvider in metadataProviders) {
                     var services = Task.Run(metadataProvider.GetAllServicesAsync).Result;
@@ -46,17 +50,23 @@ namespace S2fx.Remoting {
                         this.Logger.LogInformation("Remote service found: [Feature={0}, Type={1}]", s.Feature.Id, s.Name);
                         _remoteServices.Add(s);
 
-                        //Register the dynamic API controller type to Orchard's TypeFeatureProvider
-                        //foreach
-                        foreach (var rsp in remoteServiceProviders) {
-                            var implType = rsp.MakeImplementationType(s);
-                            typeFeatureProvider.TryAdd(implType, s.Feature);
-                        }
+                        //this.TryRegisterRemoteServiceProxyType(remoteServiceProviders, s);
                     }
                 }
                 _loaded = true;
             }
         }
 
+        private void TryRegisterRemoteServiceProxyType(IEnumerable<IRemoteServiceProvider> remoteServiceProviders, RemoteServiceInfo s) {
+            //Register the dynamic API controller type to Orchard's TypeFeatureProvider
+            //foreach
+            var typeFeatureProvider = _services.GetRequiredService<ITypeFeatureProvider>();
+            foreach (var rsp in remoteServiceProviders) {
+                if (rsp.IsRemoteServiceProxyTypeRequired) {
+                    var implType = rsp.MakeRemoteServiceProxyType(s);
+                    typeFeatureProvider.TryAdd(implType, s.Feature);
+                }
+            }
+        }
     }
 }

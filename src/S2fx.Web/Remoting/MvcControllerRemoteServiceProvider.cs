@@ -9,7 +9,9 @@ namespace S2fx.Web.Remoting {
     public class MvcControllerRemoteServiceProvider : IRemoteServiceProvider {
         public string Name => "AspNetCoreController";
 
-        public Type MakeImplementationType(RemoteServiceInfo service) {
+        public bool IsRemoteServiceProxyTypeRequired => true;
+
+        public Type MakeRemoteServiceProxyType(RemoteServiceInfo service) {
             return service.ClrType;
         }
     }

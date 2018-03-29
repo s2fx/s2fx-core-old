@@ -4,17 +4,21 @@ using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using S2fx.Remoting;
+using S2fx.Remoting.Model;
 
 namespace S2fx.Web.Remoting {
 
-    public class RemoteServiceControllerNameConvention : IControllerModelConvention {
+    public class RemoteServiceControllerNameConvention : AbstractRemoteServiceControllerModelConvention {
 
-        public void Apply(ControllerModel controller) {
-            var remoteServiceAttr = controller.ControllerType.GetCustomAttribute<RemoteServiceAttribute>();
-            if (remoteServiceAttr != null) {
-                controller.ControllerName = remoteServiceAttr.Name;
-            }
+        public RemoteServiceControllerNameConvention(IServiceProvider services) : base(services) {
+
         }
+
+        protected override void ApplyOnRemoteServiceController(ControllerModel controller, RemoteServiceInfo remoteService) {
+            controller.ControllerName = remoteService.Name;
+        }
+
+
     }
 
 }

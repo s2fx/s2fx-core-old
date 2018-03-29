@@ -22,6 +22,7 @@ using S2fx.Environment;
 namespace Microsoft.Extensions.DependencyInjection {
 
     public static class ServiceCollectionExtensions {
+
         public static void AddSlipStreamFramework(this IServiceCollection services) {
 
             //environment
@@ -34,6 +35,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             //Remoting 
             services.AddRemoting();
+            services.AddBuiltinRemoteServices();
 
             // Xaml 
             services.AddXamlSupport();

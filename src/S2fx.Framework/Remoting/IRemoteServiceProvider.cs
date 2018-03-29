@@ -8,7 +8,8 @@ namespace S2fx.Remoting {
     public interface IRemoteServiceProvider {
 
         string Name { get; }
-        Type MakeImplementationType(RemoteServiceInfo service);
+        bool IsRemoteServiceProxyTypeRequired { get; }
+        Type MakeRemoteServiceProxyType(RemoteServiceInfo service);
 
     }
 

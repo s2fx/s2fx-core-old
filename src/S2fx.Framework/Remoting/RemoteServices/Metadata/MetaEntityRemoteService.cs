@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.AspNetCore.Mvc;
 using S2fx.Model;
 using S2fx.Model.Metadata;
 using S2fx.Remoting;
+using S2fx.Remoting.RemoteServices.Metadata;
 
-namespace S2fx.Web.Rpc.Metadata {
+namespace S2fx.Remoting.RemoteServices.Metadata {
 
-    [RemoteService(Name = "MetaEntity")]
+    [RemoteService(name: "MetaEntity")]
     public class MetaEntityRemoteService {
         private readonly IEntityManager _entityManager;
 
@@ -16,11 +16,13 @@ namespace S2fx.Web.Rpc.Metadata {
             _entityManager = entityManager;
         }
 
-        public IReadOnlyDictionary<string, MetaEntity> All() {
+        [RemoteServiceMethod]
+        public virtual IReadOnlyDictionary<string, MetaEntity> All() {
             return _entityManager.GetEntities();
         }
 
-        public MetaEntity Single(string name) {
+        [RemoteServiceMethod]
+        public virtual MetaEntity Single(string name) {
             return _entityManager.GetEntity(name);
         }
     }

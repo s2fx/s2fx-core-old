@@ -36,9 +36,12 @@ namespace S2fx.Data.Seeding {
             var allInitData = await _harvester.HarvestInitDataAsync();
             var allDemoData = await _harvester.HarvestDemoDataAsync();
 
+
             if (this.Logger.IsEnabled(LogLevel.Information)) {
                 this.Logger.LogInformation("Loading all seed data for initialization...");
             }
+
+            var startedOn = DateTime.UtcNow;
             await this.LoadSeedDataAsync(allInitData.Select(x => x.Feature), false);
 
             if (withDemoData) {
@@ -46,6 +49,11 @@ namespace S2fx.Data.Seeding {
                     this.Logger.LogInformation("Loading all seed data for demostration...");
                 }
                 await this.LoadSeedDataAsync(allDemoData.Select(x => x.Feature), true);
+            }
+
+            var elapsedTime = DateTime.UtcNow - startedOn;
+            if (this.Logger.IsEnabled(LogLevel.Information)) {
+                this.Logger.LogInformation("All seed data loaded. Elapsed time: {0}", elapsedTime);
             }
         }
 
