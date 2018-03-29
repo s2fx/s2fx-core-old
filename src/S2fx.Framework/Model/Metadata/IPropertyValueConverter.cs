@@ -6,7 +6,7 @@ namespace S2fx.Model.Metadata {
 
     public interface IPropertyValueConverter {
 
-        bool TryParsePropertyValue(string value, out object result);
+        bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null);
 
     }
 }
