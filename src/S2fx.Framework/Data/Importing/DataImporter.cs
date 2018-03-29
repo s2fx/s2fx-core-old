@@ -17,6 +17,8 @@ namespace S2fx.Data.Importing {
         private readonly IEntityManager _entityManager;
         private readonly IEnumerable<IDataSource> _dataSources;
 
+        public event EventHandler<EntityRecordImportedEventArgs> EntityRecordImported;
+
         public DataImporter(IServiceProvider services, IEntityManager entityManager, IEnumerable<IDataSource> dataSources) {
             _services = services;
             _entityManager = entityManager;
@@ -47,7 +49,7 @@ namespace S2fx.Data.Importing {
             }
         }
 
-        private static async Task ImportSingleRecordAsync(
+        private async Task ImportSingleRecordAsync(
             ImportContext context, IRecordImporter recordImporter, object row) {
 
             var propValues = new Dictionary<string, object>(context.EntityBinding.PropertyMappings.Count());
@@ -86,6 +88,7 @@ namespace S2fx.Data.Importing {
             }
 
             await recordImporter.InsertOrUpdateEntityAsync(record, context.EntityBinding.CanUpdate);
+            this.EntityRecordImported?.Invoke(this, new EntityRecordImportedEventArgs(context.Entity, record));
         }
 
         private ImportContext CreateImportContext(ImportDescriptor job) {

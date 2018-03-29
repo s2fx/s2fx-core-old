@@ -8,6 +8,8 @@ namespace S2fx.Data.Importing {
 
     public interface IDataImporter {
 
+        event EventHandler<EntityRecordImportedEventArgs> EntityRecordImported;
+
         Task ImportAsync(ImportDescriptor job);
 
         Task ImportAsync(IEnumerable<ImportDescriptor> jobs);
