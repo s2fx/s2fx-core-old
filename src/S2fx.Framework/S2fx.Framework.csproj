@@ -10,15 +10,15 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.1" />
-    <PackageReference Include="OrchardCore.BackgroundTasks.Abstractions" Version="1.0.0-beta2-5043" />
-    <PackageReference Include="OrchardCore.Environment.Extensions.Abstractions" Version="1.0.0-beta2-5043" />
-    <PackageReference Include="OrchardCore.Environment.Shell.Abstractions" Version="1.0.0-beta2-5043" />
-    <PackageReference Include="OrchardCore.Modules.Abstractions" Version="1.0.0-beta2-5043" />
-    <PackageReference Include="OrchardCore.Users.Abstractions" Version="1.0.0-beta2-5043" />
+    <PackageReference Include="OrchardCore.BackgroundTasks.Abstractions" Version="1.0.0-beta2-5112" />
+    <PackageReference Include="OrchardCore.Environment.Extensions.Abstractions" Version="1.0.0-beta2-5112" />
+    <PackageReference Include="OrchardCore.Environment.Shell.Abstractions" Version="1.0.0-beta2-5112" />
+    <PackageReference Include="OrchardCore.Modules.Abstractions" Version="1.0.0-beta2-5112" />
+    <PackageReference Include="OrchardCore.Users.Abstractions" Version="1.0.0-beta2-5112" />
     <PackageReference Include="Portable.Xaml" Version="0.21.0" />
     <PackageReference Include="S2fx.LinqToQuerystring.Core" Version="0.7.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.2" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.3" />
   </ItemGroup>
 
   <ItemGroup>

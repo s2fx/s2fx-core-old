@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Client\node_modules\**" />
+    <Compile Remove="wwwroot\dist\**" />
+    <Compile Remove="wwwroot\ng-client\**" />
+    <EmbeddedResource Remove="Client\node_modules\**" />
+    <EmbeddedResource Remove="wwwroot\dist\**" />
+    <EmbeddedResource Remove="wwwroot\ng-client\**" />
+    <None Remove="Client\node_modules\**" />
+    <None Remove="wwwroot\dist\**" />
+    <None Remove="wwwroot\ng-client\**" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.2" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-5112" />
+    <PackageReference Include="OrchardCore.Modules" Version="1.0.0-beta2-5112" />
+    <PackageReference Include="OrchardCore.Mvc.Core" Version="1.0.0-beta2-5112" />
+  </ItemGroup>
+
+</Project>

@@ -47,7 +47,8 @@ namespace S2fx.Remoting {
                 foreach (var metadataProvider in metadataProviders) {
                     var services = Task.Run(metadataProvider.GetAllServicesAsync).Result;
                     foreach (var s in services) {
-                        this.Logger.LogInformation("Remote service found: [Feature={0}, Type={1}]", s.Feature.Id, s.Name);
+                        this.Logger.LogInformation("Remote service found: [Feature={0}, Type={1}, Provider={2}]", 
+                            s.Feature.Id, s.Name, metadataProvider.GetType().FullName);
                         _remoteServices.Add(s);
 
                         //this.TryRegisterRemoteServiceProxyType(remoteServiceProviders, s);
