@@ -6,14 +6,10 @@
 
   <ItemGroup>
     <Compile Remove="Client\node_modules\**" />
-    <Compile Remove="wwwroot\dist\**" />
-    <Compile Remove="wwwroot\ng-client\**" />
     <EmbeddedResource Remove="Client\node_modules\**" />
-    <EmbeddedResource Remove="wwwroot\dist\**" />
-    <EmbeddedResource Remove="wwwroot\ng-client\**" />
     <None Remove="Client\node_modules\**" />
-    <None Remove="wwwroot\dist\**" />
-    <None Remove="wwwroot\ng-client\**" />
+    <Folder Include="Client\src\app\model\" />
+    <Folder Include="Client\src\app\s2client\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
