@@ -13,6 +13,7 @@ using S2fx.Environment.Extensions.Entity;
 using S2fx.Environment.Shell;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Conventions;
+using S2fx.Model.Services;
 using S2fx.Remoting;
 
 namespace S2fx.Model {
@@ -31,6 +32,9 @@ namespace S2fx.Model {
 
             //visitors
             services.AddTransient<ConventionMetadataVisitor>();
+
+            //internal services
+            services.AddTransient<ISequenceService, SequenceService>();
         }
 
     }

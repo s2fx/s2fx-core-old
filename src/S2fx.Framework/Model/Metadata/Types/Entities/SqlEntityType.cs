@@ -34,7 +34,8 @@ namespace S2fx.Model.Metadata.Types {
                 Name = entityAttribute.Name,
                 DisplayName = displayName,
                 ClrType = entityType,
-                Attributes = entityType.GetCustomAttributes()
+                Feature = descriptor.Feature,
+                Attributes = entityType.GetCustomAttributes(),
             };
 
             var allPropertyTypes = _propertyTypes;

@@ -52,10 +52,11 @@ namespace S2fx.Model.Metadata {
 
     [DataContract]
     public class RelationMetaProperty : MetaProperty {
-        [DataMember]
+
+        [DataMember(Name = "refEntity")]
         public string RefEntityName { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "mappedBy")]
         public string MappedByPropertyName { get; set; }
 
         public MetaEntity RefEntity { get; set; }
@@ -66,6 +67,7 @@ namespace S2fx.Model.Metadata {
 
     [DataContract]
     public class PrimitiveMetaProperty : MetaProperty, IMetaPropertyWithIsRequired {
+
         [DataMember]
         public bool IsRequired { get; set; }
     }
@@ -73,6 +75,7 @@ namespace S2fx.Model.Metadata {
 
     [DataContract]
     public class ManyToOneMetaProperty : RelationMetaProperty, IMetaPropertyWithIsRequired {
+
         [DataMember]
         public bool IsRequired { get; set; }
     }
@@ -85,13 +88,15 @@ namespace S2fx.Model.Metadata {
 
     [DataContract]
     public class ManyToManyMetaProperty : RelationMetaProperty {
+
         public string JoinTable { get; set; }
     }
 
 
     [DataContract]
     public class EnumerableMetaProperty : MetaProperty, IMetaPropertyWithIsRequired {
+
         [DataMember]
-        public bool IsRequired { get; set; } = false;
+        public bool IsRequired { get; set; } = true;
     }
 }

@@ -17,7 +17,7 @@ namespace S2fx.Model.Builtin {
 
         public virtual DateTime StartedOn { get; set; }
 
-        public virtual DateTime EndedOn { get; set; }
+        public virtual DateTime? EndedOn { get; set; }
 
     }
 
