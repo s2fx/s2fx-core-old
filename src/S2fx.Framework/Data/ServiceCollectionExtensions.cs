@@ -12,7 +12,9 @@ namespace S2fx.Data {
     public static class ServiceCollectionExtensions {
 
         public static void AddS2fxData(this IServiceCollection services) {
-            services.AddTransient<IDynamicEntityRepositoryResolver, DynamicEntityRepositoryResolver>();
+
+            // services.AddTransient<IDynamicEntityRepositoryResolver, DynamicEntityRepositoryResolver>();
+
             services.AddTransient<IUnitOfWorkManager, DefaultUnitOfWorkManager>();
             services.AddTransient<IDbNameConvention, S2DbNameConvention>();
 

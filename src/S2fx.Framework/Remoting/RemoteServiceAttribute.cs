@@ -9,6 +9,8 @@ namespace S2fx.Remoting {
 
         public string Name { get; }
 
+        public string Area { get; set; } = string.Empty;
+
         public RemoteServiceAttribute(string name) {
             this.Name = name;
         }

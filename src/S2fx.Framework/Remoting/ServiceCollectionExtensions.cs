@@ -6,6 +6,7 @@ using S2fx.Convention;
 using S2fx.Data.Seeding;
 using S2fx.Data.UnitOfWork;
 using S2fx.Remoting;
+using S2fx.Remoting.RemoteServices;
 using S2fx.Remoting.RemoteServices.Metadata;
 
 namespace S2fx.Remoting {
@@ -17,13 +18,17 @@ namespace S2fx.Remoting {
 
             //metadata providers:
             services.AddTransient<IRemoteServiceMetadataProvider, BuiltinRemoteServiceMetadataProvider>();
-            services.AddTransient<IRemoteServiceMetadataProvider, ShellRemoteServiceMetadataProvider>();
+            services.AddTransient<IRemoteServiceMetadataProvider, GenericEntityServiceMetadataProvider>();
+            services.AddTransient<IRemoteServiceMetadataProvider, CustomRemoteServiceMetadataProvider>();
+
         }
 
-        public static void AddBuiltinRemoteServices(this IServiceCollection services) {
+        public static void AddInternalRemoteServices(this IServiceCollection services) {
 
             //builtin remote services
             services.AddScoped<MetaEntityRemoteService>();
+
+            services.AddScoped(typeof(GenericEntityRemoteService<>));
         }
     }
 

@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 namespace S2fx.Data.Importing {
 
     public class XmlDataSource : IDataSource {
-        public const string XmlFormat = "XML";
+        public const string XmlFormat = "Xml";
 
         public string Format => XmlFormat;
 

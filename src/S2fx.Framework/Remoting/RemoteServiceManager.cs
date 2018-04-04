@@ -65,7 +65,7 @@ namespace S2fx.Remoting {
                             s.Feature.Id, s.Name, metadataProvider.GetType().FullName);
                         _remoteServices.Add(s.Name, s);
 
-                        //this.TryRegisterRemoteServiceProxyType(remoteServiceProviders, s);
+                        this.TryRegisterRemoteServiceProxyType(remoteServiceProviders, s);
                     }
                 }
                 _loaded = true;

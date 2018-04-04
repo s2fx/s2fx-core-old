@@ -35,7 +35,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             //Remoting 
             services.AddRemoting();
-            services.AddBuiltinRemoteServices();
+            services.AddInternalRemoteServices();
 
             // Xaml 
             services.AddXamlSupport();

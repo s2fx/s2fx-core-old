@@ -16,12 +16,12 @@ namespace S2fx.Remoting.RemoteServices.Metadata {
             _entityManager = entityManager;
         }
 
-        [RemoteServiceMethod]
+        [RemoteServiceMethod(httpMethod: HttpMethod.Get)]
         public virtual IReadOnlyDictionary<string, MetaEntity> All() {
             return _entityManager.GetEntities();
         }
 
-        [RemoteServiceMethod]
+        [RemoteServiceMethod(httpMethod: HttpMethod.Get)]
         public virtual MetaEntity Single(string name) {
             return _entityManager.GetEntity(name);
         }

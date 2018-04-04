@@ -15,12 +15,12 @@ using S2fx.Remoting.Model;
 
 namespace S2fx.Remoting {
 
-    public class ShellRemoteServiceMetadataProvider : AbstractClrTypeBasedRemoteServiceMetadataProvider {
+    public class CustomRemoteServiceMetadataProvider : AbstractClrTypeBasedRemoteServiceMetadataProvider {
         private readonly IShellFeatureService _shellFeatureService;
         private readonly IHostingEnvironment _environment;
         private readonly ITypeFeatureProvider _typeFeatureProvider;
 
-        public ShellRemoteServiceMetadataProvider(
+        public CustomRemoteServiceMetadataProvider(
             IShellFeatureService shellFeatureService,
             IHostingEnvironment environment, ITypeFeatureProvider typeFeatureProvider) {
 
@@ -32,6 +32,8 @@ namespace S2fx.Remoting {
         public override async Task<IEnumerable<RemoteServiceInfo>> GetAllServicesAsync() {
             var enabledFeatures = await _shellFeatureService.GetEnabledFeatureEntriesAsync();
             var descriptors = new List<RemoteServiceInfo>();
+
+            //User's Remote services
             foreach (var feature in enabledFeatures) {
                 var serviceImplTypes = feature.ExportedTypes.Where(t => this.IsRemoteService(t));
                 foreach (var serviceImplType in serviceImplTypes) {

@@ -9,8 +9,11 @@ namespace S2fx.Remoting {
 
         public string Name { get; set; } = null;
 
-        public HttpMethod HttpMethod { get; set; } = HttpMethod.Unknown;
+        public HttpMethod HttpMethod { get; }
 
+        public RemoteServiceMethodAttribute(HttpMethod httpMethod) {
+            this.HttpMethod = httpMethod;
+        }
     }
 
 }

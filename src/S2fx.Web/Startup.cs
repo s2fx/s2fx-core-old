@@ -1,8 +1,8 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +11,6 @@ using Microsoft.Extensions.Options;
 using OrchardCore.Modules;
 using S2fx.Environment.Configuration;
 using S2fx.Remoting;
-using S2fx.Remoting.RemoteServices.Metadata;
-using S2fx.Web.Controllers;
 using S2fx.Web.Environment.Configuration;
 using S2fx.Web.Remoting;
 
@@ -38,14 +36,19 @@ namespace S2fx.Web {
 
             //Remote services
             {
-                services.AddTransient<RemoteServiceControllerNameConvention>();
+                //Controller Conventions
+                {
+                    services.AddTransient<IControllerModelConvention, RemoteServiceControllerNameConvention>();
+                    //services.AddTransient<IControllerModelConvention, RemoteServiceControllerActionConvention>();
+                    //services.AddTransient<IControllerModelConvention, RemoteServiceControllerAreaConvention>();
+                }
+
                 services.AddTransient<IConfigureOptions<MvcOptions>, RemoteServiceMvcConfigureOptions>();
                 services.AddTransient<IRemoteServiceProvider, MvcControllerRemoteServiceProvider>();
             }
 
             //Add settings to Service Collection
             services.AddSingleton(this.LoadSettings());
-
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {

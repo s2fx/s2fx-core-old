@@ -29,6 +29,14 @@ namespace S2fx.Remoting {
 
 
         protected RemoteServiceInfo CreateServiceMetadata(IFeatureInfo featureInfo, Type serviceType) {
+            var serviceAttr = serviceType.GetCustomAttribute<RemoteServiceAttribute>();
+            var name = string.IsNullOrEmpty(serviceAttr.Name) ? serviceType.FullName : serviceAttr.Name;
+            var area = string.IsNullOrEmpty(serviceAttr.Area) ? featureInfo.Id : serviceAttr.Area;
+            var rs = this.CreateServiceMetadata(name, featureInfo, serviceType.GetTypeInfo(), area);
+            return rs;
+        }
+
+        protected RemoteServiceInfo CreateServiceMetadata(string name, IFeatureInfo featureInfo, Type serviceType, string area) {
 
             var methods =
                 serviceType.GetMethods(BindingFlags.Instance | BindingFlags.Public)
@@ -36,20 +44,21 @@ namespace S2fx.Remoting {
                     .Select(method => this.CreateServiceMethodMetadata(method))
                     .ToList();
 
-            var serviceAttr = serviceType.GetCustomAttribute<RemoteServiceAttribute>();
             var rs = new RemoteServiceInfo {
                 Feature = featureInfo,
-                Name = serviceAttr?.Name ?? serviceType.FullName,
+                Name = name,
                 ClrType = serviceType.GetTypeInfo(),
-                Methods = methods
+                Methods = methods,
+                Area = area,
             };
             return rs;
         }
 
         protected RemoteServiceMethodInfo CreateServiceMethodMetadata(MethodInfo method) {
             var methodAttr = method.GetCustomAttribute<RemoteServiceMethodAttribute>();
+            var name = string.IsNullOrEmpty(methodAttr.Name) ? method.Name : methodAttr.Name;
             return new RemoteServiceMethodInfo() {
-                Name = methodAttr?.Name ?? method.Name,
+                Name = name,
                 ClrMethodInfo = method,
             };
         }
