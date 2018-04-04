@@ -8,8 +8,11 @@ namespace S2fx.Remoting {
 
     public interface IRemoteServiceManager {
         Task<IEnumerable<RemoteServiceInfo>> LoadRemoteServicesAsync();
-        IReadOnlyList<RemoteServiceInfo> GetRemoteServices();
+        IEnumerable<RemoteServiceInfo> GetRemoteServices();
         RemoteServiceInfo GetRemoteService(string name);
+        bool TryGetRemoteService(string name, out RemoteServiceInfo serviceInfo);
+        RemoteServiceInfo GetRemoteService(Type clrType);
+        bool TryGetRemoteService(Type clrType, out RemoteServiceInfo serviceInfo);
     }
 
 }

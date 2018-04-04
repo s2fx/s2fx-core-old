@@ -42,6 +42,7 @@ namespace S2fx.Server {
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseStaticFiles();
             app.UseModules();
         }
     }

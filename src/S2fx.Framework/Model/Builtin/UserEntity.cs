@@ -13,21 +13,22 @@ namespace S2fx.Model.Builtin {
     public class UserEntity : AbstractAuditedEntity, IUser {
         public const string EntityName = "Core.User";
 
-        [Required, MaxLength(64)]
+        [Required, MaxLength(64), DisplayName("User Name")]
         public virtual string UserName { get; set; }
 
-        [Required, MaxLength(64)]
+        [Required, MaxLength(64), DisplayName("Full Name")]
         public virtual string FullName { get; set; }
 
-        [Required, MaxLength(256)]
+        [Required, MaxLength(256), DisplayName("Password")]
         public virtual string Password { get; set; }
 
-
+        [DisplayName("Image")]
         public virtual byte[] Image { get; set; }
 
-        [MaxLength(256)]
+        [MaxLength(256), DisplayName("E-Mail")]
         public virtual string Email { get; set; }
 
+        [DisplayName("Related Users")]
         [ManyToManyProperty(mappedBy: "Users", joinTable: "core_user_role")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
     }

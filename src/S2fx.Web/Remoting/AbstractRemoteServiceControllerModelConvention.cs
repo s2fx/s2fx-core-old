@@ -19,9 +19,7 @@ namespace S2fx.Web.Remoting {
 
         public void Apply(ControllerModel controller) {
             var manager = this.Services.GetRequiredService<IRemoteServiceManager>();
-            var remoteServiceAttr = controller.ControllerType.GetCustomAttribute<RemoteServiceAttribute>();
-            if (remoteServiceAttr != null) {
-                var remoteService = manager.GetRemoteService(remoteServiceAttr.Name);
+            if (manager.TryGetRemoteService(controller.ControllerType, out var remoteService)) {
                 this.ApplyOnRemoteServiceController(controller, remoteService);
             }
         }

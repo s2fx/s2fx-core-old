@@ -15,26 +15,40 @@ namespace S2fx.Remoting {
         private bool _loaded = false;
         public ILogger Logger { get; }
         private object InitializationLock = new object();
-        private readonly List<RemoteServiceInfo> _remoteServices = new List<RemoteServiceInfo>();
+        private readonly IDictionary<string, RemoteServiceInfo> _remoteServices = new Dictionary<string, RemoteServiceInfo>();
 
         public RemoteServiceManager(IServiceProvider services, ILogger<RemoteServiceManager> logger) {
             _services = services;
             Logger = logger;
         }
 
-        public IReadOnlyList<RemoteServiceInfo> GetRemoteServices() {
+        public IEnumerable<RemoteServiceInfo> GetRemoteServices() {
             this.EnsureInitialized();
-            return this._remoteServices;
+            return this._remoteServices.Values;
         }
 
         public RemoteServiceInfo GetRemoteService(string name) {
             this.EnsureInitialized();
-            return this._remoteServices.Single(x => x.Name == name);
+            return _remoteServices[name];
+        }
+
+        public bool TryGetRemoteService(string name, out RemoteServiceInfo serviceInfo) {
+            this.EnsureInitialized();
+            return _remoteServices.TryGetValue(name, out serviceInfo);
+        }
+
+        public RemoteServiceInfo GetRemoteService(Type clrType) =>
+            _remoteServices.Values.Single(x => x.ClrType == clrType);
+
+        public bool TryGetRemoteService(Type clrType, out RemoteServiceInfo serviceInfo) {
+            serviceInfo = _remoteServices.Values.SingleOrDefault(x => x.ClrType == clrType);
+            return serviceInfo != null ? true : false;
         }
 
         public Task<IEnumerable<RemoteServiceInfo>> LoadRemoteServicesAsync() {
             this.EnsureInitialized();
-            return Task.FromResult(this._remoteServices.AsEnumerable());
+            var result = this._remoteServices.Values as IEnumerable<RemoteServiceInfo>;
+            return Task.FromResult(result);
         }
 
         private void EnsureInitialized() {
@@ -47,9 +61,9 @@ namespace S2fx.Remoting {
                 foreach (var metadataProvider in metadataProviders) {
                     var services = Task.Run(metadataProvider.GetAllServicesAsync).Result;
                     foreach (var s in services) {
-                        this.Logger.LogInformation("Remote service found: [Feature={0}, Type={1}, Provider={2}]", 
+                        this.Logger.LogInformation("Remote service found: [Feature={0}, Type={1}, Provider={2}]",
                             s.Feature.Id, s.Name, metadataProvider.GetType().FullName);
-                        _remoteServices.Add(s);
+                        _remoteServices.Add(s.Name, s);
 
                         //this.TryRegisterRemoteServiceProxyType(remoteServiceProviders, s);
                     }

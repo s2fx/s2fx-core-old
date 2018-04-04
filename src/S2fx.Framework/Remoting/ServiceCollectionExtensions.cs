@@ -16,8 +16,8 @@ namespace S2fx.Remoting {
             services.AddSingleton<IRemoteServiceManager, RemoteServiceManager>();
 
             //metadata providers:
-            services.AddTransient<IRemoteServiceMetadataProvider, ShellRemoteServiceMetadataProvider>();
             services.AddTransient<IRemoteServiceMetadataProvider, BuiltinRemoteServiceMetadataProvider>();
+            services.AddTransient<IRemoteServiceMetadataProvider, ShellRemoteServiceMetadataProvider>();
         }
 
         public static void AddBuiltinRemoteServices(this IServiceCollection services) {
