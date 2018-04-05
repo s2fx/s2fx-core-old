@@ -24,6 +24,10 @@ namespace S2fx.Data.NHibernate {
 
         public IQueryable<TEntity> All() => this.Table;
 
+        public async Task<object> QueryAsync(IQueryable<object> queryable) {
+            return await queryable.ToListAsync();
+        }
+
         public async Task<TEntity[]> GetAllAsync() =>
             (await this.Table.ToListAsync()).ToArray();
 

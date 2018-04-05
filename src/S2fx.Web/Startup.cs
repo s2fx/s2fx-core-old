@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,11 +40,17 @@ namespace S2fx.Web {
                 //Controller Conventions
                 {
                     services.AddTransient<IControllerModelConvention, RemoteServiceControllerNameConvention>();
-                    //services.AddTransient<IControllerModelConvention, RemoteServiceControllerActionConvention>();
-                    //services.AddTransient<IControllerModelConvention, RemoteServiceControllerAreaConvention>();
+                    services.AddTransient<IControllerModelConvention, RemoteServiceControllerActionConvention>();
+                    services.AddTransient<IControllerModelConvention, RemoteServiceControllerAreaConvention>();
+                }
+
+                //Model Binder Providers:
+                {
+                    services.AddTransient<IModelBinderProvider, EntityQueryParametersModelBinderProvider>();
                 }
 
                 services.AddTransient<IConfigureOptions<MvcOptions>, RemoteServiceMvcConfigureOptions>();
+                services.AddTransient<IConfigureOptions<MvcJsonOptions>, RemoteServiceMvcJsonConfigureOptions>();
                 services.AddTransient<IRemoteServiceProvider, MvcControllerRemoteServiceProvider>();
             }
 

@@ -26,7 +26,7 @@ namespace S2fx.Model.Metadata {
 
         public IFeatureInfo Feature { get; set; }
 
-        [DataMember(Name = "feature")]
+        [DataMember(Name = "Feature")]
         public string FeatureId => this.Feature.Id;
 
         [DataMember]

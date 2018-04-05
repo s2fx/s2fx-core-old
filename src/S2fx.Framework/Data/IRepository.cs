@@ -16,6 +16,8 @@ namespace S2fx.Data {
 
         IQueryable<TEntity> All();
 
+        Task<object> QueryAsync(IQueryable<object> queryable);
+
         Task<TEntity[]> GetAllAsync();
 
         Task<TEntity[]> GetAllAsync(Expression<Func<TEntity, bool>> predicate);

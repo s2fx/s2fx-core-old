@@ -16,10 +16,16 @@ namespace S2fx.Web.Remoting {
         }
 
         protected override void ApplyOnRemoteServiceController(ControllerModel controller, RemoteServiceInfo remoteService) {
-            controller.Actions.Clear();
-            foreach (var serviceMethod in remoteService.Methods) {
-                var action = new ActionModel(serviceMethod.ClrMethodInfo, serviceMethod.ClrMethodInfo.GetCustomAttributes().ToList());
-                controller.Actions.Add(action);
+            var actionIndicesToDelete = new List<int>();
+            for (var i = 0; i < controller.Actions.Count; i++) {
+                var oldAction = controller.Actions[i];
+                if (!remoteService.Methods.Any(x => x.ClrMethodInfo == oldAction.ActionMethod)) {
+                    actionIndicesToDelete.Add(i);
+                }
+            }
+
+            foreach (var i in actionIndicesToDelete) {
+                controller.Actions.RemoveAt(i);
             }
         }
 
