@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.1" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-4892" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-67846" />
   </ItemGroup>
 
   <ItemGroup>

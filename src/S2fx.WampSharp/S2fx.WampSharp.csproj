@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-5112" />
-    <PackageReference Include="WampSharp.Default" Version="18.3.2" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta2-67846" />
+    <PackageReference Include="WampSharp.Default" Version="18.9.3" />
   </ItemGroup>
 
   <ItemGroup>

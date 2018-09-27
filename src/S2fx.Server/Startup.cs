@@ -28,7 +28,8 @@ namespace S2fx.Server {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             // Add ASP.NET MVC and support for modules
-            services.AddModules();
+            services.AddMvcCore();
+            services.AddOrchardCore();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,8 +43,8 @@ namespace S2fx.Server {
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseStaticFiles();
-            app.UseModules();
+            app.UseMvc();
+            app.UseOrchardCore();
         }
     }
 }
