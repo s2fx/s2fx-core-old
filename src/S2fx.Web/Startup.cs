@@ -70,9 +70,7 @@ namespace S2fx.Web {
             );
 
             app.UseStaticFiles();
-
-            var appPartManager = app.ApplicationServices.GetRequiredService<ApplicationPartManager>();
-            appPartManager.FeatureProviders.Add(new RemoteServiceControllerFeatureProvider(serviceProvider));
+            app.UseS2fxWeb(serviceProvider);
         }
 
         private S2Settings LoadSettings() {

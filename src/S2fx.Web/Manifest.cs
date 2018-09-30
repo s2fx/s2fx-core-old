@@ -6,6 +6,6 @@ using OrchardCore.Modules.Manifest;
     Website = "http://www.sandwych.com",
     Version = "0.1.0",
     Description = "Web UI",
-    Dependencies = new[] { "S2fx.Core", "", "OrchardCore.Mvc.Core" },
+    Dependencies = new[] { "S2fx.Core", "OrchardCore.Mvc.Core" },
     Category = "Web"
 )]

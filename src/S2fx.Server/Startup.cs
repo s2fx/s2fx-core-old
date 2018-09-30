@@ -14,6 +14,7 @@ using OrchardCore.Environment.Shell.Descriptor.Settings;
 using OrchardCore.Modules;
 
 using AspNetCore.RouteAnalyzer; // Add
+using S2fx.Web;
 
 namespace S2fx.Server {
 
@@ -32,11 +33,13 @@ namespace S2fx.Server {
             // Add ASP.NET MVC and support for modules
             services.AddMvc();
             services.AddOrchardCore();
+            services.AddSlipStreamFrameworkWeb();
             services.AddRouteAnalyzer(); // Add
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+
 
             if (env.IsDevelopment()) {
                 // app.UseBrowserLink();
@@ -47,10 +50,16 @@ namespace S2fx.Server {
             }
 
             app.UseMvc(routes => {
+#if DEBUG
                 routes.MapRouteAnalyzer("/_routes"); // Add
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+#endif
             });
 
             app.UseOrchardCore();
+
         }
     }
 }

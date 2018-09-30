@@ -11,15 +11,14 @@ using System.Threading.Tasks;
 namespace S2fx.Web.Remoting {
 
     public class RemoteServiceControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature> {
-        private readonly IServiceProvider _services;
+        private readonly IRemoteServiceManager _remoteServiceManager;
 
-        public RemoteServiceControllerFeatureProvider(IServiceProvider services) {
-            _services = services;
+        public RemoteServiceControllerFeatureProvider(IRemoteServiceManager remoteServiceManager) {
+            _remoteServiceManager = remoteServiceManager;
         }
 
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature) {
-            var harvester = _services.GetRequiredService<IRemoteServiceManager>();
-            var remoteServices = Task.Run(harvester.LoadRemoteServicesAsync).Result;
+            var remoteServices = Task.Run(_remoteServiceManager.LoadRemoteServicesAsync).Result;
 
             foreach (var rs in remoteServices) {
                 feature.Controllers.Add(rs.ClrType);
