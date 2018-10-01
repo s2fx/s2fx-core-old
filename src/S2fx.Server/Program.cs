@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Logging;
+using S2fx.Metadata.Services;
+using S2fx.Remoting;
+using S2fx.Web.Remoting;
 
 namespace S2fx.Server {
     public class Program {
@@ -15,10 +19,14 @@ namespace S2fx.Server {
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseNLogWeb()
-                .Build();
+        public static IWebHost BuildWebHost(string[] args) {
+            var host = WebHost.CreateDefaultBuilder(args)
+                            .UseStartup<Startup>()
+                            .UseNLogWeb()
+                            .Build();
+
+            return host;
+        }
+
     }
 }

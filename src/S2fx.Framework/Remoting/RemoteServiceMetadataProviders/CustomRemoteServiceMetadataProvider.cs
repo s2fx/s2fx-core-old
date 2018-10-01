@@ -22,7 +22,8 @@ namespace S2fx.Remoting {
 
         public CustomRemoteServiceMetadataProvider(
             IShellFeatureService shellFeatureService,
-            IHostingEnvironment environment, ITypeFeatureProvider typeFeatureProvider) {
+            IHostingEnvironment environment, 
+            ITypeFeatureProvider typeFeatureProvider) {
 
             _shellFeatureService = shellFeatureService;
             _environment = environment;

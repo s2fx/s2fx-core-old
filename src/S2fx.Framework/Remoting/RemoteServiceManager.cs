@@ -11,6 +11,7 @@ using S2fx.Remoting.Model;
 namespace S2fx.Remoting {
 
     public class RemoteServiceManager : IRemoteServiceManager {
+
         private readonly IServiceProvider _services;
         private bool _loaded = false;
         public ILogger Logger { get; }
@@ -72,7 +73,8 @@ namespace S2fx.Remoting {
             }
         }
 
-        private void TryRegisterRemoteServiceProxyType(IEnumerable<IRemoteServiceProvider> remoteServiceProviders, RemoteServiceInfo s) {
+        private void TryRegisterRemoteServiceProxyType(
+            IEnumerable<IRemoteServiceProvider> remoteServiceProviders, RemoteServiceInfo s) {
             //Register the dynamic API controller type to Orchard's TypeFeatureProvider
             //foreach
             var typeFeatureProvider = _services.GetRequiredService<ITypeFeatureProvider>();
@@ -83,5 +85,7 @@ namespace S2fx.Remoting {
                 }
             }
         }
+
     }
+
 }

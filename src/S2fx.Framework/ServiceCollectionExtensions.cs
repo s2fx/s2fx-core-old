@@ -18,12 +18,13 @@ using S2fx.Remoting;
 using S2fx.Model.Metadata.Conventions;
 using S2fx.Xaml;
 using S2fx.Environment;
+using OrchardCore.DeferredTasks;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
     public static class ServiceCollectionExtensions {
 
-        public static void AddSlipStreamFramework(this IServiceCollection services) {
+        public static void AddS2Framework(this IServiceCollection services, OrchardCoreBuilder builder) {
 
             //environment
             services.AddS2Environment();
@@ -45,6 +46,7 @@ namespace Microsoft.Extensions.DependencyInjection {
                 services.AddTransient<ISetupService, SetupService>();
             }
 
+            builder.AddDeferredTasks();
         }
 
 
