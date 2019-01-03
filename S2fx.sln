@@ -24,6 +24,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23BFA544-65B3-4163-984F-1F555BA4C164}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Data.NHibernate", "src\S2fx.Data.NHibernate\S2fx.Data.NHibernate.csproj", "{E2641D3A-B88C-4471-A0FE-70724C45CA4A}"
@@ -36,11 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.ClientApp", "src\S2fx.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{3E7AA7D1-F864-4010-A905-C361E6C1C71C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2fx.WampClient", "src\S2fx.WampClient\S2fx.WampClient.csproj", "{8CA517BB-1794-4067-AC9F-FE8B832D6662}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.WampClient", "src\S2fx.WampClient\S2fx.WampClient.csproj", "{8CA517BB-1794-4067-AC9F-FE8B832D6662}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{5EB152A5-14AD-4075-975C-8776A45E1693}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2fx.WampClientDemo", "samples\S2fx.WampClientDemo\S2fx.WampClientDemo.csproj", "{522D0E93-7996-4D74-80B7-EBDF254391E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.WampClientDemo", "samples\S2fx.WampClientDemo\S2fx.WampClientDemo.csproj", "{522D0E93-7996-4D74-80B7-EBDF254391E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
