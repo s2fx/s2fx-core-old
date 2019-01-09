@@ -12,12 +12,15 @@ using Microsoft.Extensions.Options;
 using S2fx.Remoting;
 using S2fx.Web.Remoting;
 using S2fx;
+using S2fx.Environment.Configuration;
+using S2fx.Web.Environment.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace S2fx.Web {
 
     public static class ServiceCollectionExtensions {
 
-        public static void S2fxWeb(this IServiceCollection services, OrchardCoreBuilder builder) {
+        public static void AddS2fxWeb(this IServiceCollection services, OrchardCoreBuilder builder, IConfiguration configuration) {
 
             services.AddS2Framework(builder);
 
@@ -41,7 +44,7 @@ namespace S2fx.Web {
             }
 
             //Add settings to Service Collection
-            //services.AddSingleton(this.LoadSettings());
+            services.AddSingleton(LoadSettings(configuration));
 
             services.AddSingleton<IApplicationFeatureProvider<ControllerFeature>, RemoteServiceControllerFeatureProvider>();
 
@@ -49,12 +52,10 @@ namespace S2fx.Web {
             services.AddSingleton(DummyActionDescriptorChangeProvider.Instance);
         }
 
-        /*
-        private static S2Settings LoadSettings() {
-            var loader = new MvcConfigurationLoader(this._configuration);
+        private static S2Settings LoadSettings(IConfiguration configuration) {
+            var loader = new MvcConfigurationLoader(configuration);
             return loader.GetSettings();
         }
-        */
     }
 
 }
