@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace S2fx.Data {
 
-    public interface IDatabaseMigrator {
+    public interface IDbMigrator {
         Task MigrateSchemeAsync();
     }
 }

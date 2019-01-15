@@ -96,17 +96,21 @@ namespace S2fx.Data.Importing {
             var context = new ImportContext(job.Feature, entity, job.EntityMapping, null);
 
             //Populates property binders
-            var ds = _dataSources.Single(x => x.Format == job.DataSource);
+            var ds = _dataSources.SingleOrDefault(x => x.Format == job.DataSource);
+            if (ds == null) {
+                var msg = string.Format("Unsupported format of seeding data: '{0}'", job.DataSource);
+                throw new NotSupportedException(msg);
+            }
 
             foreach (var propertyBinding in job.EntityMapping.PropertyMappings) {
                 propertyBinding.SourceGetter = ds.CreateInputPropertyValueTextGetter(propertyBinding.SourceExpression);
-                //var binder = new PropertyBinder(sourceGetter, pbi.TargetProperty);
             }
 
             return context;
         }
 
         private object ParsePropertyValue(MetaProperty property, string value) {
+            //TODO parse property value
             throw new NotImplementedException();
         }
 

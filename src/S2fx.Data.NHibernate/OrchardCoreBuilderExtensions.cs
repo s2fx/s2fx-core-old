@@ -45,7 +45,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.AddScoped(sp => sp.GetRequiredService<ISessionFactory>().OpenSession());
 
             //migrator
-            services.AddScoped<IDatabaseMigrator, HibernateDatabaseMigrator>();
+            services.AddScoped<IDbMigrator, HibernateDbMigrator>();
 
             return builder;
         }

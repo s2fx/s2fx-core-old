@@ -9,11 +9,11 @@ using NHibernate.Tool.hbm2ddl;
 
 namespace S2fx.Data.NHibernate {
 
-    public class HibernateDatabaseMigrator : IDatabaseMigrator {
+    public class HibernateDbMigrator : IDbMigrator {
         private readonly Configuration _cfg;
-        public ILogger<HibernateDatabaseMigrator> Logger { get; }
+        public ILogger<HibernateDbMigrator> Logger { get; }
 
-        public HibernateDatabaseMigrator(Configuration cfg, ILogger<HibernateDatabaseMigrator> logger) {
+        public HibernateDbMigrator(Configuration cfg, ILogger<HibernateDbMigrator> logger) {
             _cfg = cfg;
             this.Logger = logger;
         }

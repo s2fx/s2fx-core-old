@@ -19,10 +19,10 @@ using S2fx.Data.Seeding;
 namespace S2fx.Web.Controllers {
 
     public class HomeController : Controller {
-        private readonly IDatabaseMigrator _migrator;
+        private readonly IDbMigrator _migrator;
         private readonly IServiceProvider _services;
 
-        public HomeController(IServiceProvider services, IDatabaseMigrator migrator) {
+        public HomeController(IServiceProvider services, IDbMigrator migrator) {
             _services = services;
             _migrator = migrator;
         }
