@@ -7,9 +7,12 @@ using S2fx.Model.Metadata;
 
 namespace S2fx.Model {
 
+    /// <summary>
+    /// The interface to manage Entities
+    /// </summary>
     public interface IEntityManager {
 
-        MetaEntity GetEntityByClrType(Type entityType);
+        MetaEntity GetEntityByClrType(Type clrType);
 
         MetaEntity GetEntity(string fullName);
 

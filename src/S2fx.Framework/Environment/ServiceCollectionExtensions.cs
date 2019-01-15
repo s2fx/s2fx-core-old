@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using OrchardCore.Environment.Shell;
 using OrchardCore.Environment.Shell.Descriptor;
 using S2fx.Convention;
@@ -11,6 +12,7 @@ using S2fx.Data.UnitOfWork;
 using S2fx.Environment.Extensions;
 using S2fx.Environment.Extensions.Entity;
 using S2fx.Environment.Shell;
+using S2fx.Environment.Shell.Descriptor;
 using S2fx.Remoting;
 
 namespace S2fx.Environment {
@@ -22,12 +24,24 @@ namespace S2fx.Environment {
             services.AddTransient<IEntityHarvester, ClrEntityHarvester>();
 
             services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
-            services.Replace(new ServiceDescriptor(typeof(IShellDescriptorManager), typeof(S2ShellDescriptorManager), ServiceLifetime.Scoped));
-            services.Replace(new ServiceDescriptor(typeof(IShellStateManager), typeof(S2ShellStateManager), ServiceLifetime.Scoped));
+            services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();
+            services.AddScoped<IShellStateManager, S2ShellStateManager>();
 
-            services.AddTransient<IShellFeatureService, ShellFeatureService>();
+            services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
+            services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
+
+
+            services.AddTransient<IShellFeatureEntityService, ShellFeatureEntityService>();
+
+            services.AddSitesFolder();
         }
 
+
+        public static void AddSitesFolder(this IServiceCollection services) {
+            services.AddSingleton<IShellSettingsConfigurationProvider, ShellSettingsConfigurationProvider>();
+            services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
+            services.AddTransient<IConfigureOptions<ShellOptions>, ShellOptionsSetup>();
+        }
     }
 
 }

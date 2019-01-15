@@ -18,11 +18,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace S2fx.Web {
 
-    public static class ServiceCollectionExtensions {
+    public static class OrchardBuilderExtensions {
 
-        public static void AddS2fxWeb(this IServiceCollection services, OrchardCoreBuilder builder, IConfiguration configuration) {
-
-            services.AddS2Framework(builder);
+        public static OrchardCoreBuilder AddS2fxWeb(this OrchardCoreBuilder builder, IConfiguration configuration) {
+            var services = builder.ApplicationServices;
 
             //Remote services
             {
@@ -50,6 +49,7 @@ namespace S2fx.Web {
 
             services.AddSingleton<IActionDescriptorChangeProvider>(DummyActionDescriptorChangeProvider.Instance);
             services.AddSingleton(DummyActionDescriptorChangeProvider.Instance);
+            return builder;
         }
 
         private static S2Settings LoadSettings(IConfiguration configuration) {

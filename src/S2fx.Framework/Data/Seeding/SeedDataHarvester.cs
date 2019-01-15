@@ -21,9 +21,9 @@ namespace S2fx.Data.Seeding {
         public const string SeedConfigFileName = "Seeding.config.xml";
 
         private IHostingEnvironment _environment;
-        private IShellFeatureService _shellFeatureService;
+        private IShellFeatureEntityService _shellFeatureService;
 
-        public SeedDataHarvester(IHostingEnvironment environment, IShellFeatureService shellFeatureService) {
+        public SeedDataHarvester(IHostingEnvironment environment, IShellFeatureEntityService shellFeatureService) {
             _environment = environment;
             _shellFeatureService = shellFeatureService;
         }

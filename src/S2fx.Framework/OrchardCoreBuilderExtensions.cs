@@ -20,11 +20,12 @@ using S2fx.Xaml;
 using S2fx.Environment;
 using OrchardCore.DeferredTasks;
 
-namespace Microsoft.Extensions.DependencyInjection {
+namespace S2fx {
 
-    public static class ServiceCollectionExtensions {
+    public static class OrchardCoreBuilderExtensions {
 
-        public static void AddS2Framework(this IServiceCollection services, OrchardCoreBuilder builder) {
+        public static OrchardCoreBuilder AddS2Framework(this OrchardCoreBuilder builder) {
+            var services = builder.ApplicationServices;
 
             //environment
             services.AddS2Environment();
@@ -47,6 +48,8 @@ namespace Microsoft.Extensions.DependencyInjection {
             }
 
             builder.AddDeferredTasks();
+
+            return builder;
         }
 
 

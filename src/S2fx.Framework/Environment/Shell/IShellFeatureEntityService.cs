@@ -6,7 +6,7 @@ using OrchardCore.Environment.Extensions.Features;
 
 namespace S2fx.Environment.Shell {
 
-    public interface IShellFeatureService {
+    public interface IShellFeatureEntityService {
         Task<IEnumerable<FeatureEntry>> GetEnabledFeatureEntriesAsync();
     }
 

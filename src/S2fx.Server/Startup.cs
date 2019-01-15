@@ -31,15 +31,19 @@ namespace S2fx.Server {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+
             services.AddMvc();
 
             // Add ASP.NET MVC and support for modules
             var builder = services
                 .AddOrchardCore()
                 .AddMvc()
-                .RegisterStartup<S2fx.Data.NHibernate.Startup>();
+                .AddS2Framework()
+                .AddS2fxNHibernate()
+                .AddS2fxWeb(this.Configuration)
+                ;
+            //.WithTenants();
 
-            services.AddS2fxWeb(builder, this.Configuration);
             services.AddRouteAnalyzer(); // Add
         }
 
@@ -66,6 +70,7 @@ namespace S2fx.Server {
 
             app.UseStaticFiles();
             app.UseOrchardCore();
+            app.UseS2fxWeb();
 
         }
     }

@@ -19,7 +19,7 @@ namespace S2fx.Environment.Extensions.Entity {
 
         public override async Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync() {
 
-            var shellFeatureServiec = this.Services.GetRequiredService<IShellFeatureService>();
+            var shellFeatureServiec = this.Services.GetRequiredService<IShellFeatureEntityService>();
             var features = await shellFeatureServiec.GetEnabledFeatureEntriesAsync();
             var coreFeature = features.Single(x => x.FeatureInfo.Id == WellKnownConstants.CoreModuleId);
             var builtinEntityTypes = Assembly.GetExecutingAssembly().ExportedTypes.Where(t => this.IsEntityType(t));

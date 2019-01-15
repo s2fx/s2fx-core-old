@@ -12,16 +12,17 @@ namespace S2fx.Web {
 
     public static class ApplicationBuilderExtensions {
 
-        public static IApplicationBuilder UseS2fxWeb(this IApplicationBuilder app, IServiceProvider services, Action<IApplicationBuilder> configure = null) {
+        public static IApplicationBuilder UseS2fxWeb(this IApplicationBuilder app, Action<IApplicationBuilder> configure = null) {
             var appPartManager = app.ApplicationServices.GetRequiredService<ApplicationPartManager>();
 
-            foreach (var controllerFeatureProvider in services.GetServices<IApplicationFeatureProvider<ControllerFeature>>()) {
+            foreach (var controllerFeatureProvider in app.ApplicationServices.GetServices<IApplicationFeatureProvider<ControllerFeature>>()) {
                 appPartManager.FeatureProviders.Add(controllerFeatureProvider);
             }
 
             // Notify change
             //DummyActionDescriptorChangeProvider.Instance.HasChanged = true;
             //DummyActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
+            configure?.Invoke(app);
 
             return app;
         }

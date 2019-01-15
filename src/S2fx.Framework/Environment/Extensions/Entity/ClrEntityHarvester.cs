@@ -24,7 +24,7 @@ namespace S2fx.Environment.Extensions.Entity {
         }
 
         public override async Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync() {
-            var shellFeatureService = this.Services.GetRequiredService<IShellFeatureService>();
+            var shellFeatureService = this.Services.GetRequiredService<IShellFeatureEntityService>();
             var features = await shellFeatureService.GetEnabledFeatureEntriesAsync();
             var allEntities = features.SelectMany(x => this.HarvestClrEntityInFeature(x));
             return allEntities;

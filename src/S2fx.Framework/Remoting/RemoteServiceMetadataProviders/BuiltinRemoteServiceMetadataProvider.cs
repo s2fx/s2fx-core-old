@@ -27,7 +27,7 @@ namespace S2fx.Remoting {
         }
 
         public async override Task<IEnumerable<RemoteServiceInfo>> GetAllServicesAsync() {
-            var shellFeatureService = _services.GetRequiredService<IShellFeatureService>();
+            var shellFeatureService = _services.GetRequiredService<IShellFeatureEntityService>();
             var features = await shellFeatureService.GetEnabledFeatureEntriesAsync();
             var coreFeature = features.Single(x => x.FeatureInfo.Id == WellKnownConstants.CoreModuleId);
             var names = _services.GetService<IServiceCollection>().Select(x => x.ServiceType.Name).OrderBy(x => x).ToArray();

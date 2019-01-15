@@ -56,6 +56,7 @@ namespace S2fx.Remoting {
             if (_loaded) {
                 return;
             }
+            var x = _services.GetService<OrchardCore.Environment.Shell.Descriptor.IShellDescriptorManager>();
             var remoteServiceProviders = _services.GetServices<IRemoteServiceProvider>();
             var metadataProviders = _services.GetServices<IRemoteServiceMetadataProvider>();
             lock (this.InitializationLock) {
