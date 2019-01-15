@@ -8,7 +8,7 @@ using S2fx.Remoting.RemoteServices.Metadata;
 
 namespace S2fx.Remoting.RemoteServices.Metadata {
 
-    [RemoteService(name: "MetaEntity")]
+    [RemoteService(name: "MetaEntity", Area = "meta")]
     public class MetaEntityRemoteService {
         private readonly IEntityManager _entityManager;
 
