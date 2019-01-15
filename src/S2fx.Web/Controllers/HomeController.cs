@@ -28,12 +28,21 @@ namespace S2fx.Web.Controllers {
         }
 
         public async Task<IActionResult> Index() {
-            // await _migrator.MigrateSchemeAsync();
-
+            await Task.CompletedTask;
+            //await _migrator.MigrateSchemeAsync();
             //var loader = _services.GetService<ISeedDataLoader>();
             //await loader.LoadAllSeedDataAsync();
-
             return View();
+        }
+
+
+        public async Task<IActionResult> InitDB() {
+            await _migrator.MigrateSchemeAsync();
+
+            var loader = _services.GetService<ISeedDataLoader>();
+            await loader.LoadAllSeedDataAsync();
+
+            return Ok();
         }
     }
 }
