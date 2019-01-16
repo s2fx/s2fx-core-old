@@ -18,6 +18,12 @@ namespace S2fx.Model.Builtin {
 
         [ManyToManyProperty(mappedBy: "Roles", joinTable: "core_user_role")]
         public virtual ICollection<UserEntity> Users { get; set; }
+
+        [ManyToManyProperty(mappedBy: "Roles", joinTable: "core_role_permission")]
+        public virtual ICollection<PermissionEntity> Permissions { get; set; }
+
+        [ManyToManyProperty(mappedBy: "Roles", joinTable: "core_role_menu")]
+        public virtual ICollection<MenuEntity> Menus { get; set; }
     }
 
 }

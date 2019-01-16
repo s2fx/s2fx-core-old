@@ -29,6 +29,10 @@ namespace S2fx.Model.Builtin {
         [Required, MaxLength(256)]
         public virtual string DefinitionKey { get; set; }
 
+        [DisplayName("Related Roles")]
+        [ManyToManyProperty(mappedBy: "Menus", joinTable: "core_role_menu")]
+        public virtual ICollection<RoleEntity> Roles { get; set; }
+
         [ManyToOneProperty]
         public virtual MenuEntity Parent { get; set; }
 

@@ -27,8 +27,8 @@ namespace S2fx.Environment {
             services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();
             services.AddScoped<IShellStateManager, S2ShellStateManager>();
 
-            services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
-            services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
+            //services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
+            //services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
 
 
             services.AddTransient<IShellFeatureEntityService, ShellFeatureEntityService>();

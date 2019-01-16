@@ -10,7 +10,7 @@ namespace S2fx.Model.Metadata.Types {
         public override Type ClrType => typeof(bool);
 
         public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
-            var succeed = Boolean.TryParse(value, out var typedValue);
+            var succeed = bool.TryParse(value, out var typedValue);
             result = typedValue;
             return succeed;
         }
@@ -21,7 +21,7 @@ namespace S2fx.Model.Metadata.Types {
         public override Type ClrType => typeof(int);
 
         public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
-            var succeed = Int32.TryParse(value, out var typedValue);
+            var succeed = int.TryParse(value, out var typedValue);
             result = typedValue;
             return succeed;
         }
@@ -32,7 +32,7 @@ namespace S2fx.Model.Metadata.Types {
         public override Type ClrType => typeof(long);
 
         public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
-            var succeed = Int64.TryParse(value, out var typedValue);
+            var succeed = long.TryParse(value, out var typedValue);
             result = typedValue;
             return succeed;
         }
@@ -43,7 +43,7 @@ namespace S2fx.Model.Metadata.Types {
         public override Type ClrType => typeof(float);
 
         public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
-            var succeed = Single.TryParse(value, out var typedValue);
+            var succeed = float.TryParse(value, out var typedValue);
             result = typedValue;
             return succeed;
         }
@@ -54,7 +54,7 @@ namespace S2fx.Model.Metadata.Types {
         public override Type ClrType => typeof(double);
 
         public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
-            var succeed = Double.TryParse(value, out var typedValue);
+            var succeed = double.TryParse(value, out var typedValue);
             result = typedValue;
             return succeed;
         }
@@ -84,7 +84,7 @@ namespace S2fx.Model.Metadata.Types {
         public override Type ClrType => typeof(decimal);
 
         public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
-            var succeed = Decimal.TryParse(value, out var typedValue);
+            var succeed = decimal.TryParse(value, out var typedValue);
             result = typedValue;
             return succeed;
         }
@@ -95,7 +95,7 @@ namespace S2fx.Model.Metadata.Types {
         public override Type ClrType => typeof(DateTime);
 
         public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
-            //TODO
+            //TODO format
             var succeed = DateTime.TryParse(value, out var typedValue);
             result = typedValue;
             return succeed;
@@ -107,7 +107,7 @@ namespace S2fx.Model.Metadata.Types {
         public override Type ClrType => typeof(TimeSpan);
 
         public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
-            //TODO
+            //TODO format
             var succeed = TimeSpan.TryParse(value, out var typedValue);
             result = typedValue;
             return succeed;
