@@ -7,21 +7,22 @@ using S2fx.Model.Annotations;
 namespace S2fx.Model.Builtin {
 
     [Entity(EntityName), DisplayName("Menu Item")]
-    public class MenuEntity : AbstractAuditedEntity, IHierarchyEntity<MenuEntity> {
-        public const string EntityName = "Core.Menu";
+    public class MenuEntryEntity : AbstractAuditedEntity, IHierarchyEntity<MenuEntryEntity> {
+        public const string EntityName = "Core.MenuEntry";
 
         [Required, MaxLength(256)]
         public virtual string Name { get; set; }
 
         [MaxLength(256)]
-        public virtual string DisplayName { get; set; }
+        public virtual string Text { get; set; }
 
         [Required, MaxLength(256)]
         public virtual string Feature { get; set; }
 
-        public virtual long Action { get; set; }
+        [ManyToOneProperty]
+        public virtual ActionEntity Action { get; set; }
 
-        public virtual int SequenceOrder { get; set; }
+        public virtual int Order { get; set; }
 
         [Required]
         public virtual string Definition { get; set; }
@@ -34,7 +35,7 @@ namespace S2fx.Model.Builtin {
         public virtual ICollection<RoleEntity> Roles { get; set; }
 
         [ManyToOneProperty]
-        public virtual MenuEntity Parent { get; set; }
+        public virtual MenuEntryEntity Parent { get; set; }
 
         public virtual long RangeLeft { get; set; }
 

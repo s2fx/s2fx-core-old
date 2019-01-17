@@ -9,45 +9,42 @@ using S2fx.Model;
 using LinqToQuerystring;
 using System.Linq.Expressions;
 using S2fx.Utility;
+using S2fx.Data.Importing.Model;
 
 namespace S2fx.Data.Importing {
 
     public interface IRecordImporter {
 
-        Task InsertOrUpdateEntityAsync(object record, bool canUpdate);
-        Task<object> FindExistedRecordAsync(IDictionary<string, object> symbols);
+        Task InsertOrUpdateEntityAsync(ImportContext context, object record, bool canUpdate);
+        Task<object> FindExistedRecordAsync(ImportContext context, IDictionary<string, object> symbols);
     }
 
     public class RecordImporter<TEntity> : IRecordImporter
         where TEntity : class, IEntity {
 
-        private readonly IServiceProvider _services;
         private readonly IRepository<TEntity> _repository;
-        private readonly string _entitywhere;
 
-        public RecordImporter(IServiceProvider services, string entityWhere) {
-            _services = services;
-            _repository = services.GetRequiredService<IRepository<TEntity>>();
-            _entitywhere = entityWhere;
+        public RecordImporter(IRepository<TEntity> repository) {
+            _repository = repository;
         }
 
-        public async Task InsertOrUpdateEntityAsync(object record, bool canUpdate) {
+        public async Task InsertOrUpdateEntityAsync(ImportContext context, object record, bool canUpdate) {
             var typedRecord = (TEntity)record;
             await _repository.InsertOrUpdateAsync(typedRecord);
         }
 
-        public async Task<object> FindExistedRecordAsync(IDictionary<string, object> symbols) {
-            if (string.IsNullOrEmpty(_entitywhere)) {
+        public async Task<object> FindExistedRecordAsync(ImportContext context, IDictionary<string, object> symbols) {
+            if (string.IsNullOrEmpty(context.EntityBinding.Where)) {
                 return null;
             }
-            var pred = this.CreateEntityPredicateExpression(_entitywhere, symbols);
+            var pred = this.CreateEntityPredicateExpression(context.EntityBinding.Where, symbols);
             return await _repository.FirstOrDefaultAsync(pred);
         }
 
-        private Expression<Func<TEntity, bool>> CreateEntityPredicateExpression(
+        private Expression<Func<TEntity, bool>> CreateEntityPredicateExpression( 
             string expression, IDictionary<string, object> symbols) {
             var lambda = DynamicExpressionParser.ParseLambda(
-                typeof(TEntity), typeof(bool), _entitywhere, symbols);
+                typeof(TEntity), typeof(bool), expression, symbols);
             var body = lambda as Expression<Func<TEntity, bool>>;
             return body;
         }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuEntryCollection xmlns="clr-namespace:S2fx.UI.Schemas;assembly=S2fx.Framework" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <MenuEntryCollection.Entries>
+        <MenuEntry Name="menu-admin" Text="Administration" Order="100" Icon="fa-wrench" BackgroundIcon="red" />
+        <MenuEntry Name="menu-auth" Parent="menu-admin" Text="User Management" />
+    </MenuEntryCollection.Entries>
+</MenuEntryCollection>

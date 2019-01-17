@@ -21,4 +21,10 @@
     <Folder Include="Seed\Demo\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="S2Views\Menu.xml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

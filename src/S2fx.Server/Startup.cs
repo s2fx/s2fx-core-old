@@ -41,6 +41,7 @@ namespace S2fx.Server {
                 .AddS2Framework()
                 .AddS2fxNHibernate()
                 .AddS2fxWeb(this.Configuration)
+                .WithFeatures("S2fx.Core", "S2fx.ClientApp")
                 ;
             //.WithTenants();
 

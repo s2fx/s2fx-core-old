@@ -32,7 +32,7 @@ namespace S2fx.Data.Importing {
             using (var stream = job.ImportFileInfo.CreateReadStream()) {
                 var rows = dataSource.GetAllRows(stream, job.EntityMapping.Selector);
                 var recordImporterType = typeof(RecordImporter<>).MakeGenericType(context.Entity.ClrType);
-                var recordImporter = (IRecordImporter)Activator.CreateInstance(recordImporterType, _services, job.EntityMapping.Where);
+                var recordImporter = _services.GetRequiredService(recordImporterType) as IRecordImporter;
 
                 foreach (var row in rows) {
                     await ImportSingleRecordAsync(context, recordImporter, row);
@@ -70,7 +70,7 @@ namespace S2fx.Data.Importing {
             var symbols = propValues
                 .ToDictionary(x => x.Key, x => x.Value);
 
-            var existedRecord = await recordImporter.FindExistedRecordAsync(symbols);
+            var existedRecord = await recordImporter.FindExistedRecordAsync(context, symbols);
 
             var needsImportRecord =
                 (existedRecord == null)
@@ -87,7 +87,7 @@ namespace S2fx.Data.Importing {
                 metaProperty.ClrPropertyInfo.SetValue(record, propPair.Value);
             }
 
-            await recordImporter.InsertOrUpdateEntityAsync(record, context.EntityBinding.CanUpdate);
+            await recordImporter.InsertOrUpdateEntityAsync(context, record, context.EntityBinding.CanUpdate);
             this.EntityRecordImported?.Invoke(this, new EntityRecordImportedEventArgs(context.Entity, record));
         }
 

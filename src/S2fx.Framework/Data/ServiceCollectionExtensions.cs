@@ -22,9 +22,12 @@ namespace S2fx.Data {
             services.AddTransient<ISeedDataHarvester, SeedDataHarvester>();
             services.AddTransient<ISeedDataLoader, SeedDataLoader>();
 
+            services.AddTransient(typeof(RecordImporter<>));
+
             services.AddTransient<IDataImporter, DataImporter>();
 
             services.AddTransient<IDataSource, XmlDataSource>();
+            services.AddTransient<IDataSource, CsvDataSource>();
         }
 
     }
