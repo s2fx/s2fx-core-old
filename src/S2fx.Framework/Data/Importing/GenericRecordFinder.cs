@@ -13,27 +13,16 @@ using S2fx.Data.Importing.Model;
 
 namespace S2fx.Data.Importing {
 
-    public interface IRecordImporter {
-
-        Task InsertOrUpdateEntityAsync(ImportContext context, object record, bool canUpdate);
-        Task<object> FindExistedRecordAsync(ImportContext context, IDictionary<string, object> symbols);
-    }
-
-    public class RecordImporter<TEntity> : IRecordImporter
+    public class GenericRecordFinder<TEntity> : IRecordFinder
         where TEntity : class, IEntity {
 
         private readonly IRepository<TEntity> _repository;
 
-        public RecordImporter(IRepository<TEntity> repository) {
+        public GenericRecordFinder(IRepository<TEntity> repository) {
             _repository = repository;
         }
 
-        public async Task InsertOrUpdateEntityAsync(ImportContext context, object record, bool canUpdate) {
-            var typedRecord = (TEntity)record;
-            await _repository.InsertOrUpdateAsync(typedRecord);
-        }
-
-        public async Task<object> FindExistedRecordAsync(ImportContext context, IDictionary<string, object> symbols) {
+        public async Task<object> FindExistedRecordOrDefaultAsync(ImportContext context, IDictionary<string, object> symbols) {
             if (string.IsNullOrEmpty(context.EntityBinding.Where)) {
                 return null;
             }
@@ -41,7 +30,7 @@ namespace S2fx.Data.Importing {
             return await _repository.FirstOrDefaultAsync(pred);
         }
 
-        private Expression<Func<TEntity, bool>> CreateEntityPredicateExpression( 
+        private Expression<Func<TEntity, bool>> CreateEntityPredicateExpression(
             string expression, IDictionary<string, object> symbols) {
             var lambda = DynamicExpressionParser.ParseLambda(
                 typeof(TEntity), typeof(bool), expression, symbols);

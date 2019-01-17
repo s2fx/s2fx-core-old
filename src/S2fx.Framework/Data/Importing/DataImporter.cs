@@ -31,11 +31,14 @@ namespace S2fx.Data.Importing {
 
             using (var stream = job.ImportFileInfo.CreateReadStream()) {
                 var rows = dataSource.GetAllRows(stream, job.EntityMapping.Selector);
-                var recordImporterType = typeof(RecordImporter<>).MakeGenericType(context.Entity.ClrType);
+                var recordFinderType = typeof(GenericRecordFinder<>).MakeGenericType(context.Entity.ClrType);
+                var recordFinder = _services.GetRequiredService(recordFinderType) as IRecordFinder;
+
+                var recordImporterType = typeof(GenericRecordImporter<>).MakeGenericType(context.Entity.ClrType);
                 var recordImporter = _services.GetRequiredService(recordImporterType) as IRecordImporter;
 
                 foreach (var row in rows) {
-                    await ImportSingleRecordAsync(context, recordImporter, row);
+                    await ImportSingleRecordAsync(context, recordFinder, recordImporter, row);
                 }
             }
         }
@@ -50,7 +53,7 @@ namespace S2fx.Data.Importing {
         }
 
         private async Task ImportSingleRecordAsync(
-            ImportContext context, IRecordImporter recordImporter, object row) {
+            ImportContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, object row) {
 
             var propValues = new Dictionary<string, object>(context.EntityBinding.PropertyMappings.Count());
             foreach (var propBind in context.EntityBinding.PropertyMappings) {
@@ -70,7 +73,7 @@ namespace S2fx.Data.Importing {
             var symbols = propValues
                 .ToDictionary(x => x.Key, x => x.Value);
 
-            var existedRecord = await recordImporter.FindExistedRecordAsync(context, symbols);
+            var existedRecord = await recordFinder.FindExistedRecordOrDefaultAsync(context, symbols);
 
             var needsImportRecord =
                 (existedRecord == null)
