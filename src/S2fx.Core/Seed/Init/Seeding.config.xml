@@ -9,10 +9,20 @@
         </map>
     </import>
 
+    <!-- Roles -->
     <import file="SecurityData.xml" data-source="XML" entity="Core.Role">
         <map selector="/Data/Roles/Role" where="$.Name == Name" update="false">
             <map property="Name" source="@Name" />
             <map property="DisplayName" source="@DisplayName" />
+        </map>
+    </import>
+
+    <!-- Users -->
+    <import file="SecurityData.xml" data-source="XML" entity="Core.User">
+        <map selector="/Data/Users/User" where="$.UserName == UserName" update="false">
+            <map property="UserName" source="@UserName" />
+            <map property="Password" source="@Password" />
+            <map property="FullName" source="@FullName" />
         </map>
     </import>
 

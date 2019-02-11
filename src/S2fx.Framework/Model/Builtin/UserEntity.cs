@@ -19,7 +19,7 @@ namespace S2fx.Model.Builtin {
         [Required, MaxLength(64), DisplayName("Full Name")]
         public virtual string FullName { get; set; }
 
-        [Required, MaxLength(256), DisplayName("Password")]
+        [PasswordProperty, Required, MaxLength(256), DisplayName("Password")]
         public virtual string Password { get; set; }
 
         [DisplayName("Image")]
