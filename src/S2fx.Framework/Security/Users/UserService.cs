@@ -9,7 +9,15 @@ using OrchardCore.Users.Services;
 namespace S2fx.Security.Users {
 
     public class UserService : IUserService {
+        public Task<IUser> AuthenticateAsync(string userName, string password, Action<string, string> reportError) {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> ChangePasswordAsync(IUser user, string currentPassword, string newPassword, Action<string, string> reportError) {
+            throw new NotImplementedException();
+        }
+
+        public Task<ClaimsPrincipal> CreatePrincipalAsync(IUser user) {
             throw new NotImplementedException();
         }
 
@@ -30,6 +38,10 @@ namespace S2fx.Security.Users {
         }
 
         public Task<IUser> GetUserAsync(string userName) {
+            throw new NotImplementedException();
+        }
+
+        public Task<IUser> GetUserByUniqueIdAsync(string userIdentifier) {
             throw new NotImplementedException();
         }
 

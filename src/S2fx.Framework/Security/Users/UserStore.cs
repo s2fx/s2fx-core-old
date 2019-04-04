@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using OrchardCore.Users;
 using S2fx.Data;
 using S2fx.Model.Builtin;
@@ -11,6 +10,7 @@ using S2fx.Security.Model;
 
 namespace S2fx.Security.Users {
 
+    /*
     public class UserStore :
         IUserStore<IUser>,
         IUserRoleStore<IUser>,
@@ -136,5 +136,6 @@ namespace S2fx.Security.Users {
             throw new NotImplementedException();
         }
     }
+    */
 
 }

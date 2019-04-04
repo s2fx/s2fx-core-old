@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using OrchardCore.Environment.Shell;
+using OrchardCore.Environment.Shell.Configuration;
 using OrchardCore.Environment.Shell.Descriptor;
 using S2fx.Convention;
 using S2fx.Data.Seeding;
@@ -38,9 +39,12 @@ namespace S2fx.Environment {
 
 
         public static void AddSitesFolder(this IServiceCollection services) {
-            services.AddSingleton<IShellSettingsConfigurationProvider, ShellSettingsConfigurationProvider>();
-            services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
+            services.AddSingleton<IShellsSettingsSources, ShellsSettingsSources>();
+            services.AddSingleton<IShellsConfigurationSources, ShellsConfigurationSources>();
+            services.AddSingleton<IShellConfigurationSources, ShellConfigurationSources>();
             services.AddTransient<IConfigureOptions<ShellOptions>, ShellOptionsSetup>();
+            services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
+
         }
     }
 
