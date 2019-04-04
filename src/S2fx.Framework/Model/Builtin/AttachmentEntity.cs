@@ -18,7 +18,7 @@ namespace S2fx.Model.Builtin {
         [Required, MaxLength(256)]
         public virtual string ObjectName { get; set; }
 
-        [ManyToOneProperty, Required]
+        [ManyToOneField, Required]
         public virtual FileEntity File { get; set; }
 
     }

@@ -21,7 +21,7 @@ namespace S2fx.View.Model.Model {
         [Required, MaxLength(256)]
         public virtual string Feature { get; set; }
 
-        [ManyToOneProperty]
+        [ManyToOneField]
         public virtual ActionEntity Action { get; set; }
 
         public virtual int Order { get; set; }
@@ -33,10 +33,10 @@ namespace S2fx.View.Model.Model {
         public virtual string DefinitionKey { get; set; }
 
         [DisplayName("Related Roles")]
-        [ManyToManyProperty(mappedBy: "Menus", joinTable: "core_role_menu")]
+        [ManyToManyField(mappedBy: "Menus", joinTable: "core_role_menu")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
 
-        [ManyToOneProperty]
+        [ManyToOneField]
         public virtual MenuEntryEntity Parent { get; set; }
 
         public virtual long RangeLeft { get; set; }

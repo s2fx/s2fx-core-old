@@ -5,7 +5,7 @@ using System.Text;
 namespace S2fx.Model.Annotations {
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public class NotPropertyAttribute : Attribute {
+    public sealed class NotFieldAttribute : Attribute {
 
     }
 

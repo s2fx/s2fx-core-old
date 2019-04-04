@@ -13,7 +13,8 @@ namespace S2fx.Model.Metadata.Types {
         public const string DoubleTypeName = "Double";
         public const string StringTypeName = "String";
         public const string ByteArrayTypeName = "ByteArray";
-        public const string TimeSpanTypeName = "TimeSpan";
+        public const string TimeTypeName = "Time";
+        public const string DateTypeName = "Date";
         public const string DateTimeTypeName = "DateTime";
         public const string DecimalTypeName = "Decimal";
         public const string ManyToOneTypeName = "ManyToOne";

@@ -13,7 +13,7 @@ namespace S2fx.Model {
 
         public virtual string Name { get; set; }
 
-        [ManyToOneProperty(EntityName)]
+        [ManyToOneField(EntityName)]
         public virtual OrganizationEntity Parent { get; set; }
 
         public virtual long RangeLeft { get; set; }

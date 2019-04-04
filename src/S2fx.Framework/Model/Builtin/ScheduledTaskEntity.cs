@@ -27,7 +27,7 @@ namespace S2fx.Model.Builtin {
 
         public virtual string Notes { get; set; }
 
-        [OneToManyProperty(nameof(ScheduledTaskInstanceEntity.Task))]
+        [OneToManyField(nameof(ScheduledTaskInstanceEntity.Task))]
         public virtual ICollection<ScheduledTaskInstanceEntity> Instances { get; set; }
     }
 

@@ -60,7 +60,7 @@ namespace S2fx.Data.Importing {
 
                 var propertyValueExpression = propBind.SourceGetter(row);
                 var metaProperty = context.Entity.Fields[propBind.TargetProperty];
-                if (metaProperty.Type.TryParseFieldValue(metaProperty, propertyValueExpression, out var propertyValue, propBind.Format)) {
+                if (metaProperty.Type.TryParse(metaProperty, propertyValueExpression, out var propertyValue, propBind.Format)) {
                     propValues.Add(metaProperty.Name, propertyValue);
                 }
                 else {

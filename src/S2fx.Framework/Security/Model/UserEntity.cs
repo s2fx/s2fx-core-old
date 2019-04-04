@@ -20,7 +20,7 @@ namespace S2fx.Security.Model {
         [Required, MaxLength(64), DisplayName("Full Name")]
         public virtual string FullName { get; set; }
 
-        [PasswordProperty, Required, MaxLength(256), DisplayName("Password")]
+        [PasswordField, Required, MaxLength(256), DisplayName("Password")]
         public virtual string Password { get; set; }
 
         [DisplayName("Image")]
@@ -30,7 +30,7 @@ namespace S2fx.Security.Model {
         public virtual string Email { get; set; }
 
         [DisplayName("Related Users")]
-        [ManyToManyProperty(mappedBy: "Users", joinTable: "core_user_role")]
+        [ManyToManyField(mappedBy: "Users", joinTable: "core_user_role")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
     }
 

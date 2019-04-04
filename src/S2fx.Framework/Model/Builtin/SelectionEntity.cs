@@ -21,7 +21,7 @@ namespace S2fx.Model.Builtin {
         [Required, MaxLength(256)]
         public virtual string DisplayName { get; set; }
 
-        [OneToManyProperty(nameof(SelectionItemEntity.Selection))]
+        [OneToManyField(nameof(SelectionItemEntity.Selection))]
         public virtual ICollection<SelectionItemEntity> Items { get; set; }
     }
 
@@ -29,7 +29,7 @@ namespace S2fx.Model.Builtin {
     public class SelectionItemEntity : AbstractAuditedEntity {
         public const string EntityName = "Core.SelectionItem";
 
-        [ManyToOneProperty(SelectionEntity.EntityName, nameof(SelectionEntity.Items)), Required]
+        [ManyToOneField(SelectionEntity.EntityName, nameof(SelectionEntity.Items)), Required]
         public virtual SelectionEntity Selection { get; set; }
 
         [Required]

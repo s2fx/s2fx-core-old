@@ -10,7 +10,7 @@ namespace S2fx.Model.Builtin {
     public class ScheduledTaskInstanceEntity : AbstractAuditedEntity {
         public const string EntityName = "Core.ScheduledTaskInstance";
 
-        [ManyToOneProperty(ScheduledTaskEntity.EntityName, nameof(ScheduledTaskEntity.Instances)), Required]
+        [ManyToOneField(ScheduledTaskEntity.EntityName, nameof(ScheduledTaskEntity.Instances)), Required]
         public virtual ScheduledTaskEntity Task { get; set; }
 
         public virtual string Arguments { get; set; }

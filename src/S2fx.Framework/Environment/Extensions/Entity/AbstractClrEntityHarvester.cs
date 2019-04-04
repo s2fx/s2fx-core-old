@@ -65,7 +65,7 @@ namespace S2fx.Environment.Extensions.Entity {
             t.IsClass && !t.IsAbstract && t.GetCustomAttribute<EntityAttribute>() != null;
 
         private bool IsEntityProperty(PropertyInfo propertyInfo) =>
-            propertyInfo.CanRead && propertyInfo.CanWrite && propertyInfo.GetCustomAttribute<NotPropertyAttribute>() == null;
+            propertyInfo.CanRead && propertyInfo.CanWrite && propertyInfo.GetCustomAttribute<NotFieldAttribute>() == null;
 
     }
 

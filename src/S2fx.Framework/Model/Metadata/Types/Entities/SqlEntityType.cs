@@ -58,8 +58,8 @@ namespace S2fx.Model.Metadata.Types {
         private IFieldType InferPropertyType(PropertyInfo clrPropertyInfo, IEnumerable<IFieldType> allPropertyTypes) {
             var clrType = clrPropertyInfo.PropertyType;
             var propAttr = clrPropertyInfo.GetCustomAttributes()
-                .SingleOrDefault(a => a.GetType().IsImplementsClass<AbstractPropertyAttribute>())
-                    as AbstractPropertyAttribute;
+                .SingleOrDefault(a => a.GetType().IsImplementsClass<AbstractFieldAttribute>())
+                    as AbstractFieldAttribute;
 
             var primitiveTypes = allPropertyTypes.Where(t => t is IPrimitiveFieldType).Cast<IPrimitiveFieldType>();
             var enumerableType = allPropertyTypes.Single(t => t.Name == BuiltinFieldTypeNames.EnumerableTypeName);

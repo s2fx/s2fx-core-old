@@ -11,12 +11,12 @@ namespace S2fx.Model.Metadata {
 
         public IEnumerable<Attribute> Attributes { get; set; }
 
-        public AbstractPropertyAttribute GetPropertyAttribute(Type attributeType) =>
+        public AbstractFieldAttribute GetFieldAttribute(Type attributeType) =>
             this.Attributes != null ?
-                Attributes.Single(a => a.GetType() == attributeType) as AbstractPropertyAttribute : null;
+                Attributes.Single(a => a.GetType() == attributeType) as AbstractFieldAttribute : null;
 
-        public T GetPropertyAttribute<T>() where T : AbstractPropertyAttribute =>
-            GetPropertyAttribute(typeof(T)) as T;
+        public T GetFieldAttribute<T>() where T : AbstractFieldAttribute =>
+            GetFieldAttribute(typeof(T)) as T;
 
         public abstract void AcceptVisitor(IMetadataVisitor visitor);
 

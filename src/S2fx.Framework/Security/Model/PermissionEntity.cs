@@ -27,7 +27,7 @@ namespace S2fx.Security.Model {
 
         public virtual bool CanDelete { get; set; }
 
-        [ManyToManyProperty(mappedBy: "Permissions", joinTable: "core_role_permission")]
+        [ManyToManyField(mappedBy: "Permissions", joinTable: "core_role_permission")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
 
     }

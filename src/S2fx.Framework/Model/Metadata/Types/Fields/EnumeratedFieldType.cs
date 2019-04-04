@@ -28,7 +28,7 @@ namespace S2fx.Model.Metadata.Types {
             }
 
             var attrs = propertyInfo.GetCustomAttributes();
-            var primitiveAttr = propertyInfo.GetCustomAttribute<EnumerablePropertyAttribute>();
+            var primitiveAttr = propertyInfo.GetCustomAttribute<EnumerableFieldAttribute>();
             return new EnumerableMetaField() {
                 Name = propertyInfo.Name,
                 DisplayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? propertyInfo.Name,
@@ -38,7 +38,7 @@ namespace S2fx.Model.Metadata.Types {
             };
         }
 
-        public override bool TryParseFieldValue(MetaField property, string value, out object result, string format = null) {
+        public override bool TryParse(MetaField property, string value, out object result, string format = null) {
             var tryParseParams = new Type[] { typeof(string), property.ClrPropertyInfo.PropertyType.MakeByRefType() };
             var method = property.ClrPropertyInfo.PropertyType.GetMethod(nameof(Enum.TryParse), tryParseParams);
             var tryParseArgs = new object[] { value, null };

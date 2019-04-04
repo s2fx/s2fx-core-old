@@ -29,7 +29,7 @@ namespace S2fx.Model.Metadata.Types {
         public override string Name => BuiltinFieldTypeNames.ManyToOneTypeName;
 
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
-            var manyToOneAttr = propertyInfo.GetCustomAttribute<ManyToOnePropertyAttribute>();
+            var manyToOneAttr = propertyInfo.GetCustomAttribute<ManyToOneFieldAttribute>();
             var mappedByPropertyName = manyToOneAttr.MappedBy ?? "Id";
             var refEntityClrType = propertyInfo.PropertyType;
             var refEntityAttr = refEntityClrType.GetCustomAttribute<EntityAttribute>();
@@ -45,7 +45,7 @@ namespace S2fx.Model.Metadata.Types {
             };
         }
 
-        public override bool TryParseFieldValue(MetaField property, string value, out object result, string format = null) {
+        public override bool TryParse(MetaField property, string value, out object result, string format = null) {
             throw new NotSupportedException();
         }
 
@@ -56,7 +56,7 @@ namespace S2fx.Model.Metadata.Types {
         public override string Name => BuiltinFieldTypeNames.OneToManyTypeName;
 
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
-            var oneToManyAttr = propertyInfo.GetCustomAttribute<OneToManyPropertyAttribute>();
+            var oneToManyAttr = propertyInfo.GetCustomAttribute<OneToManyFieldAttribute>();
             var refEntityClrType = propertyInfo.PropertyType.GetGenericArguments().First();
             var refEntityAttr = refEntityClrType.GetCustomAttribute<EntityAttribute>();
             var refEntityName = oneToManyAttr.RefEntity ?? refEntityAttr.Name;
@@ -73,7 +73,7 @@ namespace S2fx.Model.Metadata.Types {
             };
         }
 
-        public override bool TryParseFieldValue(MetaField property, string value, out object result, string format = null) {
+        public override bool TryParse(MetaField property, string value, out object result, string format = null) {
             throw new NotSupportedException();
         }
     }
@@ -83,7 +83,7 @@ namespace S2fx.Model.Metadata.Types {
 
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
             var thisEntityName = propertyInfo.DeclaringType.GetCustomAttribute<EntityAttribute>().Name;
-            var manyToManyAttr = propertyInfo.GetCustomAttribute<ManyToManyPropertyAttribute>();
+            var manyToManyAttr = propertyInfo.GetCustomAttribute<ManyToManyFieldAttribute>();
             var refEntityClrType = propertyInfo.PropertyType.GetGenericArguments().First();
             var refEntityAttr = refEntityClrType.GetCustomAttribute<EntityAttribute>();
             var refEntityName = manyToManyAttr.RefEntity ?? refEntityAttr.Name;
@@ -103,7 +103,7 @@ namespace S2fx.Model.Metadata.Types {
             };
         }
 
-        public override bool TryParseFieldValue(MetaField property, string value, out object result, string format = null) {
+        public override bool TryParse(MetaField property, string value, out object result, string format = null) {
             throw new NotSupportedException();
         }
     }

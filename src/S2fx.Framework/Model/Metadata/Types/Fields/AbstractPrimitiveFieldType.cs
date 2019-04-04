@@ -29,7 +29,7 @@ namespace S2fx.Model.Metadata.Types {
             }
 
             var attrs = propertyInfo.GetCustomAttributes();
-            var primitiveAttr = propertyInfo.GetCustomAttribute<PrimitivePropertyAttribute>();
+            var primitiveAttr = propertyInfo.GetCustomAttribute<PrimitiveFieldAttribute>();
             return new PrimitiveMetaField() {
                 Name = propertyInfo.Name,
                 DisplayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? propertyInfo.Name,

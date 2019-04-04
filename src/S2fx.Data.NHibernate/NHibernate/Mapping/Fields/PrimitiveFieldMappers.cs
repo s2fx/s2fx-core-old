@@ -94,7 +94,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
     }
 
     public class TimeSpanFieldMapper : AbstractPrimitiveFieldMapper {
-        public override string FieldTypeName => BuiltinFieldTypeNames.TimeSpanTypeName;
+        public override string FieldTypeName => BuiltinFieldTypeNames.TimeTypeName;
     }
 
     public class ByteArrayFieldMapper : AbstractPrimitiveFieldMapper {

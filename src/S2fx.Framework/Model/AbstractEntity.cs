@@ -9,7 +9,7 @@ namespace S2fx.Model {
 
     public abstract class AbstractEntity : IEntity {
 
-        [IdProperty]
+        [IdField]
         public virtual long Id { get; set; }
 
         public virtual bool IsPersistent => Id > 0;
@@ -17,10 +17,10 @@ namespace S2fx.Model {
 
     public abstract class AbstractAuditedEntity : AbstractEntity, IAuditedEntity {
 
-        [ManyToOneProperty(UserEntity.EntityName)]
+        [ManyToOneField(UserEntity.EntityName)]
         public virtual UserEntity CreatedBy { get; set; }
 
-        [ManyToOneProperty(UserEntity.EntityName)]
+        [ManyToOneField(UserEntity.EntityName)]
         public virtual UserEntity UpdatedBy { get; set; }
 
         public virtual DateTime CreatedOn { get; set; } = DateTime.UtcNow;

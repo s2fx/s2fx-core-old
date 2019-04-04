@@ -22,7 +22,7 @@ namespace S2fx.Model.Builtin {
 
         public virtual bool IsEnabled { get; set; }
 
-        [ManyToOneProperty]
+        [ManyToOneField]
         public virtual ModuleEntity Module { get; set; }
 
     }
