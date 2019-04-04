@@ -114,4 +114,14 @@ namespace S2fx.Model.Metadata.Types {
         }
     }
 
+    public class PasswordPropertyType : AbstractPrimitivePropertyType {
+        public override string Name => BuiltinPropertyTypeNames.Password;
+        public override Type ClrType => typeof(string);
+
+        public override bool TryParsePropertyValue(MetaProperty property, string value, out object result, string format = null) {
+            result = value;
+            return true;
+        }
+    }
+
 }

@@ -99,4 +99,11 @@ namespace S2fx.Model.Metadata {
         [DataMember]
         public bool IsRequired { get; set; } = true;
     }
+
+    [DataContract]
+    public class PasswordMetaProperty : MetaProperty, IMetaPropertyWithIsRequired {
+
+        [DataMember]
+        public bool IsRequired { get; set; } = true;
+    }
 }

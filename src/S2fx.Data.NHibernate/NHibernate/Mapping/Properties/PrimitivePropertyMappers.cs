@@ -71,6 +71,11 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         }
     }
 
+    public class PasswordPropertyMapper : StringPropertyMapper {
+        public override string PropertyTypeName => BuiltinPropertyTypeNames.Password;
+
+    }
+
     public class DecimalPropertyMapper : AbstractPrimitivePropertyMapper {
         public override string PropertyTypeName => BuiltinPropertyTypeNames.DecimalTypeName;
     }
