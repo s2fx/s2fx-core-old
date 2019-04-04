@@ -100,10 +100,4 @@ namespace S2fx.Model.Metadata {
         public bool IsRequired { get; set; } = true;
     }
 
-    [DataContract]
-    public class PasswordMetaField : MetaField, IMetaFieldWithIsRequired {
-
-        [DataMember]
-        public bool IsRequired { get; set; } = true;
-    }
 }

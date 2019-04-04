@@ -71,11 +71,6 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
         }
     }
 
-    public class PasswordFieldMapper : StringFieldMapper {
-        public override string FieldTypeName => BuiltinFieldTypeNames.Password;
-
-    }
-
     public class DecimalFieldMapper : AbstractPrimitiveFieldMapper {
         public override string FieldTypeName => BuiltinFieldTypeNames.DecimalTypeName;
     }

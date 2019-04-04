@@ -20,7 +20,7 @@ namespace S2fx.Security.Model {
         [Required, MaxLength(64), DisplayName("Full Name")]
         public virtual string FullName { get; set; }
 
-        [PasswordField, Required, MaxLength(256), DisplayName("Password")]
+        [Password, Hashed, Required, MaxLength(256), DisplayName("Password")]
         public virtual string Password { get; set; }
 
         [DisplayName("Image")]
