@@ -19,6 +19,7 @@ namespace S2fx.Model {
         public virtual long RangeLeft { get; set; }
 
         public virtual long RangeRight { get; set; }
+
     }
 
 }

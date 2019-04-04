@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NHibernate.Cfg;
 using NHibernate.Driver;
+using Npgsql;
 
 namespace S2fx.Data.NHibernate.Npgsql {
 

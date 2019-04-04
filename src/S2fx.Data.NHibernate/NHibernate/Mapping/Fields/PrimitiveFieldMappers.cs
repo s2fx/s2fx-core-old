@@ -17,15 +17,15 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
             MetaEntity entity,
-            MetaField property) {
-            var primitiveProperty = (PrimitiveMetaField)property;
-            var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                mapper.Column(property.DbName);
+            MetaField field) {
+            var primitiveProperty = (PrimitiveMetaField)field;
+            var mappingAction = new Action<IPropertyMapper>(mapper => {
+                mapper.Column(field.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);
             });
-            var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
+            var next = new PropertyPath(currentPropertyPath, field.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);
-            modelExplicitDeclarationsHolder.AddAsProperty(property.ClrPropertyInfo);
+            modelExplicitDeclarationsHolder.AddAsProperty(field.ClrPropertyInfo);
         }
     }
 
@@ -53,44 +53,94 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
             MetaEntity entity,
-            MetaField property) {
-            var primitiveProperty = (PrimitiveMetaField)property;
-            var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                if (property.MaxLength != null && property.MaxLength > 0) {
-                    mapper.Length(property.MaxLength.Value);
+            MetaField field) {
+            var primitiveProperty = (PrimitiveMetaField)field;
+            var mappingAction = new Action<IPropertyMapper>(mapper => {
+                if (field.MaxLength != null && field.MaxLength > 0) {
+                    mapper.Length(field.MaxLength.Value);
                 }
                 else {
                     mapper.Type(NHibernateUtil.StringClob);
                 }
-                mapper.Column(property.DbName);
+                mapper.Column(field.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);
             });
-            var next = new PropertyPath(currentPropertyPath, property.ClrPropertyInfo);
+            var next = new PropertyPath(currentPropertyPath, field.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);
-            modelExplicitDeclarationsHolder.AddAsProperty(property.ClrPropertyInfo);
+            modelExplicitDeclarationsHolder.AddAsProperty(field.ClrPropertyInfo);
         }
     }
+
 
     public class DecimalFieldMapper : AbstractPrimitiveFieldMapper {
         public override string FieldTypeName => BuiltinFieldTypeNames.DecimalTypeName;
     }
 
-    public class DateTimeFieldMapper : AbstractPrimitiveFieldMapper {
-        public override string FieldTypeName => BuiltinFieldTypeNames.DateTimeTypeName;
+    public class DateFieldMapper : AbstractPrimitiveFieldMapper {
+        public override string FieldTypeName => BuiltinFieldTypeNames.DateTypeName;
 
         public override void MapField(
             ICustomizersHolder customizerHolder,
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentPropertyPath,
             MetaEntity entity,
-            MetaField property) {
-            base.MapField(customizerHolder, modelExplicitDeclarationsHolder, currentPropertyPath, entity, property);
+            MetaField field) {
+            var primitiveField = (PrimitiveMetaField)field;
+            var mappingAction = new Action<IPropertyMapper>(mapper => {
+                mapper.Type(NHibernateUtil.Date);
+                mapper.Column(field.DbName);
+                mapper.NotNullable(primitiveField.IsRequired);
+            });
+            var next = new PropertyPath(currentPropertyPath, field.ClrPropertyInfo);
+            customizerHolder.AddCustomizer(next, mappingAction);
+            modelExplicitDeclarationsHolder.AddAsProperty(field.ClrPropertyInfo);
         }
     }
 
-    public class TimeSpanFieldMapper : AbstractPrimitiveFieldMapper {
+
+    public class TimeFieldMapper : AbstractPrimitiveFieldMapper {
         public override string FieldTypeName => BuiltinFieldTypeNames.TimeTypeName;
+
+        public override void MapField(
+            ICustomizersHolder customizerHolder,
+            IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
+            PropertyPath currentPropertyPath,
+            MetaEntity entity,
+            MetaField field) {
+            var primitiveField = (PrimitiveMetaField)field;
+            var mappingAction = new Action<IPropertyMapper>(mapper => {
+                mapper.Type(NHibernateUtil.TimeAsTimeSpan);
+                mapper.Column(field.DbName);
+                mapper.NotNullable(primitiveField.IsRequired);
+            });
+            var next = new PropertyPath(currentPropertyPath, field.ClrPropertyInfo);
+            customizerHolder.AddCustomizer(next, mappingAction);
+            modelExplicitDeclarationsHolder.AddAsProperty(field.ClrPropertyInfo);
+        }
     }
+
+
+    public class UtcDateTimeFieldMapper : AbstractPrimitiveFieldMapper {
+        public override string FieldTypeName => BuiltinFieldTypeNames.DateTimeTypeName;
+
+        public override void MapField(
+            ICustomizersHolder customizerHolder,
+            IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
+            PropertyPath member,
+            MetaEntity entity,
+            MetaField field) {
+            var primitiveField = (PrimitiveMetaField)field;
+            var mappingAction = new Action<IPropertyMapper>(mapper => {
+                mapper.Type(NHibernateUtil.UtcDateTime);
+                mapper.Column(field.DbName);
+                mapper.NotNullable(primitiveField.IsRequired);
+            });
+            var next = new PropertyPath(member, field.ClrPropertyInfo);
+            customizerHolder.AddCustomizer(next, mappingAction);
+            modelExplicitDeclarationsHolder.AddAsProperty(field.ClrPropertyInfo);
+        }
+    }
+
 
     public class ByteArrayFieldMapper : AbstractPrimitiveFieldMapper {
         public override string FieldTypeName => BuiltinFieldTypeNames.ByteArrayTypeName;
@@ -100,22 +150,23 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
             IModelExplicitDeclarationsHolder modelExplicitDeclarationsHolder,
             PropertyPath currentFieldPath,
             MetaEntity entity,
-            MetaField property) {
-            var primitiveProperty = (PrimitiveMetaField)property;
-            var mappingAction = new Action<global::NHibernate.Mapping.ByCode.IPropertyMapper>(mapper => {
-                if (property.MaxLength != null && property.MaxLength > 0) {
-                    mapper.Length(property.MaxLength.Value);
+            MetaField field) {
+            var primitiveProperty = (PrimitiveMetaField)field;
+            var mappingAction = new Action<IPropertyMapper>(mapper => {
+                if (field.MaxLength != null && field.MaxLength > 0) {
+                    mapper.Length(field.MaxLength.Value);
                 }
                 else {
                     mapper.Type(NHibernateUtil.BinaryBlob);
                 }
-                mapper.Column(property.DbName);
+                mapper.Column(field.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);
             });
-            var next = new PropertyPath(currentFieldPath, property.ClrPropertyInfo);
+            var next = new PropertyPath(currentFieldPath, field.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);
-            modelExplicitDeclarationsHolder.AddAsProperty(property.ClrPropertyInfo);
+            modelExplicitDeclarationsHolder.AddAsProperty(field.ClrPropertyInfo);
         }
 
     }
+
 }

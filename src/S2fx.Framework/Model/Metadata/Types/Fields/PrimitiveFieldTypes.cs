@@ -96,9 +96,7 @@ namespace S2fx.Model.Metadata.Types {
 
         public override bool TryParse(MetaField property, string value, out object result, string format = null) {
             //TODO format
-            var succeed = DateTime.TryParse(value, out var typedValue);
-            result = typedValue;
-            return succeed;
+            throw new NotImplementedException();
         }
     }
 
@@ -108,9 +106,7 @@ namespace S2fx.Model.Metadata.Types {
 
         public override bool TryParse(MetaField property, string value, out object result, string format = null) {
             //TODO format
-            var succeed = DateTime.TryParse(value, out var typedValue);
-            result = typedValue;
-            return succeed;
+            throw new NotImplementedException();
         }
     }
 
@@ -120,9 +116,12 @@ namespace S2fx.Model.Metadata.Types {
 
         public override bool TryParse(MetaField property, string value, out object result, string format = null) {
             //TODO format
-            var succeed = TimeSpan.TryParse(value, out var typedValue);
+            /*
+            var succeed = LocalTime.(value, out var typedValue);
             result = typedValue;
             return succeed;
+            */
+            throw new NotImplementedException();
         }
     }
 

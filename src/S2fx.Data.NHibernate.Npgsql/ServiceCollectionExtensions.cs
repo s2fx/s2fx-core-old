@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using S2fx.Data.NHibernate;
 using S2fx.Data.NHibernate.Npgsql;
 
