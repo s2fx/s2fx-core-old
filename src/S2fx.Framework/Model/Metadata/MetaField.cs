@@ -21,6 +21,9 @@ namespace S2fx.Model.Metadata {
         [DataMember]
         public bool IsReadOnly { get; set; } = false;
 
+        [DataMember]
+        public bool IsUnique { get; set; } = false;
+
         public MetaEntity Entity { get; set; }
 
         public IFieldType Type { get; set; }
