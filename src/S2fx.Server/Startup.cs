@@ -40,8 +40,9 @@ namespace S2fx.Server {
                 .AddMvc()
                 .AddS2Framework()
                 .AddS2fxNHibernate()
+                .AddS2fxNHibernateNpgsql()
                 .AddS2fxWeb(this.Configuration)
-                .WithFeatures("S2fx.Core", "S2fx.ClientApp")
+                .WithFeatures("S2fx.Core", "S2fx.ClientApp", "S2fx.Data.NHibernate.Npgsql")
                 ;
             //.WithTenants();
 
