@@ -15,9 +15,9 @@ namespace S2fx.Model.Metadata {
 
             var assembly = Assembly.GetExecutingAssembly();
             var propertyTypes = assembly.ExportedTypes
-                .Where(t => t.IsPublic && t.IsClass && !t.IsAbstract && typeof(IPropertyType).IsAssignableFrom(t));
+                .Where(t => t.IsPublic && t.IsClass && !t.IsAbstract && typeof(IFieldType).IsAssignableFrom(t));
             foreach (var pt in propertyTypes) {
-                services.AddSingleton(typeof(IPropertyType), pt);
+                services.AddSingleton(typeof(IFieldType), pt);
             }
         }
 

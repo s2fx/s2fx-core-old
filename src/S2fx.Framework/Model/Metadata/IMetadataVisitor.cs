@@ -10,7 +10,7 @@ namespace S2fx.Model.Metadata {
 
         void VisitEntity(MetaEntity entity);
 
-        void VisitProperty(MetaProperty property);
+        void VisitField(MetaField property);
     }
 
 }

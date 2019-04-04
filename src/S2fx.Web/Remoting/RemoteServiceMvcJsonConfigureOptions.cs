@@ -18,7 +18,9 @@ namespace S2fx.Web.Remoting {
         }
 
         public void Configure(MvcJsonOptions options) {
-            options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            options.SerializerSettings.ContractResolver = new DefaultContractResolver() {
+                //NamingStrategy = new CamelCaseNamingStrategy(true, true),
+            };
         }
     }
 

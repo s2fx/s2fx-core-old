@@ -31,7 +31,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             //entity mapping
             services.AddTransient(typeof(EntityMappingClass<>), typeof(EntityMappingClass<>));
             services.AddTransient<IModelMapper, ModelMapper>();
-            AddBuiltinPropertyMappers(services);
+            AddBuiltinFieldMappers(services);
 
             //Register nhibernate ISessionFactory 
             services.AddTransient<IHibernateConfigurationFactory, HibernateConfigurationFactory>();
@@ -50,11 +50,11 @@ namespace Microsoft.Extensions.DependencyInjection {
             return builder;
         }
 
-        private static void AddBuiltinPropertyMappers(IServiceCollection services) {
+        private static void AddBuiltinFieldMappers(IServiceCollection services) {
             var assembly = Assembly.GetExecutingAssembly();
-            var mapperTypes = assembly.ExportedTypes.Where(t => t.IsPublic && t.IsClass && !t.IsAbstract && t.IsImplementsInterface<IPropertyMapper>());
+            var mapperTypes = assembly.ExportedTypes.Where(t => t.IsPublic && t.IsClass && !t.IsAbstract && t.IsImplementsInterface<IFieldMapper>());
             foreach (var mt in mapperTypes) {
-                services.AddTransient(typeof(IPropertyMapper), mt);
+                services.AddTransient(typeof(IFieldMapper), mt);
             }
         }
 

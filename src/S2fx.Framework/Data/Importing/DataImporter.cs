@@ -59,8 +59,8 @@ namespace S2fx.Data.Importing {
             foreach (var propBind in context.EntityBinding.PropertyMappings) {
 
                 var propertyValueExpression = propBind.SourceGetter(row);
-                var metaProperty = context.Entity.Properties[propBind.TargetProperty];
-                if (metaProperty.Type.TryParsePropertyValue(metaProperty, propertyValueExpression, out var propertyValue, propBind.Format)) {
+                var metaProperty = context.Entity.Fields[propBind.TargetProperty];
+                if (metaProperty.Type.TryParseFieldValue(metaProperty, propertyValueExpression, out var propertyValue, propBind.Format)) {
                     propValues.Add(metaProperty.Name, propertyValue);
                 }
                 else {
@@ -86,7 +86,7 @@ namespace S2fx.Data.Importing {
             var record = existedRecord ?? Activator.CreateInstance(context.Entity.ClrType);
 
             foreach (var propPair in propValues) {
-                var metaProperty = context.Entity.Properties[propPair.Key];
+                var metaProperty = context.Entity.Fields[propPair.Key];
                 metaProperty.ClrPropertyInfo.SetValue(record, propPair.Value);
             }
 
@@ -112,7 +112,7 @@ namespace S2fx.Data.Importing {
             return context;
         }
 
-        private object ParsePropertyValue(MetaProperty property, string value) {
+        private object ParsePropertyValue(MetaField property, string value) {
             //TODO parse property value
             throw new NotImplementedException();
         }

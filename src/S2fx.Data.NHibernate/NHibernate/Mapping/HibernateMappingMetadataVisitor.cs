@@ -11,8 +11,8 @@ namespace S2fx.Data.NHibernate.Mapping {
             base.VisitEntity(entity);
         }
 
-        public override void VisitProperty(MetaProperty property) {
-            base.VisitProperty(property);
+        public override void VisitField(MetaField field) {
+            base.VisitField(field);
         }
 
     }

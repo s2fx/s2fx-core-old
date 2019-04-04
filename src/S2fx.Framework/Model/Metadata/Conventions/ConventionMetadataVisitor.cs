@@ -7,11 +7,11 @@ namespace S2fx.Model.Metadata.Conventions {
     public class ConventionMetadataVisitor : AbstractMetadataVisitor {
 
         private readonly IEnumerable<IMetadataConvention<MetaEntity>> _entityConventions;
-        private readonly IEnumerable<IMetadataConvention<MetaProperty>> _propertyConventions;
+        private readonly IEnumerable<IMetadataConvention<MetaField>> _propertyConventions;
 
         public ConventionMetadataVisitor(
             IEnumerable<IMetadataConvention<MetaEntity>> entityConventions,
-            IEnumerable<IMetadataConvention<MetaProperty>> propertyConventions) {
+            IEnumerable<IMetadataConvention<MetaField>> propertyConventions) {
             _entityConventions = entityConventions;
             _propertyConventions = propertyConventions;
         }
@@ -21,12 +21,12 @@ namespace S2fx.Model.Metadata.Conventions {
                 convention.Apply(entity);
             }
 
-            foreach (var property in entity.Properties.Values) {
+            foreach (var property in entity.Fields.Values) {
                 property.AcceptVisitor(this);
             }
         }
 
-        public override void VisitProperty(MetaProperty property) {
+        public override void VisitField(MetaField property) {
             foreach (var convention in _propertyConventions) {
                 convention.Apply(property);
             }

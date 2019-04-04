@@ -17,9 +17,9 @@ namespace S2fx.Model.Metadata.Types {
 
         public string Name => BuiltinEntityTypeNames.SqlEntityTypeName;
 
-        private readonly IEnumerable<IPropertyType> _propertyTypes;
+        private readonly IEnumerable<IFieldType> _propertyTypes;
 
-        public SqlEntityType(IEnumerable<IPropertyType> types) {
+        public SqlEntityType(IEnumerable<IFieldType> types) {
             _propertyTypes = types;
         }
 
@@ -42,27 +42,27 @@ namespace S2fx.Model.Metadata.Types {
             foreach (var entityPropertyInfo in descriptor.PropertyInfos) {
                 var property = this.LoadPropertyByClr(entityPropertyInfo.ClrPropertyInfo, allPropertyTypes);
                 property.Entity = entity;
-                entity.Properties.Add(property.Name, property);
+                entity.Fields.Add(property.Name, property);
             }
 
             return Task.FromResult(entity);
         }
 
-        private MetaProperty LoadPropertyByClr(PropertyInfo clrPropertyInfo, IEnumerable<IPropertyType> allPropertyTypes) {
+        private MetaField LoadPropertyByClr(PropertyInfo clrPropertyInfo, IEnumerable<IFieldType> allPropertyTypes) {
 
             var propType = this.InferPropertyType(clrPropertyInfo, allPropertyTypes);
 
             return propType.LoadClrProperty(clrPropertyInfo);
         }
 
-        private IPropertyType InferPropertyType(PropertyInfo clrPropertyInfo, IEnumerable<IPropertyType> allPropertyTypes) {
+        private IFieldType InferPropertyType(PropertyInfo clrPropertyInfo, IEnumerable<IFieldType> allPropertyTypes) {
             var clrType = clrPropertyInfo.PropertyType;
             var propAttr = clrPropertyInfo.GetCustomAttributes()
                 .SingleOrDefault(a => a.GetType().IsImplementsClass<AbstractPropertyAttribute>())
                     as AbstractPropertyAttribute;
 
-            var primitiveTypes = allPropertyTypes.Where(t => t is IPrimitivePropertyType).Cast<IPrimitivePropertyType>();
-            var enumerableType = allPropertyTypes.Single(t => t.Name == BuiltinPropertyTypeNames.EnumerableTypeName);
+            var primitiveTypes = allPropertyTypes.Where(t => t is IPrimitiveFieldType).Cast<IPrimitiveFieldType>();
+            var enumerableType = allPropertyTypes.Single(t => t.Name == BuiltinFieldTypeNames.EnumerableTypeName);
 
             var primitiveType = clrType.IsNullableValueType() ?
                 primitiveTypes.FirstOrDefault(pt => clrType.GetGenericArguments().First() == pt.ClrType)
@@ -76,7 +76,7 @@ namespace S2fx.Model.Metadata.Types {
                 return enumerableType;
             }
             else if (propAttr != null) {
-                return allPropertyTypes.Single(x => x.Name == propAttr.PropertyTypeName);
+                return allPropertyTypes.Single(x => x.Name == propAttr.FieldTypeName);
             }
             else {
                 throw new EntityDefinitionException(

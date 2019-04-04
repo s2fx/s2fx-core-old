@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using OrchardCore.Users;
 using S2fx.Data;
 using S2fx.Model.Builtin;
+using S2fx.Security.Model;
 
 namespace S2fx.Security.Users {
 

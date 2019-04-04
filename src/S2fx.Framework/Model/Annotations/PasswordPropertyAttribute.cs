@@ -5,7 +5,7 @@ using System.Text;
 namespace S2fx.Model.Annotations {
 
     public class PasswordPropertyAttribute : AbstractPropertyAttribute {
-        public override string PropertyTypeName => "Password";
+        public override string FieldTypeName => "Password";
     }
 
 }

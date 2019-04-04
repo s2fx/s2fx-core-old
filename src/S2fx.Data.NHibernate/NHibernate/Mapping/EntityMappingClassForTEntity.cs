@@ -17,16 +17,16 @@ namespace S2fx.Data.NHibernate.Mapping {
         where TEntity : class, IEntity {
 
         private readonly IEntityManager _entityManager;
-        private readonly Dictionary<string, Properties.IPropertyMapper> _propertyMappers = new Dictionary<string, Properties.IPropertyMapper>();
+        private readonly Dictionary<string, Properties.IFieldMapper> _propertyMappers = new Dictionary<string, Properties.IFieldMapper>();
         protected MetaEntity MetaEntity { get; }
 
         public EntityMappingClass(
-            IEnumerable<Properties.IPropertyMapper> propertyMappers,
+            IEnumerable<Properties.IFieldMapper> propertyMappers,
             IEntityManager entityManager) {
             _entityManager = entityManager;
 
             foreach (var pm in propertyMappers) {
-                _propertyMappers.Add(pm.PropertyTypeName, pm);
+                _propertyMappers.Add(pm.FieldTypeName, pm);
             }
 
             this.MetaEntity = entityManager.GetEntityByClrType(typeof(TEntity));
@@ -34,29 +34,29 @@ namespace S2fx.Data.NHibernate.Mapping {
             this.DoMapping();
         }
 
-        protected void DoMapping() {
+        protected virtual void DoMapping() {
             this.MapEntityHeader();
-            this.MapEntityProperties();
+            this.MapAllFields();
         }
 
-        protected void MapEntityHeader() {
+        protected virtual void MapEntityHeader() {
             Table(this.MetaEntity.DbName);
         }
 
-        protected void MapEntityProperties() {
+        protected virtual void MapAllFields() {
 
-            var idProperty = this.MetaEntity.Properties["Id"];
+            var idProperty = this.MetaEntity.Fields["Id"];
             this.Id(x => x.Id, mapper => {
                 mapper.Column(idProperty.DbName);
                 mapper.Generator(Generators.Native);
             });
 
-            foreach (var property in this.MetaEntity.Properties.Values.Where(x => x.Name != "Id")) {
-                if (_propertyMappers.TryGetValue(property.Type.Name, out var mapper)) {
-                    mapper.MapProperty(this.CustomizersHolder, this.ExplicitDeclarationsHolder, this.PropertyPath, this.MetaEntity, property);
+            foreach (var field in this.MetaEntity.Fields.Values.Where(x => x.Name != "Id")) {
+                if (_propertyMappers.TryGetValue(field.Type.Name, out var mapper)) {
+                    mapper.MapField(this.CustomizersHolder, this.ExplicitDeclarationsHolder, this.PropertyPath, this.MetaEntity, field);
                 }
                 else {
-                    throw new InvalidOperationException($"Unknown entity property type: '{property.Type.Name}'");
+                    throw new InvalidOperationException($"Unknown entity property type: '{field.Type.Name}' in entity '{this.MetaEntity.Name}'");
                 }
             }
         }

@@ -7,7 +7,7 @@ namespace S2fx.Model.Annotations {
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class ManyToManyPropertyAttribute : AbstractRelationPropertyAttribute {
-        public override string PropertyTypeName => BuiltinPropertyTypeNames.ManyToManyTypeName;
+        public override string FieldTypeName => BuiltinFieldTypeNames.ManyToManyTypeName;
 
         public string JoinTable { get; }
 

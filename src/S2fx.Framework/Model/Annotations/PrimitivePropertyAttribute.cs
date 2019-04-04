@@ -7,7 +7,7 @@ namespace S2fx.Model.Annotations {
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class PrimitivePropertyAttribute : AbstractPropertyAttribute {
-        public override string PropertyTypeName => "Primitive";
+        public override string FieldTypeName => "Primitive";
         public int Length { get; set; } = -1;
     }
 }

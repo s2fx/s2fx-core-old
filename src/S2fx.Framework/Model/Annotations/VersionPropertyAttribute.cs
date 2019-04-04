@@ -7,6 +7,6 @@ namespace S2fx.Model.Annotations {
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class VersionPropertyAttribute : AbstractPropertyAttribute {
-        public override string PropertyTypeName => BuiltinPropertyTypeNames.VersionTypeName;
+        public override string FieldTypeName => BuiltinFieldTypeNames.VersionTypeName;
     }
 }

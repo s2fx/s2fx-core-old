@@ -30,7 +30,7 @@ namespace S2fx.Model.Metadata {
         public string FeatureId => this.Feature.Id;
 
         [DataMember]
-        public IDictionary<string, MetaProperty> Properties { get; } = new Dictionary<string, MetaProperty>();
+        public IDictionary<string, MetaField> Fields { get; } = new Dictionary<string, MetaField>();
 
         public string DbName { get; set; }
 
