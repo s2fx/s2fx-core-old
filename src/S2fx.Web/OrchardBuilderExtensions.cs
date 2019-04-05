@@ -25,11 +25,15 @@ namespace S2fx.Web {
 
             //Remote services
             {
-                //Controller Conventions
                 {
-                    services.AddTransient<IControllerModelConvention, RemoteServiceControllerNameConvention>();
-                    services.AddTransient<IControllerModelConvention, RemoteServiceControllerActionConvention>();
-                    services.AddTransient<IControllerModelConvention, RemoteServiceControllerAreaConvention>();
+                    //Controller Conventions
+                    services.AddTransient<IControllerModelConvention, RemoteServiceControllerConvention>();
+
+                    // Controller Action Conventions
+                    services.AddTransient<IActionModelConvention, RemoteServiceMethodActionModelConvention>();
+
+                    // Controller Parameter Conventions
+                    services.AddTransient<IParameterModelConvention, RemoteServiceControllerActionParameterConvention>();
                 }
 
                 //Model Binder Providers:

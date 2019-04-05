@@ -28,7 +28,7 @@ namespace S2fx.Remoting {
             //builtin remote services
             services.AddScoped<MetaEntityRemoteService>();
 
-            services.AddScoped(typeof(GenericEntityRemoteService<>));
+            services.AddScoped(typeof(GenericRestEntityRemoteService<>));
         }
     }
 

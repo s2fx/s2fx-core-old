@@ -14,7 +14,7 @@ using S2fx.Remoting.RemoteServices;
 namespace S2fx.Remoting {
 
     public class GenericEntityServiceMetadataProvider : AbstractClrTypeBasedRemoteServiceMetadataProvider {
-        public const string DefaultEntityRemoteServiceArea = "entity";
+        public const string DefaultEntityRemoteServiceArea = MvcControllerAreas.EntityArea;
 
         private readonly IServiceProvider _services;
         private readonly IHostingEnvironment _environment;
@@ -34,7 +34,7 @@ namespace S2fx.Remoting {
             var entities = _entityManager.GetEntities().Values;
 
             var descriptors = new List<RemoteServiceInfo>();
-            var genericRemoteServiceType = typeof(GenericEntityRemoteService<>);
+            var genericRemoteServiceType = typeof(GenericRestEntityRemoteService<>);
 
             foreach (var entity in entities) {
                 var serviceImplType = genericRemoteServiceType.MakeGenericType(entity.ClrType).GetTypeInfo();

@@ -18,12 +18,27 @@ namespace S2fx.Web.Remoting {
 
         public void Configure(MvcOptions options) {
             this.AddControllerConventions(options);
+            this.AddControllerActionConventions(options);
+            this.AddControllerActionParameterConventions(options);
             this.AddModelBinderProviders(options);
         }
 
         private void AddControllerConventions(MvcOptions options) {
             var conventions = _services.GetServices<IControllerModelConvention>();
+            foreach (var convention in conventions) {
+                options.Conventions.Add(convention);
+            }
+        }
 
+        private void AddControllerActionConventions(MvcOptions options) {
+            var conventions = _services.GetServices<IActionModelConvention>();
+            foreach (var convention in conventions) {
+                options.Conventions.Add(convention);
+            }
+        }
+
+        private void AddControllerActionParameterConventions(MvcOptions options) {
+            var conventions = _services.GetServices<IParameterModelConvention>();
             foreach (var convention in conventions) {
                 options.Conventions.Add(convention);
             }

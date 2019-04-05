@@ -15,6 +15,20 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "s2fx-client": [
+        "dist/s2fx-client"
+      ],
+      "s2fx-client/*": [
+        "dist/s2fx-client/*"
+      ],
+      "client": [
+        "dist/client"
+      ],
+      "client/*": [
+        "dist/client/*"
+      ]
+    }
   }
 }

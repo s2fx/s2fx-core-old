@@ -8,7 +8,7 @@ using S2fx.Remoting.RemoteServices.Metadata;
 
 namespace S2fx.Remoting.RemoteServices.Metadata {
 
-    [RemoteService(name: "MetaEntity", Area = "meta")]
+    [RemoteService(name: "MetaEntity", Area = MvcControllerAreas.MetadataArea)]
     public class MetaEntityRemoteService {
         private readonly IEntityManager _entityManager;
 
@@ -16,13 +16,13 @@ namespace S2fx.Remoting.RemoteServices.Metadata {
             _entityManager = entityManager;
         }
 
-        [RemoteServiceMethod(httpMethod: HttpMethod.Get)]
+        [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
         public virtual IReadOnlyDictionary<string, MetaEntity> All() {
             return _entityManager.GetEntities();
         }
 
-        [RemoteServiceMethod(httpMethod: HttpMethod.Get)]
-        public virtual MetaEntity Single(string name) {
+        [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
+        public virtual MetaEntity Single([Url]string name) {
             return _entityManager.GetEntity(name);
         }
     }

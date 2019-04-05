@@ -59,7 +59,9 @@ namespace S2fx.Remoting {
             var name = string.IsNullOrEmpty(methodAttr.Name) ? method.Name : methodAttr.Name;
             return new RemoteServiceMethodInfo() {
                 Name = name,
+                IsRestful = methodAttr.IsRestful,
                 ClrMethodInfo = method,
+                HttpMethod = methodAttr.HttpMethod,
             };
         }
 

@@ -6,12 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ClientApp\node_modules\**" />
-    <Compile Remove="wwwroot\dist\**" />
-    <EmbeddedResource Remove="ClientApp\node_modules\**" />
-    <EmbeddedResource Remove="wwwroot\dist\**" />
-    <None Remove="ClientApp\node_modules\**" />
-    <None Remove="wwwroot\dist\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="AspNetCore\WebApi\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
