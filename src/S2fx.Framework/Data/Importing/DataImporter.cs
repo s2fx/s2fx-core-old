@@ -55,7 +55,7 @@ namespace S2fx.Data.Importing {
         private async Task ImportSingleRecordAsync(
             ImportContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, object row) {
 
-            var propValues = new Dictionary<string, object>(context.EntityBinding.PropertyMappings.Count());
+            var propValues = new Dictionary<string, object>(context.EntityBinding.PropertyMappings.Length);
             foreach (var propBind in context.EntityBinding.PropertyMappings) {
 
                 var propertyValueExpression = propBind.SourceGetter(row);

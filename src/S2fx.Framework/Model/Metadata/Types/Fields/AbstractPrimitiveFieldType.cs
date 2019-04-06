@@ -18,6 +18,8 @@ namespace S2fx.Model.Metadata.Types {
     public abstract class AbstractPrimitiveFieldType : AbstractFieldType, IPrimitiveFieldType {
 
         public abstract Type ClrType { get; }
+        public override bool SelectDefaultValue => true;
+        public override bool UniqueDefaultValue => false;
 
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
             var pt = propertyInfo.PropertyType;

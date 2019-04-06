@@ -30,6 +30,7 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
                     mapper.Length(field.MaxLength.Value);
                 }
                 mapper.Unique(field.IsUnique);
+                mapper.Lazy(field.IsLazy);
             });
             var next = new PropertyPath(currentPropertyPath, field.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);
@@ -76,6 +77,8 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
                     mapper.Type(NHibernateUtil.StringClob);
                 }
                 mapper.Column(field.DbName);
+                mapper.Unique(field.IsUnique);
+                mapper.Lazy(field.IsLazy);
                 mapper.NotNullable(primitiveProperty.IsRequired);
             });
             var next = new PropertyPath(currentPropertyPath, field.ClrPropertyInfo);
@@ -128,6 +131,8 @@ namespace S2fx.Data.NHibernate.Mapping.Properties {
                 }
                 mapper.Column(field.DbName);
                 mapper.NotNullable(primitiveProperty.IsRequired);
+                mapper.Unique(field.IsUnique);
+                mapper.Lazy(field.IsLazy);
             });
             var next = new PropertyPath(currentFieldPath, field.ClrPropertyInfo);
             customizerHolder.AddCustomizer(next, mappingAction);

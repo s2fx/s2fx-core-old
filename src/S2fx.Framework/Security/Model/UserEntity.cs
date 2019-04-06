@@ -23,7 +23,7 @@ namespace S2fx.Security.Model {
         [Password, Hashed, Required, MaxLength(256), DisplayName("Password")]
         public virtual string Password { get; set; }
 
-        [DisplayName("Image")]
+        [DisplayName("Image"), Lazy]
         public virtual byte[] Image { get; set; }
 
         [MaxLength(256), DisplayName("E-Mail")]

@@ -17,6 +17,9 @@ namespace S2fx.Model.Metadata.Types {
 
         public override string Name => BuiltinFieldTypeNames.EnumerableTypeName;
 
+        public override bool SelectDefaultValue => true;
+        public override bool UniqueDefaultValue => false;
+
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
 
             var pt = propertyInfo.PropertyType;

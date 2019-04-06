@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using S2fx.Model;
 
@@ -16,11 +17,15 @@ namespace S2fx.Data {
 
         IQueryable<TEntity> All();
 
-        Task<object> QueryAsync(IQueryable<object> queryable);
+        IQueryable<TEntity> AllWithNoTrack();
 
-        Task<TEntity[]> GetAllAsync();
+        Task<TResult> ExecuteQueryAsync<TResult>(IQueryable queryable, CancellationToken cancellationToken = default);
 
-        Task<TEntity[]> GetAllAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<List<TEntity>> GetAllAsync();
+
+        Task<List<TEntity>> GetAllPagedAsync(int offset = 0, int limit = 50);
+
+        Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate);
 
         Task<TEntity> SingleAsync(long id);
 

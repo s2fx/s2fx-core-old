@@ -92,8 +92,13 @@ namespace S2fx.Web.Remoting {
             foreach (var action in controller.Actions) {
                 var serviceMethod = serviceMethods[action.ActionMethod];
                 this.SetHttpVerbOfAction(serviceInfo, action, serviceMethod);
+
+                if (action.ActionName.EndsWith("Async")) {
+                    action.ActionName = action.ActionName.Substring(0, action.ActionName.Length - 5);
+                }
             }
         }
+
     }
 
 }

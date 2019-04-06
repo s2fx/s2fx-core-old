@@ -6,7 +6,6 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq.Dynamic.Core;
 using S2fx.Model;
-using LinqToQuerystring;
 using System.Linq.Expressions;
 using S2fx.Utility;
 using S2fx.Data.Importing.Model;
@@ -22,7 +21,7 @@ namespace S2fx.Data.Importing {
             _repository = repository;
         }
 
-        public async Task<object> FindExistedRecordOrDefaultAsync(ImportContext context, IDictionary<string, object> symbols) {
+        public async Task<object> FindExistedRecordOrDefaultAsync(ImportContext context, IReadOnlyDictionary<string, object> symbols) {
             if (string.IsNullOrEmpty(context.EntityBinding.Where)) {
                 return null;
             }
@@ -31,7 +30,7 @@ namespace S2fx.Data.Importing {
         }
 
         private Expression<Func<TEntity, bool>> CreateEntityPredicateExpression(
-            string expression, IDictionary<string, object> symbols) {
+            string expression, IReadOnlyDictionary<string, object> symbols) {
             var lambda = DynamicExpressionParser.ParseLambda(
                 typeof(TEntity), typeof(bool), expression, symbols);
             var body = lambda as Expression<Func<TEntity, bool>>;

@@ -24,15 +24,38 @@ namespace S2fx.Data.NHibernate {
 
         public IQueryable<TEntity> All() => this.Table;
 
-        public async Task<object> QueryAsync(IQueryable<object> queryable) {
-            return await queryable.ToListAsync();
+        public IQueryable<TEntity> AllWithNoTrack() {
+            return this.Table.WithOptions(x => {
+                x.SetCacheable(false);
+                x.SetCacheMode(CacheMode.Ignore);
+            });
         }
 
-        public async Task<TEntity[]> GetAllAsync() =>
-            (await this.Table.ToListAsync()).ToArray();
+        public Task<TResult> ExecuteQueryAsync<TResult>(IQueryable source, CancellationToken cancellationToken = default) {
+            if (source == null) {
+                throw new ArgumentNullException(nameof(source));
+            }
+            if (!(source.Provider is INhQueryProvider provider)) {
+                throw new NotSupportedException($"Source {nameof(source.Provider)} must be a {nameof(INhQueryProvider)}");
+            }
+            if (cancellationToken.IsCancellationRequested) {
+                return Task.FromCanceled<TResult>(cancellationToken);
+            }
+            return InternalToListAsync();
 
-        public async Task<TEntity[]> GetAllAsync(Expression<Func<TEntity, bool>> predicate) =>
-            (await this.Table.Where(predicate).ToListAsync()).ToArray();
+            async Task<TResult> InternalToListAsync() {
+                return await provider.ExecuteAsync<TResult>(source.Expression, cancellationToken).ConfigureAwait(false);
+            }
+        }
+
+        public Task<List<TEntity>> GetAllAsync() =>
+            this.Table.ToListAsync();
+
+        public Task<List<TEntity>> GetAllPagedAsync(int offset = 0, int limit = 50) =>
+            this.Table.Skip(offset).Take(limit).ToListAsync();
+
+        public Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate) =>
+            this.Table.Where(predicate).ToListAsync();
 
         public Task<TEntity> SingleAsync(long id) =>
             this.DbSession.LoadAsync<TEntity>(id);
@@ -109,5 +132,7 @@ namespace S2fx.Data.NHibernate {
 
         public Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate) =>
             this.Table.LongCountAsync(predicate);
+
+      
     }
 }

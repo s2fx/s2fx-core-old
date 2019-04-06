@@ -2,7 +2,7 @@
 <seed-data>
 
     <import file="CoreSelectionData.xml" data-source="XML" entity="Core.Selection">
-        <map selector="/Data/CoreSelections/CoreSelection" where="$.Name == Name" update="false">
+        <map selector="/Data/CoreSelections/CoreSelection" where="it.Name == Name" update="false">
             <map property="Name" source="@Name" />
             <map property="DisplayName" source="@DisplayName" />
             <map property="Feature" source="@Feature" />
@@ -11,7 +11,7 @@
 
     <!-- Roles -->
     <import file="SecurityData.xml" data-source="XML" entity="Core.Role">
-        <map selector="/Data/Roles/Role" where="$.Name == Name" update="false">
+        <map selector="/Data/Roles/Role" where="it.Name == Name" update="false">
             <map property="Name" source="@Name" />
             <map property="DisplayName" source="@DisplayName" />
         </map>
@@ -19,7 +19,7 @@
 
     <!-- Users -->
     <import file="SecurityData.xml" data-source="XML" entity="Core.User">
-        <map selector="/Data/Users/User" where="$.UserName == UserName" update="false">
+        <map selector="/Data/Users/User" where="it.UserName == UserName" update="false">
             <map property="UserName" source="@UserName" />
             <map property="Password" source="@Password" />
             <map property="FullName" source="@FullName" />

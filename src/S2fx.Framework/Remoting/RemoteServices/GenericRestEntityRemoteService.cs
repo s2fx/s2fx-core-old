@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using S2fx.Data;
 using S2fx.Model;
-using LinqToQuerystring.Utils;
-using LinqToQuerystring;
 using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 
 namespace S2fx.Remoting.RemoteServices {
 
@@ -25,9 +25,8 @@ namespace S2fx.Remoting.RemoteServices {
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
-        public object GetAll() {
-            var results = this.Repository.All().Take(50).ToArray();
-            return results;
+        public async Task<List<TEntity>> GetAllAsync() {
+            return await this.Repository.GetAllPagedAsync(0, 50);
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
@@ -37,16 +36,53 @@ namespace S2fx.Remoting.RemoteServices {
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get)]
-        public object Query([Body]EntityQueryParameters queryParams) {
+        public async Task<EntityQueryResult> QueryAsync(
+            string filter = null, string select = null, string sort = null, int offset = 0, int limit = 50) {
             //TODO with filter, selector ...
-            var table = this.Repository.All();
-            var records = table.LinqToQuerystring(typeof(TEntity), queryParams.QueryString)
-                as IEnumerable<object>;
-            var result = new EntityQueryResult {
-                Count = records.Count(),
-                Value = records,
+            var source = this.Repository.AllWithNoTrack();
+            /*
+            var filtered = table.OData()
+                .Filter("Id gt 0")
+                .SelectExpandAsQueryable("Id,UserName");
+                */
+
+            IQueryable filteredQuery = source;
+            long total = 0;
+
+            if (!string.IsNullOrEmpty(filter)) {
+                var lambda = DynamicExpressionParser.ParseLambda(typeof(TEntity), typeof(bool), "it.Id > 0");
+                var whereExpr = (Expression<Func<TEntity, bool>>)lambda;
+                filteredQuery = source.Where(whereExpr);
+                total = await Repository.CountAsync(whereExpr);
+            }
+            else {
+                total = await Repository.CountAsync();
+            }
+
+            if (!string.IsNullOrEmpty(sort)) {
+                filteredQuery = filteredQuery.OrderBy("Id desc");
+            }
+
+            if (offset >= 0) {
+                filteredQuery = filteredQuery.Skip(offset);
+            }
+
+            if (limit > 0) {
+                filteredQuery = filteredQuery.Take(limit);
+            }
+
+            if (!string.IsNullOrEmpty(select)) {
+                filteredQuery = filteredQuery.Select("new(Id, Name, new(Id,Name) as Tuple)");
+            }
+
+            var result = await this.Repository.ExecuteQueryAsync<IEnumerable<object>>(filteredQuery);
+            return new EntityQueryResult {
+                Offset = offset,
+                Limit = limit,
+                Total = total,
+                Count = result.Count(),
+                Entities = result,
             };
-            return result;
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Delete, isRestful: true)]

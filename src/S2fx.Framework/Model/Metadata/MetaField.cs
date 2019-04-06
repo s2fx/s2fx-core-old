@@ -22,7 +22,13 @@ namespace S2fx.Model.Metadata {
         public bool IsReadOnly { get; set; } = false;
 
         [DataMember]
-        public bool IsUnique { get; set; } = false;
+        public bool IsUnique { get; set; }
+
+        [DataMember]
+        public bool IsLazy { get; set; } = false;
+
+        [DataMember]
+        public bool IsSelect { get; set; }
 
         public MetaEntity Entity { get; set; }
 

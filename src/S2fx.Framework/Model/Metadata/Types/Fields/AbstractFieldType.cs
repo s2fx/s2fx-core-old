@@ -9,6 +9,9 @@ namespace S2fx.Model.Metadata.Types {
 
         public abstract string Name { get; }
 
+        public abstract bool SelectDefaultValue { get; }
+        public abstract bool UniqueDefaultValue { get; }
+
         public abstract MetaField LoadClrProperty(PropertyInfo propertyInfo);
 
         public abstract bool TryParse(

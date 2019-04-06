@@ -7,13 +7,9 @@ using S2fx.Utility;
 
 namespace S2fx.Model.Metadata.Conventions {
 
-    public class EntityDbNameConvention : IMetadataConvention<MetaEntity> {
+    public class EntityDbNameConvention : AbstractEntityConvention {
 
-        public EntityDbNameConvention() {
-
-        }
-
-        public void Apply(MetaEntity entity) {
+        public override void Apply(MetaEntity entity) {
             entity.DbName = entity.Name.Replace(".", "").ToSnakeCase();
         }
 

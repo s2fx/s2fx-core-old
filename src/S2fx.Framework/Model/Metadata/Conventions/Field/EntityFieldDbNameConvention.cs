@@ -6,9 +6,9 @@ using S2fx.Utility;
 
 namespace S2fx.Model.Metadata.Conventions {
 
-    public class EntityFieldDbNameConvention : IMetadataConvention<MetaField> {
+    public class EntityFieldDbNameConvention : AbstractEntityFieldConvention {
 
-        public void Apply(MetaField field) {
+        public override void Apply(MetaField field) {
             field.DbName = field.Name.ToSnakeCase();
         }
     }

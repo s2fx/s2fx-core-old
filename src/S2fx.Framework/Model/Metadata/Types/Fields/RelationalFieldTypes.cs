@@ -16,6 +16,8 @@ namespace S2fx.Model.Metadata.Types {
 
     public abstract class AbstractRelationalFieldType : AbstractFieldType, IRelationalFieldType {
 
+        public override bool UniqueDefaultValue => false;
+
         protected void ValidateCollectionPropertyType(PropertyInfo propertyInfo, string refEntityName) {
             if (!propertyInfo.PropertyType.IsGenericType || propertyInfo.PropertyType.GetGenericTypeDefinition() != typeof(ICollection<>)) {
                 throw new EntityDefinitionException($"The property '{propertyInfo.Name}' of entity '{refEntityName}' must be a ICollection<T>");
@@ -27,6 +29,7 @@ namespace S2fx.Model.Metadata.Types {
     public class ManyToOneFieldType : AbstractRelationalFieldType {
 
         public override string Name => BuiltinFieldTypeNames.ManyToOneTypeName;
+        public override bool SelectDefaultValue => true;
 
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
             var manyToOneAttr = propertyInfo.GetCustomAttribute<ManyToOneFieldAttribute>();
@@ -54,6 +57,7 @@ namespace S2fx.Model.Metadata.Types {
     public class OneToManyFieldType : AbstractRelationalFieldType {
 
         public override string Name => BuiltinFieldTypeNames.OneToManyTypeName;
+        public override bool SelectDefaultValue => false;
 
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
             var oneToManyAttr = propertyInfo.GetCustomAttribute<OneToManyFieldAttribute>();
@@ -80,6 +84,7 @@ namespace S2fx.Model.Metadata.Types {
 
     public class ManyToManyFieldType : AbstractRelationalFieldType {
         public override string Name => BuiltinFieldTypeNames.ManyToManyTypeName;
+        public override bool SelectDefaultValue => false;
 
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
             var thisEntityName = propertyInfo.DeclaringType.GetCustomAttribute<EntityAttribute>().Name;

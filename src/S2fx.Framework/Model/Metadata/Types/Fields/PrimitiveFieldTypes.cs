@@ -72,6 +72,7 @@ namespace S2fx.Model.Metadata.Types {
 
     public class ByteArrayFieldType : AbstractPrimitiveFieldType {
         public override string Name => BuiltinFieldTypeNames.ByteArrayTypeName;
+        public override bool SelectDefaultValue => false;
         public override Type ClrType => typeof(byte[]);
 
         public override bool TryParse(MetaField property, string value, out object result, string format = null) {
@@ -122,16 +123,6 @@ namespace S2fx.Model.Metadata.Types {
             return succeed;
             */
             throw new NotImplementedException();
-        }
-    }
-
-    public class PasswordFieldType : AbstractPrimitiveFieldType {
-        public override string Name => BuiltinFieldTypeNames.Password;
-        public override Type ClrType => typeof(string);
-
-        public override bool TryParse(MetaField property, string value, out object result, string format = null) {
-            result = value;
-            return true;
         }
     }
 
