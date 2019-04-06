@@ -2,8 +2,8 @@
 <Data>
 
     <Roles>
-        <Role Name="admin" DisplayName="Administrators" />
-        <Role Name="user" DisplayName="Normal Users/Employees" />
+        <Role Name="role.admin" DisplayName="Administrators" />
+        <Role Name="role.user" DisplayName="Normal Users/Employees" />
     </Roles>
 
     <Users>

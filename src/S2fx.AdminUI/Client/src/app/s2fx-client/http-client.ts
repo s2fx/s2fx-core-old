@@ -47,8 +47,8 @@ export class S2fxHttpClient {
     */
 
     public async getAsJson<TReturn>(path: string): Promise<TReturn>; //有返回值无参数
-    public async getAsJson<TParams, TReturn>(path: string, params: TParams): Promise<TReturn>; //有返回值有参数
-    public async getAsJson<TParams, TReturn>(path: string, params?: TParams): Promise<TReturn> {
+    public async getAsJson<TReturn>(path: string, params: object): Promise<TReturn>; //有返回值有参数
+    public async getAsJson<TReturn>(path: string, params?: object): Promise<TReturn> {
         let headers = new Headers({ 'Accept': 'application/json' });
         let options = new RequestOptions({
             headers: headers,

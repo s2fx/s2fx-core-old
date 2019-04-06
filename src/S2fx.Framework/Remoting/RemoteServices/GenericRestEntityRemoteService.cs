@@ -8,6 +8,7 @@ using S2fx.Model;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using S2fx.Model.Metadata;
 
 namespace S2fx.Remoting.RemoteServices {
 
@@ -15,13 +16,20 @@ namespace S2fx.Remoting.RemoteServices {
         where TEntity : class, IEntity {
 
         protected IRepository<TEntity> Repository { get; }
+        protected IEntityManager EntityManager { get; }
+
         public ILogger Logger { get; set; }
+        public MetaEntity Entity { get; }
 
         public GenericRestEntityRemoteService(
             IRepository<TEntity> repository,
-            ILogger<GenericRestEntityRemoteService<TEntity>> logger) {
+            ILogger<GenericRestEntityRemoteService<TEntity>> logger,
+            IEntityManager entityManager) {
             this.Repository = repository;
             this.Logger = logger;
+            this.EntityManager = entityManager;
+
+            this.Entity = entityManager.GetEntityByClrType(typeof(TEntity));
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
@@ -77,6 +85,7 @@ namespace S2fx.Remoting.RemoteServices {
 
             var result = await this.Repository.ExecuteQueryAsync<IEnumerable<object>>(filteredQuery);
             return new EntityQueryResult {
+                Entity = this.Entity.Name,
                 Filter = filter,
                 SortBy = sort,
                 Select = select,

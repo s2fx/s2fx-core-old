@@ -24,6 +24,5 @@ export class DashboardComponent implements OnInit {
 
         let userResult = await this.entityService.query("Core.User", null, "new(Id, UserName, FullName, Email)")
         this.users = userResult.Entities
-        console.log(this.userResult)
     }
 }

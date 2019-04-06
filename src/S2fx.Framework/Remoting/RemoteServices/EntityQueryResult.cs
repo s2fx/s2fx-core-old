@@ -9,6 +9,9 @@ namespace S2fx.Remoting.RemoteServices {
     public class EntityQueryResult {
 
         [DataMember]
+        public string Entity { get; set; }
+
+        [DataMember]
         public string Filter { get; set; }
 
         [DataMember]

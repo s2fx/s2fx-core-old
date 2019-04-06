@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { S2fxHttpClient } from './http-client'
-import { ViewOdfDocumentInput, SettingValue } from './models'
+import { ViewOdfDocumentInput, SettingValue, IEntityQueryResult } from './models'
 
 
 @Injectable()
@@ -28,7 +28,7 @@ export class EntityService {
 
     }
 
-    public async query(entity: string, filter?: string, select?: string, sortBy?: string): Promise<any[]> {
+    public async query(entity: string, filter?: string, select?: string, sortBy?: string): Promise<IEntityQueryResult> {
         let params = {}
         if (filter != null) {
             params['filter'] = filter
@@ -39,7 +39,7 @@ export class EntityService {
         if (sortBy != null) {
             params['sort'] = sortBy
         }
-        return await this.client.getAsJson<Object, any[]>(`/Entity/${entity}/Query`, params)
+        return await this.client.getAsJson<IEntityQueryResult>(`/Entity/${entity}/Query`, params)
     }
 
 }

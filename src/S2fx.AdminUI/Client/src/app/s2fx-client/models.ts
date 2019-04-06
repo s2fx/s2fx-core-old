@@ -5,7 +5,7 @@ export class ViewOdfDocumentInput {
     constructor(content: string) {
         this.content = content
     }
-} 
+}
 
 export class SettingValue {
 
@@ -13,4 +13,16 @@ export class SettingValue {
 
     }
 
+}
+
+export interface IEntityQueryResult {
+    Entity: string
+    Filter: string
+    Select: string
+    SortBy: string
+    Offset: number
+    Limit: number
+    Count: number
+    Total: number
+    Entities: any
 }
