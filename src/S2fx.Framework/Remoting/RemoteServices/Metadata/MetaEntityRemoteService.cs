@@ -17,8 +17,8 @@ namespace S2fx.Remoting.RemoteServices.Metadata {
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
-        public virtual IReadOnlyDictionary<string, MetaEntity> All() {
-            return _entityManager.GetEntities();
+        public virtual IEnumerable<MetaEntity> All() {
+            return _entityManager.GetEntities().Values;
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]

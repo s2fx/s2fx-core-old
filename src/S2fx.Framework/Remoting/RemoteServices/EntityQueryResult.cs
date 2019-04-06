@@ -9,6 +9,15 @@ namespace S2fx.Remoting.RemoteServices {
     public class EntityQueryResult {
 
         [DataMember]
+        public string Filter { get; set; }
+
+        [DataMember]
+        public string Select { get; set; }
+
+        [DataMember]
+        public string SortBy { get; set; }
+
+        [DataMember]
         public long Offset { get; set; }
 
         [DataMember]

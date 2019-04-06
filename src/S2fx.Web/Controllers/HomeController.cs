@@ -27,6 +27,7 @@ namespace S2fx.Web.Controllers {
             _migrator = migrator;
         }
 
+        /*
         public async Task<IActionResult> Index() {
             await Task.CompletedTask;
             //await _migrator.MigrateSchemeAsync();
@@ -34,6 +35,7 @@ namespace S2fx.Web.Controllers {
             //await loader.LoadAllSeedDataAsync();
             return View();
         }
+        */
 
 
         public async Task<IActionResult> InitDB() {
@@ -42,7 +44,7 @@ namespace S2fx.Web.Controllers {
             var loader = _services.GetService<ISeedDataLoader>();
             await loader.LoadAllSeedDataAsync();
 
-            return Ok();
+            return View();
         }
     }
 }

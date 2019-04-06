@@ -24,6 +24,9 @@ namespace S2fx.Web {
             //DummyActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
             configure?.Invoke(app);
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             return app;
         }
 

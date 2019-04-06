@@ -50,7 +50,7 @@ namespace S2fx.Remoting.RemoteServices {
             long total = 0;
 
             if (!string.IsNullOrEmpty(filter)) {
-                var lambda = DynamicExpressionParser.ParseLambda(typeof(TEntity), typeof(bool), "it.Id > 0");
+                var lambda = DynamicExpressionParser.ParseLambda(typeof(TEntity), typeof(bool), filter);
                 var whereExpr = (Expression<Func<TEntity, bool>>)lambda;
                 filteredQuery = source.Where(whereExpr);
                 total = await Repository.CountAsync(whereExpr);
@@ -60,7 +60,7 @@ namespace S2fx.Remoting.RemoteServices {
             }
 
             if (!string.IsNullOrEmpty(sort)) {
-                filteredQuery = filteredQuery.OrderBy("Id desc");
+                filteredQuery = filteredQuery.OrderBy(sort);
             }
 
             if (offset >= 0) {
@@ -72,11 +72,14 @@ namespace S2fx.Remoting.RemoteServices {
             }
 
             if (!string.IsNullOrEmpty(select)) {
-                filteredQuery = filteredQuery.Select("new(Id, Name, new(Id,Name) as Tuple)");
+                filteredQuery = filteredQuery.Select(select);
             }
 
             var result = await this.Repository.ExecuteQueryAsync<IEnumerable<object>>(filteredQuery);
             return new EntityQueryResult {
+                Filter = filter,
+                SortBy = sort,
+                Select = select,
                 Offset = offset,
                 Limit = limit,
                 Total = total,
