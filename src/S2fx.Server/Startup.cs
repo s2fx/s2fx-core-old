@@ -37,12 +37,10 @@ namespace S2fx.Server {
                 .AddOrchardCore()
                 .AddMvc()
                 .AddS2Framework()
-                .AddS2fxNHibernate()
-                .AddS2fxNHibernateNpgsql()
                 .AddS2fxWeb(this.Configuration)
                 .WithFeatures("S2fx.Core", "S2fx.AdminUI", "S2fx.Data.NHibernate.Npgsql")
+                //.WithTenants();
                 ;
-            //.WithTenants();
 
             services.AddRouteAnalyzer(); // Add
         }

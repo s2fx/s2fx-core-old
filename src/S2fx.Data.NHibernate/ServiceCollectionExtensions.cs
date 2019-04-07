@@ -15,11 +15,10 @@ using S2fx.Utility;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
-    public static class OrchardCoreBuilderExtensions {
+    public static class ServiceCollectionExtensions {
 
-        public static OrchardCoreBuilder AddS2fxNHibernate(this OrchardCoreBuilder builder) {
-            var services = builder.ApplicationServices;
-            
+        public static void WithNHibernate(this IServiceCollection services) {
+
             //Unit of work
             //NH stuffs
 
@@ -46,8 +45,6 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             //migrator
             services.AddScoped<IDbMigrator, HibernateDbMigrator>();
-
-            return builder;
         }
 
         private static void AddBuiltinFieldMappers(IServiceCollection services) {
