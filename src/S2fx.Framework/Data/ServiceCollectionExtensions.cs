@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using S2fx.Convention;
+using S2fx.Conventions;
 using S2fx.Data.Importing;
 using S2fx.Data.Seeding;
 using S2fx.Data.UnitOfWork;

@@ -5,7 +5,7 @@ using System.Text;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Impl;
 using NHibernate.Mapping.ByCode.Impl.CustomizersImpl;
-using S2fx.Convention;
+using S2fx.Conventions;
 using S2fx.Model;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;

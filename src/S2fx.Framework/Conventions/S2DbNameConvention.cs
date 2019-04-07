@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using S2fx.Utility;
 
-namespace S2fx.Convention {
+namespace S2fx.Conventions {
 
     public class S2DbNameConvention : IDbNameConvention {
 

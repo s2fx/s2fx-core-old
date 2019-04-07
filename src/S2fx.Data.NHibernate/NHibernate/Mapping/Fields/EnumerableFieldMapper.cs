@@ -5,7 +5,6 @@ using NHibernate;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Impl;
 using NHibernate.Type;
-using S2fx.Convention;
 using S2fx.Model;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;

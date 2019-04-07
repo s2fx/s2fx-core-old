@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Data.NHibernate.Npgsql
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.AdminUI", "src\S2fx.AdminUI\S2fx.AdminUI.csproj", "{1BDDEDDB-BF6D-4658-B70C-64DBAF9039EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2fx.Data.NHibernate.MSSQLServer", "src\S2fx.Data.NHibernate.MSSQLServer\S2fx.Data.NHibernate.MSSQLServer.csproj", "{507A8715-A2DB-434C-8426-BAD2E99152CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{1BDDEDDB-BF6D-4658-B70C-64DBAF9039EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BDDEDDB-BF6D-4658-B70C-64DBAF9039EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BDDEDDB-BF6D-4658-B70C-64DBAF9039EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{507A8715-A2DB-434C-8426-BAD2E99152CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{507A8715-A2DB-434C-8426-BAD2E99152CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{507A8715-A2DB-434C-8426-BAD2E99152CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{507A8715-A2DB-434C-8426-BAD2E99152CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{522D0E93-7996-4D74-80B7-EBDF254391E1} = {5EB152A5-14AD-4075-975C-8776A45E1693}
 		{C255C31A-0038-4608-9DFB-C8BE3D44A22D} = {56D5DCC2-F956-402F-AE23-D782C148374F}
 		{1BDDEDDB-BF6D-4658-B70C-64DBAF9039EE} = {3E7AA7D1-F864-4010-A905-C361E6C1C71C}
+		{507A8715-A2DB-434C-8426-BAD2E99152CF} = {56D5DCC2-F956-402F-AE23-D782C148374F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59F4E74C-DAE3-4194-BDFF-7EFF3A7D1921}

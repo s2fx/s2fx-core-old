@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 using OrchardCore.Environment.Shell;
 using OrchardCore.Environment.Shell.Configuration;
 using OrchardCore.Environment.Shell.Descriptor;
-using S2fx.Convention;
+using S2fx.Conventions;
 using S2fx.Data.Seeding;
 using S2fx.Data.UnitOfWork;
 using S2fx.Environment.Extensions;

@@ -42,6 +42,7 @@ namespace S2fx.Model.Metadata {
         [DataMember]
         public int? MaxLength { get; set; }
 
+        [DataMember]
         public string DbName { get; set; } = null;
 
         public IList<AbstractMetaFieldAnnotation> Annotations { get; set; } = new List<AbstractMetaFieldAnnotation>();

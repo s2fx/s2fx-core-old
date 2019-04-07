@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Impl;
-using S2fx.Convention;
 using S2fx.Model;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
