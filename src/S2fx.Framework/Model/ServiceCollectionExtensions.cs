@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using OrchardCore.Environment.Shell;
 using OrchardCore.Environment.Shell.Descriptor;
+using OrchardCore.Modules;
 using S2fx.Convention;
 using S2fx.Data.Seeding;
 using S2fx.Data.UnitOfWork;
@@ -24,11 +25,11 @@ namespace S2fx.Model {
 
             services.AddSingleton<IEntityManager, EntityManager>();
 
-            services.RegisterBuiltinMetadataConventions();
+            services.RegisterAllBuiltinEntityMetadataConventions();
 
             //meta data
-            services.RegisterAllEntityTypes();
-            services.RegisterAllPropertyTypes();
+            services.RegisterAllBuiltinEntityTypes();
+            services.RegisterAllBuiltinEntityFieldTypes();
 
             //visitors
             services.AddTransient<ConventionMetadataVisitor>();

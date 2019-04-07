@@ -4,42 +4,25 @@ import { S2fxHttpClient } from './http-client'
 import { ViewOdfDocumentInput, SettingValue, IEntityQueryResult } from './models'
 
 
-@Injectable()
-export class MetadataService {
+@Injectable({
+  providedIn: 'root'
+})
+export class S2fxClient {
 
-    constructor(private client: S2fxHttpClient) {
-
+    constructor(
+        private client: S2fxHttpClient) {
     }
 
-    public async getAllEntities(): Promise<any[]> {
-        return await this.client.getAsJson<any[]>('/Metadata/MetaEntity/All')
+    /// 登录
+    public async login(login: string, password: string) {
+        throw new Error("not implemented");
     }
 
-    public async getSingleEntity(): Promise<any> {
-        return await this.client.getAsJson<any>('/Metadata/MetaEntity/Single', )
+    public async logout(isForced: boolean = false) {
+        throw new Error("not implemented");
     }
+
+
 }
 
 
-@Injectable()
-export class EntityService {
-
-    constructor(private client: S2fxHttpClient) {
-
-    }
-
-    public async query(entity: string, filter?: string, select?: string, sortBy?: string): Promise<IEntityQueryResult> {
-        let params = {}
-        if (filter != null) {
-            params['filter'] = filter
-        }
-        if (select != null) {
-            params['select'] = select
-        }
-        if (sortBy != null) {
-            params['sort'] = sortBy
-        }
-        return await this.client.getAsJson<IEntityQueryResult>(`/Entity/${entity}/Query`, params)
-    }
-
-}

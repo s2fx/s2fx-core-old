@@ -13,10 +13,10 @@ namespace S2fx.Remoting {
     public class RemoteServiceManager : IRemoteServiceManager {
 
         private readonly IServiceProvider _services;
-        private bool _loaded = false;
         public ILogger Logger { get; }
         private object InitializationLock = new object();
         private readonly IDictionary<string, RemoteServiceInfo> _remoteServices = new Dictionary<string, RemoteServiceInfo>();
+        private bool _isLoaded = false;
 
         public RemoteServiceManager(IServiceProvider services, ILogger<RemoteServiceManager> logger) {
             _services = services;
@@ -38,10 +38,13 @@ namespace S2fx.Remoting {
             return _remoteServices.TryGetValue(name, out serviceInfo);
         }
 
-        public RemoteServiceInfo GetRemoteService(Type clrType) =>
-            _remoteServices.Values.Single(x => x.ClrType == clrType);
+        public RemoteServiceInfo GetRemoteService(Type clrType) {
+            this.EnsureInitialized();
+            return _remoteServices.Values.Single(x => x.ClrType == clrType);
+        }
 
         public bool TryGetRemoteService(Type clrType, out RemoteServiceInfo serviceInfo) {
+            this.EnsureInitialized();
             serviceInfo = _remoteServices.Values.SingleOrDefault(x => x.ClrType == clrType);
             return serviceInfo != null ? true : false;
         }
@@ -53,9 +56,10 @@ namespace S2fx.Remoting {
         }
 
         private void EnsureInitialized() {
-            if (_loaded) {
+            if (_isLoaded) {
                 return;
             }
+
             var x = _services.GetService<OrchardCore.Environment.Shell.Descriptor.IShellDescriptorManager>();
             var remoteServiceProviders = _services.GetServices<IRemoteServiceProvider>();
             var metadataProviders = _services.GetServices<IRemoteServiceMetadataProvider>();
@@ -70,7 +74,7 @@ namespace S2fx.Remoting {
                         this.TryRegisterRemoteServiceProxyType(remoteServiceProviders, s);
                     }
                 }
-                _loaded = true;
+                _isLoaded = true;
             }
         }
 

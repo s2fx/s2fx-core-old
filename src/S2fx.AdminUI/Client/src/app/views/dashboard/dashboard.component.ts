@@ -4,9 +4,9 @@ import { NgClass, NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { MetadataService, EntityService } from '../../s2fx-client/services'
+import { MetadataContract, EntityContract } from '../../s2fx-client/contracts'
 
-
+ 
 @Component({
     templateUrl: 'dashboard.component.html'
 })
@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
     items: any[]
     users: any[]
 
-    constructor(private mdService: MetadataService, private entityService: EntityService) {
+    constructor(private mdService: MetadataContract, private entityService: EntityContract) {
     }
 
     async ngOnInit() {

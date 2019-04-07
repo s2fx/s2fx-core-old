@@ -20,6 +20,7 @@ namespace S2fx.Environment.Shell {
         }
 
         public async Task<IEnumerable<FeatureEntry>> GetEnabledFeatureEntriesAsync() {
+            //TODO 这里终究要实现 IShellFeatureManager 代替
             var shell = await _shellDescriptorManager.GetShellDescriptorAsync();
             var enabledFeatureIds = new HashSet<string>(shell.Features.Select(x => x.Id));
             var allFeatures = await _extensions.LoadFeaturesAsync();

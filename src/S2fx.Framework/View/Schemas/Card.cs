@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace S2fx.View.Model {
+namespace S2fx.View.Schemas {
 
-    public abstract class VisualElement {
+    public class Card : VisualElement {
     }
 
 }

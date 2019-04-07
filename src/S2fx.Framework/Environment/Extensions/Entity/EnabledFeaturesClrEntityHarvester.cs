@@ -17,15 +17,16 @@ using S2fx.Environment.Shell;
 
 namespace S2fx.Environment.Extensions.Entity {
 
-    public class ClrEntityHarvester : AbstractClrEntityHarvester {
+    public class EnabledFeaturesClrEntityHarvester : AbstractClrEntityHarvester {
 
-        public ClrEntityHarvester(IServiceProvider services)
-            : base(services) {
+        private readonly IShellFeatureEntityService _shellFeatureEntityService;
+
+        public EnabledFeaturesClrEntityHarvester(IShellFeatureEntityService shellFeatureEntityService) {
+            _shellFeatureEntityService = shellFeatureEntityService;
         }
 
         public override async Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync() {
-            var shellFeatureService = this.Services.GetRequiredService<IShellFeatureEntityService>();
-            var features = await shellFeatureService.GetEnabledFeatureEntriesAsync();
+            var features = await _shellFeatureEntityService.GetEnabledFeatureEntriesAsync();
             var allEntities = features.SelectMany(x => this.HarvestClrEntityInFeature(x));
             return allEntities;
         }

@@ -21,8 +21,8 @@ namespace S2fx.Environment {
     public static class ServiceCollectionExtensions {
 
         public static void AddS2Environment(this IServiceCollection services) {
-            services.AddTransient<IEntityHarvester, BuiltinEntityHarvester>();
-            services.AddTransient<IEntityHarvester, ClrEntityHarvester>();
+            services.AddTransient<IEntityHarvester, BuiltinClrEntityHarvester>();
+            services.AddTransient<IEntityHarvester, EnabledFeaturesClrEntityHarvester>();
 
             services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
             services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();

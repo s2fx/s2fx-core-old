@@ -11,7 +11,7 @@ namespace S2fx.Model.Metadata {
 
     public static class ServiceCollectionExtensions {
 
-        public static void RegisterAllPropertyTypes(this IServiceCollection services) {
+        public static void RegisterAllBuiltinEntityFieldTypes(this IServiceCollection services) {
 
             var assembly = Assembly.GetExecutingAssembly();
             var propertyTypes = assembly.ExportedTypes
@@ -21,7 +21,7 @@ namespace S2fx.Model.Metadata {
             }
         }
 
-        public static void RegisterAllEntityTypes(this IServiceCollection services) {
+        public static void RegisterAllBuiltinEntityTypes(this IServiceCollection services) {
 
             var assembly = Assembly.GetExecutingAssembly();
             var entityTypes = assembly.ExportedTypes
@@ -31,7 +31,7 @@ namespace S2fx.Model.Metadata {
             }
         }
 
-        public static void RegisterBuiltinMetadataConventions(this IServiceCollection services) {
+        public static void RegisterAllBuiltinEntityMetadataConventions(this IServiceCollection services) {
 
             var assembly = Assembly.GetExecutingAssembly();
             var conventionTypes = assembly.ExportedTypes

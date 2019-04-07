@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { HttpModule } from '@angular/http'
 
-import * as services from './services'
 import { S2fxHttpClient } from './http-client'
+import * as services from './services'
+import * as contracts from './contracts'
 
 @NgModule({
     imports: [
@@ -13,6 +14,6 @@ import { S2fxHttpClient } from './http-client'
     declarations: [], 
     exports: [
     ],
-    providers: [S2fxHttpClient, services.MetadataService, services.EntityService ]
+    providers: [S2fxHttpClient, services.S2fxClient, contracts.MetadataContract, contracts.EntityContract ]
 })
 export class S2fxClientModule { }

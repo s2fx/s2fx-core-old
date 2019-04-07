@@ -15,6 +15,7 @@ using S2fx;
 using S2fx.Environment.Configuration;
 using S2fx.Web.Environment.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace S2fx.Web {
 

@@ -1,26 +1,32 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.Environment.Shell;
+using OrchardCore.Environment.Shell.Descriptor;
+using OrchardCore.Modules;
+using OrchardCore.Environment.Shell.Descriptor.Models;
 using OrchardCore.Environment.Extensions;
+using System.Reflection;
+using S2fx.Model.Annotations;
+using S2fx.Model.Metadata.Types;
 using S2fx.Environment.Shell;
 
 namespace S2fx.Environment.Extensions.Entity {
 
-    public class BuiltinEntityHarvester : AbstractClrEntityHarvester {
+    public class BuiltinClrEntityHarvester : AbstractClrEntityHarvester {
 
-        public BuiltinEntityHarvester(IServiceProvider services)
-            : base(services) {
+        private readonly IShellFeatureEntityService _shellFeatureEntityService;
+
+        public BuiltinClrEntityHarvester(IShellFeatureEntityService shellFeatureEntityService) {
+            _shellFeatureEntityService = shellFeatureEntityService;
         }
 
         public override async Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync() {
-
-            var shellFeatureServiec = this.Services.GetRequiredService<IShellFeatureEntityService>();
-            var features = await shellFeatureServiec.GetEnabledFeatureEntriesAsync();
+            var features = await _shellFeatureEntityService.GetEnabledFeatureEntriesAsync();
             var coreFeature = features.Single(x => x.FeatureInfo.Id == WellKnownConstants.CoreModuleId);
             var builtinEntityTypes = Assembly.GetExecutingAssembly().ExportedTypes.Where(t => this.IsEntityType(t));
 
@@ -30,6 +36,5 @@ namespace S2fx.Environment.Extensions.Entity {
         }
 
     }
-
 
 }

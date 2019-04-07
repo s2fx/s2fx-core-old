@@ -14,12 +14,6 @@ namespace S2fx.Environment.Extensions.Entity {
 
     public abstract class AbstractClrEntityHarvester : IEntityHarvester {
 
-        protected IServiceProvider Services { get; }
-
-        public AbstractClrEntityHarvester(IServiceProvider services) {
-            this.Services = services;
-        }
-
         public abstract Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync();
 
         protected IEnumerable<EntityInfo> HarvestClrEntityInFeature(FeatureEntry feature) {

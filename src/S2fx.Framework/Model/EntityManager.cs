@@ -30,6 +30,7 @@ namespace S2fx.Model {
             this.Logger = logger;
         }
 
+
         public IReadOnlyDictionary<string, MetaEntity> GetEntities() {
             this.EnsureInitialized();
             return _entities;
@@ -54,21 +55,30 @@ namespace S2fx.Model {
         }
 
         private void EnsureInitialized() {
-
             if (_isLoaded) {
                 return;
+            }
+
+            if (this.Logger.IsEnabled(LogLevel.Debug)) {
+                Logger.LogDebug("Initializing EntityManager ...");
             }
 
             lock (this.InitializationLock) {
                 var harvesters = _services.GetServices<IEntityHarvester>();
                 var entityTypes = _services.GetServices<IEntityType>();
-                var entityInfos = harvesters.SelectMany(h => Task.Run(h.HarvestEntitiesAsync).Result);
+
+                var entityInfos = new List<EntityInfo>();
+                foreach (var harvester in harvesters) {
+                    var harvested = Task.Run(harvester.HarvestEntitiesAsync).Result;
+                    entityInfos.AddRange(harvested);
+                }
+
                 this._entities.Clear();
                 foreach (var entityInfo in entityInfos) {
                     var entityType = entityTypes.Single(x => x.Name == entityInfo.EntityType);
 
                     if (this.Logger.IsEnabled(LogLevel.Debug)) {
-                        this.Logger.LogDebug("Loading Entity: {0}", entityInfo.Name);
+                        this.Logger.LogDebug("Found Entity '{0}' in feature '{1}'", entityInfo.Name, entityInfo.Feature.Id);
                     }
 
                     var metaEntity = Task.Run(() => entityType.LoadAsync(entityInfo)).Result;
@@ -85,7 +95,6 @@ namespace S2fx.Model {
 
                 _isLoaded = true;
             }
-
         }
 
     }
