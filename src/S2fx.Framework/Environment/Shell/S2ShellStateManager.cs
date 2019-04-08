@@ -21,9 +21,9 @@ namespace S2fx.Environment.Shell {
 
         ILogger Logger { get; }
 
-        public async Task<ShellState> GetShellStateAsync() {
+        public Task<ShellState> GetShellStateAsync() {
             if (_shellState != null) {
-                return _shellState;
+                return Task.FromResult(_shellState);
             }
 
             //_shellState = await _session.Query<ShellState>().FirstOrDefaultAsync();
@@ -33,7 +33,7 @@ namespace S2fx.Environment.Shell {
                 UpdateShellState();
             }
 
-            return _shellState;
+            return Task.FromResult(_shellState);
         }
 
         public async Task UpdateEnabledStateAsync(ShellFeatureState featureState, ShellFeatureState.State value) {
@@ -42,7 +42,7 @@ namespace S2fx.Environment.Shell {
                              featureState.Id, featureState.EnableState, value);
             }
 
-            var previousFeatureState = await GetOrCreateFeatureStateAsync(featureState.Id);
+            var previousFeatureState = await this.GetOrCreateFeatureStateAsync(featureState.Id);
             if (previousFeatureState.EnableState != featureState.EnableState) {
                 if (Logger.IsEnabled(LogLevel.Warning)) {
                     Logger.LogWarning("Feature {0} prior EnableState was {1} when {2} was expected",
@@ -61,7 +61,7 @@ namespace S2fx.Environment.Shell {
                 Logger.LogDebug("Feature {0} InstallState changed from {1} to {2}", featureState.Id, featureState.InstallState, value);
             }
 
-            var previousFeatureState = await GetOrCreateFeatureStateAsync(featureState.Id);
+            var previousFeatureState = await this.GetOrCreateFeatureStateAsync(featureState.Id);
             if (previousFeatureState.InstallState != featureState.InstallState) {
                 if (Logger.IsEnabled(LogLevel.Warning)) {
                     Logger.LogWarning("Feature {0} prior InstallState was {1} when {2} was expected",
@@ -76,7 +76,7 @@ namespace S2fx.Environment.Shell {
         }
 
         private async Task<ShellFeatureState> GetOrCreateFeatureStateAsync(string id) {
-            var shellState = await GetShellStateAsync();
+            var shellState = await this.GetShellStateAsync();
             var featureState = shellState.Features.FirstOrDefault(x => x.Id == id);
 
             if (featureState == null) {

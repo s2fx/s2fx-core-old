@@ -27,11 +27,25 @@ namespace S2fx.Environment {
             });
 
             services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
-            services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();
-            services.AddScoped<IShellStateManager, S2ShellStateManager>();
 
-            //services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
-            //services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
+            //涉及数据存储的 S2 服务
+            {
+                /*
+                 services.AddScoped<IShellDescriptorManager, ShellDescriptorManager>();
+                 services.AddScoped<IShellStateManager, ShellStateManager>();
+                 services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
+                 services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
+                */
+
+                services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();
+                services.AddSingleton<IShellStateManager, S2ShellStateManager>();
+
+                services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
+                services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
+
+                //services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
+                //services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
+            }
 
             services.AddTransient<IShellFeatureEntityService, ShellFeatureEntityService>();
 
