@@ -8,6 +8,7 @@ using OrchardCore.Modules;
 using S2fx.Data;
 using S2fx.Data.NHibernate;
 using S2fx.Data.NHibernate.DbProviders;
+using S2fx.Data.NHibernate.Interceptors;
 using S2fx.Data.NHibernate.Mapping;
 using S2fx.Data.NHibernate.Mapping.Fields;
 using S2fx.Data.NHibernate.UnitOfWork;
@@ -34,6 +35,9 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.AddTransient(typeof(EntityMappingClass<>), typeof(EntityMappingClass<>));
             services.AddTransient<IModelMapper, ModelMapper>();
             AddBuiltinFieldMappers(services);
+
+            //interceptors
+            services.AddSingleton<IInterceptor, S2NHInterceptor>();
 
             //Register nhibernate ISessionFactory 
             services.AddTransient<IHibernateConfigurationFactory, HibernateConfigurationFactory>();

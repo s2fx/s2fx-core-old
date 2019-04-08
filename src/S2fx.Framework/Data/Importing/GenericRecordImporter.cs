@@ -22,15 +22,6 @@ namespace S2fx.Data.Importing {
 
         public async Task InsertOrUpdateEntityAsync(ImportContext context, object record, bool canUpdate) {
             var typedRecord = (TEntity)record;
-
-            if (typedRecord is IAuditedEntity auditedRecord) {
-                if (typedRecord.IsPersistent) { //for updating
-                    auditedRecord.UpdatedOn = DateTime.UtcNow;
-                }
-                else { //for creation
-                    auditedRecord.CreatedOn = DateTime.UtcNow;
-                }
-            }
             await _repository.InsertOrUpdateAsync(typedRecord);
         }
     }

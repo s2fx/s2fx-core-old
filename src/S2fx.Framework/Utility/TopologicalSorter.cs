@@ -1,7 +1,7 @@
-// Algorithm from: http://tawani.blogspot.com/2009/02/topological-sorting-and-cyclic.html
-
+//Coming from https://stackoverflow.com/questions/4106862/how-to-sort-depended-objects-by-dependency
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace S2fx.Utility {
@@ -9,102 +9,93 @@ namespace S2fx.Utility {
     /// <summary>
     /// 拓扑排序类
     /// </summary>
-    public class TopologicalSorter {
+    public static class TopologicalSorter {
 
-        private readonly int[] _vertices; // list of vertices
-        private readonly int[,] _matrix; // adjacency matrix
-        private int _numVerts; // current number of vertices
-        private readonly int[] _sortedArray;
+        public static IEnumerable<T> TopogicalDFSSort<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> deps) {
+            var yielded = new HashSet<T>();
+            var visited = new HashSet<T>();
+            var stack = new Stack<(T, IEnumerator<T>)>();
 
-        public TopologicalSorter(int size) {
-            _vertices = new int[size];
-            _matrix = new int[size, size];
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    _matrix[i, j] = 0;
-                }
-            }
-            _sortedArray = new int[size]; // sorted vert labels
-        }
+            foreach (T t in source) {
+                stack.Clear();
+                if (visited.Add(t))
+                    stack.Push((t, deps(t).GetEnumerator()));
 
-        public int AddVertex(int vertex) {
-            _vertices[_numVerts++] = vertex;
-            return _numVerts - 1;
-        }
+                while (stack.Count > 0) {
+                    var p = stack.Peek();
+                    bool depPushed = false;
+                    while (p.Item2.MoveNext()) {
+                        var curr = p.Item2.Current;
+                        if (visited.Add(curr)) {
+                            stack.Push((curr, deps(curr).GetEnumerator()));
+                            depPushed = true;
+                            break;
+                        }
+                        else if (!yielded.Contains(curr)) {
+                            throw new NotSupportedException("cycle");
+                        }
+                    }
 
-        public void AddEdge(int start, int end) {
-            _matrix[start, end] = 1;
-        }
-
-        public int[] Sort() // toplogical sort
-        {
-            while (_numVerts > 0) // while vertices remain,
-            {
-                // get a vertex with no successors, or -1
-                int currentVertex = NoSuccessors();
-                if (currentVertex == -1) // must be a cycle                
-                {
-                    throw new InvalidOperationException("Graph has cycles");
-                }
-
-                // insert vertex label in sorted array (start at end)
-                _sortedArray[_numVerts - 1] = _vertices[currentVertex];
-
-                DeleteVertex(currentVertex); // delete vertex
-            }
-
-            // vertices all gone; return sortedArray
-            return _sortedArray;
-        }
-
-
-        // returns vert with no successors (or -1 if no such verts)
-        private int NoSuccessors() {
-            for (int row = 0; row < _numVerts; row++) {
-                bool isEdge = false; // edge from row to column in adjMat
-                for (int col = 0; col < _numVerts; col++) {
-                    if (_matrix[row, col] > 0) // if edge to another,
-                    {
-                        isEdge = true;
-                        break; // this vertex has a successor try another
+                    if (!depPushed) {
+                        p = stack.Pop();
+                        if (!yielded.Add(p.Item1)) {
+                            throw new InvalidOperationException("bug");
+                        }
+                        yield return p.Item1;
                     }
                 }
-                if (!isEdge) // if no edges, has no successors
-                {
-                    return row;
-                }
-            }
-            return -1; // no
-        }
-
-        private void DeleteVertex(int delVert) {
-            // if not last vertex, delete from vertexList
-            if (delVert != _numVerts - 1) {
-                for (int j = delVert; j < _numVerts - 1; j++) {
-                    _vertices[j] = _vertices[j + 1];
-                }
-
-                for (int row = delVert; row < _numVerts - 1; row++) {
-                    MoveRowUp(row, _numVerts);
-                }
-
-                for (int col = delVert; col < _numVerts - 1; col++) {
-                    MoveColLeft(col, _numVerts - 1);
-                }
-            }
-            _numVerts--; // one less vertex
-        }
-
-        private void MoveRowUp(int row, int length) {
-            for (int col = 0; col < length; col++) {
-                _matrix[row, col] = _matrix[row + 1, col];
             }
         }
 
-        private void MoveColLeft(int col, int length) {
-            for (int row = 0; row < length; row++) {
-                _matrix[row, col] = _matrix[row, col + 1];
+        public static IEnumerable<T> TopologicalBFSSort<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> dependencies) {
+            var yielded = new HashSet<T>();
+            var visited = new HashSet<T>();
+            var stack = new Stack<(T, bool)>(source.Select(s => (s, false))); // bool signals Add to sorted
+
+            while (stack.Count > 0) {
+                var item = stack.Pop();
+                if (!item.Item2) {
+                    if (visited.Add(item.Item1)) {
+                        stack.Push((item.Item1, true)); // To be added after processing the dependencies
+                        foreach (var dep in dependencies(item.Item1))
+                            stack.Push((dep, false));
+                    }
+                    else if (!yielded.Contains(item.Item1)) {
+                        throw new NotSupportedException("cyclic");
+                    }
+                }
+                else {
+                    if (!yielded.Add(item.Item1))
+                        throw new InvalidOperationException("bug");
+                    yield return item.Item1;
+                }
             }
+        }
+
+        /// <summary>
+        /// 广度优先搜索的拓扑排序
+        /// </summary>
+        /// <typeparam name="TEle"></typeparam>
+        /// <typeparam name="TId"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="idGetter"></param>
+        /// <param name="dependGetter"></param>
+        /// <returns></returns>
+        public static IEnumerable<TEle> TopologicalSort<TEle, TId>(
+            this IEnumerable<TEle> source, Func<TEle, TId> idGetter, Func<TEle, IEnumerable<TId>> dependGetter)
+            where TId : IEquatable<TId> {
+
+            if (source == null) {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (idGetter == null) {
+                throw new ArgumentNullException(nameof(idGetter));
+            }
+
+            var map = source.ToDictionary(idGetter);
+            var topoSortedIds = map.Keys.TopologicalBFSSort(x => dependGetter(map[x]));
+            return topoSortedIds.Select(id => map[id]);
         }
 
     }

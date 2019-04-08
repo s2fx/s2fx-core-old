@@ -18,6 +18,7 @@ using S2fx.Model.Metadata.Conventions;
 using S2fx.Xaml;
 using S2fx.Environment;
 using OrchardCore.DeferredTasks;
+using S2fx.Services;
 
 namespace S2fx {
 
@@ -28,6 +29,8 @@ namespace S2fx {
 
             //environment
             services.AddS2Environment();
+
+            services.AddS2Services();
 
             services.AddS2fxData();
 
