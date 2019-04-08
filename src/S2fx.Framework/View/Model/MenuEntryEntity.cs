@@ -9,8 +9,8 @@ using S2fx.Security.Model;
 namespace S2fx.View.Model.Model {
 
     [Entity(EntityName), DisplayName("Menu Item")]
-    public class MenuEntryEntity : AbstractAuditedEntity, IHierarchyEntity<MenuEntryEntity> {
-        public const string EntityName = "Core.MenuEntry";
+    public class MenuItemEntity : AbstractAuditedEntity, IHierarchyEntity<MenuItemEntity> {
+        public const string EntityName = "Core.MenuItem";
 
         [Required, MaxLength(256)]
         public virtual string Name { get; set; }
@@ -33,11 +33,11 @@ namespace S2fx.View.Model.Model {
         public virtual string DefinitionKey { get; set; }
 
         [DisplayName("Related Roles")]
-        [ManyToManyField(mappedBy: "Menus", joinTable: "core_role_menu")]
+        [ManyToManyField(mappedBy: nameof(RoleEntity.Menus), joinTable: "core_role_menu")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
 
         [ManyToOneField]
-        public virtual MenuEntryEntity Parent { get; set; }
+        public virtual MenuItemEntity Parent { get; set; }
 
         public virtual long RangeLeft { get; set; }
 

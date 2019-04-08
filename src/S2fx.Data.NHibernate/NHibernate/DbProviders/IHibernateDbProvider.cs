@@ -12,6 +12,8 @@ namespace S2fx.Data.NHibernate {
 
         Type JsonObjectType { get; }
 
+        Type XmlObjectType { get; }
+
     }
 
 }

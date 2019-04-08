@@ -64,6 +64,10 @@ namespace S2fx.Model.Metadata {
     }
 
     [DataContract]
+    public class XmlMetaField : MetaField {
+    }
+
+    [DataContract]
     public class RelationMetaField : MetaField {
 
         [DataMember(Name = "RefEntity")]

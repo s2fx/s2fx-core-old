@@ -24,6 +24,7 @@ namespace S2fx.Model.Metadata.Types {
         public const string VersionTypeName = "Version";
         public const string PasswordTypeName = "Password";
         public const string JsonObjectTypeName = "JsonObject";
+        public const string XmlObjectTypeName = "XmlObject";
     }
 
 }

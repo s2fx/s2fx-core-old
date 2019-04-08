@@ -13,6 +13,8 @@ namespace S2fx.Data.NHibernate.PostgreSQL {
 
         public Type JsonObjectType => typeof(TextBasedJsonObjectType<>);
 
+        public Type XmlObjectType => typeof(TextBasedXmlObjectType<>);
+
         public void SetupConfiguration(Configuration cfg) {
             cfg.SetProperty(global::NHibernate.Cfg.Environment.ConnectionDriver, typeof(SQLite20Driver).FullName);
             cfg.SetProperty(global::NHibernate.Cfg.Environment.Dialect, typeof(global::NHibernate.Dialect.SQLiteDialect).FullName);

@@ -18,14 +18,14 @@ namespace S2fx.Security.Model {
         [MaxLength(256)]
         public virtual string DisplayName { get; set; }
 
-        [ManyToManyField(mappedBy: "Roles", joinTable: "core_user_role")]
+        [ManyToManyField(mappedBy: nameof(UserEntity.Roles), joinTable: "core_user_role")]
         public virtual ICollection<UserEntity> Users { get; set; }
 
-        [ManyToManyField(mappedBy: "Roles", joinTable: "core_role_permission")]
+        [ManyToManyField(mappedBy: nameof(PermissionEntity.Roles), joinTable: "core_role_permission")]
         public virtual ICollection<PermissionEntity> Permissions { get; set; }
 
-        [ManyToManyField(mappedBy: "Roles", joinTable: "core_role_menu")]
-        public virtual ICollection<MenuEntryEntity> Menus { get; set; }
+        [ManyToManyField(mappedBy: nameof(MenuItemEntity.Roles), joinTable: "core_role_menu")]
+        public virtual ICollection<MenuItemEntity> Menus { get; set; }
     }
 
 }

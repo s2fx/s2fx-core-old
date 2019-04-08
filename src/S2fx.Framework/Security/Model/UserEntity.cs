@@ -30,7 +30,7 @@ namespace S2fx.Security.Model {
         public virtual string Email { get; set; }
 
         [DisplayName("Related Users")]
-        [ManyToManyField(mappedBy: "Users", joinTable: "core_user_role")]
+        [ManyToManyField(mappedBy: nameof(RoleEntity.Users), joinTable: "core_user_role")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
     }
 

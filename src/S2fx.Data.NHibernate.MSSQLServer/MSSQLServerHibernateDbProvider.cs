@@ -14,6 +14,8 @@ namespace S2fx.Data.NHibernate.MSSQLServer {
 
         public Type JsonObjectType => typeof(TextBasedJsonObjectType<>);
 
+        public Type XmlObjectType => typeof(TextBasedXmlObjectType<>);
+
         public void SetupConfiguration(Configuration cfg) {
             cfg.SetProperty(global::NHibernate.Cfg.Environment.ConnectionDriver, typeof(global::NHibernate.Driver.SqlClientDriver).FullName);
             cfg.SetProperty(global::NHibernate.Cfg.Environment.Dialect, typeof(global::NHibernate.Dialect.MsSql2012Dialect).FullName);

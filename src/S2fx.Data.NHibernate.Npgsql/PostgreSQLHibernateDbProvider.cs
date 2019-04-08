@@ -17,6 +17,8 @@ namespace S2fx.Data.NHibernate.Npgsql {
 
         public Type JsonObjectType => typeof(TextBasedJsonObjectType<>);
 
+        public Type XmlObjectType => typeof(TextBasedXmlObjectType<>);
+
         public void SetupConfiguration(Configuration cfg) {
             cfg.SetProperty(global::NHibernate.Cfg.Environment.ConnectionDriver, typeof(S2NpgsqlDriver).AssemblyQualifiedName);
             cfg.SetProperty(global::NHibernate.Cfg.Environment.Dialect, typeof(global::NHibernate.Dialect.PostgreSQL83Dialect).AssemblyQualifiedName);
