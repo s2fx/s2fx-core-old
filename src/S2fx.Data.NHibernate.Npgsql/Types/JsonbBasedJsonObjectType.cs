@@ -1,4 +1,3 @@
-//Adapted from: https://github.com/Viostream/nhibernate-json/blob/master/src/NHibernate.Json/JsonColumnType.cs
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -8,17 +7,18 @@ using Newtonsoft.Json;
 using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
+using S2fx.Data.NHibernate.Npgsql.SqlTypes;
 
-namespace S2fx.Data.NHibernate.Types {
+namespace S2fx.Data.NHibernate.Npgsql.Types {
 
-    public class TextBasedJsonObjectType<T> : IUserType
-        where T : class {
+    public class JsonbBasedJsonObjectType<TProperty> : IUserType
+        where TProperty : class {
 
-        private static readonly SqlType[] s_sqlTypes = new SqlType[] { NHibernateUtil.StringClob.SqlType };
+        private static readonly SqlType[] s_sqlTypes = new SqlType[] { NpgsqlSqlTypes.JsonbSqlType };
 
         public SqlType[] SqlTypes => s_sqlTypes;
 
-        public Type ReturnedType => typeof(T);
+        public Type ReturnedType => typeof(TProperty);
 
         public bool IsMutable => false;
 
@@ -27,7 +27,7 @@ namespace S2fx.Data.NHibernate.Types {
         public object Disassemble(object value) => value;
 
         public object DeepCopy(object value) {
-            var source = value as T;
+            var source = value as TProperty;
             if (source == null) {
                 return null;
             }
@@ -35,8 +35,8 @@ namespace S2fx.Data.NHibernate.Types {
         }
 
         public new bool Equals(object x, object y) {
-            var left = x as T;
-            var right = y as T;
+            var left = x as TProperty;
+            var right = y as TProperty;
 
             if (left == null && right == null)
                 return true;
@@ -56,7 +56,7 @@ namespace S2fx.Data.NHibernate.Types {
         }
 
         public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session) {
-            var column = value as T;
+            var column = value as TProperty;
             if (value == null) {
                 NHibernateUtil.String.NullSafeSet(cmd, "{}", index, session);
                 return;
@@ -68,22 +68,22 @@ namespace S2fx.Data.NHibernate.Types {
         public object Replace(object original, object target, object owner) => original;
 
 
-        public T Deserialise(string jsonString) {
+        public TProperty Deserialise(string jsonString) {
             if (string.IsNullOrWhiteSpace(jsonString))
-                return CreateObject(typeof(T));
-            return JsonConvert.DeserializeObject<T>(jsonString);
+                return CreateObject(typeof(TProperty));
+            return JsonConvert.DeserializeObject<TProperty>(jsonString);
         }
 
-        public string Serialise(T obj) {
+        public string Serialise(TProperty obj) {
             if (obj == null) {
                 return "{}";
             }
             return JsonConvert.SerializeObject(obj);
         }
 
-        private static T CreateObject(Type jsonType) {
+        private static TProperty CreateObject(Type jsonType) {
             var result = Activator.CreateInstance(jsonType, true);
-            return (T)result;
+            return (TProperty)result;
         }
 
     }

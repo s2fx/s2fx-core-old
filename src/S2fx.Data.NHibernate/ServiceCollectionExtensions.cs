@@ -7,6 +7,7 @@ using NHibernate.Cfg;
 using OrchardCore.Modules;
 using S2fx.Data;
 using S2fx.Data.NHibernate;
+using S2fx.Data.NHibernate.DbProviders;
 using S2fx.Data.NHibernate.Mapping;
 using S2fx.Data.NHibernate.Mapping.Fields;
 using S2fx.Data.NHibernate.UnitOfWork;
@@ -26,6 +27,8 @@ namespace Microsoft.Extensions.DependencyInjection {
             //services.AddTransient<ISessionFactory, NH.Cfg.Configuration>();
             services.AddScoped<IUnitOfWork, HibernateUnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(DefaultHibernateRepository<>));
+
+            services.AddTransient<IHibernateDbProviderAccessor, HibernateDbProviderAccessor>();
 
             //entity mapping
             services.AddTransient(typeof(EntityMappingClass<>), typeof(EntityMappingClass<>));

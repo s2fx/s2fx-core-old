@@ -10,6 +10,8 @@ namespace S2fx.Data.NHibernate {
 
         void SetupConfiguration(Configuration cfg);
 
+        Type JsonObjectType { get; }
+
     }
 
 }

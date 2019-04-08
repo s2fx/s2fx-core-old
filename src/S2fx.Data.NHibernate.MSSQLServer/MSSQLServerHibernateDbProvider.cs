@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NHibernate.Cfg;
 using NHibernate.Driver;
+using S2fx.Data.NHibernate.Types;
 
 namespace S2fx.Data.NHibernate.MSSQLServer {
 
@@ -10,6 +11,8 @@ namespace S2fx.Data.NHibernate.MSSQLServer {
         public const string DbProviderName = "SQLServer";
 
         public string Name => DbProviderName;
+
+        public Type JsonObjectType => typeof(TextBasedJsonObjectType<>);
 
         public void SetupConfiguration(Configuration cfg) {
             cfg.SetProperty(global::NHibernate.Cfg.Environment.ConnectionDriver, typeof(global::NHibernate.Driver.SqlClientDriver).FullName);

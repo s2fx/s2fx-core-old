@@ -7,6 +7,7 @@ using S2fx.Environment.Configuration;
 using S2fx.Data;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using S2fx.Data.NHibernate.DbProviders;
 
 namespace S2fx.Data.NHibernate {
 
@@ -17,35 +18,25 @@ namespace S2fx.Data.NHibernate {
     }
 
     public class HibernateConfigurationFactory : IHibernateConfigurationFactory {
-        private readonly IModelMapper _mapper;
-        private readonly S2Settings _settings;
-        private readonly IEnumerable<IHibernateDbProvider> _providers;
+        readonly IModelMapper _mapper;
+        readonly S2Settings _settings;
+        IHibernateDbProviderAccessor _providerAccessor;
         public ILogger Logger { get; }
 
         public HibernateConfigurationFactory(
             ILogger<HibernateConfigurationFactory> logger,
             S2Settings settings,
             IModelMapper mapper,
-            IEnumerable<IHibernateDbProvider> providers) {
+            IHibernateDbProviderAccessor providerAccessor) {
             this.Logger = logger;
             _settings = settings;
             _mapper = mapper;
-            _providers = providers;
+            _providerAccessor = providerAccessor;
         }
 
         public Configuration Create() {
             var cfg = new Configuration();
-
-            if (Logger.IsEnabled(LogLevel.Information)) {
-                foreach (var p in _providers) {
-                    Logger.LogInformation($"Found NHibernate DB Provider: {p.Name}");
-                }
-            }
-
-            var provider = _providers.SingleOrDefault(x => x.Name == _settings.Db.Provider);
-            if (provider == null) {
-                throw new NotSupportedException($"Not supported database provider: '{_settings.Db.Provider}'");
-            }
+            var provider = _providerAccessor.EnabledDbProvider;
             provider.SetupConfiguration(cfg);
             cfg.SetConnectionString(_settings.Db.DefaultConnectionString);
             cfg.SetProperty("hbm2ddl.keywords", "auto-quote");
