@@ -19,6 +19,7 @@ namespace S2fx.Model.Metadata.Types {
 
         public override bool SelectDefaultValue => true;
         public override bool UniqueDefaultValue => false;
+        public override bool LazyDefaultValue => false;
 
         public override MetaField LoadClrProperty(PropertyInfo propertyInfo) {
 

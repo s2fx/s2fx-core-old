@@ -11,6 +11,7 @@ namespace S2fx.Model.Metadata.Types {
 
         public abstract bool SelectDefaultValue { get; }
         public abstract bool UniqueDefaultValue { get; }
+        public abstract bool LazyDefaultValue { get; }
 
         public abstract MetaField LoadClrProperty(PropertyInfo propertyInfo);
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using OrchardCore.Environment.Extensions.Features;
+using S2fx.Model.Metadata.Types;
 
 namespace S2fx.Model.Metadata {
 
@@ -17,6 +18,8 @@ namespace S2fx.Model.Metadata {
         public string DisplayName { get; set; }
 
         public Type ClrType { get; set; }
+
+        public IEntityType EntityType { get; set; }
 
         [DataMember]
         public int Order { get; set; }

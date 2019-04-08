@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using S2fx.Data.Seeding;
 using S2fx.Data.UnitOfWork;
 using S2fx.Remoting;
@@ -16,10 +17,11 @@ namespace S2fx.Remoting {
             services.AddSingleton<IRemoteServiceManager, RemoteServiceManager>();
 
             //metadata providers:
-            services.AddTransient<IRemoteServiceMetadataProvider, BuiltinRemoteServiceMetadataProvider>();
-            services.AddTransient<IRemoteServiceMetadataProvider, GenericEntityServiceMetadataProvider>();
-            services.AddTransient<IRemoteServiceMetadataProvider, CustomRemoteServiceMetadataProvider>();
-
+            services.TryAddEnumerable(new[] {
+                ServiceDescriptor.Transient<IRemoteServiceMetadataProvider, BuiltinRemoteServiceMetadataProvider>(),
+                ServiceDescriptor.Transient<IRemoteServiceMetadataProvider, GenericEntityServiceMetadataProvider>(),
+                ServiceDescriptor.Transient<IRemoteServiceMetadataProvider, CustomRemoteServiceMetadataProvider>(),
+            });
         }
 
         public static void AddInternalRemoteServices(this IServiceCollection services) {

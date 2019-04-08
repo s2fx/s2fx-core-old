@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="NHibernate" Version="5.2.5" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta3-71077" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
   </ItemGroup>
 

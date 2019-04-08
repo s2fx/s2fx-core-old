@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate.Cfg;
 using NHibernate.Mapping.ByCode;
 using S2fx.Model;
 using S2fx.Model.Metadata;
+using S2fx.Model.Metadata.Types;
 
 namespace S2fx.Data.NHibernate.Mapping {
 
@@ -25,7 +27,10 @@ namespace S2fx.Data.NHibernate.Mapping {
         public void MapAllEntities(Configuration cfg) {
             var mapper = new global::NHibernate.Mapping.ByCode.ModelMapper();
 
-            var entities = _entityManager.GetEntities().Values;
+            //Only maps SQL table based entities
+            var entities = _entityManager.GetEntities().Values
+                .Where(x => x.EntityType.Name == BuiltinEntityTypeNames.SqlEntityTypeName);
+
             foreach (var entityInfo in entities) {
                 var entityMapping = this.GetEntityClassMapping(entityInfo);
                 mapper.AddMapping(entityMapping);

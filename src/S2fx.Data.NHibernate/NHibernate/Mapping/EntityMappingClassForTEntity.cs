@@ -17,11 +17,11 @@ namespace S2fx.Data.NHibernate.Mapping {
         where TEntity : class, IEntity {
 
         private readonly IEntityManager _entityManager;
-        private readonly Dictionary<string, Properties.IFieldMapper> _propertyMappers = new Dictionary<string, Properties.IFieldMapper>();
+        private readonly Dictionary<string, Fields.IFieldMapper> _propertyMappers = new Dictionary<string, Fields.IFieldMapper>();
         protected MetaEntity MetaEntity { get; }
 
         public EntityMappingClass(
-            IEnumerable<Properties.IFieldMapper> propertyMappers,
+            IEnumerable<Fields.IFieldMapper> propertyMappers,
             IEntityManager entityManager) {
             _entityManager = entityManager;
 
@@ -45,13 +45,13 @@ namespace S2fx.Data.NHibernate.Mapping {
 
         protected virtual void MapAllFields() {
 
-            var idProperty = this.MetaEntity.Fields["Id"];
+            var idProperty = this.MetaEntity.Fields[nameof(IEntity.Id)];
             this.Id(x => x.Id, mapper => {
                 mapper.Column(idProperty.DbName);
                 mapper.Generator(Generators.Native);
             });
 
-            foreach (var field in this.MetaEntity.Fields.Values.Where(x => x.Name != "Id")) {
+            foreach (var field in this.MetaEntity.Fields.Values.Where(x => x.Name != nameof(IEntity.Id))) {
                 if (_propertyMappers.TryGetValue(field.Type.Name, out var mapper)) {
                     mapper.MapField(this.CustomizersHolder, this.ExplicitDeclarationsHolder, this.PropertyPath, this.MetaEntity, field);
                 }

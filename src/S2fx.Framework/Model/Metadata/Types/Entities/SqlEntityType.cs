@@ -32,6 +32,7 @@ namespace S2fx.Model.Metadata.Types {
             var displayName = entityType.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? entityAttribute.Name;
             var entity = new MetaEntity() {
                 Name = entityAttribute.Name,
+                EntityType = this,
                 DisplayName = displayName,
                 ClrType = entityType,
                 Feature = descriptor.Feature,

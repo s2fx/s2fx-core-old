@@ -41,10 +41,15 @@ namespace S2fx.Web.Controllers {
         public async Task<IActionResult> InitDB() {
             await _migrator.MigrateSchemeAsync();
 
-            var loader = _services.GetService<ISeedDataLoader>();
-            await loader.LoadAllSeedDataAsync();
+            try {
+                var loader = _services.GetService<ISeedDataLoader>();
+                await loader.LoadAllSeedDataAsync();
+                return Content("Database initialized.");
+            }
+            catch (Exception ex) {
+                return Content($"Failed to initialize database: {ex.Message}");
+            }
 
-            return View();
         }
     }
 }

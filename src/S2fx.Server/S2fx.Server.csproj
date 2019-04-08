@@ -29,8 +29,11 @@
   <ItemGroup>
     <ProjectReference Include="..\S2fx.AdminUI\S2fx.AdminUI.csproj" />
     <ProjectReference Include="..\S2fx.Core\S2fx.Core.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate.MSSQLServer\S2fx.Data.NHibernate.MSSQLServer.csproj" />
     <ProjectReference Include="..\S2fx.Data.NHibernate.Npgsql\S2fx.Data.NHibernate.Npgsql.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate.SQLite\S2fx.Data.NHibernate.SQLite.csproj" />
     <ProjectReference Include="..\S2fx.Data.NHibernate\S2fx.Data.NHibernate.csproj" />
+    <ProjectReference Include="..\S2fx.Framework\S2fx.Framework.csproj" />
     <ProjectReference Include="..\S2fx.Web\S2fx.Web.csproj" />
   </ItemGroup>
   <ItemGroup>

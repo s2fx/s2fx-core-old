@@ -21,8 +21,10 @@ namespace S2fx.Environment {
     public static class ServiceCollectionExtensions {
 
         public static void AddS2Environment(this IServiceCollection services) {
-            services.AddTransient<IEntityHarvester, BuiltinClrEntityHarvester>();
-            services.AddTransient<IEntityHarvester, EnabledFeaturesClrEntityHarvester>();
+            services.TryAddEnumerable(new[] {
+                ServiceDescriptor.Transient<IEntityHarvester, BuiltinClrEntityHarvester>(),
+                ServiceDescriptor.Transient<IEntityHarvester, EnabledFeaturesClrEntityHarvester>()
+            });
 
             services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
             services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();
@@ -30,7 +32,6 @@ namespace S2fx.Environment {
 
             //services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
             //services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
-
 
             services.AddTransient<IShellFeatureEntityService, ShellFeatureEntityService>();
 
@@ -42,8 +43,11 @@ namespace S2fx.Environment {
             services.AddSingleton<IShellsSettingsSources, ShellsSettingsSources>();
             services.AddSingleton<IShellsConfigurationSources, ShellsConfigurationSources>();
             services.AddSingleton<IShellConfigurationSources, ShellConfigurationSources>();
-            services.AddTransient<IConfigureOptions<ShellOptions>, ShellOptionsSetup>();
             services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
+
+            services.TryAddEnumerable(new[] {
+                ServiceDescriptor.Transient<IConfigureOptions<ShellOptions>, ShellOptionsSetup>(),
+            });
 
         }
     }

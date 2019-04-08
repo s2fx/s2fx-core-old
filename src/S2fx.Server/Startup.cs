@@ -15,7 +15,7 @@ using OrchardCore.Modules;
 
 using AspNetCore.RouteAnalyzer; // Add
 using S2fx.Web;
-using S2fx.Data;
+using S2fx.Data.NHibernate;
 
 namespace S2fx.Server {
 
@@ -37,8 +37,12 @@ namespace S2fx.Server {
                 .AddOrchardCore()
                 .AddMvc()
                 .AddS2Framework()
+                .AddS2fxNHibernate()
+                .AddS2fxNHNpgsql()
+                .AddS2fxNHMSSQLServer()
+                .AddS2fxNHSQLite()
                 .AddS2fxWeb(this.Configuration)
-                .WithFeatures("S2fx.Core", "S2fx.AdminUI", "S2fx.Data.NHibernate.Npgsql")
+                .WithFeatures("S2fx.Core", "S2fx.AdminUI")
                 //.WithTenants();
                 ;
 

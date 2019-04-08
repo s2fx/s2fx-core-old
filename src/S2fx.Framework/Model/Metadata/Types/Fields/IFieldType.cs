@@ -9,6 +9,7 @@ namespace S2fx.Model.Metadata {
         string Name { get; }
         bool SelectDefaultValue { get; }
         bool UniqueDefaultValue { get; }
+        bool LazyDefaultValue { get; }
         MetaField LoadClrProperty(PropertyInfo propertyInfo);
     }
 

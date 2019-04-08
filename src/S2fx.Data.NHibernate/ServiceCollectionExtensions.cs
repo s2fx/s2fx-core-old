@@ -8,7 +8,7 @@ using OrchardCore.Modules;
 using S2fx.Data;
 using S2fx.Data.NHibernate;
 using S2fx.Data.NHibernate.Mapping;
-using S2fx.Data.NHibernate.Mapping.Properties;
+using S2fx.Data.NHibernate.Mapping.Fields;
 using S2fx.Data.NHibernate.UnitOfWork;
 using S2fx.Data.UnitOfWork;
 using S2fx.Utility;

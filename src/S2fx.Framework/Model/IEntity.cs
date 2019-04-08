@@ -34,10 +34,10 @@ namespace S2fx.Model {
         long RangeRight { get; set; }
     }
 
-    public interface IEntityWithVersion<TEntity>
+    public interface IMutableEntity<TEntity>
         where TEntity : class, IEntity {
 
-        long RecordVersion { get; set; }
+        long Version { get; set; }
     }
 
 }

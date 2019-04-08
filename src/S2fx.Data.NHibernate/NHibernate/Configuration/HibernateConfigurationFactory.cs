@@ -6,6 +6,7 @@ using S2fx.Data.NHibernate.Mapping;
 using S2fx.Environment.Configuration;
 using S2fx.Data;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace S2fx.Data.NHibernate {
 
@@ -19,11 +20,14 @@ namespace S2fx.Data.NHibernate {
         private readonly IModelMapper _mapper;
         private readonly S2Settings _settings;
         private readonly IEnumerable<IHibernateDbProvider> _providers;
+        public ILogger Logger { get; }
 
         public HibernateConfigurationFactory(
+            ILogger<HibernateConfigurationFactory> logger,
             S2Settings settings,
             IModelMapper mapper,
             IEnumerable<IHibernateDbProvider> providers) {
+            this.Logger = logger;
             _settings = settings;
             _mapper = mapper;
             _providers = providers;
@@ -31,6 +35,12 @@ namespace S2fx.Data.NHibernate {
 
         public Configuration Create() {
             var cfg = new Configuration();
+
+            if (Logger.IsEnabled(LogLevel.Information)) {
+                foreach (var p in _providers) {
+                    Logger.LogInformation($"Found NHibernate DB Provider: {p.Name}");
+                }
+            }
 
             var provider = _providers.SingleOrDefault(x => x.Name == _settings.Db.Provider);
             if (provider == null) {

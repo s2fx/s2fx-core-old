@@ -2,17 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>S2fx.Data</RootNamespace>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="NHibernate" Version="5.2.5" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.110" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\S2fx.Framework\S2fx.Framework.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate\S2fx.Data.NHibernate.csproj" />
   </ItemGroup>
 
 </Project>

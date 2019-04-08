@@ -6,7 +6,7 @@ using NHibernate.Mapping.ByCode.Impl;
 using S2fx.Conventions;
 using S2fx.Model.Metadata;
 
-namespace S2fx.Data.NHibernate.Mapping.Properties {
+namespace S2fx.Data.NHibernate.Mapping.Fields {
 
     public abstract class AbstractFieldMapper : IFieldMapper {
 

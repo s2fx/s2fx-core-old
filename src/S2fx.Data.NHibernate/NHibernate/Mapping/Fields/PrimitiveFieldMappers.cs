@@ -8,7 +8,7 @@ using NHibernate.Type;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
 
-namespace S2fx.Data.NHibernate.Mapping.Properties {
+namespace S2fx.Data.NHibernate.Mapping.Fields {
 
     public abstract class AbstractPrimitiveFieldMapper : AbstractFieldMapper {
 

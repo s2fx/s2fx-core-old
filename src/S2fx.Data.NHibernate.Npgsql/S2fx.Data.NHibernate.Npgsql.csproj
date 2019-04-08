@@ -6,8 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Npgsql" Version="4.0.5" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta3-71077" />
+    <PackageReference Include="Npgsql.Json.NET" Version="4.0.5" />
   </ItemGroup>
 
   <ItemGroup>

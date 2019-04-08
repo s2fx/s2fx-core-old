@@ -59,6 +59,9 @@ namespace S2fx.Model.Metadata {
     public class IdMetaField : MetaField {
     }
 
+    [DataContract]
+    public class JsonMetaField : MetaField {
+    }
 
     [DataContract]
     public class RelationMetaField : MetaField {

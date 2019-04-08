@@ -5,7 +5,7 @@ using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Impl;
 using S2fx.Model.Metadata;
 
-namespace S2fx.Data.NHibernate.Mapping.Properties {
+namespace S2fx.Data.NHibernate.Mapping.Fields {
 
     public interface IFieldMapper {
 

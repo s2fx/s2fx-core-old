@@ -17,6 +17,7 @@ namespace S2fx.Model.Metadata.Types {
     public abstract class AbstractRelationalFieldType : AbstractFieldType, IRelationalFieldType {
 
         public override bool UniqueDefaultValue => false;
+        public override bool LazyDefaultValue => true;
 
         protected void ValidateCollectionPropertyType(PropertyInfo propertyInfo, string refEntityName) {
             if (!propertyInfo.PropertyType.IsGenericType || propertyInfo.PropertyType.GetGenericTypeDefinition() != typeof(ICollection<>)) {

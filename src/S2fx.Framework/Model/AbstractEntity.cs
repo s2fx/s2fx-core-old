@@ -27,5 +27,7 @@ namespace S2fx.Model {
 
         public virtual DateTime? UpdatedOn { get; set; }
 
+        [JsonObjectField]
+        public virtual IReadOnlyDictionary<string, object> ExtraFields { get; set; }
     }
 }

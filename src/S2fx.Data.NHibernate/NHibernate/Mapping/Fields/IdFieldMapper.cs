@@ -7,7 +7,7 @@ using S2fx.Model;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
 
-namespace S2fx.Data.NHibernate.Mapping.Properties {
+namespace S2fx.Data.NHibernate.Mapping.Fields {
 
     public class IdFieldMapper : AbstractFieldMapper {
         public override string FieldTypeName => BuiltinFieldTypeNames.IdTypeName;

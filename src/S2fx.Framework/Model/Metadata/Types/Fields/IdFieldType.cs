@@ -12,10 +12,11 @@ namespace S2fx.Model.Metadata.Types {
 
     public class IdFieldType : AbstractFieldType, IIdFieldType {
 
-        public override string Name => "Id";
+        public override string Name => nameof(IEntity.Id);
 
         public override bool SelectDefaultValue => true;
         public override bool UniqueDefaultValue => true;
+        public override bool LazyDefaultValue => false;
 
         public Type ClrType => typeof(long);
 
