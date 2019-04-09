@@ -27,6 +27,8 @@ namespace S2fx.Model.Metadata {
         [DataMember]
         public IEnumerable<string> Dependencies { get; set; }
 
+        public IEnumerable<MetaEntity> DependentEntities { get; set; }
+
         public IFeatureInfo Feature { get; set; }
 
         [DataMember(Name = "Feature")]
