@@ -12,8 +12,8 @@ namespace S2fx.Conventions {
         public string EntityToTable(string entityFullName) =>
             entityFullName.Replace(".", "").ToSnakeCase();
 
-        public string EntityPropertyToColumn(string propertyName) =>
-            propertyName.ToSnakeCase();
+        public string EntityFieldToColumn(string fieldName) =>
+            fieldName.ToSnakeCase();
 
 
         public string MakeDbObjectFullName(string moduleName, string objName) {

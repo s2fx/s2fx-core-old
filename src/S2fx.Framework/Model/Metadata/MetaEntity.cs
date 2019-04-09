@@ -46,7 +46,7 @@ namespace S2fx.Model.Metadata {
         public override void AcceptVisitor(IMetadataVisitor visitor) {
             visitor.VisitEntity(this);
             foreach (var field in this.Fields.Values) {
-                visitor.VisitField(field);
+                field.AcceptVisitor(visitor);
             }
         }
 

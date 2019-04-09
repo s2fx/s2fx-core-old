@@ -15,7 +15,7 @@ namespace S2fx.Model.Metadata.Conventions {
         }
 
         public override void Apply(MetaField field) {
-            field.DbName = _dbNameConvention.EntityToTable(field.Name);
+            field.DbName = _dbNameConvention.EntityFieldToColumn(field.Name);
         }
     }
 

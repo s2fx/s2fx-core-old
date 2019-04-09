@@ -6,7 +6,7 @@ namespace S2fx.Conventions {
 
     public interface IDbNameConvention {
         string EntityToTable(string entityFullName);
-        string EntityPropertyToColumn(string propertyName);
+        string EntityFieldToColumn(string propertyName);
         string MakeDbObjectFullName(string moduleName, string viewName);
         string EntityClrTypeNameToEntity(string moduleName, string typeName);
     }

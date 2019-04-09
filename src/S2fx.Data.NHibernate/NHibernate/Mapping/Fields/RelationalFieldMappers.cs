@@ -94,8 +94,8 @@ namespace S2fx.Data.NHibernate.Mapping.Fields {
             var m2mProperty = property as ManyToManyMetaField;
             var refEntity = _entityManager.GetEntity(m2mProperty.RefEntityName);
             var refProperty = refEntity.Fields[m2mProperty.MappedByFieldName];
-            var joinTableThisSideFkColumn = _nameConvention.EntityPropertyToColumn(entity.Name.Split('.').Last() + "Id");
-            var joinTableOtherSideFkColumn = _nameConvention.EntityPropertyToColumn(refEntity.Name.Split('.').Last() + "Id");
+            var joinTableThisSideFkColumn = _nameConvention.EntityFieldToColumn(entity.Name.Split('.').Last() + "Id");
+            var joinTableOtherSideFkColumn = _nameConvention.EntityFieldToColumn(refEntity.Name.Split('.').Last() + "Id");
 
             var bagMappingAction = new Action<IBagPropertiesMapper>(mapper => {
                 mapper.Table(m2mProperty.JoinTable);
