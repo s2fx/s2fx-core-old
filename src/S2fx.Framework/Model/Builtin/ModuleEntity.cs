@@ -18,10 +18,12 @@ namespace S2fx.Model.Builtin {
         [MaxLength(256)]
         public virtual string DisplayName { get; set; }
 
-        public virtual ModuleStatus State { get; set; }
-
         [MaxLength(32)]
         public virtual string Version { get; set; }
+
+        [OneToManyField(nameof(FeatureEntity.Module))]
+        public virtual ICollection<FeatureEntity> Features { get; set; }
+
     }
 
 }

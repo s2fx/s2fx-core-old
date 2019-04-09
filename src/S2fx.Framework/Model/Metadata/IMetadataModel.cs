@@ -10,6 +10,9 @@ namespace S2fx.Model.Metadata {
 
         public void AcceptVisitor(IMetadataVisitor visitor) {
             visitor.VisitModel(this);
+            foreach (var entity in this.Entities) {
+                visitor.VisitEntity(entity);
+            }
         }
 
     }

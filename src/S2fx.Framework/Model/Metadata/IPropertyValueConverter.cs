@@ -4,9 +4,9 @@ using System.Text;
 
 namespace S2fx.Model.Metadata {
 
-    public interface IPropertyValueConverter {
+    public interface IFieldValueConverter {
 
-        bool TryParse(MetaField property, string value, out object result, string format = null);
+        bool TryParse(MetaField field, string value, out object result, string format = null);
 
     }
 }

@@ -83,16 +83,13 @@ namespace S2fx.Model {
 
                 //处理约定
                 var conventionVisitor = _services.GetRequiredService<ConventionMetadataVisitor>();
-                foreach (var metaEntity in context.Result.Entities) {
-                    conventionVisitor.VisitEntity(metaEntity);
-                }
+                context.Result.AcceptVisitor(conventionVisitor);
 
                 foreach (var p in providers) {
                     p.OnProvidersExecuted(context);
                 }
 
                 _entities = context.Result.Entities.ToDictionary(x => x.Name);
-
 
                 _isLoaded = true;
             } // lock

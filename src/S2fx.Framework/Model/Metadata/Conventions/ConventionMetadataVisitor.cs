@@ -20,6 +20,7 @@ namespace S2fx.Model.Metadata.Conventions {
         }
 
         public override void VisitModel(MetadataModel model) {
+            //BFS Visiting
             foreach (var convention in _modelConventions) {
                 convention.Apply(model);
             }
@@ -28,10 +29,6 @@ namespace S2fx.Model.Metadata.Conventions {
         public override void VisitEntity(MetaEntity entity) {
             foreach (var convention in _entityConventions) {
                 convention.Apply(entity);
-            }
-
-            foreach (var property in entity.Fields.Values) {
-                property.AcceptVisitor(this);
             }
         }
 

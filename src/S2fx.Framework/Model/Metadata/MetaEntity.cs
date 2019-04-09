@@ -25,9 +25,9 @@ namespace S2fx.Model.Metadata {
         public int Order { get; set; }
 
         [DataMember]
-        public IEnumerable<string> Dependencies { get; set; }
+        public IEnumerable<string> Dependencies => DependentEntities;
 
-        public IEnumerable<MetaEntity> DependentEntities { get; set; }
+        public ISet<string> DependentEntities { get; } = new HashSet<string>();
 
         public IFeatureInfo Feature { get; set; }
 
@@ -45,6 +45,9 @@ namespace S2fx.Model.Metadata {
 
         public override void AcceptVisitor(IMetadataVisitor visitor) {
             visitor.VisitEntity(this);
+            foreach (var field in this.Fields.Values) {
+                visitor.VisitField(field);
+            }
         }
 
         public override string ToString() => $"[{this.Name}]{this.DisplayName}";
