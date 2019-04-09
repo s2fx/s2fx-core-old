@@ -225,6 +225,11 @@ export const navItems: NavData[] = [
     icon: 'icon-star',
     children: [
       {
+        name: 'Setup',
+        url: '/setup',
+        icon: 'icon-star'
+      },
+      {
         name: 'Login',
         url: '/login',
         icon: 'icon-star'

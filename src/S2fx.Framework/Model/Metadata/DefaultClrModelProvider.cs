@@ -35,7 +35,7 @@ namespace S2fx.Model.Metadata {
                 }
                 var metaEntity = this.CreateMetaEntity(entityEntry);
                 //TODO 这里处理继承等问题
-                context.Result.Entities.Add(metaEntity.Name, metaEntity);
+                context.Result.Entities.Add(metaEntity);
             }
 
         }

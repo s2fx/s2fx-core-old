@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { S2fxHttpClient } from './http-client'
-import { ViewOdfDocumentInput, SettingValue, IEntityQueryResult } from './models'
+import { ViewOdfDocumentInput, SettingValue, IEntityQueryResult, ISetupOptions } from './models'
 
 
 @Injectable()
@@ -40,6 +40,19 @@ export class EntityContract {
             params['sort'] = sortBy
         }
         return await this.client.getAsJson<IEntityQueryResult>(`/Entity/${entity}/Query`, params)
+    }
+
+}
+
+
+@Injectable()
+export class SetupContract {
+
+    constructor(private client: S2fxHttpClient) {
+    }
+
+    public async startSetup(options: ISetupOptions): Promise<void> {
+        return await this.client.postAsJson(`/System/Setup/StartSetup`, options)
     }
 
 }

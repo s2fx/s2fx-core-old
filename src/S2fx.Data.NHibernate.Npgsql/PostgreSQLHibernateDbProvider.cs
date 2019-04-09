@@ -13,7 +13,13 @@ namespace S2fx.Data.NHibernate.Npgsql {
     public class PostgreSQLHibernateDbProvider : IHibernateDbProvider {
         public const string DbProviderName = "PostgreSQL";
 
+        public int Order => -4000;
+
         public string Name => DbProviderName;
+
+        public string DisplayName => "PostgreSQL";
+
+        public bool IsLoginNeeded => true;
 
         public Type JsonObjectType => typeof(TextBasedJsonObjectType<>);
 

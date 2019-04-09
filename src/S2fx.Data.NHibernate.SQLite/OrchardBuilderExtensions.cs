@@ -16,7 +16,7 @@ namespace S2fx.Data.NHibernate {
 
         public static OrchardCoreBuilder AddS2fxNHSQLite(this OrchardCoreBuilder builder, IConfiguration configuration = null) {
             var services = builder.ApplicationServices;
-            services.AddTransient<IHibernateDbProvider, SQLiteHibernateDbProvider>();
+            services.AddTransient<IDbProvider, SQLiteHibernateDbProvider>();
             return builder;
         }
 

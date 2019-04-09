@@ -10,7 +10,13 @@ namespace S2fx.Data.NHibernate.MSSQLServer {
     public class MSSQLServerHibernateDbProvider : IHibernateDbProvider {
         public const string DbProviderName = "SQLServer";
 
+        public int Order => 500;
+
         public string Name => DbProviderName;
+
+        public string DisplayName => "Microsoft SQL Server";
+
+        public bool IsLoginNeeded => true;
 
         public Type JsonObjectType => typeof(TextBasedJsonObjectType<>);
 

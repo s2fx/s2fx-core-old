@@ -10,7 +10,13 @@ namespace S2fx.Data.NHibernate.SQLite {
     public class SQLiteHibernateDbProvider : IHibernateDbProvider {
         public const string DbProviderName = "SQLite";
 
+        public int Order => 1000;
+
         public string Name => DbProviderName;
+
+        public string DisplayName => "SQLite";
+
+        public bool IsLoginNeeded => false;
 
         public Type JsonObjectType => typeof(TextBasedJsonObjectType<>);
 

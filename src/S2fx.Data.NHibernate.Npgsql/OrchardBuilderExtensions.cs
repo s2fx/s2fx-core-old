@@ -20,7 +20,7 @@ namespace S2fx.Data.NHibernate {
             NpgsqlConnection.GlobalTypeMapper.UseJsonNet();
 
             var services = builder.ApplicationServices;
-            services.AddTransient<IHibernateDbProvider, PostgreSQLHibernateDbProvider>();
+            services.AddTransient<IDbProvider, PostgreSQLHibernateDbProvider>();
             return builder;
         }
 

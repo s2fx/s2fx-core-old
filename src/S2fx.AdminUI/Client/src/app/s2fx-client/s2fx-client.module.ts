@@ -14,6 +14,6 @@ import * as contracts from './contracts'
     declarations: [], 
     exports: [
     ],
-    providers: [S2fxHttpClient, services.S2fxClient, contracts.MetadataContract, contracts.EntityContract ]
+    providers: [S2fxHttpClient, services.S2fxClient, contracts.MetadataContract, contracts.EntityContract, contracts.SetupContract]
 })
 export class S2fxClientModule { }

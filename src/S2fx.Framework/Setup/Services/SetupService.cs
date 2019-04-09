@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using S2fx.Setup.Model;
 
 namespace S2fx.Setup.Services {
 

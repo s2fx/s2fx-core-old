@@ -29,7 +29,7 @@ namespace S2fx.Environment {
                  services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
                 */
 
-                services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();
+                //services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();
                 services.AddSingleton<IShellStateManager, S2ShellStateManager>();
 
                 services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();

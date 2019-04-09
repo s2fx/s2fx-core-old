@@ -5,8 +5,10 @@ using System.Text;
 namespace S2fx.Data {
 
     public interface IDbProvider {
-        bool IsSupportXmlColumn { get; }
-        bool IsSupportJsonbColumn { get; }
+        int Order { get; }
+        string Name { get; }
+        string DisplayName { get; }
+        bool IsLoginNeeded { get; }
     }
 
 }

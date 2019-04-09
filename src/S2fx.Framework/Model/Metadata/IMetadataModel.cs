@@ -6,7 +6,7 @@ namespace S2fx.Model.Metadata {
 
     public class MetadataModel : IMetadataNode {
 
-        public Dictionary<string, MetaEntity> Entities { get; } = new Dictionary<string, MetaEntity>();
+        public IList<MetaEntity> Entities { get; } = new List<MetaEntity>();
 
         public void AcceptVisitor(IMetadataVisitor visitor) {
             visitor.VisitModel(this);

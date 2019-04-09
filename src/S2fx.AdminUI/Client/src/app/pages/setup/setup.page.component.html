@@ -1,0 +1,48 @@
+<div class="app-body" style="background: #2c3e50">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card mx-4">
+                        <div class="card-body p-4">
+                            <form>
+                                <h1>Setup</h1>
+                                <p class="text-muted">Setup options:</p>
+
+                                <div class="input-group mb-3">
+                                    <label class="col-md-4 col-form-label" for="text-input">DB Name:</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="text-input" name="dbNameText"
+                                               [(ngModel)]="options.DbName" [disabled]="isBusy" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <label class="col-md-4 col-form-label" for="text-input">Root Password:</label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="rootPasswordText"
+                                               [(ngModel)]="options.AdminPassword" [disabled]="isBusy" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <label class="col-md-4 col-form-label" for="text-input"></label>
+                                    <div class="col-md-8">
+                                        <div class="form-check">
+                                            <input name="isDemoCheck" class="form-check-input" id="checkbox1" type="checkbox"
+                                                   [(ngModel)]="options.IsDemo" [disabled]="isBusy">
+                                            <label class="form-check-label" for="checkbox1">Is a demo database</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" name="startButton" class="btn btn-block btn-success"
+                                        [disabled]="isBusy" (click)="onStartButtonClicked()">Create Database</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

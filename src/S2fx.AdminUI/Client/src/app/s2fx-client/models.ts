@@ -24,5 +24,13 @@ export interface IEntityQueryResult {
     Limit: number
     Count: number
     Total: number
-    Entities: any
+    Entities: any[]
+}
+
+
+export interface ISetupOptions {
+    AdminPassword: string
+    DbName: string
+    IsDemo: boolean
+    EnabledFeatures: string[]
 }

@@ -10,12 +10,13 @@ namespace S2fx.Data.NHibernate.DbProviders {
 
         readonly IHibernateDbProvider _provider;
 
-        public HibernateDbProviderAccessor(IEnumerable<IHibernateDbProvider> providers, S2Settings settings) {
+        public HibernateDbProviderAccessor(IEnumerable<IDbProvider> providers, S2Settings settings) {
 
-            _provider = providers.SingleOrDefault(x => x.Name == settings.Db.Provider);
-            if (_provider == null) {
+            var provider = providers.SingleOrDefault(x => x.Name == settings.Db.Provider);
+            if (provider == null) {
                 throw new NotSupportedException($"Not supported database provider: '{settings.Db.Provider}'");
             }
+            _provider = (IHibernateDbProvider)provider;
         }
 
         public IHibernateDbProvider EnabledDbProvider => _provider;
