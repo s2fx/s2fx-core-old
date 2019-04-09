@@ -8,6 +8,8 @@ namespace S2fx.Model.Metadata {
 
         void VisitAny(AnyMetadata any);
 
+        void VisitModel(MetadataModel model);
+
         void VisitEntity(MetaEntity entity);
 
         void VisitField(MetaField property);

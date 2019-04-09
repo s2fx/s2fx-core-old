@@ -6,7 +6,7 @@ using S2fx.Data.Importing.Model;
 
 namespace S2fx.Data.Seeding {
 
-    public interface ISeedDataHarvester {
+    public interface ISeedHarvester {
 
         Task<IEnumerable<ImportDescriptor>> HarvestInitDataAsync();
 

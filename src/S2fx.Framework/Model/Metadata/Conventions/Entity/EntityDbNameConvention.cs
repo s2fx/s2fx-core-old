@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using S2fx.Conventions;
-using S2fx.Environment.Extensions.Entity;
 using S2fx.Model.Metadata;
 using S2fx.Utility;
 

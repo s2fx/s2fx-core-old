@@ -8,6 +8,9 @@ namespace S2fx.Model.Metadata {
 
         public void VisitAny(AnyMetadata any) => any.AcceptVisitor(this);
 
+        public virtual void VisitModel(MetadataModel model) {
+        }
+
         public virtual void VisitEntity(MetaEntity entity) {
             foreach (var field in entity.Fields.Values) {
                 field.AcceptVisitor(this);

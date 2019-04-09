@@ -19,5 +19,4 @@
         <menu-entry name="menu-auth" parent="menu-admin" title="User Management" />
     </s2-views>
 
-
 </Form>

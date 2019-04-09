@@ -7,7 +7,6 @@ using System.Reflection;
 using S2fx.Data;
 using S2fx.Data.UnitOfWork;
 using S2fx.Environment.Extensions;
-using S2fx.Environment.Extensions.Entity;
 using S2fx.Model;
 using S2fx.Utility;
 using S2fx.Model.Metadata;

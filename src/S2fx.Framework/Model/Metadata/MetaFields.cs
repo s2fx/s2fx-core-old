@@ -52,6 +52,8 @@ namespace S2fx.Model.Metadata {
         }
 
         public AbstractMetaFieldAnnotation FindAnnotation(string name) => this.Annotations.FirstOrDefault(x => x.Name == name);
+
+        public override string ToString() => $"{Entity?.Name}.{Name}";
     }
 
 

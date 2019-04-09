@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Seeding\Model\Conventions\" />
     <Folder Include="Model\RemoteServices\" />
     <Folder Include="Security\Roles\" />
     <Folder Include="View\Schemas\FormView\" />

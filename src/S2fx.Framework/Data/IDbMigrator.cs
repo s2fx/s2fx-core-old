@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 namespace S2fx.Data {
 
     public interface IDbMigrator {
-        Task MigrateSchemeAsync();
+        Task MigrateSchemaAsync();
     }
 }

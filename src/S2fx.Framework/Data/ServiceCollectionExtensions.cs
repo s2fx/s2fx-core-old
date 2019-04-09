@@ -19,8 +19,8 @@ namespace S2fx.Data {
             services.AddTransient<IDbNameConvention, S2DbNameConvention>();
 
             //seeding
-            services.AddTransient<ISeedDataHarvester, SeedDataHarvester>();
-            services.AddTransient<ISeedDataLoader, SeedDataLoader>();
+            services.AddTransient<ISeedHarvester, FileSystemSeedHarvester>();
+            services.AddTransient<ISeedLoader, SeedDataLoader>();
 
             services.AddTransient(typeof(GenericRecordImporter<>));
             services.AddTransient(typeof(GenericRecordFinder<>));

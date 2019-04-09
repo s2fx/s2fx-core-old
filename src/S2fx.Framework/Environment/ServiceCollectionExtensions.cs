@@ -10,8 +10,6 @@ using OrchardCore.Environment.Shell.Descriptor;
 using S2fx.Conventions;
 using S2fx.Data.Seeding;
 using S2fx.Data.UnitOfWork;
-using S2fx.Environment.Extensions;
-using S2fx.Environment.Extensions.Entity;
 using S2fx.Environment.Shell;
 using S2fx.Environment.Shell.Descriptor;
 using S2fx.Remoting;
@@ -21,12 +19,6 @@ namespace S2fx.Environment {
     public static class ServiceCollectionExtensions {
 
         public static void AddS2Environment(this IServiceCollection services) {
-            services.TryAddEnumerable(new[] {
-                ServiceDescriptor.Transient<IEntityHarvester, BuiltinClrEntityHarvester>(),
-                ServiceDescriptor.Transient<IEntityHarvester, EnabledFeaturesClrEntityHarvester>()
-            });
-
-            services.AddSingleton<IS2ModuleManager, S2ModuleManager>();
 
             //涉及数据存储的 S2 服务
             {

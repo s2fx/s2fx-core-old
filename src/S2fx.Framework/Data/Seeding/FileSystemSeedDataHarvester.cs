@@ -14,7 +14,7 @@ using S2fx.Environment.Shell;
 
 namespace S2fx.Data.Seeding {
 
-    public class SeedDataHarvester : ISeedDataHarvester {
+    public class FileSystemSeedHarvester : ISeedHarvester {
         public const string SeedDataFolderName = "Seed";
         public const string InitDataFolderName = "Init";
         public const string DemoDataFolderName = "Demo";
@@ -23,18 +23,18 @@ namespace S2fx.Data.Seeding {
         private IHostingEnvironment _environment;
         private IShellFeatureEntityService _shellFeatureService;
 
-        public SeedDataHarvester(IHostingEnvironment environment, IShellFeatureEntityService shellFeatureService) {
+        public FileSystemSeedHarvester(IHostingEnvironment environment, IShellFeatureEntityService shellFeatureService) {
             _environment = environment;
             _shellFeatureService = shellFeatureService;
         }
 
         public Task<IEnumerable<ImportDescriptor>> HarvestInitDataAsync() =>
-            this.HarvestSeedDataAsync(InitDataFolderName);
+            this.HarvestSeedAsync(InitDataFolderName);
 
         public Task<IEnumerable<ImportDescriptor>> HarvestDemoDataAsync() =>
-            this.HarvestSeedDataAsync(DemoDataFolderName);
+            this.HarvestSeedAsync(DemoDataFolderName);
 
-        private async Task<IEnumerable<ImportDescriptor>> HarvestSeedDataAsync(string dataFolderName) {
+        private async Task<IEnumerable<ImportDescriptor>> HarvestSeedAsync(string dataFolderName) {
             var features = await _shellFeatureService.GetEnabledFeatureEntriesAsync();
             features = features.OrderBy(x => x.FeatureInfo.Priority);
             var allJobs = new List<ImportDescriptor>();

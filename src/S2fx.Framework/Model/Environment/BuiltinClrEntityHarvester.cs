@@ -15,7 +15,7 @@ using S2fx.Model.Annotations;
 using S2fx.Model.Metadata.Types;
 using S2fx.Environment.Shell;
 
-namespace S2fx.Environment.Extensions.Entity {
+namespace S2fx.Model.Environment {
 
     public class BuiltinClrEntityHarvester : AbstractClrEntityHarvester {
 
@@ -27,12 +27,12 @@ namespace S2fx.Environment.Extensions.Entity {
             _shellFeatureEntityService = shellFeatureEntityService;
         }
 
-        public override async Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync() {
+        public override async Task<IEnumerable<EntityEntry>> HarvestEntitiesAsync() {
             var features = await _shellFeatureEntityService.GetEnabledFeatureEntriesAsync();
             var coreFeature = features.Single(x => x.FeatureInfo.Id == WellKnownConstants.CoreModuleId);
             var builtinEntityTypes = Assembly.GetExecutingAssembly().ExportedTypes.Where(t => this.IsEntityType(t));
 
-            var entityInfos = new List<EntityInfo>(builtinEntityTypes
+            var entityInfos = new List<EntityEntry>(builtinEntityTypes
                 .Select(x => this.GetEntityInfo(coreFeature.FeatureInfo, x)));
             return entityInfos;
         }

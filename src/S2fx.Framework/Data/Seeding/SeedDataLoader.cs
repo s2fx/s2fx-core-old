@@ -15,18 +15,18 @@ using S2fx.Services;
 
 namespace S2fx.Data.Seeding {
 
-    public class SeedDataLoader : ISeedDataLoader {
+    public class SeedDataLoader : ISeedLoader {
 
         readonly IHostingEnvironment _environment;
         readonly IDataImporter _importer;
-        readonly ISeedDataHarvester _harvester;
+        readonly ISeedHarvester _harvester;
         readonly IClock _clock;
 
         public ILogger Logger { get; }
 
         public SeedDataLoader(IHostingEnvironment environment,
             IDataImporter importer,
-            ISeedDataHarvester harvester,
+            ISeedHarvester harvester,
             IClock clock,
             ILogger<SeedDataLoader> logger) {
             _environment = environment;
@@ -36,7 +36,7 @@ namespace S2fx.Data.Seeding {
             this.Logger = logger;
         }
 
-        public async Task LoadAllSeedDataAsync(bool withDemoData = false) {
+        public async Task LoadAllSeedsAsync(bool withDemoData = false) {
             var allInitData = await _harvester.HarvestInitDataAsync();
             var allDemoData = await _harvester.HarvestDemoDataAsync();
 
@@ -54,7 +54,7 @@ namespace S2fx.Data.Seeding {
             this.Logger.LogInformation("All seed data loaded. Elapsed time: {0}", elapsedTime.ToString());
         }
 
-        public async Task LoadSeedDataAsync(string feature, bool withDemoData = false) {
+        public async Task LoadSeedAsync(string feature, bool withDemoData = false) {
             await this.LoadSeedDataAsync(new string[] { feature }, false);
 
             if (withDemoData) {

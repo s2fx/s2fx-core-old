@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using NHibernate;
 using NHibernate.Cfg;
@@ -29,7 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.AddScoped<IUnitOfWork, HibernateUnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(DefaultHibernateRepository<>));
 
-            services.AddTransient<IHibernateDbProviderAccessor, HibernateDbProviderAccessor>();
+            services.TryAddSingleton<IHibernateDbProviderAccessor, HibernateDbProviderAccessor>();
 
             //entity mapping
             services.AddTransient(typeof(EntityMappingClass<>), typeof(EntityMappingClass<>));

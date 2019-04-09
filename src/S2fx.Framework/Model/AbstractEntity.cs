@@ -12,7 +12,6 @@ namespace S2fx.Model {
         [IdField]
         public virtual long Id { get; set; }
 
-        [NotField]
         public virtual bool IsPersistent => Id > 0;
 
         public virtual long _Version { get; set; }

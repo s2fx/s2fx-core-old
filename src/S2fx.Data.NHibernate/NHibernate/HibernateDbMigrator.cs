@@ -25,7 +25,7 @@ namespace S2fx.Data.NHibernate {
             this.Logger = logger;
         }
 
-        public async Task MigrateSchemeAsync() {
+        public async Task MigrateSchemaAsync() {
             //Lock the Migration processing
             await _semaphoreSlim.WaitAsync();
             try {
