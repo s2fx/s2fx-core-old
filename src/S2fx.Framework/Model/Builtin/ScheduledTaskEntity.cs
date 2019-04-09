@@ -7,7 +7,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.Model.Builtin {
 
     [Entity(EntityName), DisplayName("Scheduled Task")]
-    public class ScheduledTaskEntity : AbstractAuditedEntity {
+    public class ScheduledTaskEntity : AbstractEntity {
         public const string EntityName = "Core.ScheduledTask";
 
         [Required, MaxLength(256)]

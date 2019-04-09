@@ -8,7 +8,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.View.Model.Model {
 
     [Entity(EntityName), DisplayName("View")]
-    public class ViewEntity : AbstractAuditedEntity {
+    public class ViewEntity : AbstractEntity {
         public const string EntityName = "Core.View";
 
         [Required, MaxLength(256)]

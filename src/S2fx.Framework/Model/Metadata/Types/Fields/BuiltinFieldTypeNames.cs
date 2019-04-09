@@ -5,7 +5,7 @@ using System.Text;
 namespace S2fx.Model.Metadata.Types {
 
     public static class BuiltinFieldTypeNames {
-        public const string IdTypeName = "Id";
+        public const string IdTypeName = nameof(IEntity.Id);
         public const string BooleanTypeName = "Boolean";
         public const string Int32TypeName = "Int32";
         public const string Int64TypeName = "Int64";
@@ -22,7 +22,6 @@ namespace S2fx.Model.Metadata.Types {
         public const string ManyToManyTypeName = "ManyToMany";
         public const string EnumerableTypeName = "Enumerable";
         public const string VersionTypeName = "Version";
-        public const string PasswordTypeName = "Password";
         public const string JsonObjectTypeName = "JsonObject";
         public const string XmlObjectTypeName = "XmlObject";
     }

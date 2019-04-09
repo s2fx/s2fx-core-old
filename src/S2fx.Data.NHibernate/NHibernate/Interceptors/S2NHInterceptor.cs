@@ -30,7 +30,7 @@ namespace S2fx.Data.NHibernate.Interceptors {
 
             if (entity is IAuditedEntity) {
                 for (int i = 0; i < propertyNames.Length; i++) {
-                    if (nameof(IAuditedEntity.UpdatedOn).Equals(propertyNames[i])) {
+                    if (nameof(IAuditedEntity._UpdatedOn).Equals(propertyNames[i])) {
                         currentState[i] = _clock.UtcNow();
                         break;
                     }
@@ -44,7 +44,7 @@ namespace S2fx.Data.NHibernate.Interceptors {
 
             if (entity is IAuditedEntity) {
                 for (int i = 0; i < propertyNames.Length; i++) {
-                    if (nameof(IAuditedEntity.CreatedOn).Equals(propertyNames[i])) {
+                    if (nameof(IAuditedEntity._CreatedOn).Equals(propertyNames[i])) {
                         state[i] = _clock.UtcNow();
                         break;
                     }

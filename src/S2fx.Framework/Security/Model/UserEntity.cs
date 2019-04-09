@@ -11,7 +11,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.Security.Model {
 
     [Entity(EntityName), DisplayName("User")]
-    public class UserEntity : AbstractAuditedEntity, IUser {
+    public class UserEntity : AbstractEntity, IUser {
         public const string EntityName = "Core.User";
 
         [Required, MaxLength(64), DisplayName("User Name")]

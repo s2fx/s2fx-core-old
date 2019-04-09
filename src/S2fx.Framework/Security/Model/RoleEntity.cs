@@ -9,7 +9,7 @@ using S2fx.View.Model.Model;
 namespace S2fx.Security.Model {
 
     [Entity(EntityName), DisplayName("Role")]
-    public class RoleEntity : AbstractAuditedEntity {
+    public class RoleEntity : AbstractEntity {
         public const string EntityName = "Core.Role";
 
         [Required, MaxLength(256)]

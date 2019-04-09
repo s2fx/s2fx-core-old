@@ -9,7 +9,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.Model.Builtin {
 
     [Entity("Core.Sequence"), DisplayName("Sequence")]
-    public class SequenceEntity : AbstractAuditedEntity {
+    public class SequenceEntity : AbstractEntity {
 
         [Required(AllowEmptyStrings = false), MaxLength(256)]
         public virtual string Name { get; set; }

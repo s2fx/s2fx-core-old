@@ -9,7 +9,7 @@ using S2fx.Security.Model;
 namespace S2fx.View.Model.Model {
 
     [Entity(EntityName), DisplayName("Menu Item")]
-    public class MenuItemEntity : AbstractAuditedEntity, IHierarchyEntity<MenuItemEntity> {
+    public class MenuItemEntity : AbstractHierarchyEntity<MenuItemEntity> {
         public const string EntityName = "Core.MenuItem";
 
         [Required, MaxLength(256)]
@@ -36,12 +36,6 @@ namespace S2fx.View.Model.Model {
         [ManyToManyField(mappedBy: nameof(RoleEntity.Menus), joinTable: "core_role_menu")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
 
-        [ManyToOneField]
-        public virtual MenuItemEntity Parent { get; set; }
-
-        public virtual long RangeLeft { get; set; }
-
-        public virtual long RangeRight { get; set; }
     }
 
 }

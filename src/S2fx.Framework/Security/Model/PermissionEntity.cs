@@ -9,7 +9,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.Security.Model {
 
     [Entity("Core.Permission"), DisplayName("Permission")]
-    public class PermissionEntity : AbstractAuditedEntity {
+    public class PermissionEntity : AbstractEntity {
 
         [Required, MaxLength(256)]
         public virtual string Name { get; set; }

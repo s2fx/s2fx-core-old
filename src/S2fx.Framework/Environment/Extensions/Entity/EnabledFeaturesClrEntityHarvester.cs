@@ -21,6 +21,8 @@ namespace S2fx.Environment.Extensions.Entity {
 
         private readonly IShellFeatureEntityService _shellFeatureEntityService;
 
+        public override int Priority => -1000;
+
         public EnabledFeaturesClrEntityHarvester(IShellFeatureEntityService shellFeatureEntityService) {
             _shellFeatureEntityService = shellFeatureEntityService;
         }

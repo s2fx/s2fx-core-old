@@ -9,7 +9,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.Model.Builtin {
 
     [Entity(EntityName), DisplayName("Attachment")]
-    public class AttachmentEntity : AbstractAuditedEntity {
+    public class AttachmentEntity : AbstractEntity {
         public const string EntityName = "Core.Attachment";
 
         [Required]

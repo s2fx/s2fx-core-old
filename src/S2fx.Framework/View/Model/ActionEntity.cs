@@ -11,7 +11,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.View.Model.Model {
 
     [Entity(EntityName), DisplayName("Action")]
-    public class ActionEntity : AbstractAuditedEntity {
+    public class ActionEntity : AbstractEntity {
         public const string EntityName = "Core.Action";
 
         [Required, MaxLength(256)]

@@ -9,7 +9,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.Model.Builtin {
 
     [Entity(EntityName), DisplayName("File")]
-    public class FileEntity : AbstractAuditedEntity {
+    public class FileEntity : AbstractEntity {
         public const string EntityName = "Core.File";
 
         [Required, MaxLength(1024)]

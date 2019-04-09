@@ -14,6 +14,7 @@ namespace S2fx.Environment.Extensions.Entity {
 
     public abstract class AbstractClrEntityHarvester : IEntityHarvester {
 
+        public abstract int Priority { get; }
         public abstract Task<IEnumerable<EntityInfo>> HarvestEntitiesAsync();
 
         protected IEnumerable<EntityInfo> HarvestClrEntityInFeature(FeatureEntry feature) {

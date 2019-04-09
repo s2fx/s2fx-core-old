@@ -8,7 +8,7 @@ using S2fx.Model.Annotations;
 namespace S2fx.Model.Builtin {
 
     [Entity(EntityName), DisplayName("Feature")]
-    public class FeatureEntity : AbstractAuditedEntity {
+    public class FeatureEntity : AbstractEntity {
 
         public const string EntityName = "Core.Feature";
 

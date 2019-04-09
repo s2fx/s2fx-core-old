@@ -14,30 +14,36 @@ namespace S2fx.Model {
 
     public interface IAuditedEntity : IEntity {
 
-        UserEntity CreatedBy { get; set; }
-        UserEntity UpdatedBy { get; set; }
-        DateTime CreatedOn { get; set; }
-        DateTime? UpdatedOn { get; set; }
+        UserEntity _CreatedBy { get; set; }
+        UserEntity _UpdatedBy { get; set; }
+        DateTime _CreatedOn { get; set; }
+        DateTime? _UpdatedOn { get; set; }
     }
 
     public interface IArchivableEntity<TEntity>
         where TEntity : class, IEntity {
 
-        bool Archived { get; set; }
+        bool _Archived { get; set; }
+    }
+
+    public interface ISoftDeletableEntity<TEntity>
+        where TEntity : class, IEntity {
+
+        bool _IsDeleted { get; set; }
     }
 
     public interface IHierarchyEntity<TEntity>
         where TEntity : class, IEntity {
 
-        TEntity Parent { get; set; }
-        long RangeLeft { get; set; }
-        long RangeRight { get; set; }
+        TEntity _Parent { get; set; }
+        long _RangeLeft { get; set; }
+        long _RangeRight { get; set; }
     }
 
     public interface IMutableEntity<TEntity>
         where TEntity : class, IEntity {
 
-        long Version { get; set; }
+        long _Version { get; set; }
     }
 
 }

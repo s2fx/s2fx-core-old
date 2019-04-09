@@ -11,10 +11,23 @@ namespace S2fx.Utility {
             if (string.IsNullOrEmpty(input)) {
                 return input;
             }
-            return string.Concat(
-                input.Select((x, i) => 
-                    i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString()))
-                .ToLowerInvariant();
+            var sb = new StringBuilder(input.Length + 8);
+
+            int lastChar = -1;
+            foreach (var c in input) {
+                if (char.IsUpper(c)) {
+                    if (lastChar >= 0 && lastChar != '_') {
+                        sb.Append('_');
+                    }
+                    sb.Append(char.ToLowerInvariant(c));
+                }
+                else {
+                    sb.Append(c);
+                }
+
+                lastChar = c;
+            }
+            return sb.ToString();
         }
 
     }

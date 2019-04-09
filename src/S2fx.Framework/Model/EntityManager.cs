@@ -64,7 +64,7 @@ namespace S2fx.Model {
             }
 
             lock (this.InitializationLock) {
-                var harvesters = _services.GetServices<IEntityHarvester>();
+                var harvesters = _services.GetServices<IEntityHarvester>().OrderBy(x => x.Priority);
                 var entityTypes = _services.GetServices<IEntityType>();
 
                 var entityInfos = new List<EntityInfo>();
