@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\S2fx.Core.Abstractions\S2fx.Core.Abstractions.csproj" />
     <ProjectReference Include="..\S2fx.Core\S2fx.Core.csproj" />
     <ProjectReference Include="..\S2fx.Framework\S2fx.Framework.csproj" />
   </ItemGroup>
