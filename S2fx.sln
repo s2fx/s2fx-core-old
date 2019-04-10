@@ -47,9 +47,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.AdminUI", "src\S2fx.Ad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Data.NHibernate.MSSQLServer", "src\S2fx.Data.NHibernate.MSSQLServer\S2fx.Data.NHibernate.MSSQLServer.csproj", "{507A8715-A2DB-434C-8426-BAD2E99152CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2fx.Data.NHibernate.SQLite", "src\S2fx.Data.NHibernate.SQLite\S2fx.Data.NHibernate.SQLite.csproj", "{39334549-CED1-4213-8D21-B13C3F1F86DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Data.NHibernate.SQLite", "src\S2fx.Data.NHibernate.SQLite\S2fx.Data.NHibernate.SQLite.csproj", "{39334549-CED1-4213-8D21-B13C3F1F86DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBDrivers", "DBDrivers", "{F9BE9B27-DD0B-422B-B8A4-F44435752B48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Core.Abstractions", "src\S2fx.Core.Abstractions\S2fx.Core.Abstractions.csproj", "{8EACEEF7-591B-4BC1-ACA9-97EC1CDD9D90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,10 @@ Global
 		{39334549-CED1-4213-8D21-B13C3F1F86DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39334549-CED1-4213-8D21-B13C3F1F86DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39334549-CED1-4213-8D21-B13C3F1F86DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EACEEF7-591B-4BC1-ACA9-97EC1CDD9D90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EACEEF7-591B-4BC1-ACA9-97EC1CDD9D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EACEEF7-591B-4BC1-ACA9-97EC1CDD9D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EACEEF7-591B-4BC1-ACA9-97EC1CDD9D90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{507A8715-A2DB-434C-8426-BAD2E99152CF} = {F9BE9B27-DD0B-422B-B8A4-F44435752B48}
 		{39334549-CED1-4213-8D21-B13C3F1F86DE} = {F9BE9B27-DD0B-422B-B8A4-F44435752B48}
 		{F9BE9B27-DD0B-422B-B8A4-F44435752B48} = {6CFECB4F-91E9-4096-B594-77CEBFAF545B}
+		{8EACEEF7-591B-4BC1-ACA9-97EC1CDD9D90} = {56D5DCC2-F956-402F-AE23-D782C148374F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59F4E74C-DAE3-4194-BDFF-7EFF3A7D1921}
