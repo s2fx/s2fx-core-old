@@ -21,7 +21,7 @@ namespace S2fx.Data.Importing {
             _repository = repository;
         }
 
-        public async Task<object> FindExistedRecordOrDefaultAsync(ImportContext context, IReadOnlyDictionary<string, object> symbols) {
+        public async Task<object> FindExistedRecordOrDefaultAsync(ImportingTaskContext context, IReadOnlyDictionary<string, object> symbols) {
             if (string.IsNullOrEmpty(context.EntityBinding.Where)) {
                 return null;
             }

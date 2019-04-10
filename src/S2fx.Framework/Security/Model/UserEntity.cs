@@ -29,6 +29,9 @@ namespace S2fx.Security.Model {
         [MaxLength(256), DisplayName("E-Mail")]
         public virtual string Email { get; set; }
 
+        [MaxLength(256), DisplayName("Reset Token"), Hidden]
+        public virtual string ResetToken { get; set; }
+
         [DisplayName("Related Users")]
         [ManyToManyField(mappedBy: nameof(RoleEntity.Users), joinTable: "core_user_role")]
         public virtual ICollection<RoleEntity> Roles { get; set; }

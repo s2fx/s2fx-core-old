@@ -8,9 +8,9 @@ namespace S2fx.Data.Seeding {
 
     public interface ISeedHarvester {
 
-        Task<IEnumerable<ImportDescriptor>> HarvestInitDataAsync();
+        Task<IEnumerable<ImportingTaskDescriptor>> HarvestInitDataAsync();
 
-        Task<IEnumerable<ImportDescriptor>> HarvestDemoDataAsync();
+        Task<IEnumerable<ImportingTaskDescriptor>> HarvestDemoDataAsync();
 
     }
 

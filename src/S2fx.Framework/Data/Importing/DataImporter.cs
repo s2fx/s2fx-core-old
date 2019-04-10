@@ -8,29 +8,51 @@ using Microsoft.Extensions.DependencyInjection;
 using S2fx.Data.Importing.Model;
 using S2fx.Model;
 using S2fx.Model.Metadata;
+using OrchardCore.DeferredTasks;
 
 namespace S2fx.Data.Importing {
 
     public class DataImporter : IDataImporter {
 
-        private readonly IServiceProvider _services;
-        private readonly IEntityManager _entityManager;
-        private readonly IEnumerable<IDataSource> _dataSources;
+        readonly IServiceProvider _services;
+        readonly IDeferredTaskEngine _defferedTaskEngine;
+        readonly IEntityManager _entityManager;
+        readonly IEnumerable<IDataSource> _dataSources;
 
         public event EventHandler<EntityRecordImportedEventArgs> EntityRecordImported;
 
-        public DataImporter(IServiceProvider services, IEntityManager entityManager, IEnumerable<IDataSource> dataSources) {
+        public DataImporter(
+            IServiceProvider services,
+            IDeferredTaskEngine defferedTaskEngine,
+            IEntityManager entityManager, IEnumerable<IDataSource> dataSources) {
             _services = services;
+            _defferedTaskEngine = defferedTaskEngine;
             _entityManager = entityManager;
             _dataSources = dataSources;
         }
 
-        public async Task ImportAsync(ImportDescriptor job) {
-            var context = this.CreateImportContext(job);
-            var dataSource = _dataSources.Single(x => x.Format == job.DataSource);
+        public async Task ImportAsync(ImportingTaskDescriptor descriptor) {
+            _defferedTaskEngine.AddTask(async defferedTaskContext => {
+                await this.DoImportAsync(descriptor);
+            });
+            await Task.CompletedTask;
+        }
 
-            using (var stream = job.ImportFileInfo.CreateReadStream()) {
-                var rows = dataSource.GetAllRows(stream, job.EntityMapping.Selector);
+        public async Task ImportAsync(IEnumerable<ImportingTaskDescriptor> sortedDescriptors) {
+            _defferedTaskEngine.AddTask(async defferedTaskContext => {
+                foreach (var descriptor in sortedDescriptors) {
+                    await this.DoImportAsync(descriptor);
+                }
+            });
+            await Task.CompletedTask;
+        }
+
+        async Task DoImportAsync(ImportingTaskDescriptor descriptor) {
+            var context = this.CreateImportContext(descriptor);
+            var dataSource = _dataSources.Single(x => x.Format == descriptor.DataSource);
+
+            using (var stream = descriptor.ImportFileInfo.CreateReadStream()) {
+                var rows = dataSource.GetAllRows(stream, descriptor.EntityMapping.Selector);
                 var recordFinderType = typeof(GenericRecordFinder<>).MakeGenericType(context.Entity.ClrType);
                 var recordFinder = _services.GetRequiredService(recordFinderType) as IRecordFinder;
 
@@ -43,17 +65,8 @@ namespace S2fx.Data.Importing {
             }
         }
 
-        public async Task ImportAsync(IEnumerable<ImportDescriptor> jobs) {
-            //TODO dependency sort
-            var sortedJobs = jobs;
-
-            foreach (var job in jobs) {
-                await this.ImportAsync(job);
-            }
-        }
-
-        private async Task ImportSingleRecordAsync(
-            ImportContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, object row) {
+        async Task ImportSingleRecordAsync(
+            ImportingTaskContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, object row) {
 
             var propValues = new Dictionary<string, object>(context.EntityBinding.PropertyMappings.Length);
             foreach (var propBind in context.EntityBinding.PropertyMappings) {
@@ -94,9 +107,9 @@ namespace S2fx.Data.Importing {
             this.EntityRecordImported?.Invoke(this, new EntityRecordImportedEventArgs(context.Entity, record));
         }
 
-        private ImportContext CreateImportContext(ImportDescriptor job) {
+        ImportingTaskContext CreateImportContext(ImportingTaskDescriptor job) {
             var entity = _entityManager.GetEntity(job.Entity);
-            var context = new ImportContext(job.Feature, entity, job.EntityMapping, null);
+            var context = new ImportingTaskContext(job.Feature, entity, job.EntityMapping, null);
 
             //Populates property binders
             var ds = _dataSources.SingleOrDefault(x => x.Format == job.DataSource);
@@ -112,7 +125,7 @@ namespace S2fx.Data.Importing {
             return context;
         }
 
-        private object ParsePropertyValue(MetaField property, string value) {
+        object ParsePropertyValue(MetaField property, string value) {
             //TODO parse property value
             throw new NotImplementedException();
         }

@@ -15,17 +15,17 @@ namespace S2fx.Data {
 
             // services.AddTransient<IDynamicEntityRepositoryResolver, DynamicEntityRepositoryResolver>();
 
-            services.AddTransient<IUnitOfWorkManager, DefaultUnitOfWorkManager>();
-            services.AddTransient<IDbNameConvention, S2DbNameConvention>();
+            services.AddScoped<IUnitOfWorkManager, DefaultUnitOfWorkManager>();
+            services.AddSingleton<IDbNameConvention, S2DbNameConvention>();
 
             //seeding
-            services.AddTransient<ISeedHarvester, FileSystemSeedHarvester>();
-            services.AddTransient<ISeedLoader, SeedDataLoader>();
+            services.AddScoped<ISeedHarvester, FileSystemSeedHarvester>();
+            services.AddScoped<ISeedLoader, SeedDataLoader>();
 
-            services.AddTransient(typeof(GenericRecordImporter<>));
-            services.AddTransient(typeof(GenericRecordFinder<>));
+            services.AddScoped(typeof(GenericRecordImporter<>));
+            services.AddScoped(typeof(GenericRecordFinder<>));
 
-            services.AddTransient<IDataImporter, DataImporter>();
+            services.AddScoped<IDataImporter, DataImporter>();
 
             services.AddTransient<IDataSource, XmlDataSource>();
             services.AddTransient<IDataSource, CsvDataSource>();

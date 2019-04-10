@@ -28,16 +28,16 @@ namespace S2fx.Data.Seeding {
             _shellFeatureService = shellFeatureService;
         }
 
-        public Task<IEnumerable<ImportDescriptor>> HarvestInitDataAsync() =>
+        public Task<IEnumerable<ImportingTaskDescriptor>> HarvestInitDataAsync() =>
             this.HarvestSeedAsync(InitDataFolderName);
 
-        public Task<IEnumerable<ImportDescriptor>> HarvestDemoDataAsync() =>
+        public Task<IEnumerable<ImportingTaskDescriptor>> HarvestDemoDataAsync() =>
             this.HarvestSeedAsync(DemoDataFolderName);
 
-        private async Task<IEnumerable<ImportDescriptor>> HarvestSeedAsync(string dataFolderName) {
+        private async Task<IEnumerable<ImportingTaskDescriptor>> HarvestSeedAsync(string dataFolderName) {
             var features = await _shellFeatureService.GetEnabledFeatureEntriesAsync();
             features = features.OrderBy(x => x.FeatureInfo.Priority);
-            var allJobs = new List<ImportDescriptor>();
+            var allJobs = new List<ImportingTaskDescriptor>();
 
             foreach (var feature in features) {
                 var initDataFolderSubPath = Path.Combine(feature.FeatureInfo.Extension.SubPath, SeedDataFolderName, dataFolderName);
@@ -47,14 +47,14 @@ namespace S2fx.Data.Seeding {
             return allJobs;
         }
 
-        private Task<IEnumerable<ImportDescriptor>> HarvestImportJobAsync(string subPath, IFeatureInfo feature) {
+        private Task<IEnumerable<ImportingTaskDescriptor>> HarvestImportJobAsync(string subPath, IFeatureInfo feature) {
             var initDataConfigFile = _environment.ContentRootFileProvider
                 .GetDirectoryContents(subPath)
                 .Where(x => !x.IsDirectory && x.Name.Equals(SeedConfigFileName, StringComparison.InvariantCultureIgnoreCase))
                 .SingleOrDefault();
 
             if (initDataConfigFile == null) {
-                return Task.FromResult((new ImportDescriptor[] { }).AsEnumerable());
+                return Task.FromResult((new ImportingTaskDescriptor[] { }).AsEnumerable());
             }
 
             using (var stream = initDataConfigFile.CreateReadStream()) {

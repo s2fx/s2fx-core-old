@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>S2fx</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+    <PackageReference Include="OrchardCore.Application.Mvc.Targets" Version="1.0.0-beta3-71077" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\S2fx.AdminUI\S2fx.AdminUI.csproj" />
+    <ProjectReference Include="..\S2fx.Core\S2fx.Core.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate.MSSQLServer\S2fx.Data.NHibernate.MSSQLServer.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate.Npgsql\S2fx.Data.NHibernate.Npgsql.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate.SQLite\S2fx.Data.NHibernate.SQLite.csproj" />
+    <ProjectReference Include="..\S2fx.Data.NHibernate\S2fx.Data.NHibernate.csproj" />
+    <ProjectReference Include="..\S2fx.Framework\S2fx.Framework.csproj" />
+    <ProjectReference Include="..\S2fx.Mvc\S2fx.Mvc.csproj" />
+  </ItemGroup>
+
+
+</Project>

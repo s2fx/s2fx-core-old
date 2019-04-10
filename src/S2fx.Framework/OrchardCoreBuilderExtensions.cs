@@ -18,6 +18,7 @@ using S2fx.Xaml;
 using S2fx.Environment;
 using OrchardCore.DeferredTasks;
 using S2fx.Services;
+using S2fx.Security;
 
 namespace S2fx {
 
@@ -39,6 +40,8 @@ namespace S2fx {
             //Remoting 
             services.AddRemoting();
             services.AddInternalRemoteServices();
+
+            services.AddS2Security();
 
             // Xaml 
             services.AddXamlSupport();

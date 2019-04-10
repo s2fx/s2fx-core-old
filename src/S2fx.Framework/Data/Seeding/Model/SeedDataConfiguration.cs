@@ -10,7 +10,7 @@ namespace S2fx.Data.Sedding.Model {
     public class SeedDataConfiguration {
 
         [XmlElement("import")]
-        public ImportDescriptor[] Jobs { get; set; } = new ImportDescriptor[] { };
+        public ImportingTaskDescriptor[] Jobs { get; set; } = new ImportingTaskDescriptor[] { };
     }
 
 }

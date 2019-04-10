@@ -10,9 +10,9 @@ namespace S2fx.Data.Importing {
 
         event EventHandler<EntityRecordImportedEventArgs> EntityRecordImported;
 
-        Task ImportAsync(ImportDescriptor job);
+        Task ImportAsync(ImportingTaskDescriptor descriptor);
 
-        Task ImportAsync(IEnumerable<ImportDescriptor> jobs);
+        Task ImportAsync(IEnumerable<ImportingTaskDescriptor> sortedDescriptors);
 
     }
 

@@ -39,9 +39,10 @@ namespace S2fx.Environment.Shell.Descriptor {
             this.Logger = logger;
         }
 
-        public async Task<ShellDescriptor> GetShellDescriptorAsync() {
+        public Task<ShellDescriptor> GetShellDescriptorAsync() {
             throw new NotImplementedException();
             // Prevent multiple queries during the same request
+            /*
             if (_shellDescriptor == null) {
                 //_shell= //await _session.Query<ShellDescriptor>().FirstOrDefaultAsync();
 
@@ -60,6 +61,7 @@ namespace S2fx.Environment.Shell.Descriptor {
             }
 
             return _shellDescriptor;
+            */
         }
 
         public async Task UpdateShellDescriptorAsync(int priorSerialNumber, IEnumerable<ShellFeature> enabledFeatures, IEnumerable<ShellParameter> parameters) {
