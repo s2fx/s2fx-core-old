@@ -20,8 +20,6 @@ import { DefaultLayoutComponent } from './containers'
 import { P404Component } from './views/error/404.component'
 import { P500Component } from './views/error/500.component'
 import { RegisterComponent } from './views/register/register.component'
-import { LoginPageComponent } from './pages/login/login.page.component'
-import { SetupPageComponent } from './pages/setup/setup.page.component'
 
 // 导入 Midway 客户端模块
 import { S2fxClientModule } from './s2fx-client/s2fx-client.module'
@@ -70,9 +68,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
         ...APP_CONTAINERS,
         P404Component,
         P500Component,
-        RegisterComponent,
-        LoginPageComponent,
-        SetupPageComponent,
+        RegisterComponent
     ],
     providers: [{
         provide: LocationStrategy,

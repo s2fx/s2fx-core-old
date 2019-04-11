@@ -45,13 +45,6 @@ export const routes: Routes = [
         }
     },
     {
-        path: 'register',
-        component: RegisterComponent,
-        data: {
-            title: 'Register Page'
-        }
-    },
-    {
         path: '',
         component: DefaultLayoutComponent,
         data: {
