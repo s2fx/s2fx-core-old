@@ -3,7 +3,6 @@
 stage('compile') {
     node {
         checkout scm
-        stash 'everything'
         sh 'dotnet restore'
         sh 'dotnet build'
     }
@@ -21,7 +20,6 @@ stage('test') {
 
 def test(type) {
     node {
-        unstash 'everything'
         sh 'dotnet test test/S2fx.Tests/S2fx.Tests.csproj'
     }
 }
