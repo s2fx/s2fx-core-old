@@ -6,6 +6,15 @@
                     <div class="card mx-4">
                         <div class="card-body p-4">
                             <form>
+                                <ngx-spinner bdColor="#c8ced3a0"
+                                             size="medium"
+                                             color="#20a8d8"
+                                             type="ball-spin-clockwise" [fullScreen] = "true">
+
+                                    <p style="font-size: 1.25rem; color: white">{{busyIndicatorText}}</p>
+
+                                </ngx-spinner>
+
                                 <h1>Setup</h1>
                                 <p class="text-muted">Setup options:</p>
 
@@ -37,7 +46,9 @@
                                 </div>
 
                                 <button type="button" name="startButton" class="btn btn-block btn-success"
-                                        [disabled]="isBusy" (click)="onStartButtonClicked()">Create Database</button>
+                                        [disabled]="isBusy" (click)="onStartButtonClicked()">
+                                    Create Database
+                                </button>
                             </form>
                         </div>
                     </div>

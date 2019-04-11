@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { LocationStrategy, HashLocationStrategy } from '@angular/common'
 
+import { NgxSpinnerModule } from 'ngx-spinner'
+
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar'
@@ -19,6 +21,7 @@ import { DefaultLayoutComponent } from './containers'
 
 import { P404Component } from './views/error/404.component'
 import { P500Component } from './views/error/500.component'
+import { SetupPageComponent } from './pages/setup.page.component'
 import { RegisterComponent } from './views/register/register.component'
 
 // 导入 Midway 客户端模块
@@ -60,6 +63,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
         TabsModule.forRoot(),
         ChartsModule,
         FormsModule,    
+        NgxSpinnerModule,
 
         S2fxClientModule,
     ],
@@ -68,7 +72,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
         ...APP_CONTAINERS,
         P404Component,
         P500Component,
-        RegisterComponent
+        RegisterComponent,
+        SetupPageComponent
     ],
     providers: [{
         provide: LocationStrategy,

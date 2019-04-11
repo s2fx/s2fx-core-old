@@ -7,8 +7,7 @@ import { DefaultLayoutComponent } from './containers'
 import { P404Component } from './views/error/404.component'
 import { P500Component } from './views/error/500.component'
 import { RegisterComponent } from './views/register/register.component'
-import { LoginPageComponent } from './pages/login/login.page.component'
-import { SetupPageComponent } from './pages/setup/setup.page.component'
+import { SetupPageComponent } from './pages/setup.page.component'
 
 export const routes: Routes = [
     {
@@ -28,13 +27,6 @@ export const routes: Routes = [
         component: P500Component,
         data: {
             title: 'Page 500'
-        }
-    },
-    {
-        path: 'login',
-        component: LoginPageComponent,
-        data: {
-            title: 'Login Page'
         }
     },
     {

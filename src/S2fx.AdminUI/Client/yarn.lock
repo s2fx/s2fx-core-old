@@ -4790,6 +4790,13 @@ ngx-perfect-scrollbar@^7.2.1:
     perfect-scrollbar "^1.4.0"
     resize-observer-polyfill "^1.5.0"
 
+ngx-spinner@^7.1.1:
+  version "7.1.1"
+  resolved "http://registry.npm.taobao.org/ngx-spinner/download/ngx-spinner-7.1.1.tgz#1f87a0bf63a3685266bb7bdc90e43c8a31613590"
+  integrity sha1-H4egv2OjaFJmu3vckOQ8ijFhNZA=
+  dependencies:
+    tslib "^1.9.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "http://registry.npm.taobao.org/nice-try/download/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
