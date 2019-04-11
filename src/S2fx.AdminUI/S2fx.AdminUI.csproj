@@ -28,19 +28,22 @@
             <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
         </Exec>
         <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js and Yarn are required to build and run this project." />
-        <Message Importance="high" Text="Installing all JS packages" />
+    </Target>
+
+    <Target Name="InstallJsPkgsAfterNugetRestored" AfterTargets="Restore" DependsOnTargets="NodeInitialize">
+        <Message Text="Installing Node.js packages..." Importance="high" />
         <Exec Command="yarn install" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
     </Target>
 
     <Target Name="NgBuildDebug" BeforeTargets="Build" DependsOnTargets="NodeInitialize" Condition=" '$(Configuration)' == 'Debug' and '$(DeployOnBuild)' != 'true'">
         <Message Importance="high" Text="Starting Ng Build for development" />
-        <Exec Command="ng build --no-progress" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
+        <Exec Command="yarn msbuild-debug" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
         <Message Importance="high" Text="Ng Build for development ended" />
     </Target>
 
     <Target Name="NgBuildRelease" BeforeTargets="Build" DependsOnTargets="NodeInitialize" Condition=" '$(Configuration)' == 'Release' and '$(DeployOnBuild)' != 'true'">
         <Message Importance="high" Text="Starting Ng Build for production" />
-        <Exec Command="ng build --prod --aot --no-progress" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
+        <Exec Command="yarn msbuild-release" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
         <Message Importance="high" Text="Ng Build for production ended" />
     </Target>
 

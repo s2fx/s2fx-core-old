@@ -21,6 +21,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
+    "msbuild-debug": "ng build --no-progress",
+    "msbuild-release": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --no-progress",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
