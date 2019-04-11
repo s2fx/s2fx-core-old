@@ -4,11 +4,15 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.FileProviders;
 using OrchardCore.Environment.Shell;
-using System.IO;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
+using System.Collections.Generic;
+using System.IO;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.Hosting;
 
 namespace S2fx.AdminUI {
     public class Startup : StartupBase {
@@ -21,24 +25,31 @@ namespace S2fx.AdminUI {
         }
 
         public override void ConfigureServices(IServiceCollection services) {
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration => {
+                configuration.RootPath = "wwwroot/ng";
+            });
+        }
+
+        public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
+
+            app.UseSpaStaticFiles();
+            app.Map("/admin", ab => {
+                ab.UseSpa(spa => {
+                    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                    // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                    spa.Options.SourcePath = "Client";
+                    spa.Options.DefaultPage = "/admin/index.html";
+                    var env = serviceProvider.GetService<IHostingEnvironment>();
+                    if (env.IsDevelopment()) {
+                        spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                        //spa.UseAngularCliServer(npmScript: "start");
+                    }
+                });
+            });
 
         }
 
-        public override void Configure(IApplicationBuilder builder, IRouteBuilder routes, IServiceProvider serviceProvider) {
-            routes.MapAreaRoute(
-                name: "Admin",
-                areaName: "S2fx.AdminUI",
-                template: "Admin",
-                defaults: new { controller = "Admin", action = "Index" }
-            );
-
-            //routes.MapRoute("default", "{controller}/{action}");
-            //routes.MapRoute("Admin", "{*url}", defaults: new { controller = "Admin", action = "Index" });
-
-
-            //routes.MapRoute("default", "{controller}/{action=Index}");
-            //routes.MapRoute("spa", "{*url}"); // This should serve SPA index.html
-
-        }
     }
 }

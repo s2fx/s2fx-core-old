@@ -51,7 +51,7 @@ export const navItems: NavData[] = [
             },
             {
                 name: 'Login',
-                url: '/pages/login',
+                url: '/login',
                 icon: 'icon-star'
             },
             {

@@ -1,34 +1,20 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "importHelpers": true,
-    "outDir": "../www/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "paths": {
-      "s2fx-client": [
-        "dist/s2fx-client"
-      ],
-      "s2fx-client/*": [
-        "dist/s2fx-client/*"
-      ],
-      "client": [
-        "dist/client"
-      ],
-      "client/*": [
-        "dist/client/*"
-      ]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "../wwwroot/ng/out-tsc",
+        "sourceMap": false,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es5",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib": [
+            "es2017",
+            "dom"
+        ]
     }
-  }
 }

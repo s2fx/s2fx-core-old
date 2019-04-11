@@ -1,58 +1,56 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
+        <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+        <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+        <SpaRoot>Client\</SpaRoot>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+        <!-- Set this to true if you enable server-side prerendering -->
+        <BuildServerSideRenderer>false</BuildServerSideRenderer>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Remove="Client\node_modules\**" />
-        <EmbeddedResource Remove="Client\node_modules\**" />
-        <None Remove="Client\node_modoules\**" />
-        <None Remove="Client\node_modules\**" />
-    </ItemGroup>
-
-    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
         <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta3-71077" />
         <PackageReference Include="OrchardCore.Mvc.Core" Version="1.0.0-beta3-71077" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Client\src\assets\img\background\" />
-        <Folder Include="wwwroot\" />
+        <!-- Don't publish the SPA source files, but do show them in the project files list -->
+        <Content Remove="$(SpaRoot)**" />
+        <EmbeddedResource Remove="$(SpaRoot)**" />
+        <None Remove="$(SpaRoot)**" />
+        <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
 
-    <Target Name="NodeInitialize">
-        <Exec Command="yarn --version" ContinueOnError="true" WorkingDirectory="$(MSBuildProjectDirectory)/Client">
+    <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+        <!-- Ensure Node.js is installed -->
+        <Exec Command="node --version" ContinueOnError="true">
             <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
         </Exec>
-        <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js and Yarn are required to build and run this project." />
+        <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+        <Message Importance="high" Text="Restoring dependencies using 'yarn'. This may take several minutes..." />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
     </Target>
 
-    <Target Name="InstallJsPkgsAfterNugetRestored" AfterTargets="Restore" DependsOnTargets="NodeInitialize">
-        <Message Text="Installing Node.js packages..." Importance="high" />
-        <Exec Command="yarn install" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
+    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+        <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run build -- --prod" />
+
+        <!-- Include the newly-built files in the publish output -->
+        <ItemGroup>
+            <DistFiles Include="$(SpaRoot)..\wwwroot\ng\**; $(SpaRoot)..\wwwroot\ng\dist-server\**" />
+            <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+            <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+                <RelativePath>%(DistFiles.Identity)</RelativePath>
+                <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            </ResolvedFileToPublish>
+        </ItemGroup>
     </Target>
 
-    <Target Name="NgBuildDebug" BeforeTargets="Build" DependsOnTargets="NodeInitialize;InstallJsPkgsAfterNugetRestored" Condition=" '$(Configuration)' == 'Debug' and '$(DeployOnBuild)' != 'true'">
-        <Message Importance="high" Text="Starting Ng Build for development" />
-        <Exec Command="yarn run msbuild-debug" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
-        <Message Importance="high" Text="Ng Build for development ended" />
-    </Target>
-
-    <Target Name="NgBuildRelease" BeforeTargets="Build" DependsOnTargets="NodeInitialize;InstallJsPkgsAfterNugetRestored" Condition=" '$(Configuration)' == 'Release' and '$(DeployOnBuild)' != 'true'">
-        <Message Importance="high" Text="Starting Ng Build for production" />
-        <Exec Command="yarn run msbuild-release" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
-        <Message Importance="high" Text="Ng Build for production ended" />
-    </Target>
-
-    <Target Name="NgClean" AfterTargets="Clean">
-        <Message Importance="high" Text="Cleaning output files for Angular..." />
-        <RemoveDir Directories="$(MSBuildProjectDirectory)/wwwroot/dist" />
-    </Target>
-
-    <Target Name="NgBuild" DependsOnTargets="NgBuildDebug;NgBuildRelease" AfterTargets="AfterBuild">
-    </Target>
 
 </Project>

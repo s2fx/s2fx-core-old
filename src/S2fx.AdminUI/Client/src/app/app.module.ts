@@ -22,6 +22,7 @@ import { DefaultLayoutComponent } from './containers'
 import { P404Component } from './views/error/404.component'
 import { P500Component } from './views/error/500.component'
 import { SetupPageComponent } from './pages/setup.page.component'
+import { LoginPageComponent } from './pages/login.page.component'
 import { RegisterComponent } from './views/register/register.component'
 
 // 导入 Midway 客户端模块
@@ -73,7 +74,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
         P404Component,
         P500Component,
         RegisterComponent,
-        SetupPageComponent
+        SetupPageComponent,
+        LoginPageComponent,
     ],
     providers: [{
         provide: LocationStrategy,
