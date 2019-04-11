@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-      <TargetFramework>netstandard2.0</TargetFramework>
-      <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
 
     <ItemGroup>
         <Compile Remove="Client\node_modules\**" />
@@ -13,14 +13,43 @@
     </ItemGroup>
 
     <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta3-71077" />
-    <PackageReference Include="OrchardCore.Mvc.Core" Version="1.0.0-beta3-71077" />
-  </ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+        <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta3-71077" />
+        <PackageReference Include="OrchardCore.Mvc.Core" Version="1.0.0-beta3-71077" />
+    </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Client\src\assets\img\background\" />
-      <Folder Include="wwwroot\" />
+        <Folder Include="Client\src\assets\img\background\" />
+        <Folder Include="wwwroot\" />
     </ItemGroup>
+
+    <Target Name="NodeInitialize">
+        <Exec Command="yarn --version" ContinueOnError="true" WorkingDirectory="$(MSBuildProjectDirectory)/Client">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+        </Exec>
+        <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js and Yarn are required to build and run this project." />
+        <Message Importance="high" Text="Installing all JS packages" />
+        <Exec Command="yarn install" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
+    </Target>
+
+    <Target Name="NgBuildDebug" BeforeTargets="Build" DependsOnTargets="NodeInitialize" Condition=" '$(Configuration)' == 'Debug' and '$(DeployOnBuild)' != 'true'">
+        <Message Importance="high" Text="Starting Ng Build for development" />
+        <Exec Command="ng build --no-progress" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
+        <Message Importance="high" Text="Ng Build for development ended" />
+    </Target>
+
+    <Target Name="NgBuildRelease" BeforeTargets="Build" DependsOnTargets="NodeInitialize" Condition=" '$(Configuration)' == 'Release' and '$(DeployOnBuild)' != 'true'">
+        <Message Importance="high" Text="Starting Ng Build for production" />
+        <Exec Command="ng build --prod --aot --no-progress" WorkingDirectory="$(MSBuildProjectDirectory)/Client" />
+        <Message Importance="high" Text="Ng Build for production ended" />
+    </Target>
+
+    <Target Name="NgClean" AfterTargets="Clean">
+        <Message Importance="high" Text="Cleaning output files for Angular..." />
+        <RemoveDir Directories="$(MSBuildProjectDirectory)/wwwroot/dist" />
+    </Target>
+
+    <Target Name="NgBuild" DependsOnTargets="NgBuildDebug;NgBuildRelease" AfterTargets="AfterBuild">
+    </Target>
 
 </Project>
