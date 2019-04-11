@@ -49,12 +49,12 @@ namespace S2fx.Demo.Web {
             }
 
             app.UseMvc(routes => {
-#if DEBUG
-                routes.MapRouteAnalyzer("/_routes"); // Add
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-#endif
+                if (env.IsDevelopment()) {
+                    routes.MapRouteAnalyzer("/_routes"); // Add
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller}/{action=Index}/{id?}");
+                }
             });
 
             app.UseS2fx();

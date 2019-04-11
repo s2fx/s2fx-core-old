@@ -9,7 +9,6 @@ namespace S2fx {
     public static class ApplicationBuilderExtensions {
         public static IApplicationBuilder UseS2fx(this IApplicationBuilder app) {
 
-            app.UseDefaultFiles();
             app.UseOrchardCore();
             app.UseS2fxMvc();
 
