@@ -18,6 +18,12 @@ stage('test') {
     failFast: false
 }
 
+stage('pack') {
+    node {
+        sh 'dotnet pack -c Release'
+    }
+}
+
 def test(type) {
     node {
         sh 'dotnet test test/S2fx.Tests/S2fx.Tests.csproj'
