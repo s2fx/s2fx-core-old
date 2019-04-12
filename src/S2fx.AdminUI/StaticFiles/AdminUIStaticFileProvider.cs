@@ -26,9 +26,8 @@ namespace S2fx.AdminUI.StaticFiles {
             _staticFileProvider.GetFileInfo(GetModuleSubpath(subpath));
 
 
-        public IChangeToken Watch(string filter) {
-            throw new NotSupportedException();
-        }
+        public IChangeToken Watch(string filter) =>
+            NullChangeToken.Singleton;
 
         static string GetModuleSubpath(string subpath) {
             var x = $"/{AdminUIConstants.AdminUIModuleId}{subpath}";

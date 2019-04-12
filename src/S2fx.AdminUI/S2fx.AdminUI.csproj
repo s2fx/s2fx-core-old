@@ -26,6 +26,22 @@
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
 
+    <ItemGroup>
+        <NgDistFiles Include="$(SpaRoot)dist\**;" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Remove="wwwroot\**\*" />
+        <EmbeddedResource Remove="wwwroot\**\*" />
+        <None Remove="wwwroot\**\*" />
+        <EmbeddedResource Remove=".gitignore" />
+        <Folder Include="wwwroot" Exclude="wwwroot\**\*" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include=".gitignore" />
+    </ItemGroup>
+
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
         <Exec Command="node --version" ContinueOnError="true">
@@ -36,7 +52,7 @@
         <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
     </Target>
 
-    <Target Name="ReleaseNgBuild" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
+    <Target Name="ReleaseNgBuild" BeforeTargets="BeforeBuild" Condition=" '$(Configuration)' == 'Release' ">
         <!-- Ensure Node.js is installed -->
         <Exec Command="node --version" ContinueOnError="true">
             <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
@@ -47,25 +63,13 @@
         <!-- 执行 ng 构建 -->
         <Message Importance="high" Text="Building Angular App for release configuration..." />
         <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run msbuild-release" />
-        <Message Importance="high" Text="Copying all Angular's output files to wwwroot..." />
-        <Copy SourceFiles="$(SpaRoot)dist\**" DestinationFolder="wwwroot" /> 
-    </Target>
-
-    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-        <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run build -- --prod" />
-
-        <!-- Include the newly-built files in the publish output -->
+        <Message Importance="high" Text="Copying files in 'dist' to 'wwwroot'..." />
+        <Copy SourceFiles="@(NgDistFiles)" DestinationFiles="@(NgDistFiles->'wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
+        <Message Importance="high" Text="Adding static files as embedded resource..." />
         <ItemGroup>
-            <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-            <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
-            <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-                <RelativePath>%(DistFiles.Identity)</RelativePath>
-                <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-            </ResolvedFileToPublish>
+            <EmbeddedResource Include="wwwroot\**\*">
+            </EmbeddedResource>
         </ItemGroup>
     </Target>
-
 
 </Project>

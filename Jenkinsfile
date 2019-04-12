@@ -4,7 +4,7 @@ stage('compile') {
     node {
         checkout scm
         sh 'dotnet restore'
-        sh 'dotnet build'
+        sh 'dotnet build -c Release'
     }
 }
 
