@@ -26,7 +26,7 @@ stage('pack') {
 
 def test(type) {
     node {
-        sh 'dotnet test -c Release --no-build ./test/S2fx.Tests/S2fx.Tests.csproj'
+        sh 'dotnet test -c Release ./test/S2fx.Tests/S2fx.Tests.csproj'
     }
 }
 
