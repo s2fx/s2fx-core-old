@@ -31,6 +31,7 @@ namespace S2fx.Demo.Web {
         public void ConfigureServices(IServiceCollection services) {
 
             // Add ASP.NET MVC and support for modules
+            services.AddMvc();
             services.AddS2fx(this.Configuration);
 
             services.AddRouteAnalyzer(); // Add

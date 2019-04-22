@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -31,10 +32,7 @@ namespace S2fx.Mvc {
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
-         
-            // Notify change
-            //DummyActionDescriptorChangeProvider.Instance.HasChanged = true;
-            //DummyActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
+
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -42,12 +40,7 @@ namespace S2fx.Mvc {
 
         public override void ConfigureServices(IServiceCollection services) {
 
-            // Register an isolated tenant part manager.
-            var appPartManager = _serviceProvider.GetRequiredService<ApplicationPartManager>();
-            foreach (var controllerFeatureProvider in _serviceProvider.GetServices<IApplicationFeatureProvider<ControllerFeature>>()) {
-                appPartManager.FeatureProviders.Add(controllerFeatureProvider);
-            }
-
+            var mvcBuilder = services.AddMvcCore();
             //Remote services
             {
                 {
@@ -79,6 +72,15 @@ namespace S2fx.Mvc {
 
             services.AddSingleton<IActionDescriptorChangeProvider>(DummyActionDescriptorChangeProvider.Instance);
             services.AddSingleton(DummyActionDescriptorChangeProvider.Instance);
+
+            // Notify change
+            //DummyActionDescriptorChangeProvider.Instance.HasChanged = true;
+            //DummyActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
+            // Register an isolated tenant part manager.
+            var appPartManager = mvcBuilder.PartManager;
+            var httpContextAccessor = _serviceProvider.GetRequiredService<IHttpContextAccessor>();
+            var controllerFeatureProvider = new RemoteServiceControllerFeatureProvider(httpContextAccessor);
+            appPartManager.FeatureProviders.Add(controllerFeatureProvider);
         }
 
         private static S2Settings LoadSettings(IConfiguration configuration) {

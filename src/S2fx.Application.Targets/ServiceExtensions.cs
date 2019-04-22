@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using S2fx;
 using S2fx.Mvc;
 using S2fx.Data.NHibernate;
-using S2fx.Mvc;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
@@ -15,7 +14,6 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// </summary>
         public static IServiceCollection AddS2fx(this IServiceCollection services, IConfiguration config) {
 
-            services.AddMvc();
             // Add ASP.NET MVC and support for modules
             var builder = services
                 .AddOrchardCore()
