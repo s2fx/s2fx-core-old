@@ -27,7 +27,6 @@
     <Folder Include="Model\RemoteServices\" />
     <Folder Include="Security\Roles\" />
     <Folder Include="View\Schemas\FormView\" />
-    <Folder Include="View\Services\" />
   </ItemGroup>
 
 </Project>

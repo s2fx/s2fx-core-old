@@ -49,7 +49,7 @@ namespace S2fx.AdminUI {
                     spa.Options.DefaultPage = $"/admin/{AdminUIConstants.DefaultPageName}";
                     var env = serviceProvider.GetService<IHostingEnvironment>();
                     if (env.IsDevelopment()) {
-                        //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                        spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                         //spa.UseAngularCliServer(npmScript: "start");
                     }
                 });
