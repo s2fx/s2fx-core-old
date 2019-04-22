@@ -25,39 +25,44 @@ namespace S2fx {
     public static class OrchardCoreBuilderExtensions {
 
         public static OrchardCoreBuilder AddS2Framework(this OrchardCoreBuilder builder) {
-            var services = builder.ApplicationServices;
 
-            //environment
-            services.AddS2Environment();
-
-            services.AddS2Services();
-
-            services.AddS2fxData();
-
-            //model
-            services.AddS2Model();
-
-            //Remoting 
-            services.AddRemoting();
-            services.AddInternalRemoteServices();
-
-            services.AddS2Security();
-
-            // Xaml 
-            services.AddXamlSupport();
-
-            //Setup
+            //global services
             {
-                services.AddTransient<ISetupService, SetupService>();
+                var services = builder.ApplicationServices;
+                services.AddS2EnvironmentGlobal();
+
+                services.AddS2Services();
+
+                services.AddS2fxDataGlobal();
+
+                // Xaml 
+                services.AddXamlSupport();
             }
 
-            builder.AddDeferredTasks();
+            //tenant services
 
-            return builder;
+            return builder.ConfigureServices(services => {
+
+                //environment
+                services.AddS2EnvironmentTenant();
+
+                services.AddS2fxDataTenant();
+
+                services.AddS2Security();
+
+                //model
+                services.AddS2Model();
+
+                //Remoting 
+                services.AddRemoting();
+                services.AddInternalRemoteServices();
+
+                //Setup
+                {
+                    services.AddTransient<ISetupService, SetupService>();
+                }
+            });
         }
-
-
-
 
     }
 }

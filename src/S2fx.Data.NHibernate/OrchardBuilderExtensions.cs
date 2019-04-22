@@ -14,9 +14,7 @@ namespace S2fx.Data.NHibernate {
     public static class OrchardBuilderExtensions {
 
         public static OrchardCoreBuilder AddS2fxNHibernate(this OrchardCoreBuilder builder, IConfiguration configuration = null) {
-            var services = builder.ApplicationServices;
-            services.WithNHibernate();
-            return builder;
+            return builder.ConfigureServices(s => s.WithNHibernate());
         }
 
     }

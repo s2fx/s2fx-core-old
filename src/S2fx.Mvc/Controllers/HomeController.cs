@@ -19,12 +19,10 @@ using S2fx.Data.Seeding;
 namespace S2fx.Mvc.Controllers {
 
     public class HomeController : Controller {
-        private readonly IDbMigrator _migrator;
         private readonly IServiceProvider _services;
 
-        public HomeController(IServiceProvider services, IDbMigrator migrator) {
+        public HomeController(IServiceProvider services) {
             _services = services;
-            _migrator = migrator;
         }
 
         /*
@@ -39,10 +37,23 @@ namespace S2fx.Mvc.Controllers {
 
 
         public async Task<IActionResult> InitDB() {
-            await _migrator.MigrateSchemaAsync();
+            var migrator = _services.GetRequiredService<IDbMigrator>();
+            await migrator.MigrateSchemaAsync();
 
             try {
                 var loader = _services.GetService<ISeedLoader>();
+                await loader.LoadAllSeedsAsync();
+                return Content("Database initialized.");
+            }
+            catch (Exception ex) {
+                return Content($"Failed to initialize database: {ex.Message}");
+            }
+
+        }
+
+        public async Task<IActionResult> LoadSeeds() {
+            try {
+                var loader = _services.GetRequiredService<ISeedLoader>();
                 await loader.LoadAllSeedsAsync();
                 return Content("Database initialized.");
             }

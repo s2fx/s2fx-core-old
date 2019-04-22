@@ -18,9 +18,7 @@ namespace S2fx.Data.NHibernate {
         public static OrchardCoreBuilder AddS2fxNHNpgsql(this OrchardCoreBuilder builder, IConfiguration configuration = null) {
             //Enables the  JSON support in Npgsql
             NpgsqlConnection.GlobalTypeMapper.UseJsonNet();
-
-            var services = builder.ApplicationServices;
-            services.AddTransient<IDbProvider, PostgreSQLHibernateDbProvider>();
+            builder.ApplicationServices.AddTransient<IDbProvider, PostgreSQLHibernateDbProvider>();
             return builder;
         }
 

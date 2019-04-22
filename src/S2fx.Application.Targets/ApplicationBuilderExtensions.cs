@@ -10,7 +10,6 @@ namespace S2fx {
         public static IApplicationBuilder UseS2fx(this IApplicationBuilder app) {
 
             app.UseOrchardCore();
-            app.UseS2fxMvc();
 
             return app;
         }

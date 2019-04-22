@@ -9,7 +9,7 @@ using System.Xml.XPath;
 using S2fx.Data.Importing.Model;
 using System.Linq.Expressions;
 
-namespace S2fx.Data.Importing {
+namespace S2fx.Data.Importing.DataSources {
 
     public class CsvDataSource : IDataSource {
         public const string CsvFormat = "CSV";
@@ -20,8 +20,8 @@ namespace S2fx.Data.Importing {
             throw new NotImplementedException();
         }
 
-        public Func<object, string> CreateInputPropertyValueTextGetter(string fromExpression) {
-            throw new NotImplementedException();
+        public IDataSourceReader Open(Stream stream) {
+            return new CsvDataSourceReader(new StreamReader(stream));
         }
     }
 

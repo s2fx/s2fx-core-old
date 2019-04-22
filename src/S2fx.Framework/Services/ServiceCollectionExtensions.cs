@@ -11,9 +11,9 @@ using S2fx.Remoting.RemoteServices.Metadata;
 
 namespace S2fx.Services {
 
-    public static class ServiceCollectionExtensions {
+    internal static class ServiceCollectionExtensions {
 
-        public static void AddS2Services(this IServiceCollection services) {
+        internal static void AddS2Services(this IServiceCollection services) {
             services.AddTransient<IClock, Clock>();
         }
 

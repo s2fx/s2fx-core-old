@@ -16,9 +16,13 @@ using S2fx.Remoting;
 
 namespace S2fx.Environment {
 
-    public static class ServiceCollectionExtensions {
+    internal static class ServiceCollectionExtensions {
 
-        public static void AddS2Environment(this IServiceCollection services) {
+        internal static void AddS2EnvironmentGlobal(this IServiceCollection services) {
+            services.AddSitesFolder();
+        }
+
+        internal static void AddS2EnvironmentTenant(this IServiceCollection services) {
 
             //涉及数据存储的 S2 服务
             {
@@ -41,11 +45,10 @@ namespace S2fx.Environment {
 
             services.AddTransient<IShellFeatureEntityService, ShellFeatureEntityService>();
 
-            services.AddSitesFolder();
         }
 
 
-        public static void AddSitesFolder(this IServiceCollection services) {
+        internal static void AddSitesFolder(this IServiceCollection services) {
             services.AddSingleton<IShellsSettingsSources, ShellsSettingsSources>();
             services.AddSingleton<IShellsConfigurationSources, ShellsConfigurationSources>();
             services.AddSingleton<IShellConfigurationSources, ShellConfigurationSources>();

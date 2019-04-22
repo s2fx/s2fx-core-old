@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using S2fx;
 using S2fx.Mvc;
 using S2fx.Data.NHibernate;
+using S2fx.Mvc;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
@@ -24,8 +25,9 @@ namespace Microsoft.Extensions.DependencyInjection {
                 .AddS2fxNHNpgsql()
                 .AddS2fxNHMSSQLServer()
                 .AddS2fxNHSQLite()
-                .AddS2fxMvc(config)
-                .WithFeatures("S2fx.Core", "S2fx.AdminUI")
+                .AddS2fxMvc()
+                .AddGlobalFeatures("S2fx.AdminUI")
+                .AddTenantFeatures("S2fx.Core")
                 //.WithTenants();
                 ;
 

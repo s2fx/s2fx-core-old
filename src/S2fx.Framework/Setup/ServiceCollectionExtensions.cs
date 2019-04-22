@@ -13,15 +13,15 @@ using S2fx.Setup.Services;
 
 namespace S2fx.Setup {
 
-    public static class ServiceCollectionExtensions {
+    internal static class ServiceCollectionExtensions {
 
-        public static void AddSetupServices(this IServiceCollection services) {
+        internal static void AddSetupServices(this IServiceCollection services) {
             services.AddScoped<ISetupService, SetupService>();
 
             services.AddInternalRemoteServices();
         }
 
-        public static void AddInternalRemoteServices(this IServiceCollection services) {
+        internal static void AddInternalRemoteServices(this IServiceCollection services) {
             //builtin remote services
             services.AddScoped<SetupRemoteService>();
         }

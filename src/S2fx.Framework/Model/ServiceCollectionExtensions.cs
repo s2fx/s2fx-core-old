@@ -18,9 +18,9 @@ using S2fx.Remoting;
 
 namespace S2fx.Model {
 
-    public static class ServiceCollectionExtensions {
+    internal static class ServiceCollectionExtensions {
 
-        public static void AddS2Model(this IServiceCollection services) {
+        internal static void AddS2Model(this IServiceCollection services) {
 
             services.TryAddEnumerable(new[] {
                 ServiceDescriptor.Transient<IEntityHarvester, BuiltinClrEntityHarvester>(),

@@ -6,6 +6,6 @@ using OrchardCore.Modules.Manifest;
     Website = "http://www.sandwych.com",
     Version = "0.1.0",
     Description = "Slipstream Angular Web App",
-    Dependencies = new[] { "OrchardCore.Mvc.Core" },
+    Dependencies = new string[] { },
     Category = "Web"
 )]

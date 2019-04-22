@@ -52,26 +52,25 @@ namespace S2fx.Data.Importing {
             var dataSource = _dataSources.Single(x => x.Format == descriptor.DataSource);
 
             using (var stream = descriptor.ImportFileInfo.CreateReadStream()) {
-                var rows = dataSource.GetAllRows(stream, descriptor.EntityMapping.Selector);
                 var recordFinderType = typeof(GenericRecordFinder<>).MakeGenericType(context.Entity.ClrType);
                 var recordFinder = _services.GetRequiredService(recordFinderType) as IRecordFinder;
 
                 var recordImporterType = typeof(GenericRecordImporter<>).MakeGenericType(context.Entity.ClrType);
                 var recordImporter = _services.GetRequiredService(recordImporterType) as IRecordImporter;
 
-                foreach (var row in rows) {
-                    await ImportSingleRecordAsync(context, recordFinder, recordImporter, row);
+                var reader = dataSource.Open(stream); //GetAllRows(stream, descriptor.EntityMapping.Selector);
+                while (await reader.ReadAsync()) {
+                    await ImportSingleRecordAsync(context, recordFinder, recordImporter, reader);
                 }
             }
         }
 
         async Task ImportSingleRecordAsync(
-            ImportingTaskContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, object row) {
+            ImportingTaskContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, IDataSourceReader reader) {
 
             var propValues = new Dictionary<string, object>(context.EntityBinding.PropertyMappings.Length);
             foreach (var propBind in context.EntityBinding.PropertyMappings) {
-
-                var propertyValueExpression = propBind.SourceGetter(row);
+                var propertyValueExpression = reader.GetField(propBind.SourceExpression).ToString();
                 var metaProperty = context.Entity.Fields[propBind.TargetProperty];
                 if (metaProperty.Type.TryParse(metaProperty, propertyValueExpression, out var propertyValue, propBind.Format)) {
                     propValues.Add(metaProperty.Name, propertyValue);
@@ -118,9 +117,11 @@ namespace S2fx.Data.Importing {
                 throw new NotSupportedException(msg);
             }
 
+            /*
             foreach (var propertyBinding in job.EntityMapping.PropertyMappings) {
                 propertyBinding.SourceGetter = ds.CreateInputPropertyValueTextGetter(propertyBinding.SourceExpression);
             }
+            */
 
             return context;
         }

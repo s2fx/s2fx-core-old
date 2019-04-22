@@ -15,8 +15,7 @@ namespace S2fx.Data.NHibernate {
     public static class OrchardBuilderExtensions {
 
         public static OrchardCoreBuilder AddS2fxNHMSSQLServer(this OrchardCoreBuilder builder, IConfiguration configuration = null) {
-            var services = builder.ApplicationServices;
-            services.AddTransient<IDbProvider, MSSQLServerHibernateDbProvider>();
+            builder.ApplicationServices.AddTransient<IDbProvider, MSSQLServerHibernateDbProvider>();
             return builder;
         }
 

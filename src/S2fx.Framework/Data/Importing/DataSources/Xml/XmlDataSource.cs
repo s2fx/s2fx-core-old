@@ -9,7 +9,7 @@ using System.Xml.XPath;
 using S2fx.Data.Importing.Model;
 using System.Linq.Expressions;
 
-namespace S2fx.Data.Importing {
+namespace S2fx.Data.Importing.DataSources {
 
     public class XmlDataSource : IDataSource {
         public const string XmlFormat = "XML";
@@ -38,6 +38,10 @@ namespace S2fx.Data.Importing {
                     throw new NotSupportedException();
                 }
             });
+        }
+
+        public IDataSourceReader Open(Stream stream) {
+            throw new NotImplementedException();
         }
     }
 

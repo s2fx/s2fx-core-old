@@ -37,9 +37,6 @@ namespace S2fx.Data.Importing.Model {
 
         [Required, XmlElement("map")]
         public PropertyMapping[] Children { get; set; } = new PropertyMapping[] { };
-
-        [XmlIgnore]
-        public Func<object, string> SourceGetter { get; set; }
     }
 
 }

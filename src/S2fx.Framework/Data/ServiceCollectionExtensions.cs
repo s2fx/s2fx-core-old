@@ -4,19 +4,22 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using S2fx.Conventions;
 using S2fx.Data.Importing;
+using S2fx.Data.Importing.DataSources;
 using S2fx.Data.Seeding;
 using S2fx.Data.UnitOfWork;
 
 namespace S2fx.Data {
 
-    public static class ServiceCollectionExtensions {
+    internal static class ServiceCollectionExtensions {
 
-        public static void AddS2fxData(this IServiceCollection services) {
-
+        internal static void AddS2fxDataGlobal(this IServiceCollection services) {
             // services.AddTransient<IDynamicEntityRepositoryResolver, DynamicEntityRepositoryResolver>();
-
-            services.AddScoped<IUnitOfWorkManager, DefaultUnitOfWorkManager>();
             services.AddSingleton<IDbNameConvention, S2DbNameConvention>();
+
+        }
+
+        internal static void AddS2fxDataTenant(this IServiceCollection services) {
+            services.AddScoped<IUnitOfWorkManager, DefaultUnitOfWorkManager>();
 
             //seeding
             services.AddScoped<ISeedHarvester, FileSystemSeedHarvester>();
@@ -30,7 +33,6 @@ namespace S2fx.Data {
             services.AddTransient<IDataSource, XmlDataSource>();
             services.AddTransient<IDataSource, CsvDataSource>();
         }
-
     }
 
 }
