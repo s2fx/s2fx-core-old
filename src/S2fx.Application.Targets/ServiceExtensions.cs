@@ -26,8 +26,8 @@ namespace Microsoft.Extensions.DependencyInjection {
                 .AddS2fxMvc()
                 .AddGlobalFeatures("S2fx.AdminUI")
                 .AddTenantFeatures("S2fx.Core")
-                //.WithTenants();
-                ;
+                .WithTenants();
+                
 
             return services;
         }
