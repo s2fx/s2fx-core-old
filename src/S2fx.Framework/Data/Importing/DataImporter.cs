@@ -86,7 +86,7 @@ namespace S2fx.Data.Importing {
                 else {
                     throw new DataImportingException(
                         $"Unable to parse the expression '{propertyValueExpression}' " +
-                        "for property '{metaProperty.Entity.Name}#{metaProperty.Name}'");
+                        $"for property '{metaProperty.Entity.Name}#{metaProperty.Name}'");
                 }
             }
 

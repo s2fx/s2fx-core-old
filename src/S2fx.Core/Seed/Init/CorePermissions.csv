@@ -1,0 +1,2 @@
+Name,Target,Description,CanCreate,CanRead,CanUpdate,CanDelete,Filter
+"Perm.Core.User.Self","Core.User","Normal user can read/update his user account only",false,true,true,false,"it.Id == __user.Id"

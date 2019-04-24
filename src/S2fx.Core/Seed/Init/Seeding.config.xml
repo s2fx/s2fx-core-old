@@ -26,4 +26,17 @@
         </map>
     </import>
 
+    <import file="CorePermissions.csv" data-source="CSV" entity="Core.Permission">
+        <map where="it.Name == Name" update="false">
+            <map property="Name" source="Name" />
+            <map property="Description" source="Description" />
+            <map property="Target" source="Target" />
+            <map property="CanCreate" source="CanCreate" />
+            <map property="CanRead" source="CanRead" />
+            <map property="CanUpdate" source="CanUpdate" />
+            <map property="CanDelete" source="CanDelete" />
+            <map property="Filter" source="Filter" />
+        </map>
+    </import>
+
 </seed-data>

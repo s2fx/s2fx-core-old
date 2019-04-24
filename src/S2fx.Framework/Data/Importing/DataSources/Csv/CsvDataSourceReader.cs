@@ -15,6 +15,7 @@ namespace S2fx.Data.Importing.DataSources {
         }
 
         public async Task Initialize() {
+            await _csvHelperReader.ReadAsync();
             await Task.Run(_csvHelperReader.ReadHeader);
         }
 

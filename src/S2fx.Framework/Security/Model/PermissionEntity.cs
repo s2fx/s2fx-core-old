@@ -11,21 +11,24 @@ namespace S2fx.Security.Model {
     [Entity("Core.Permission"), DisplayName("Permission")]
     public class PermissionEntity : AbstractEntity {
 
-        [Required, MaxLength(256)]
+        [Required, MaxLength(256), Unique]
         public virtual string Name { get; set; }
 
         [MaxLength(256)]
-        public virtual string DisplayName { get; set; }
+        public virtual string Description { get; set; }
 
-        public virtual bool CanCreate { get; set; }
+        [MaxLength(256)]
+        public virtual string Target { get; set; }
 
-        public virtual bool CanReadSingle { get; set; }
+        public virtual bool CanCreate { get; set; } = false;
 
-        public virtual bool CanReadMany { get; set; } = false;
+        public virtual bool CanRead { get; set; } = false;
 
-        public virtual bool CanUpdate { get; set; }
+        public virtual bool CanUpdate { get; set; } = false;
 
-        public virtual bool CanDelete { get; set; }
+        public virtual bool CanDelete { get; set; } = false;
+
+        public virtual string Filter { get; set; }
 
         [ManyToManyField(mappedBy: "Permissions", joinTable: "core_role_permission")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
