@@ -1,9 +1,10 @@
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using NHibernate;
+using NH = NHibernate;
 using NHibernate.Cfg;
 using OrchardCore.Modules;
 using S2fx.Data;
@@ -12,8 +13,8 @@ using S2fx.Data.NHibernate.DbProviders;
 using S2fx.Data.NHibernate.Interceptors;
 using S2fx.Data.NHibernate.Mapping;
 using S2fx.Data.NHibernate.Mapping.Fields;
-using S2fx.Data.NHibernate.UnitOfWork;
-using S2fx.Data.UnitOfWork;
+using S2fx.Data.NHibernate.Transactions;
+using S2fx.Data.Transactions;
 using S2fx.Utility;
 
 namespace Microsoft.Extensions.DependencyInjection {
@@ -26,8 +27,8 @@ namespace Microsoft.Extensions.DependencyInjection {
             //NH stuffs
 
             //Unit of work
-            //services.AddTransient<ISessionFactory, NH.Cfg.Configuration>();
-            services.AddScoped<IUnitOfWork, HibernateUnitOfWork>();
+            services.AddScoped<ITransactionFactory, NHTransactionFactory>();
+
             services.AddScoped(typeof(IRepository<>), typeof(DefaultHibernateRepository<>));
 
             services.TryAddSingleton<IHibernateDbProviderAccessor, HibernateDbProviderAccessor>();
@@ -38,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             AddBuiltinFieldMappers(services);
 
             //interceptors
-            services.AddSingleton<IInterceptor, S2NHInterceptor>();
+            services.AddSingleton<NH.IInterceptor, S2NHInterceptor>();
 
             //Register nhibernate ISessionFactory 
             services.AddTransient<IHibernateConfigurationFactory, HibernateConfigurationFactory>();
@@ -49,10 +50,12 @@ namespace Microsoft.Extensions.DependencyInjection {
             //Register NH's ISessionFactory 
             services.AddSingletonLazy(sp => sp.GetRequiredService<NHibernate.Cfg.Configuration>().BuildSessionFactory());
 
-            services.AddScoped(sp => sp.GetRequiredService<ISessionFactory>().OpenSession());
+
 
             //migrator
             services.AddScoped<IDbMigrator, HibernateDbMigrator>();
+
+            services.AddScoped(sp => sp.GetRequiredService<NH.ISessionFactory>().OpenSession());
         }
 
         private static void AddBuiltinFieldMappers(IServiceCollection services) {

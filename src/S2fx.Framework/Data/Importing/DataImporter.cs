@@ -31,7 +31,8 @@ namespace S2fx.Data.Importing {
 
         public async Task ImportAsync(ImportingTaskDescriptor descriptor) {
             _defferedTaskEngine.AddTask(async defferedTaskContext => {
-                await this.DoImportAsync(descriptor, defferedTaskContext.ServiceProvider);
+                var taskContext = this.CreateImportContext(descriptor, defferedTaskContext.ServiceProvider);
+                await this.DoImportAsync(taskContext);
             });
             await Task.CompletedTask;
         }
@@ -39,24 +40,24 @@ namespace S2fx.Data.Importing {
         public async Task ImportAsync(IEnumerable<ImportingTaskDescriptor> sortedDescriptors) {
             _defferedTaskEngine.AddTask(async defferedTaskContext => {
                 foreach (var descriptor in sortedDescriptors) {
-                    await this.DoImportAsync(descriptor, defferedTaskContext.ServiceProvider);
+                    var taskContext = this.CreateImportContext(descriptor, defferedTaskContext.ServiceProvider);
+                    await this.DoImportAsync(taskContext);
                 }
             });
             await Task.CompletedTask;
         }
 
-        async Task DoImportAsync(ImportingTaskDescriptor descriptor, IServiceProvider services) {
-            var context = this.CreateImportContext(descriptor);
-            var dataSource = _dataSources.Single(x => x.Format == descriptor.DataSource);
+        async Task DoImportAsync(ImportingTaskContext context) {
+            var dataSource = _dataSources.Single(x => x.Format == context.TaskDescriptor.DataSource);
 
-            using (var stream = descriptor.ImportFileInfo.CreateReadStream()) {
+            using (var stream = context.TaskDescriptor.ImportFileInfo.CreateReadStream()) {
                 var recordFinderType = typeof(GenericRecordFinder<>).MakeGenericType(context.Entity.ClrType);
-                var recordFinder = services.GetRequiredService(recordFinderType) as IRecordFinder;
+                var recordFinder = context.ServiceProvider.GetRequiredService(recordFinderType) as IRecordFinder;
 
                 var recordImporterType = typeof(GenericRecordImporter<>).MakeGenericType(context.Entity.ClrType);
-                var recordImporter = services.GetRequiredService(recordImporterType) as IRecordImporter;
+                var recordImporter = context.ServiceProvider.GetRequiredService(recordImporterType) as IRecordImporter;
 
-                var reader = dataSource.Open(stream, descriptor.EntityMapping.Selector); //GetAllRows(stream, descriptor.EntityMapping.Selector);
+                var reader = dataSource.Open(stream, context.TaskDescriptor.EntityMapping.Selector); //GetAllRows(stream, descriptor.EntityMapping.Selector);
                 await reader.Initialize();
                 while (await reader.ReadAsync()) {
                     await ImportSingleRecordAsync(context, recordFinder, recordImporter, reader);
@@ -105,23 +106,15 @@ namespace S2fx.Data.Importing {
             this.EntityRecordImported?.Invoke(this, new EntityRecordImportedEventArgs(context.Entity, record));
         }
 
-        ImportingTaskContext CreateImportContext(ImportingTaskDescriptor job) {
+        ImportingTaskContext CreateImportContext(ImportingTaskDescriptor job, IServiceProvider sp) {
             var entity = _entityManager.GetEntity(job.Entity);
-            var context = new ImportingTaskContext(job.Feature, entity, job.EntityMapping, null);
-
+            var context = new ImportingTaskContext(job, sp, job.Feature, entity, job.EntityMapping, null);
             //Populates property binders
             var ds = _dataSources.SingleOrDefault(x => x.Format == job.DataSource);
             if (ds == null) {
                 var msg = string.Format("Unsupported format of seeding data: '{0}'", job.DataSource);
                 throw new NotSupportedException(msg);
             }
-
-            /*
-            foreach (var propertyBinding in job.EntityMapping.PropertyMappings) {
-                propertyBinding.SourceGetter = ds.CreateInputPropertyValueTextGetter(propertyBinding.SourceExpression);
-            }
-            */
-
             return context;
         }
 

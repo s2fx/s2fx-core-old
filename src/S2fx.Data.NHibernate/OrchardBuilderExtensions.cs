@@ -8,13 +8,15 @@ using S2fx;
 using S2fx.Environment.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Builder;
 
 namespace S2fx.Data.NHibernate {
 
     public static class OrchardBuilderExtensions {
 
-        public static OrchardCoreBuilder AddS2fxNHibernate(this OrchardCoreBuilder builder, IConfiguration configuration = null) {
-            return builder.ConfigureServices(s => s.WithNHibernate());
+        public static OrchardCoreBuilder AddS2fxNHibernate(this OrchardCoreBuilder builder) {
+            return builder
+                .ConfigureServices(s => s.WithNHibernate());
         }
 
     }

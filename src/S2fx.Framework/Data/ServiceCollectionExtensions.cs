@@ -6,20 +6,22 @@ using S2fx.Conventions;
 using S2fx.Data.Importing;
 using S2fx.Data.Importing.DataSources;
 using S2fx.Data.Seeding;
-using S2fx.Data.UnitOfWork;
+using S2fx.Data.Transactions;
 
 namespace S2fx.Data {
 
     internal static class ServiceCollectionExtensions {
 
-        internal static void AddS2fxDataGlobal(this IServiceCollection services) {
+        internal static void AddS2fxDataAccessGlobal(this IServiceCollection services) {
             // services.AddTransient<IDynamicEntityRepositoryResolver, DynamicEntityRepositoryResolver>();
             services.AddSingleton<IDbNameConvention, S2DbNameConvention>();
 
         }
 
-        internal static void AddS2fxDataTenant(this IServiceCollection services) {
-            services.AddScoped<IUnitOfWorkManager, DefaultUnitOfWorkManager>();
+        internal static void AddS2fxDataAccessTenant(this IServiceCollection services) {
+            services.AddScoped<ITransactionManager, TransactionManager>();
+
+            services.AddSingleton<ICurrentTransactionAccessor, DefaultCurrentTransactionAccessor>();
 
             //seeding
             services.AddScoped<ISeedHarvester, FileSystemSeedHarvester>();

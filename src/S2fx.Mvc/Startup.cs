@@ -20,6 +20,7 @@ using S2fx.Mvc.Environment.Configuration;
 using S2fx.Mvc.Remoting;
 using S2fx.Remoting;
 using System.Linq;
+using S2fx.Mvc.Data.Transactions;
 
 namespace S2fx.Mvc {
 
@@ -36,6 +37,8 @@ namespace S2fx.Mvc {
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            app.UseMiddleware<TransactionalMiddleware>();
         }
 
         public override void ConfigureServices(IServiceCollection services) {

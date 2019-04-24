@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta3-71077" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\S2fx.Core\S2fx.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\S2fx.Framework\S2fx.Framework.csproj" />
+  </ItemGroup>
+
+</Project>

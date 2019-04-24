@@ -8,7 +8,6 @@ using OrchardCore.Environment.Shell.Descriptor;
 using OrchardCore.Modules;
 using S2fx.Conventions;
 using S2fx.Data.Seeding;
-using S2fx.Data.UnitOfWork;
 using S2fx.Environment.Shell;
 using S2fx.Model.Environment;
 using S2fx.Model.Metadata;

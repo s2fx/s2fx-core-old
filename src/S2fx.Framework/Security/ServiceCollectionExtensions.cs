@@ -8,7 +8,6 @@ using OrchardCore.Users.Services;
 using S2fx.Conventions;
 using S2fx.Data.Importing;
 using S2fx.Data.Seeding;
-using S2fx.Data.UnitOfWork;
 using S2fx.Security.Services;
 
 namespace S2fx.Security {

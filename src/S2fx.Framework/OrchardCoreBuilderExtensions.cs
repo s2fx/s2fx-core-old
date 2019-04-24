@@ -5,7 +5,6 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using S2fx.Data;
-using S2fx.Data.UnitOfWork;
 using S2fx.Environment.Extensions;
 using S2fx.Model;
 using S2fx.Utility;
@@ -33,7 +32,7 @@ namespace S2fx {
 
                 services.AddS2ServicesGlobal();
 
-                services.AddS2fxDataGlobal();
+                services.AddS2fxDataAccessGlobal();
 
                 // Xaml 
                 services.AddXamlSupportGlobal();
@@ -46,7 +45,7 @@ namespace S2fx {
                 //environment
                 services.AddS2EnvironmentTenant();
 
-                services.AddS2fxDataTenant();
+                services.AddS2fxDataAccessTenant();
 
                 services.AddS2Security();
 

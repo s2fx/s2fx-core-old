@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\S2fx.Core\S2fx.Core.csproj" />
     <ProjectReference Include="..\..\src\S2fx.Framework\S2fx.Framework.csproj" />
+    <ProjectReference Include="..\S2fx.Tests.Modules\S2fx.SampleModule\S2fx.SampleModule.csproj" />
   </ItemGroup>
 
   <ItemGroup>
