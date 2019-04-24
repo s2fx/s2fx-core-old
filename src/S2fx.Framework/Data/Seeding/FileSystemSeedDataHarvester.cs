@@ -62,6 +62,7 @@ namespace S2fx.Data.Seeding {
                 var cfg = (SeedDataConfiguration)xs.Deserialize(stream);
                 var jobs = cfg.Jobs.Where(x => (x.Feature != null && x.Feature == feature.Id) || (feature.Extension.Id == feature.Id && x.Feature == null));
                 foreach (var job in jobs) {
+                    job.IsSudo = true; // 种子数据总是忽略权限检查
                     job.FileProvider = _environment.ContentRootFileProvider;
                     var jobDataFile = _environment.ContentRootFileProvider.GetFileInfo(Path.Combine(subPath, job.File));
                     if (!jobDataFile.Exists) {

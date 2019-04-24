@@ -9,14 +9,15 @@ using S2fx.Data.Transactions;
 namespace S2fx.Data.NHibernate.Transactions {
 
     public class NHTransactionFactory : ITransactionFactory {
-        readonly NH.ISession _session;
+        readonly NH.ISessionFactory _sessionFactory;
 
-        public NHTransactionFactory(NH.ISession session) {
-            _session = session;
+        public NHTransactionFactory(NH.ISessionFactory sessionFactory) {
+            _sessionFactory = sessionFactory;
         }
 
         public ITransaction Create(ITransaction parent) {
-            return new NHTransaction(_session, parent);
+            var session = _sessionFactory.OpenSession();
+            return new NHTransaction(session, parent);
         }
 
     }

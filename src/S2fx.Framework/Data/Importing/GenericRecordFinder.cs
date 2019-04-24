@@ -15,9 +15,9 @@ namespace S2fx.Data.Importing {
     public class GenericRecordFinder<TEntity> : IRecordFinder
         where TEntity : class, IEntity {
 
-        private readonly IRepository<TEntity> _repository;
+        private readonly ISafeRepository<TEntity> _repository;
 
-        public GenericRecordFinder(IRepository<TEntity> repository) {
+        public GenericRecordFinder(ISafeRepository<TEntity> repository) {
             _repository = repository;
         }
 
@@ -26,6 +26,7 @@ namespace S2fx.Data.Importing {
                 return null;
             }
             var pred = this.CreateEntityPredicateExpression(context.EntityBinding.Where, symbols);
+            var repo = context.TaskDescriptor.IsSudo ? _repository.Sudo() : _repository;
             return await _repository.FirstOrDefaultAsync(pred);
         }
 

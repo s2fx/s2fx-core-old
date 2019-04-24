@@ -13,13 +13,14 @@ namespace S2fx.Data.NHibernate {
 
     public class DefaultHibernateRepository<TEntity> : IHibernateRepository<TEntity>
         where TEntity : class, IEntity {
+        private readonly INHSessionAccessor _sessionAccessor;
 
-        public ISession DbSession { get; }
+        public ISession NHSession => _sessionAccessor.Session;
 
-        public IQueryable<TEntity> Table => this.DbSession.Query<TEntity>();
+        public IQueryable<TEntity> Table => this.NHSession.Query<TEntity>();
 
-        public DefaultHibernateRepository(ISession dbSession) {
-            this.DbSession = dbSession ?? throw new ArgumentNullException(nameof(dbSession));
+        public DefaultHibernateRepository(INHSessionAccessor sessionAccessor) {
+            _sessionAccessor = sessionAccessor;
         }
 
         public IQueryable<TEntity> All() => this.Table;
@@ -58,27 +59,27 @@ namespace S2fx.Data.NHibernate {
             this.Table.Where(predicate).ToListAsync();
 
         public Task<TEntity> SingleAsync(long id) =>
-            this.DbSession.LoadAsync<TEntity>(id);
+            this.NHSession.LoadAsync<TEntity>(id);
 
         public Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate) =>
             this.Table.SingleAsync(predicate);
 
         public Task<TEntity> FirstOrDefaultAsync(long id) =>
-            this.DbSession.GetAsync<TEntity>(id);
+            this.NHSession.GetAsync<TEntity>(id);
 
         public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate) =>
             this.Table.FirstOrDefaultAsync(predicate);
 
         public async Task<TEntity> InsertAsync(TEntity entity) =>
-            (await this.DbSession.SaveAsync(entity)) as TEntity;
+            (await this.NHSession.SaveAsync(entity)) as TEntity;
 
         public async Task<long> InsertAndGetIdAsync(TEntity entity) {
             if (entity.IsPersistent) {
-                await this.DbSession.SaveOrUpdateAsync(entity);
+                await this.NHSession.SaveOrUpdateAsync(entity);
                 return entity.Id;
             }
             else {
-                var savedEntity = this.DbSession.SaveAsync(entity);
+                var savedEntity = this.NHSession.SaveAsync(entity);
                 return savedEntity.Id;
             }
         }
@@ -88,11 +89,11 @@ namespace S2fx.Data.NHibernate {
 
         public async Task<long> InsertOrUpdateAndGetIdAsync(TEntity entity) {
             if (entity.IsPersistent) {
-                await this.DbSession.SaveOrUpdateAsync(entity);
+                await this.NHSession.SaveOrUpdateAsync(entity);
                 return entity.Id;
             }
             else {
-                var savedEntity = this.DbSession.SaveAsync(entity);
+                var savedEntity = this.NHSession.SaveAsync(entity);
                 return savedEntity.Id;
             }
         }
@@ -133,6 +134,6 @@ namespace S2fx.Data.NHibernate {
         public Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate) =>
             this.Table.LongCountAsync(predicate);
 
-      
+
     }
 }

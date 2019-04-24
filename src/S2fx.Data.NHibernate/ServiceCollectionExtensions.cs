@@ -32,6 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.AddScoped(typeof(IRepository<>), typeof(DefaultHibernateRepository<>));
 
             services.TryAddSingleton<IHibernateDbProviderAccessor, HibernateDbProviderAccessor>();
+            services.AddSingleton<INHSessionAccessor, NHTransactionalSessionAccessor>();
 
             //entity mapping
             services.AddTransient(typeof(EntityMappingClass<>), typeof(EntityMappingClass<>));
@@ -55,7 +56,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             //migrator
             services.AddScoped<IDbMigrator, HibernateDbMigrator>();
 
-            services.AddScoped(sp => sp.GetRequiredService<NH.ISessionFactory>().OpenSession());
+            //services.AddScoped(sp => sp.GetRequiredService<NH.ISessionFactory>().OpenSession());
         }
 
         private static void AddBuiltinFieldMappers(IServiceCollection services) {

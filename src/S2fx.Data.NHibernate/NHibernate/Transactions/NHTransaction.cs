@@ -17,7 +17,7 @@ namespace S2fx.Data.NHibernate.Transactions {
 
         public ITransaction Parent { get; }
 
-        public NHTransaction(NH.ISession nhSession, ITransaction parent = null) {
+        internal NHTransaction(NH.ISession nhSession, ITransaction parent = null) {
             this.NHSession = nhSession;
             this.NHDbTransaction = this.NHSession.BeginTransaction();
         }

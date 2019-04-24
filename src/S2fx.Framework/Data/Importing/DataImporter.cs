@@ -9,12 +9,14 @@ using S2fx.Data.Importing.Model;
 using S2fx.Model;
 using S2fx.Model.Metadata;
 using OrchardCore.DeferredTasks;
+using S2fx.Data.Transactions;
 
 namespace S2fx.Data.Importing {
 
     public class DataImporter : IDataImporter {
 
         readonly IDeferredTaskEngine _defferedTaskEngine;
+        readonly ITransactionManager _transactionManager;
         readonly IEntityManager _entityManager;
         readonly IEnumerable<IDataSource> _dataSources;
 
@@ -22,26 +24,32 @@ namespace S2fx.Data.Importing {
 
         public DataImporter(
             IDeferredTaskEngine defferedTaskEngine,
+            ITransactionManager transactionManager,
             IEntityManager entityManager,
             IEnumerable<IDataSource> dataSources) {
             _defferedTaskEngine = defferedTaskEngine;
+            _transactionManager = transactionManager;
             _entityManager = entityManager;
             _dataSources = dataSources;
         }
 
         public async Task ImportAsync(ImportingTaskDescriptor descriptor) {
             _defferedTaskEngine.AddTask(async defferedTaskContext => {
-                var taskContext = this.CreateImportContext(descriptor, defferedTaskContext.ServiceProvider);
-                await this.DoImportAsync(taskContext);
+                using (var tx = _transactionManager.BeginTransaction()) {
+                    var taskContext = this.CreateImportContext(descriptor, defferedTaskContext.ServiceProvider);
+                    await this.DoImportAsync(taskContext);
+                }
             });
             await Task.CompletedTask;
         }
 
         public async Task ImportAsync(IEnumerable<ImportingTaskDescriptor> sortedDescriptors) {
             _defferedTaskEngine.AddTask(async defferedTaskContext => {
-                foreach (var descriptor in sortedDescriptors) {
-                    var taskContext = this.CreateImportContext(descriptor, defferedTaskContext.ServiceProvider);
-                    await this.DoImportAsync(taskContext);
+                using (var tx = _transactionManager.BeginTransaction()) {
+                    foreach (var descriptor in sortedDescriptors) {
+                        var taskContext = this.CreateImportContext(descriptor, defferedTaskContext.ServiceProvider);
+                        await this.DoImportAsync(taskContext);
+                    }
                 }
             });
             await Task.CompletedTask;

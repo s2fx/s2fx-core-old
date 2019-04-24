@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using S2fx.Conventions;
 using S2fx.Data.Importing;
 using S2fx.Data.Importing.DataSources;
+using S2fx.Data.Repositories;
 using S2fx.Data.Seeding;
 using S2fx.Data.Transactions;
 
@@ -19,6 +20,9 @@ namespace S2fx.Data {
         }
 
         internal static void AddS2fxDataAccessTenant(this IServiceCollection services) {
+
+            services.AddScoped(typeof(ISafeRepository<>), typeof(DefaultSafeRepository<>));
+
             services.AddScoped<ITransactionManager, TransactionManager>();
 
             services.AddSingleton<ICurrentTransactionAccessor, DefaultCurrentTransactionAccessor>();

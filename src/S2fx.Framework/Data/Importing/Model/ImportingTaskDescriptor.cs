@@ -8,6 +8,8 @@ using Microsoft.Extensions.FileProviders;
 namespace S2fx.Data.Importing.Model {
 
     public class ImportingTaskDescriptor {
+        [XmlIgnore]
+        public bool IsSudo { get; set; } = false;
 
         [Required, XmlAttribute("data-source")]
         public string DataSource { get; set; }

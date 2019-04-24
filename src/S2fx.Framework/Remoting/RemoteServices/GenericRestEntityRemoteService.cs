@@ -15,14 +15,14 @@ namespace S2fx.Remoting.RemoteServices {
     public class GenericRestEntityRemoteService<TEntity>
         where TEntity : class, IEntity {
 
-        protected IRepository<TEntity> Repository { get; }
+        protected ISafeRepository<TEntity> Repository { get; }
         protected IEntityManager EntityManager { get; }
 
         public ILogger Logger { get; set; }
         public MetaEntity Entity { get; }
 
         public GenericRestEntityRemoteService(
-            IRepository<TEntity> repository,
+            ISafeRepository<TEntity> repository,
             ILogger<GenericRestEntityRemoteService<TEntity>> logger,
             IEntityManager entityManager) {
             this.Repository = repository;

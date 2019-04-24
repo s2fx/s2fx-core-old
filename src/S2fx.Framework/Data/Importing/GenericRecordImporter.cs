@@ -14,15 +14,16 @@ namespace S2fx.Data.Importing {
     public class GenericRecordImporter<TEntity> : IRecordImporter
         where TEntity : class, IEntity {
 
-        private readonly IRepository<TEntity> _repository;
+        private readonly ISafeRepository<TEntity> _repository;
 
-        public GenericRecordImporter(IRepository<TEntity> repository) {
+        public GenericRecordImporter(ISafeRepository<TEntity> repository) {
             _repository = repository;
         }
 
         public async Task InsertOrUpdateEntityAsync(ImportingTaskContext context, object record, bool canUpdate) {
             var typedRecord = (TEntity)record;
-            await _repository.InsertOrUpdateAsync(typedRecord);
+            var repo = context.TaskDescriptor.IsSudo ? _repository.Sudo() : _repository;
+            await repo.InsertOrUpdateAsync(typedRecord);
         }
     }
 

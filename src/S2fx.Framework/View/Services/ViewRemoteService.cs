@@ -12,9 +12,9 @@ namespace S2fx.View.Services {
 
     [RemoteService(name: "View", Area = MvcControllerAreas.MetadataArea)]
     public class ViewRemoteService {
-        readonly IRepository<MenuItemEntity> _menuRepo;
+        readonly ISafeRepository<MenuItemEntity> _menuRepo;
 
-        public ViewRemoteService(IRepository<MenuItemEntity> menuRepo) {
+        public ViewRemoteService(ISafeRepository<MenuItemEntity> menuRepo) {
             _menuRepo = menuRepo;
         }
 

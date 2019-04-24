@@ -9,7 +9,7 @@ namespace S2fx.Data.NHibernate {
     public interface IHibernateRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity {
 
-        ISession DbSession { get; }
+        ISession NHSession { get; }
     }
 
 

@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23BFA544-65B3-4163-984F-1F555BA4C164}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Jenkinsfile = Jenkinsfile
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
