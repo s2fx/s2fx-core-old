@@ -2,14 +2,14 @@
     "Default": {
         "State": "Running",
         // "RequestUrlHost": "contoso.com",
-        "RequestUrlPrefix": "contoso",
+        "RequestUrlPrefix": "default",
         "Features": [ "Module1", "Module2", "OrchardCore.Mvc" ],
         "MyConnectionString": "connectionstring1"
     },
-    "Acme": {
+    "Tenant1": {
         "State": "Running",
         // "RequestUrlHost": "acme.com, acme.org",
-        "RequestUrlPrefix": "acme",
+        "RequestUrlPrefix": "tenant1",
         "Features": [ "Module1", "Module2", "OrchardCore.Mvc" ],
         "MyConnectionString": "connectionstring2"
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.Environment.Shell;
 using S2fx.Data;
 using S2fx.Data.Seeding;
 using S2fx.Remoting;
@@ -23,6 +24,13 @@ namespace S2fx.Setup.RemoteService {
             _dbMigrator = dbMigrator;
             _services = serviceProvider;
         }
+
+        [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
+        public IEnumerable<ShellSettings> GetAllTenants() {
+            var shellHost = _services.GetRequiredService<IShellHost>();
+            return shellHost.GetAllSettings();
+        }
+
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Post, isRestful: false)]
         public async Task StartSetupAsync(SetupOptions options) {
