@@ -11,12 +11,13 @@ using S2fx.Model.Metadata.Types;
 using S2fx.Model.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
 using S2fx.Model.Environment;
+using Microsoft.AspNetCore.Http;
 
 namespace S2fx.Model {
 
     public class EntityManager : IEntityManager {
 
-        readonly IServiceProvider _services;
+        readonly IHttpContextAccessor _httpContextAccessor;
         readonly IList<EntityEntry> _entityInfos = new List<EntityEntry>();
         readonly object InitializationLock = new object();
         IReadOnlyDictionary<string, MetaEntity> _entities = new Dictionary<string, MetaEntity>();
@@ -25,9 +26,9 @@ namespace S2fx.Model {
         public ILogger Logger { get; }
 
         public EntityManager(
-            IServiceProvider services,
+            IHttpContextAccessor httpContextAccessor,
             ILogger<EntityManager> logger) {
-            _services = services;
+            _httpContextAccessor = httpContextAccessor;
             this.Logger = logger;
         }
 
@@ -65,8 +66,9 @@ namespace S2fx.Model {
             }
 
             lock (this.InitializationLock) {
-                var harvesters = _services.GetServices<IEntityHarvester>().OrderBy(x => x.Priority);
-                var entityTypes = _services.GetServices<IEntityType>();
+                var services = _httpContextAccessor.HttpContext.RequestServices;
+                var harvesters = services.GetServices<IEntityHarvester>().OrderBy(x => x.Priority);
+                var entityTypes = services.GetServices<IEntityType>();
 
                 var entries = new List<EntityEntry>();
                 foreach (var harvester in harvesters) {
@@ -76,13 +78,13 @@ namespace S2fx.Model {
 
                 var context = new MetadataModelProviderContext(entries);
 
-                var providers = _services.GetServices<IMetadataModelProvider>().OrderBy(x => x.Order);
+                var providers = services.GetServices<IMetadataModelProvider>().OrderBy(x => x.Order);
                 foreach (var p in providers) {
                     p.OnProvidersExecuting(context);
                 }
 
                 //处理约定
-                var conventionVisitor = _services.GetRequiredService<ConventionMetadataVisitor>();
+                var conventionVisitor = services.GetRequiredService<ConventionMetadataVisitor>();
                 context.Result.AcceptVisitor(conventionVisitor);
 
                 foreach (var p in providers) {

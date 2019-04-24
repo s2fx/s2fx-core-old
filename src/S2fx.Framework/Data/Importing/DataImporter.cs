@@ -14,7 +14,6 @@ namespace S2fx.Data.Importing {
 
     public class DataImporter : IDataImporter {
 
-        readonly IServiceProvider _services;
         readonly IDeferredTaskEngine _defferedTaskEngine;
         readonly IEntityManager _entityManager;
         readonly IEnumerable<IDataSource> _dataSources;
@@ -22,10 +21,9 @@ namespace S2fx.Data.Importing {
         public event EventHandler<EntityRecordImportedEventArgs> EntityRecordImported;
 
         public DataImporter(
-            IServiceProvider services,
             IDeferredTaskEngine defferedTaskEngine,
-            IEntityManager entityManager, IEnumerable<IDataSource> dataSources) {
-            _services = services;
+            IEntityManager entityManager,
+            IEnumerable<IDataSource> dataSources) {
             _defferedTaskEngine = defferedTaskEngine;
             _entityManager = entityManager;
             _dataSources = dataSources;
@@ -33,7 +31,7 @@ namespace S2fx.Data.Importing {
 
         public async Task ImportAsync(ImportingTaskDescriptor descriptor) {
             _defferedTaskEngine.AddTask(async defferedTaskContext => {
-                await this.DoImportAsync(descriptor);
+                await this.DoImportAsync(descriptor, defferedTaskContext.ServiceProvider);
             });
             await Task.CompletedTask;
         }
@@ -41,24 +39,25 @@ namespace S2fx.Data.Importing {
         public async Task ImportAsync(IEnumerable<ImportingTaskDescriptor> sortedDescriptors) {
             _defferedTaskEngine.AddTask(async defferedTaskContext => {
                 foreach (var descriptor in sortedDescriptors) {
-                    await this.DoImportAsync(descriptor);
+                    await this.DoImportAsync(descriptor, defferedTaskContext.ServiceProvider);
                 }
             });
             await Task.CompletedTask;
         }
 
-        async Task DoImportAsync(ImportingTaskDescriptor descriptor) {
+        async Task DoImportAsync(ImportingTaskDescriptor descriptor, IServiceProvider services) {
             var context = this.CreateImportContext(descriptor);
             var dataSource = _dataSources.Single(x => x.Format == descriptor.DataSource);
 
             using (var stream = descriptor.ImportFileInfo.CreateReadStream()) {
                 var recordFinderType = typeof(GenericRecordFinder<>).MakeGenericType(context.Entity.ClrType);
-                var recordFinder = _services.GetRequiredService(recordFinderType) as IRecordFinder;
+                var recordFinder = services.GetRequiredService(recordFinderType) as IRecordFinder;
 
                 var recordImporterType = typeof(GenericRecordImporter<>).MakeGenericType(context.Entity.ClrType);
-                var recordImporter = _services.GetRequiredService(recordImporterType) as IRecordImporter;
+                var recordImporter = services.GetRequiredService(recordImporterType) as IRecordImporter;
 
-                var reader = dataSource.Open(stream); //GetAllRows(stream, descriptor.EntityMapping.Selector);
+                var reader = dataSource.Open(stream, descriptor.EntityMapping.Selector); //GetAllRows(stream, descriptor.EntityMapping.Selector);
+                await reader.Initialize();
                 while (await reader.ReadAsync()) {
                     await ImportSingleRecordAsync(context, recordFinder, recordImporter, reader);
                 }

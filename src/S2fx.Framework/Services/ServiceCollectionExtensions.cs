@@ -13,7 +13,7 @@ namespace S2fx.Services {
 
     internal static class ServiceCollectionExtensions {
 
-        internal static void AddS2Services(this IServiceCollection services) {
+        internal static void AddS2ServicesGlobal(this IServiceCollection services) {
             services.AddTransient<IClock, Clock>();
         }
 

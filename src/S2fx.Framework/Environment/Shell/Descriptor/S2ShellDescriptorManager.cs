@@ -11,16 +11,17 @@ using System.Linq;
 using OrchardCore.Environment.Extensions;
 using OrchardCore.Environment.Shell.Configuration;
 using Microsoft.Extensions.Configuration;
+using OrchardCore.Hosting.ShellBuilders;
 
 namespace S2fx.Environment.Shell.Descriptor {
 
     public class S2ShellDescriptorManager : IShellDescriptorManager {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly ShellSettings _shellSettings;
-        private readonly IShellConfiguration _shellConfiguration;
-        private readonly IEnumerable<ShellFeature> _alwaysEnabledFeatures;
-        private readonly IEnumerable<IShellDescriptorManagerEventHandler> _shellDescriptorManagerEventHandlers;
-        private ShellDescriptor _shellDescriptor;
+        readonly IServiceProvider _serviceProvider;
+        readonly ShellSettings _shellSettings;
+        readonly IShellConfiguration _shellConfiguration;
+        readonly IEnumerable<ShellFeature> _alwaysEnabledFeatures;
+        readonly IEnumerable<IShellDescriptorManagerEventHandler> _shellDescriptorManagerEventHandlers;
+        ShellDescriptor _shellDescriptor;
 
         public ILogger Logger { get; }
 
@@ -40,28 +41,20 @@ namespace S2fx.Environment.Shell.Descriptor {
         }
 
         public Task<ShellDescriptor> GetShellDescriptorAsync() {
-            throw new NotImplementedException();
             // Prevent multiple queries during the same request
-            /*
             if (_shellDescriptor == null) {
-                //_shell= //await _session.Query<ShellDescriptor>().FirstOrDefaultAsync();
+                var configuredFeatures = new ConfiguredFeatures();
+                _shellConfiguration.Bind(configuredFeatures);
 
-                if (_shellDescriptor != null) {
-                    var configuredFeatures = new ConfiguredFeatures();
-                    _shellConfiguration.Bind(configuredFeatures);
+                var features = _alwaysEnabledFeatures.Concat(configuredFeatures.Features
+                    .Select(id => new ShellFeature(id) { AlwaysEnabled = true })).Distinct();
 
-                    var features = _alwaysEnabledFeatures.Concat(configuredFeatures.Features
-                        .Select(id => new ShellFeature(id) { AlwaysEnabled = true })).Distinct();
-
-                    _shellDescriptor.Features = features
-                        .Concat(_shellDescriptor.Features)
-                        .Distinct()
-                        .ToList();
-                }
+                _shellDescriptor = new ShellDescriptor {
+                    Features = features.ToList()
+                };
             }
 
-            return _shellDescriptor;
-            */
+            return Task.FromResult(_shellDescriptor);
         }
 
         public async Task UpdateShellDescriptorAsync(int priorSerialNumber, IEnumerable<ShellFeature> enabledFeatures, IEnumerable<ShellParameter> parameters) {

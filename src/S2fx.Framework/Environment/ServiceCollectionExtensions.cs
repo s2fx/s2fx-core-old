@@ -23,41 +23,24 @@ namespace S2fx.Environment {
         }
 
         internal static void AddS2EnvironmentTenant(this IServiceCollection services) {
-
-            //涉及数据存储的 S2 服务
-            {
-                /*
-                 services.AddScoped<IShellDescriptorManager, ShellDescriptorManager>();
-                 services.AddScoped<IShellStateManager, ShellStateManager>();
-                 services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
-                 services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
-                */
-
-                //services.AddSingleton<IShellDescriptorManager, S2ShellDescriptorManager>();
-                services.AddSingleton<IShellStateManager, S2ShellStateManager>();
-
-                services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
-                services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
-
-                //services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
-                //services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
-            }
-
+            services.AddShellDataStorage();
             services.AddTransient<IShellFeatureEntityService, ShellFeatureEntityService>();
-
         }
 
+        static void AddShellDataStorage(this IServiceCollection services) {
+            services.AddScoped<IShellDescriptorManager, S2ShellDescriptorManager>();
+            services.AddScoped<IShellStateManager, S2ShellStateManager>();
+            services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
+            services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
+        }
 
-        internal static void AddSitesFolder(this IServiceCollection services) {
+        static void AddSitesFolder(this IServiceCollection services) {
+
             services.AddSingleton<IShellsSettingsSources, ShellsSettingsSources>();
             services.AddSingleton<IShellsConfigurationSources, ShellsConfigurationSources>();
             services.AddSingleton<IShellConfigurationSources, ShellConfigurationSources>();
+            services.AddTransient<IConfigureOptions<ShellOptions>, ShellOptionsSetup>();
             services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
-
-            services.TryAddEnumerable(new[] {
-                ServiceDescriptor.Transient<IConfigureOptions<ShellOptions>, ShellOptionsSetup>(),
-            });
-
         }
     }
 

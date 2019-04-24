@@ -13,8 +13,6 @@ using OrchardCore.Environment.Shell.Descriptor;
 using OrchardCore.Environment.Shell.Descriptor.Settings;
 using OrchardCore.Modules;
 
-using AspNetCore.RouteAnalyzer; // Add
-
 namespace S2fx.Demo.Web {
 
     public class Startup {
@@ -30,11 +28,12 @@ namespace S2fx.Demo.Web {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
 
-            // Add ASP.NET MVC and support for modules
-            services.AddMvc();
-            services.AddS2fx(this.Configuration);
+            //services.AddMvc();
 
-            services.AddRouteAnalyzer(); // Add
+            // Add ASP.NET MVC and support for modules
+            services.AddS2fx();
+
+            //services.AddRouteAnalyzer(); // Add
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +48,9 @@ namespace S2fx.Demo.Web {
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseS2fx();
+
+            /*
             app.UseMvc(routes => {
                 if (env.IsDevelopment()) {
                     routes.MapRouteAnalyzer("/_routes"); // Add
@@ -57,8 +59,8 @@ namespace S2fx.Demo.Web {
                         template: "{controller}/{action=Index}/{id?}");
                 }
             });
+            */
 
-            app.UseS2fx();
 
         }
     }

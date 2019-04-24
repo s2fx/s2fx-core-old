@@ -13,18 +13,18 @@ namespace S2fx.Remoting {
 
     public static class ServiceCollectionExtensions {
 
-        public static void AddRemoting(this IServiceCollection services) {
+        public static void AddRemotingTenants(this IServiceCollection services) {
             services.AddSingleton<IRemoteServiceManager, RemoteServiceManager>();
 
             //metadata providers:
             services.TryAddEnumerable(new[] {
                 ServiceDescriptor.Transient<IRemoteServiceMetadataProvider, BuiltinRemoteServiceMetadataProvider>(),
-                ServiceDescriptor.Transient<IRemoteServiceMetadataProvider, GenericEntityServiceMetadataProvider>(),
+                ServiceDescriptor.Transient<IRemoteServiceMetadataProvider, GenericEntityRemoteServiceMetadataProvider>(),
                 ServiceDescriptor.Transient<IRemoteServiceMetadataProvider, CustomRemoteServiceMetadataProvider>(),
             });
         }
 
-        public static void AddInternalRemoteServices(this IServiceCollection services) {
+        public static void AddInternalRemoteServicesTenants(this IServiceCollection services) {
 
             //builtin remote services
             services.AddScoped<MetaEntityRemoteService>();

@@ -1,19 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using S2fx.Remoting;
 
 namespace S2fx.Mvc.Remoting {
 
     public abstract class AbstractRemoteServiceModelConvention {
-        protected IServiceProvider Services { get; }
-        protected IRemoteServiceManager RemoteServiceManager { get; }
+        protected IHttpContextAccessor HttpContextAccessor { get; }
 
-        public AbstractRemoteServiceModelConvention(IServiceProvider services) {
-            this.Services = services;
-            this.RemoteServiceManager = this.Services.GetRequiredService<IRemoteServiceManager>();
+        protected IServiceProvider Services => this.HttpContextAccessor.HttpContext.RequestServices;
+        protected IRemoteServiceManager RemoteServiceManager => this.Services.GetRequiredService<IRemoteServiceManager>();
 
+        public AbstractRemoteServiceModelConvention(IHttpContextAccessor httpContextAccessor) {
+            this.HttpContextAccessor = httpContextAccessor;
         }
 
     }

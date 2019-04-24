@@ -9,7 +9,7 @@ namespace S2fx.Data.Importing {
     public interface IDataSource {
         string Format { get; }
 
-        IDataSourceReader Open(Stream stream);
+        IDataSourceReader Open(Stream stream, string selector);
     }
 
 }

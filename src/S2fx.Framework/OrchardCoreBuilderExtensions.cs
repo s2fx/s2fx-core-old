@@ -31,18 +31,18 @@ namespace S2fx {
                 var services = builder.ApplicationServices;
                 services.AddS2EnvironmentGlobal();
 
-                services.AddS2Services();
+                services.AddS2ServicesGlobal();
 
                 services.AddS2fxDataGlobal();
 
                 // Xaml 
-                services.AddXamlSupport();
+                services.AddXamlSupportGlobal();
             }
 
             //tenant services
+            builder.AddDeferredTasks();
 
             return builder.ConfigureServices(services => {
-
                 //environment
                 services.AddS2EnvironmentTenant();
 
@@ -54,8 +54,8 @@ namespace S2fx {
                 services.AddS2Model();
 
                 //Remoting 
-                services.AddRemoting();
-                services.AddInternalRemoteServices();
+                services.AddRemotingTenants();
+                services.AddInternalRemoteServicesTenants();
 
                 //Setup
                 {

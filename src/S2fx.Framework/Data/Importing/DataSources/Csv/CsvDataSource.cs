@@ -20,7 +20,7 @@ namespace S2fx.Data.Importing.DataSources {
             throw new NotImplementedException();
         }
 
-        public IDataSourceReader Open(Stream stream) {
+        public IDataSourceReader Open(Stream stream, string selector) {
             return new CsvDataSourceReader(new StreamReader(stream));
         }
     }

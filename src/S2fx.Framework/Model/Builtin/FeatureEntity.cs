@@ -21,10 +21,6 @@ namespace S2fx.Model.Builtin {
         public virtual bool IsInstalled { get; set; }
 
         public virtual bool IsEnabled { get; set; }
-
-        [ManyToOneField]
-        public virtual ModuleEntity Module { get; set; }
-
     }
 
 

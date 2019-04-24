@@ -3,23 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Environment.Extensions;
+using OrchardCore.Environment.Shell;
 using S2fx.Remoting.Model;
 
 namespace S2fx.Remoting {
 
     public class RemoteServiceManager : IRemoteServiceManager {
+        readonly IHttpContextAccessor _httpContextAccessor;
+        object InitializationLock = new object();
+        readonly IDictionary<string, RemoteServiceInfo> _remoteServices = new Dictionary<string, RemoteServiceInfo>();
+        bool _isLoaded = false;
 
-        private readonly IServiceProvider _services;
         public ILogger Logger { get; }
-        private object InitializationLock = new object();
-        private readonly IDictionary<string, RemoteServiceInfo> _remoteServices = new Dictionary<string, RemoteServiceInfo>();
-        private bool _isLoaded = false;
 
-        public RemoteServiceManager(IServiceProvider services, ILogger<RemoteServiceManager> logger) {
-            _services = services;
+        public RemoteServiceManager(IHttpContextAccessor httpContextAccessor, ILogger<RemoteServiceManager> logger) {
+            _httpContextAccessor = httpContextAccessor;
             Logger = logger;
         }
 
@@ -59,19 +61,20 @@ namespace S2fx.Remoting {
             if (_isLoaded) {
                 return;
             }
-
-            var x = _services.GetService<OrchardCore.Environment.Shell.Descriptor.IShellDescriptorManager>();
-            var remoteServiceProviders = _services.GetServices<IRemoteServiceProvider>();
-            var metadataProviders = _services.GetServices<IRemoteServiceMetadataProvider>();
+            var services = _httpContextAccessor.HttpContext.RequestServices;
+            var remoteServiceProviders = services.GetServices<IRemoteServiceProvider>();
+            var metadataProviders = services.GetServices<IRemoteServiceMetadataProvider>();
             lock (this.InitializationLock) {
                 foreach (var metadataProvider in metadataProviders) {
-                    var services = Task.Run(metadataProvider.GetAllServicesAsync).Result;
-                    foreach (var s in services) {
-                        this.Logger.LogInformation("Remote service found: [Feature={0}, Type={1}, Provider={2}]",
-                            s.Feature.Id, s.Name, metadataProvider.GetType().FullName);
-                        _remoteServices.Add(s.Name, s);
+                    var remoteServices = Task.Run(metadataProvider.GetAllServicesAsync).Result;
+                    foreach (var rs in remoteServices) {
+                        if (this.Logger.IsEnabled(LogLevel.Debug)) {
+                            this.Logger.LogDebug("Remote service found: [Feature={0}, Type={1}, Provider={2}]",
+                                rs.Feature.Id, rs.Name, metadataProvider.GetType().FullName);
+                        }
+                        _remoteServices.Add(rs.Name, rs);
 
-                        this.TryRegisterRemoteServiceProxyType(remoteServiceProviders, s);
+                        this.TryRegisterRemoteServiceProxyType(services, remoteServiceProviders, rs);
                     }
                 }
                 _isLoaded = true;
@@ -79,10 +82,10 @@ namespace S2fx.Remoting {
         }
 
         private void TryRegisterRemoteServiceProxyType(
-            IEnumerable<IRemoteServiceProvider> remoteServiceProviders, RemoteServiceInfo s) {
+            IServiceProvider sp, IEnumerable<IRemoteServiceProvider> remoteServiceProviders, RemoteServiceInfo s) {
             //Register the dynamic API controller type to Orchard's TypeFeatureProvider
             //foreach
-            var typeFeatureProvider = _services.GetRequiredService<ITypeFeatureProvider>();
+            var typeFeatureProvider = sp.GetRequiredService<ITypeFeatureProvider>();
             foreach (var rsp in remoteServiceProviders) {
                 if (rsp.IsRemoteServiceProxyTypeRequired) {
                     var implType = rsp.MakeRemoteServiceProxyType(s);

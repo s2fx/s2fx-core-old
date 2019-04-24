@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Internal;
@@ -13,7 +14,7 @@ namespace S2fx.Mvc.Remoting {
 
     public class RemoteServiceControllerConvention : AbstractRemoteServiceModelConvention, IControllerModelConvention {
 
-        public RemoteServiceControllerConvention(IServiceProvider services) : base(services) {
+        public RemoteServiceControllerConvention(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) {
         }
 
         public void Apply(ControllerModel controller) {
@@ -29,8 +30,8 @@ namespace S2fx.Mvc.Remoting {
         }
 
         private void SetHttpVerbOfAction(RemoteServiceInfo serviceInfo, ActionModel action, RemoteServiceMethodInfo serviceMethod) {
-            var selector = action.Selectors.First();
-            if (selector.ActionConstraints != null && selector.ActionConstraints.Count == 0) {
+            var selector = action.Selectors.FirstOrDefault();
+            if (selector?.ActionConstraints != null && selector?.ActionConstraints.Count == 0) {
 
                 switch (serviceMethod.HttpMethod) {
                     case HttpMethod.Get:

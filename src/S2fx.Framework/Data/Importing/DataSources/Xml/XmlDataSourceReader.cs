@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace S2fx.Data.Importing.DataSources {
         readonly Dictionary<string, Func<XNode, string>> _columnValueGetters;
         XDocument _xdoc;
         XNode[] _rows;
-        int _currentRowIndex = 0;
+        int _currentRowIndex = -1;
 
 
         public XmlDataSourceReader(Stream stream, string selector) {
@@ -28,9 +29,9 @@ namespace S2fx.Data.Importing.DataSources {
         public async Task Initialize() {
             await Task.Run(() => {
                 _xdoc = XDocument.Load(_stream);
-                _rows = ((IEnumerable<XNode>)_xdoc.XPathEvaluate(_selector)).OfType<XNode>().ToArray();
+                _rows = ((IEnumerable)_xdoc.XPathEvaluate(_selector)).OfType<XNode>().ToArray();
             });
-            _currentRowIndex = 0;
+            _currentRowIndex = -1;
         }
 
         public void Dispose() {
@@ -38,17 +39,23 @@ namespace S2fx.Data.Importing.DataSources {
         }
 
         public object GetField(string expression) {
+            if (_currentRowIndex >= _rows.Length) {
+                throw new IndexOutOfRangeException();
+            }
+
             Func<XNode, string> getter = null;
             if (!_columnValueGetters.TryGetValue(expression, out getter)) {
-                _columnValueGetters.Add(expression, this.CreatePropertyValueTextGetter(expression));
+                getter = this.CreatePropertyValueTextGetter(expression);
+                _columnValueGetters.Add(expression, getter);
             }
             var row = _rows[_currentRowIndex];
-            return getter(row);
+            var propertyValue = getter(row);
+            return propertyValue;
         }
 
         public Task<bool> ReadAsync() {
+            _currentRowIndex++;
             if (_currentRowIndex < _rows.Length) {
-                _currentRowIndex++;
                 return Task.FromResult(true);
             }
             else {
@@ -59,7 +66,7 @@ namespace S2fx.Data.Importing.DataSources {
         Func<XNode, string> CreatePropertyValueTextGetter(string fromExpression) {
             return new Func<XNode, string>((XNode row) => {
                 var recordNode = row;
-                var propertyObject = ((IEnumerable<XNode>)recordNode.XPathEvaluate(fromExpression))
+                var propertyObject = ((IEnumerable)recordNode.XPathEvaluate(fromExpression))
                     .OfType<XObject>()
                     .Single();
                 if (propertyObject.NodeType == XmlNodeType.Attribute) {

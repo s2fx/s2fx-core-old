@@ -13,19 +13,13 @@ using S2fx.Remoting.RemoteServices;
 
 namespace S2fx.Remoting {
 
-    public class GenericEntityServiceMetadataProvider : AbstractClrTypeBasedRemoteServiceMetadataProvider {
+    public class GenericEntityRemoteServiceMetadataProvider : AbstractClrTypeBasedRemoteServiceMetadataProvider {
         public const string DefaultEntityRemoteServiceArea = MvcControllerAreas.EntityArea;
 
-        private readonly IServiceProvider _services;
         private readonly IHostingEnvironment _environment;
         private readonly IEntityManager _entityManager;
 
-        public GenericEntityServiceMetadataProvider(
-            IServiceProvider services,
-            IHostingEnvironment environment,
-            IEntityManager entityManager) {
-
-            _services = services;
+        public GenericEntityRemoteServiceMetadataProvider(IHostingEnvironment environment, IEntityManager entityManager) {
             _entityManager = entityManager;
             _environment = environment;
         }

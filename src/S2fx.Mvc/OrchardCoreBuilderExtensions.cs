@@ -10,7 +10,9 @@ namespace S2fx.Mvc {
         /// Adds tenant level MVC services and configuration.
         /// </summary>
         public static OrchardCoreBuilder AddS2fxMvc(this OrchardCoreBuilder builder) {
-            return builder.RegisterStartup<Startup>();
+
+            return builder.AddMvc()
+                          .RegisterStartup<Startup>();
         }
     }
 

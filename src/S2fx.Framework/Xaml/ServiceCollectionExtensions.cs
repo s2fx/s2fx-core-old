@@ -8,9 +8,9 @@ using S2fx.Remoting;
 
 namespace S2fx.Xaml {
 
-    public static class ServiceCollectionExtensions {
+    internal static class ServiceCollectionExtensions {
 
-        public static void AddXamlSupport(this IServiceCollection services) {
+        internal static void AddXamlSupportGlobal(this IServiceCollection services) {
             services.AddTransient<IXamlService, PortableXamlXamlService>();
         }
 

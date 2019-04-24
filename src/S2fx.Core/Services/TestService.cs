@@ -8,7 +8,7 @@ namespace S2fx.Metadata.Services {
 
     public class TestService : ITestService {
 
-        public TestService(IRepository<ModuleEntity> repo) {
+        public TestService(IRepository<FeatureEntity> repo) {
         }
 
 

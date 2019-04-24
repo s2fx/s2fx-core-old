@@ -40,8 +40,8 @@ namespace S2fx.Data.Importing.DataSources {
             });
         }
 
-        public IDataSourceReader Open(Stream stream) {
-            throw new NotImplementedException();
+        public IDataSourceReader Open(Stream stream, string selector) {
+            return new XmlDataSourceReader(stream, selector);
         }
     }
 
