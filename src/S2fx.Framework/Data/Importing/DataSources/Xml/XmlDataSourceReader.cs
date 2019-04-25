@@ -45,7 +45,7 @@ namespace S2fx.Data.Importing.DataSources {
 
             Func<XNode, string> getter = null;
             if (!_columnValueGetters.TryGetValue(expression, out getter)) {
-                getter = this.CreatePropertyValueTextGetter(expression);
+                getter = this.CreateFieldValueTextMapping(expression);
                 _columnValueGetters.Add(expression, getter);
             }
             var row = _rows[_currentRowIndex];
@@ -63,7 +63,7 @@ namespace S2fx.Data.Importing.DataSources {
             }
         }
 
-        Func<XNode, string> CreatePropertyValueTextGetter(string fromExpression) {
+        Func<XNode, string> CreateFieldValueTextMapping(string fromExpression) {
             return new Func<XNode, string>((XNode row) => {
                 var recordNode = row;
                 var propertyObject = ((IEnumerable)recordNode.XPathEvaluate(fromExpression))

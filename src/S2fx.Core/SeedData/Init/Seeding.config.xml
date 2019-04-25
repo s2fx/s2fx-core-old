@@ -3,39 +3,39 @@
 
     <import file="CoreSelectionData.xml" data-source="XML" entity="Core.Selection">
         <map selector="/Data/CoreSelections/CoreSelection" where="it.Name == Name" update="false">
-            <map property="Name" source="@Name" />
-            <map property="DisplayName" source="@DisplayName" />
-            <map property="Feature" source="@Feature" />
+            <map field="Name" source="@Name" />
+            <map field="DisplayName" source="@DisplayName" />
+            <map field="Feature" source="@Feature" />
         </map>
     </import>
 
     <!-- Roles -->
     <import file="SecurityData.xml" data-source="XML" entity="Core.Role">
         <map selector="/Data/Roles/Role" where="it.Name == Name" update="false">
-            <map property="Name" source="@Name" />
-            <map property="DisplayName" source="@DisplayName" />
+            <map field="Name" source="@Name" />
+            <map field="DisplayName" source="@DisplayName" />
         </map>
     </import>
 
     <!-- Users -->
     <import file="SecurityData.xml" data-source="XML" entity="Core.User">
         <map selector="/Data/Users/User" where="it.UserName == UserName" update="false">
-            <map property="UserName" source="@UserName" />
-            <map property="Password" source="@Password" />
-            <map property="FullName" source="@FullName" />
+            <map field="UserName" source="@UserName" />
+            <map field="Password" source="@Password" />
+            <map field="FullName" source="@FullName" />
         </map>
     </import>
 
     <import file="CorePermissions.csv" data-source="CSV" entity="Core.Permission">
         <map where="it.Name == Name" update="false">
-            <map property="Name" source="Name" />
-            <map property="Description" source="Description" />
-            <map property="Target" source="Target" />
-            <map property="CanCreate" source="CanCreate" />
-            <map property="CanRead" source="CanRead" />
-            <map property="CanUpdate" source="CanUpdate" />
-            <map property="CanDelete" source="CanDelete" />
-            <map property="Filter" source="Filter" />
+            <map field="Name" source="Name" />
+            <map field="Description" source="Description" />
+            <map field="Target" source="Target" />
+            <map field="CanCreate" source="CanCreate" />
+            <map field="CanRead" source="CanRead" />
+            <map field="CanUpdate" source="CanUpdate" />
+            <map field="CanDelete" source="CanDelete" />
+            <map field="Filter" source="Filter" />
         </map>
     </import>
 

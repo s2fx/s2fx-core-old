@@ -11,23 +11,17 @@ namespace S2fx.Data.Importing.Model {
         [XmlIgnore]
         public bool IsSudo { get; set; } = false;
 
-        [Required, XmlAttribute("data-source")]
-        public string DataSource { get; set; }
-
         [Required, XmlAttribute("entity")]
         public string Entity { get; set; }
 
         [XmlAttribute("feature")]
         public string Feature { get; set; }
 
+        [Required, XmlAttribute("data-source")]
+        public string DataSource { get; set; }
+
         [Required, XmlAttribute("file")]
         public string File { get; set; }
-
-        [XmlIgnore]
-        public IFileInfo ImportFileInfo { get; set; }
-
-        [XmlIgnore]
-        public IFileProvider FileProvider { get; set; }
 
         [XmlElement("map")]
         public EntityMapping EntityMapping { get; set; }

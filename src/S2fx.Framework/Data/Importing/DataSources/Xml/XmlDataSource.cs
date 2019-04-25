@@ -22,7 +22,7 @@ namespace S2fx.Data.Importing.DataSources {
             return rows;
         }
 
-        public Func<object, string> CreateInputPropertyValueTextGetter(string fromExpression) {
+        public Func<object, string> CreateFieldValueTextMapping(string fromExpression) {
             return new Func<object, string>((object row) => {
                 var recordNode = (XNode)row;
                 var propertyObject = ((IEnumerable<object>)recordNode.XPathEvaluate(fromExpression))

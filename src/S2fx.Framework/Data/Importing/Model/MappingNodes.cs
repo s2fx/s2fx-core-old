@@ -21,22 +21,22 @@ namespace S2fx.Data.Importing.Model {
         public string Selector { get; set; }
 
         [Required, XmlElement("map")]
-        public PropertyMapping[] PropertyMappings { get; set; } = new PropertyMapping[] { };
+        public FieldMapping[] FieldMappings { get; set; } = new FieldMapping[] { };
     }
 
-    public class PropertyMapping : MappingNode {
+    public class FieldMapping : MappingNode {
 
         [XmlAttribute("source")]
         public string SourceExpression { get; set; }
 
-        [XmlAttribute("property")]
-        public string TargetProperty { get; set; }
+        [XmlAttribute("field")]
+        public string TargetField { get; set; }
 
         [XmlAttribute("format")]
         public string Format { get; set; }
 
         [Required, XmlElement("map")]
-        public PropertyMapping[] Children { get; set; } = new PropertyMapping[] { };
+        public FieldMapping[] Children { get; set; } = new FieldMapping[] { };
     }
 
 }
