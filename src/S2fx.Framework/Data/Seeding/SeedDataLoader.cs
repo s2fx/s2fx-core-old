@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.Modules;
 using OrchardCore.Environment.Shell;
 using S2fx.Utility;
+using OrchardCore.Environment.Extensions.Features;
 
 namespace S2fx.Data.Seeding {
 
@@ -46,43 +47,35 @@ namespace S2fx.Data.Seeding {
 
             var startedOn = _clock.UtcNow;
 
-            var allInitData = await _harvester.HarvestInitDataAsync();
+            var sortedFeatures = (await _shellFeaturesManager.GetEnabledFeaturesAsync())
+                .DependencySort(x => x.Id, x => x.Dependencies);
 
-            await this.LoadSeedDataAsync(allInitData.Select(x => x.Feature), false);
-
-            if (withDemoData) {
-                var allDemoData = await _harvester.HarvestDemoDataAsync();
-                this.Logger.LogInformation("Loading all seed data for demostration...");
-                await this.LoadSeedDataAsync(allDemoData.Select(x => x.Feature), true);
+            foreach (var feature in sortedFeatures) {
+                await this.DoLoadSeedAsync(feature, withDemoData);
             }
 
             var elapsedTime = _clock.UtcNow - startedOn;
             this.Logger.LogInformation("All seed data loaded. Elapsed time: {0}", elapsedTime.ToString());
         }
 
-        public async Task LoadSeedAsync(string feature, bool withDemoData = false) {
-            await this.LoadSeedDataAsync(new string[] { feature }, false);
-
-            if (withDemoData) {
-                await this.LoadSeedDataAsync(new string[] { feature }, true);
+        public async Task LoadSeedAsync(string featureId, bool withDemoData = false) {
+            if (string.IsNullOrEmpty(featureId)) {
+                throw new ArgumentNullException(nameof(featureId));
             }
+            var feature = (await _shellFeaturesManager.GetEnabledFeaturesAsync()).Single(x => x.Id == featureId);
+            await this.DoLoadSeedAsync(feature, withDemoData);
         }
 
-        private async Task LoadSeedDataAsync(IEnumerable<string> features, bool isDemoData) {
-            var tasks = !isDemoData ? await _harvester.HarvestInitDataAsync() : await _harvester.HarvestDemoDataAsync();
-            tasks = tasks.Where(x => features.Contains(x.Feature));
+        private async Task DoLoadSeedAsync(IFeatureInfo feature, bool withDemoData = false) {
+            this.Logger.LogInformation($"Loading seed data for feature: '{feature.Id}'");
 
-            var featureInfos = (await _shellFeaturesManager.GetEnabledFeaturesAsync()).ToDictionary(x => x.Id);
+            var initTasks = await _harvester.HarvestInitDataAsync(feature);
+            await _importer.ImportAsync(initTasks);
 
-            var sortedTasks = tasks.Select(x => (task: x, featureInfo: featureInfos[x.Feature]))
-                             .DependencySort(x => x.featureInfo.Id, x => x.featureInfo.Dependencies)
-                             .Select(x => x.task);
-
-            foreach (var job in tasks) {
-                this.Logger.LogInformation("Loading seed data file: [File={0}, Selector={1}]", job.File, job.EntityMapping.Selector);
-                await _importer.ImportAsync(tasks);
+            if (withDemoData) {
+                var demoTasks = await _harvester.HarvestDemoDataAsync(feature);
+                await _importer.ImportAsync(demoTasks);
             }
-
         }
 
     }

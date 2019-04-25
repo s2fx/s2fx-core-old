@@ -33,13 +33,16 @@ namespace S2fx.View.Data {
         }
 
         public async Task LoadAllViewsAsync() {
+            throw new NotImplementedException();
             this.Logger.LogInformation("Loading all seed data for initialization...");
 
             var startedOn = _clock.UtcNow;
 
-            var allInitData = await _harvester.HarvestInitDataAsync();
+           // var allInitData = await _harvester.HarvestInitDataAsync();
 
+            /*
             await this.LoadViewAsync(allInitData.Select(x => x.Feature));
+            */
 
             var elapsedTime = _clock.UtcNow - startedOn;
             this.Logger.LogInformation("All seed data loaded. Elapsed time: {0}", elapsedTime.ToString());
@@ -50,6 +53,8 @@ namespace S2fx.View.Data {
         }
 
         private async Task LoadViewAsync(IEnumerable<string> features) {
+            throw new NotImplementedException();
+            /*
             var jobs = await _harvester.HarvestInitDataAsync();
             jobs = jobs.Where(x => features.Contains(x.Feature));
             //TODO Sort
@@ -58,6 +63,7 @@ namespace S2fx.View.Data {
                 this.Logger.LogInformation("Loading seed data file: [File={0}, Selector={1}]", job.File, job.EntityMapping.Selector);
                 await _importer.ImportAsync(jobs);
             }
+            */
 
         }
 

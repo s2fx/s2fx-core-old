@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using Microsoft.AspNetCore.Hosting;
 using OrchardCore.Environment.Extensions;
 using OrchardCore.Environment.Extensions.Features;
+using OrchardCore.Environment.Shell;
 using S2fx.Data.Importing.Model;
 using S2fx.Data.Sedding.Model;
 using S2fx.Environment.Shell;
@@ -15,36 +16,26 @@ using S2fx.Environment.Shell;
 namespace S2fx.Data.Seeding {
 
     public class FileSystemSeedHarvester : ISeedHarvester {
-        public const string SeedDataFolderName = "Seed";
+        public const string SeedDataFolderName = "SeedData";
         public const string InitDataFolderName = "Init";
         public const string DemoDataFolderName = "Demo";
         public const string SeedConfigFileName = "Seeding.config.xml";
 
         private IHostingEnvironment _environment;
-        private IShellFeatureEntityService _shellFeatureService;
 
-        public FileSystemSeedHarvester(IHostingEnvironment environment, IShellFeatureEntityService shellFeatureService) {
+        public FileSystemSeedHarvester(IHostingEnvironment environment) {
             _environment = environment;
-            _shellFeatureService = shellFeatureService;
         }
 
-        public Task<IEnumerable<ImportingTaskDescriptor>> HarvestInitDataAsync() =>
-            this.HarvestSeedAsync(InitDataFolderName);
+        public Task<IEnumerable<ImportingTaskDescriptor>> HarvestInitDataAsync(IFeatureInfo feature) =>
+            this.HarvestSeedAsync(feature, InitDataFolderName);
 
-        public Task<IEnumerable<ImportingTaskDescriptor>> HarvestDemoDataAsync() =>
-            this.HarvestSeedAsync(DemoDataFolderName);
+        public Task<IEnumerable<ImportingTaskDescriptor>> HarvestDemoDataAsync(IFeatureInfo feature) =>
+            this.HarvestSeedAsync(feature, DemoDataFolderName);
 
-        private async Task<IEnumerable<ImportingTaskDescriptor>> HarvestSeedAsync(string dataFolderName) {
-            var features = await _shellFeatureService.GetEnabledFeatureEntriesAsync();
-            features = features.OrderBy(x => x.FeatureInfo.Priority);
-            var allJobs = new List<ImportingTaskDescriptor>();
-
-            foreach (var feature in features) {
-                var initDataFolderSubPath = Path.Combine(feature.FeatureInfo.Extension.SubPath, SeedDataFolderName, dataFolderName);
-                var jobs = await this.HarvestImportJobAsync(initDataFolderSubPath, feature.FeatureInfo);
-                allJobs.AddRange(jobs);
-            }
-            return allJobs;
+        private async Task<IEnumerable<ImportingTaskDescriptor>> HarvestSeedAsync(IFeatureInfo feature, string dataFolderName) {
+            var initDataFolderSubPath = Path.Combine(feature.Extension.SubPath, SeedDataFolderName, dataFolderName);
+            return await this.HarvestImportJobAsync(initDataFolderSubPath, feature);
         }
 
         private Task<IEnumerable<ImportingTaskDescriptor>> HarvestImportJobAsync(string subPath, IFeatureInfo feature) {
