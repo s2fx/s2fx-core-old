@@ -1,8 +1,9 @@
 import { HttpClient } from "../src/http"
-import { MetaEntityContract } from "../src/contracts"
+import { MetaEntityContract, DynamicRestEntityContract } from "../src/contracts"
+
+let httpClient = new HttpClient('http://localhost:59129/Default')
 
 describe("MetaEntityContrct test", () => {
-    let httpClient = new HttpClient('http://localhost:59129/Default')
 
     it("MetaEntityContract can get all meta entities", async () => {
         let contract = new MetaEntityContract(httpClient)
@@ -18,3 +19,30 @@ describe("MetaEntityContrct test", () => {
 
 })
 
+
+describe("DynamicEntityContract test", async () => {
+
+    it("DynamicEnttiyContract can query", async () => {
+        let contract = new DynamicRestEntityContract(httpClient)
+        let queryParam = {
+            filter: 'it.UserName == "admin"',
+            select: 'new(Id,UserName,Email)'
+        }
+        let queryResult = await contract.query('Core.User', queryParam)
+        expect(queryResult.Total).toEqual(1)
+        expect(queryResult.Count).toEqual(1)
+        expect(queryResult.Offset).toEqual(0)
+        expect(queryResult.Entity).toEqual('Core.User')
+        expect(queryResult.Entities).toBeDefined()
+        expect(queryResult.Entities.length).toEqual(1)
+    })
+
+    /*
+    it("DynamicEntityContract can get single", async() => {
+        let contract = new DynamicRestEntityContract(httpClient)
+        let record = await contract.single('Core.User', 1)
+        expect(record.Id).toEqual(1)
+        expect(record.UserName).toEqual('admin')
+    })
+    */
+})

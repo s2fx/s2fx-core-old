@@ -2,15 +2,11 @@
 <S2ViewDefinition xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Framework" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    
-    
-
     <ViewAction Entity="Core.User" Name="Action.Core.User" Text="Users" >
         <ViewActionItem ViewName="View.User.List" />
         <ViewActionItem ViewName="View.User.Form" />
     </ViewAction>
 
     <MenuItem Name="Menu.Users" Text="Users" />
-
 
 </S2ViewDefinition>

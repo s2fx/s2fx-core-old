@@ -6,39 +6,31 @@ export class HttpClient {
 
     }
 
-    async getAsJson<TResponseData>(path: string): Promise<TResponseData>; //有返回值无参数
-    async getAsJson<TResponseData>(path: string, params: object): Promise<TResponseData>; //有返回值有参数
-    async getAsJson<TResponseData>(path: string, params?: object): Promise<TResponseData> {
+    async getAsJson<TResponseData>(path: string): Promise<TResponseData> //有返回值无参数
+    async getAsJson<TResponseData>(path: string, params: {[key: string]: any}): Promise<TResponseData> //有返回值有参数
+    async getAsJson<TResponseData>(path: string, params?: {[key: string]: any}): Promise<TResponseData> {
         let req = this.buildJsonRequest(path, params)
-        let result = await request.get(req)
+        let result = await request.get(req) as TResponseData
         return result
     }
 
-    /*
-    async postAsJson<TResponseData>(path: string): Promise<TResponseData>; //有返回值无参数
-    async postAsJson<TResponseData>(path: string, params: object): Promise<TResponseData>; //有返回值有参数
-    async postAsJson<TResponseData>(path: string, params?: object): Promise<TResponseData> {
-        let jsonBody = params != null ? JSON.stringify(params) : null
-        let options = this.buildRequestOptions(params)
-        let url = path
-        var result = null
-        await this.http.post(url, jsonBody, options).forEach(response => {
-            let resultText = response.text()
-            if (resultText != null && resultText.length > 0) {
-                result = JSON.parse(response.text()) as TResponseData
-            }
-        })
+    async postAsJson<TResponseData>(path: string): Promise<TResponseData> //有返回值无参数
+    async postAsJson<TResponseData>(path: string, params:  {[key: string]: any}): Promise<TResponseData> //有返回值有参数
+    async postAsJson<TResponseData>(path: string, params?: {[key: string]: any}): Promise<TResponseData> {
+        let req = this.buildJsonRequest(path, params)
+        req.body = params
+        let result = await request.post(req) as TResponseData
         return result
     }
-    */
 
-    private buildJsonRequest(path: string, params?: object): object {
-        /*
-        let headers = {
-            "Content-Type": "application/json",
-            'Accept': 'application/json'
-        }
-        */
+    async delete(path: string, params: {[key: string]: any}): Promise<void>
+    async delete(path: string, params?: {[key: string]: any}): Promise<void> {
+        let req = this.buildJsonRequest(path, params)
+        let result = await request.delete(req)
+        return result
+    }
+
+    private buildJsonRequest(path: string, params?: {[key: string]: any}): {[key: string]: any} {
         return {
             baseUrl:    this.BASE_URI,
             uri:        path,
