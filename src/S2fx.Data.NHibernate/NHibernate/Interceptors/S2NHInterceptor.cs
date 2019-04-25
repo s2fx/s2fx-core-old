@@ -28,10 +28,14 @@ namespace S2fx.Data.NHibernate.Interceptors {
             object entity, object id, object[] currentState, object[] previousState,
             string[] propertyNames, IType[] types) {
 
-            if (entity is IAuditedEntity) {
+            if (entity is IAuditedEntity auditedEntity) {
                 for (int i = 0; i < propertyNames.Length; i++) {
-                    if (nameof(IAuditedEntity._UpdatedOn).Equals(propertyNames[i])) {
-                        currentState[i] = _clock.UtcNow();
+                    if (nameof(auditedEntity._UpdatedOn).Equals(propertyNames[i])) {
+                        if (auditedEntity._UpdatedOn == null || auditedEntity._UpdatedOn.Value == DateTime.MinValue) {
+                            var utcNow = _clock.UtcNow();
+                            currentState[i] = utcNow;
+                            auditedEntity._UpdatedOn = utcNow;
+                        }
                         break;
                     }
                 }
@@ -42,11 +46,15 @@ namespace S2fx.Data.NHibernate.Interceptors {
         public override bool OnSave(object entity, object id, object[] state,
             string[] propertyNames, IType[] types) {
 
-            if (entity is IAuditedEntity) {
+            if (entity is IAuditedEntity auditedEntity) {
                 for (int i = 0; i < propertyNames.Length; i++) {
                     if (nameof(IAuditedEntity._CreatedOn).Equals(propertyNames[i])) {
-                        state[i] = _clock.UtcNow();
-                        break;
+                        if (auditedEntity._CreatedOn == DateTime.MinValue) {
+                            var utcNow = _clock.UtcNow();
+                            state[i] = utcNow;
+                            auditedEntity._CreatedOn = utcNow;
+                            break;
+                        }
                     }
                 }
             }

@@ -38,6 +38,7 @@ namespace S2fx.Data.Importing {
                 using (var tx = _transactionManager.BeginTransaction()) {
                     var taskContext = this.CreateImportContext(descriptor, defferedTaskContext.ServiceProvider);
                     await this.DoImportAsync(taskContext);
+                    await tx.CommitAsync();
                 }
             });
             await Task.CompletedTask;
@@ -50,6 +51,7 @@ namespace S2fx.Data.Importing {
                         var taskContext = this.CreateImportContext(descriptor, defferedTaskContext.ServiceProvider);
                         await this.DoImportAsync(taskContext);
                     }
+                    await tx.CommitAsync();
                 }
             });
             await Task.CompletedTask;
