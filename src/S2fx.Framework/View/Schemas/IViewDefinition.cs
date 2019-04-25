@@ -4,7 +4,7 @@ using System.Text;
 
 namespace S2fx.View.Schemas {
 
-    public interface INamedElement {
+    public interface IViewDefinition {
         string Name { get; }
     }
 

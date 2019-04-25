@@ -5,7 +5,7 @@ using System.Text;
 
 namespace S2fx.View.Schemas {
 
-    public abstract class AbstractAction : Element, INamedElement {
+    public abstract class AbstractAction : Element, IViewDefinition {
 
         [Required]
         public string Name { get; set; }

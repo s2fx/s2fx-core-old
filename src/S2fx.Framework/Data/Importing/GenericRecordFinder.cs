@@ -21,12 +21,12 @@ namespace S2fx.Data.Importing {
             _repository = repository;
         }
 
-        public async Task<object> FindExistedRecordOrDefaultAsync(ImportingTaskContext context, IReadOnlyDictionary<string, object> symbols) {
-            if (string.IsNullOrEmpty(context.EntityBinding.Where)) {
+        public async Task<object> FindExistedRecordOrDefaultAsync(ImportingTask importingTask, IReadOnlyDictionary<string, object> symbols) {
+            if (string.IsNullOrEmpty(importingTask.EntityBinding.Where)) {
                 return null;
             }
-            var pred = this.CreateEntityPredicateExpression(context.EntityBinding.Where, symbols);
-            var repo = context.TaskDescriptor.IsSudo ? _repository.Sudo() : _repository;
+            var pred = this.CreateEntityPredicateExpression(importingTask.EntityBinding.Where, symbols);
+            var repo = importingTask.Descriptor.IsSudo ? _repository.Sudo() : _repository;
             return await _repository.FirstOrDefaultAsync(pred);
         }
 

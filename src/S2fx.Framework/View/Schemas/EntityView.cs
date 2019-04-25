@@ -4,7 +4,7 @@ using System.Text;
 
 namespace S2fx.View.Schemas {
 
-    public abstract class EntityView : VisualElement, INamedElement {
+    public abstract class EntityView : VisualElement, IViewDefinition {
 
         public string Name { get; set; }
 

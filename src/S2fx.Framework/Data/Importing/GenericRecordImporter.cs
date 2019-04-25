@@ -20,9 +20,9 @@ namespace S2fx.Data.Importing {
             _repository = repository;
         }
 
-        public async Task InsertOrUpdateEntityAsync(ImportingTaskContext context, object record, bool canUpdate) {
+        public async Task InsertOrUpdateEntityAsync(ImportingTask importingTask, object record, bool canUpdate) {
             var typedRecord = (TEntity)record;
-            var repo = context.TaskDescriptor.IsSudo ? _repository.Sudo() : _repository;
+            var repo = importingTask.Descriptor.IsSudo ? _repository.Sudo() : _repository;
             await repo.InsertOrUpdateAsync(typedRecord);
         }
     }

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
-using S2fx.Services;
+using OrchardCore.Modules;
 
 namespace S2fx.Data.NHibernate {
 
@@ -30,10 +30,10 @@ namespace S2fx.Data.NHibernate {
             await _semaphoreSlim.WaitAsync();
             try {
                 this.Logger.LogInformation("Starting to migrate the schema of database...");
-                var startTime = _clock.Now();
+                var startTime = _clock.UtcNow;
                 var update = new SchemaUpdate(_cfg);
                 await update.ExecuteAsync(false, true);
-                var elapsedTime = _clock.Now() - startTime;
+                var elapsedTime = _clock.UtcNow - startTime;
                 this.Logger.LogInformation("The schema of Database has been migrated successfully. Elapsed time: {0}", elapsedTime.ToString());
             }
             finally {

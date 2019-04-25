@@ -7,7 +7,7 @@ using S2fx.Data.Importing.Model;
 namespace S2fx.Data.Importing {
 
     public interface IRecordFinder {
-        Task<object> FindExistedRecordOrDefaultAsync(ImportingTaskContext context, IReadOnlyDictionary<string, object> symbols);
+        Task<object> FindExistedRecordOrDefaultAsync(ImportingTask importingTask, IReadOnlyDictionary<string, object> symbols);
     }
 
 }

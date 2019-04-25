@@ -15,9 +15,9 @@ namespace S2fx.Tests.Xaml {
         public async Task LoadXamlFromEmbeddedResourceShouldBeOk() {
             var xamlService = new PortableXamlXamlService();
             var assembly = typeof(OrganizationEntity).Assembly;
-            var obj = await xamlService.LoadFromEmbeddedResourceAsync<object>(assembly, "S2fx.Core.Seed>Views>UserViews.xaml");
+            var obj = await xamlService.LoadFromEmbeddedResourceAsync<object>(assembly, "S2fx.Core.S2Views>UserViews.xaml");
             Assert.NotNull(obj);
-            Assert.IsType<S2ViewDefinition>(obj);
+            Assert.IsType<S2ViewDefinitions>(obj);
         }
 
     }

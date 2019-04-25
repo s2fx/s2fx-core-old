@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using NHibernate;
 using NHibernate.Type;
+using OrchardCore.Modules;
 using S2fx.Model;
-using S2fx.Services;
 
 namespace S2fx.Data.NHibernate.Interceptors {
 
@@ -32,7 +32,7 @@ namespace S2fx.Data.NHibernate.Interceptors {
                 for (int i = 0; i < propertyNames.Length; i++) {
                     if (nameof(auditedEntity._UpdatedOn).Equals(propertyNames[i])) {
                         if (auditedEntity._UpdatedOn == null || auditedEntity._UpdatedOn.Value == DateTime.MinValue) {
-                            var utcNow = _clock.UtcNow();
+                            var utcNow = _clock.UtcNow;
                             currentState[i] = utcNow;
                             auditedEntity._UpdatedOn = utcNow;
                         }
@@ -50,7 +50,7 @@ namespace S2fx.Data.NHibernate.Interceptors {
                 for (int i = 0; i < propertyNames.Length; i++) {
                     if (nameof(IAuditedEntity._CreatedOn).Equals(propertyNames[i])) {
                         if (auditedEntity._CreatedOn == DateTime.MinValue) {
-                            var utcNow = _clock.UtcNow();
+                            var utcNow = _clock.UtcNow;
                             state[i] = utcNow;
                             auditedEntity._CreatedOn = utcNow;
                             break;

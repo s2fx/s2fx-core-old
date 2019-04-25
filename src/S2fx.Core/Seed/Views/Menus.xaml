@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<MenuItemDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Framework" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <MenuItemDefinition Name="menu-admin" Text="Administration" Order="100" Icon="fa-wrench" BackgroundColor="red" />
-    <MenuItemDefinition Name="menu-auth" Parent="menu-admin" Text="User Management" />
-</MenuItemDefinitions>

@@ -1,0 +1,6 @@
+Name,Target,Description,CanCreate,CanRead,CanUpdate,CanDelete,Filter
+"Perm.Core.MenuItem.Everyone","Core.MenuItem","Everyone can read menu items",false,true,false,false,
+"Perm.Core.View.Everyone","Core.View","Everyone can read views",false,true,false,false,
+"Perm.Core.Action.Everyone","Core.Action","Everyone can read actions",false,true,false,false,
+"Perm.Core.Sequence.Everyone","Core.Sequence","Everyone can read sequences",false,true,false,false,
+"Perm.Core.User.Self","Core.User","Normal user can read/update his user account only",false,true,true,false,"it.Id == __user.Id"

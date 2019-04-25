@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<S2ViewDefinition xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Framework" 
+<S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Framework" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ViewAction Entity="Core.User" Name="Action.Core.User" Text="Users" >
@@ -7,6 +7,6 @@
         <ViewActionItem ViewName="View.User.Form" />
     </ViewAction>
 
-    <MenuItem Name="Menu.Users" Text="Users" />
+    <MenuItemDefinition Name="Menu.Users" Text="Users" />
 
-</S2ViewDefinition>
+</S2ViewDefinitions>

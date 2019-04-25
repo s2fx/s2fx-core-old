@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Seed\Demo\" />
+    <Folder Include="SeedData\Demo\" />
   </ItemGroup>
 
 </Project>

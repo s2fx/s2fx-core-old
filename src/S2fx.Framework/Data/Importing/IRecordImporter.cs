@@ -7,7 +7,7 @@ using S2fx.Data.Importing.Model;
 namespace S2fx.Data.Importing {
 
     public interface IRecordImporter {
-        Task InsertOrUpdateEntityAsync(ImportingTaskContext context, object record, bool canUpdate);
+        Task InsertOrUpdateEntityAsync(ImportingTask importingTask, object record, bool canUpdate);
     }
 
 }

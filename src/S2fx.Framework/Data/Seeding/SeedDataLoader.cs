@@ -11,13 +11,16 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using S2fx.Data.Importing;
 using Microsoft.Extensions.Logging;
-using S2fx.Services;
+using OrchardCore.Modules;
+using OrchardCore.Environment.Shell;
+using S2fx.Utility;
 
 namespace S2fx.Data.Seeding {
 
     public class SeedDataLoader : ISeedLoader {
 
         readonly IHostingEnvironment _environment;
+        readonly IShellFeaturesManager _shellFeaturesManager;
         readonly IDataImporter _importer;
         readonly ISeedHarvester _harvester;
         readonly IClock _clock;
@@ -25,11 +28,13 @@ namespace S2fx.Data.Seeding {
         public ILogger Logger { get; }
 
         public SeedDataLoader(IHostingEnvironment environment,
+            IShellFeaturesManager shellFeaturesManager,
             IDataImporter importer,
             ISeedHarvester harvester,
             IClock clock,
             ILogger<SeedDataLoader> logger) {
             _environment = environment;
+            _shellFeaturesManager = shellFeaturesManager;
             _importer = importer;
             _harvester = harvester;
             _clock = clock;
@@ -37,20 +42,21 @@ namespace S2fx.Data.Seeding {
         }
 
         public async Task LoadAllSeedsAsync(bool withDemoData = false) {
-            var allInitData = await _harvester.HarvestInitDataAsync();
-            var allDemoData = await _harvester.HarvestDemoDataAsync();
-
             this.Logger.LogInformation("Loading all seed data for initialization...");
 
-            var startedOn = _clock.Now();
+            var startedOn = _clock.UtcNow;
+
+            var allInitData = await _harvester.HarvestInitDataAsync();
+
             await this.LoadSeedDataAsync(allInitData.Select(x => x.Feature), false);
 
             if (withDemoData) {
+                var allDemoData = await _harvester.HarvestDemoDataAsync();
                 this.Logger.LogInformation("Loading all seed data for demostration...");
                 await this.LoadSeedDataAsync(allDemoData.Select(x => x.Feature), true);
             }
 
-            var elapsedTime = _clock.Now() - startedOn;
+            var elapsedTime = _clock.UtcNow - startedOn;
             this.Logger.LogInformation("All seed data loaded. Elapsed time: {0}", elapsedTime.ToString());
         }
 
@@ -63,14 +69,18 @@ namespace S2fx.Data.Seeding {
         }
 
         private async Task LoadSeedDataAsync(IEnumerable<string> features, bool isDemoData) {
-            var jobs = !isDemoData ? await _harvester.HarvestInitDataAsync() : await _harvester.HarvestDemoDataAsync();
-            jobs = jobs.Where(x => features.Contains(x.Feature));
+            var tasks = !isDemoData ? await _harvester.HarvestInitDataAsync() : await _harvester.HarvestDemoDataAsync();
+            tasks = tasks.Where(x => features.Contains(x.Feature));
 
-            //TODO Sort
+            var featureInfos = (await _shellFeaturesManager.GetEnabledFeaturesAsync()).ToDictionary(x => x.Id);
 
-            foreach (var job in jobs) {
+            var sortedTasks = tasks.Select(x => (task: x, featureInfo: featureInfos[x.Feature]))
+                             .DependencySort(x => x.featureInfo.Id, x => x.featureInfo.Dependencies)
+                             .Select(x => x.task);
+
+            foreach (var job in tasks) {
                 this.Logger.LogInformation("Loading seed data file: [File={0}, Selector={1}]", job.File, job.EntityMapping.Selector);
-                await _importer.ImportAsync(jobs);
+                await _importer.ImportAsync(tasks);
             }
 
         }
