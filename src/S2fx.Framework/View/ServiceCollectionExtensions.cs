@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using S2fx.Conventions;
 using S2fx.View.Data;
+using S2fx.View.Services;
 
 namespace S2fx.View {
 
@@ -15,6 +16,13 @@ namespace S2fx.View {
         internal static void AddS2fxViewTenant(this IServiceCollection services) {
             services.AddTransient<IViewDataHarvester, ModularViewDataHarvester>();
             services.AddScoped<IViewDataLoader, ViewDataLoader>();
+
+            services.AddTransient<IViewCompositor, ViewCompositor>();
+
+            services.AddScoped<IMenuService, MenuService>();
+
+            services.AddSingleton<IActionManager, ActionManager>();
+            services.AddSingleton<IViewManager, ViewManager>();
         }
     }
 
