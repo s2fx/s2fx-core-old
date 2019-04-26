@@ -4,7 +4,7 @@ using System.Text;
 
 namespace S2fx.View.Schemas {
 
-    public class EntityListViewDefinition : EntityViewDefinition {
+    public class EntityListViewDefinition : AbstractEntityViewDefinition {
         public override string ViewType => "List";
     }
 

@@ -5,7 +5,6 @@ using Portable.Xaml.Markup;
 
 namespace S2fx.View.Schemas {
 
-    [ViewElement("FormFieldsTable")]
     [ContentProperty(nameof(Fields))]
     public class FormFieldsTable : Layout {
 

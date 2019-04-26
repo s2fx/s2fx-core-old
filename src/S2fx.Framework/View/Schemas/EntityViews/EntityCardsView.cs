@@ -4,8 +4,7 @@ using System.Text;
 
 namespace S2fx.View.Schemas {
 
-    [ViewElement("Cards")]
-    public class EntityCardsView : EntityViewDefinition {
+    public class EntityCardsView : AbstractEntityViewDefinition {
         public override string ViewType => "Card";
     }
 

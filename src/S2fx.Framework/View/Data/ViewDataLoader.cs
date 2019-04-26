@@ -97,7 +97,7 @@ namespace S2fx.View.Data {
                     await this.ImportMenuItemDefinition(menuItem);
                     break;
 
-                case EntityViewDefinition entityView:
+                case AbstractEntityViewDefinition entityView:
                     await this.ImportViewDefinitionAsync(entityView);
                     break;
 
@@ -131,7 +131,7 @@ namespace S2fx.View.Data {
             await _menuEntityRepo.InsertOrUpdateAsync(menu);
         }
 
-        private async Task ImportViewDefinitionAsync(EntityViewDefinition viewDef) {
+        private async Task ImportViewDefinitionAsync(AbstractEntityViewDefinition viewDef) {
             var view = await _viewRepo.FirstOrDefaultAsync(x => x.Feature == viewDef.Feature && x.Name == viewDef.Name);
 
             if (view == null) {
