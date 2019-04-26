@@ -21,4 +21,10 @@
     <Folder Include="SeedData\Demo\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="SeedData\Init\SeedingManifest.xaml">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

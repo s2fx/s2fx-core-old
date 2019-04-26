@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SeedDataDefinitions 
+    xmlns="clr-namespace:S2fx.Data.Importing.Schemas" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <XmlFile File="CoreSelectionData.xml" >
+        <ImportEntity Entity="Core.Selection" Selector="/Data/CoreSelections/CoreSelection">
+            <FieldMapping Selector="@Name" Field="Name" />
+            <FieldMapping Selector="@DisplayName" Field="DisplayName" />
+            <FieldMapping Selector="@Feature" Field="Feature" />
+        </ImportEntity>
+    </XmlFile>
+
+    <XmlFile File="SecurityData.xml" >
+        <!-- Roles -->
+        <ImportEntity Entity="Core.Role" Selector="/Data/Roles/Role" CanUpdate="false" Where="it.Name == Name">
+            <FieldMapping Selector="@Name" Field="Name"/>
+            <FieldMapping Selector="@DisplayName" Field="DisplayName"/>
+        </ImportEntity>
+
+        <!-- Users -->
+        <ImportEntity Entity="Core.User" Selector="/Data/Users/User" CanUpdate="false"  Where="it.UserName == UserName">
+            <FieldMapping Selector="@UserName" Field="UserName" />
+            <FieldMapping Selector="@Password" Field="Password" />
+            <FieldMapping Selector="@FullName" Field="FullName" />
+        </ImportEntity>
+    </XmlFile>
+
+    <CsvFile File="CorePermissions.csv" >
+        <ImportEntity Entity="Core.Permission" CanUpdate="true"  Where="it.Name == Name">
+            <FieldMapping Field="Name" Selector="Name" />
+            <FieldMapping Field="Description" Selector="Description" />
+            <FieldMapping Field="Target" Selector="Target" />
+            <FieldMapping Field="CanCreate" Selector="CanCreate" />
+            <FieldMapping Field="CanRead" Selector="CanRead" />
+            <FieldMapping Field="CanUpdate" Selector="CanUpdate" />
+            <FieldMapping Field="CanDelete" Selector="CanDelete" />
+            <FieldMapping Field="Filter" Selector="Filter" />
+        </ImportEntity>
+    </CsvFile>
+
+</SeedDataDefinitions>
