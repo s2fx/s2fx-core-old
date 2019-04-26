@@ -26,6 +26,10 @@ namespace S2fx.View.Model.Model {
 
         public virtual int Order { get; set; }
 
+        public virtual string Icon { get; set; }
+
+        public virtual string BackgroundColor { get; set; }
+
         [DisplayName("Related Roles")]
         [ManyToManyField(mappedBy: nameof(RoleEntity.Menus), joinTable: "core_role_menu")]
         public virtual ICollection<RoleEntity> Roles { get; set; }

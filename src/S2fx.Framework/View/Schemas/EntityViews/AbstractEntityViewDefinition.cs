@@ -5,7 +5,6 @@ using Portable.Xaml.Markup;
 
 namespace S2fx.View.Schemas {
 
-    [ContentProperty(nameof(Definition))]
     public abstract class AbstractEntityViewDefinition : VisualElement, IViewDefinition {
 
         public abstract string ViewType { get; }
@@ -20,7 +19,7 @@ namespace S2fx.View.Schemas {
 
         public int Priority { get; set; } = 0;
 
-        public string Definition { get; set; }
+        public Toolbar Toolbar { get; } = new Toolbar();
 
     }
 

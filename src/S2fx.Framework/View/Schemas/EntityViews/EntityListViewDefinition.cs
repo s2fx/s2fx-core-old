@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Portable.Xaml.Markup;
 
 namespace S2fx.View.Schemas {
 
+    [ContentProperty(nameof(Content))]
     public class EntityListViewDefinition : AbstractEntityViewDefinition {
-        public override string ViewType => "List";
+        public override string ViewType => "ListView";
+
+        public ICollection<IEntityListViewDefinitionWidget> Content { get; } = new List<IEntityListViewDefinitionWidget>();
     }
 
 }

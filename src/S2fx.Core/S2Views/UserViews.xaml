@@ -3,9 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <EntityListViewDefinition Name="View.Core.User.List" Entity="Core.User" Title="User List View">
-        <EntityListViewDefinition.Definition><![CDATA[
-            Hello world
-            ]]></EntityListViewDefinition.Definition>
+        <EntityListViewDefinition.Toolbar>
+        </EntityListViewDefinition.Toolbar>
+        <Field Name="UserName" />
+        <Field Name="FullName" />
+        <Field Name="Email" />
     </EntityListViewDefinition>
 
     <ViewActionDefinition Entity="Core.User" Name="Action.Core.User" Text="Users" >
@@ -13,6 +15,6 @@
         <ActionView View="View.User.Form" />
     </ViewActionDefinition>
 
-    <MenuItemDefinition Name="Menu.Users" Text="Users" />
+    <MenuItemDefinition Name="Menu.Users" Text="Users" Action="Action.Core.User" Parent="Menu.Security" />
 
 </S2ViewDefinitions>

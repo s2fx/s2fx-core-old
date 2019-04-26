@@ -1,5 +1,5 @@
 import { HttpClient } from "../src/http"
-import { MetaEntityContract, DynamicRestEntityContract } from "../src/contracts"
+import { MetaEntityContract, DynamicRestEntityContract, ViewContract } from "../src/contracts"
 
 let httpClient = new HttpClient('http://localhost:59129/Default')
 
@@ -15,6 +15,18 @@ describe("MetaEntityContrct test", () => {
         let contract = new MetaEntityContract(httpClient)
         let me = await contract.single('Core.User')
         expect(me.Name).toEqual('Core.User')
+    })
+
+})
+
+
+describe("ViewContract test", async () => {
+
+    it("ViewContract can get main menu", async () => {
+        let contract = new ViewContract(httpClient)
+        let menus = await contract.getMainMenu()
+        expect(menus.length).toBeGreaterThan(0)
+        expect(menus[0].Id).toBeGreaterThan(0)
     })
 
 })

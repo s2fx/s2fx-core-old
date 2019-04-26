@@ -1,14 +1,14 @@
 
-export interface IMetaEntity {
+export interface MetaEntity {
     Name:           string
     DisplayName:    string
     Action:         string
     Dependencies:   string[]
     Feature:        string
-    Fields:         { [prop: string]: IMetaField }
+    Fields:         { [prop: string]: MetaField }
 }
 
-export interface IMetaField {
+export interface MetaField {
     IsRequired?:    boolean
     Name:           string
     DisplayName:    string
@@ -33,6 +33,19 @@ export interface IMetaField {
     "Entities":[{"Id":1}]
 }
 */
+
+export interface MenuItem {
+    Id:             number
+    Name:           string
+    Text:           string
+    Order:          number
+    ParentId?:      number
+    Children?:      MenuItem[]
+    Icon?:          string
+    BackgroundColor:string
+    ActionId?:      string
+    ActionName?:    string
+}
 
 export interface EntityQueryParameter {
     filter?:        string

@@ -14,20 +14,31 @@ export abstract class AbstractContract implements IContract {
 }
 
 export interface IMetaEntityContract extends IContract {
-    all(): Promise<model.IMetaEntity[]>
-    single(name: string): Promise<model.IMetaEntity>
+    all(): Promise<model.MetaEntity[]>
+    single(name: string): Promise<model.MetaEntity>
 }
 
 export class MetaEntityContract extends AbstractContract implements IMetaEntityContract {
 
-    async all(): Promise<model.IMetaEntity[]> {
+    async all(): Promise<model.MetaEntity[]> {
         return await this.httpClient.getAsJson('/Metadata/MetaEntity/All')
     }
 
-    async single(name: string): Promise<model.IMetaEntity> {
+    async single(name: string): Promise<model.MetaEntity> {
         return await this.httpClient.getAsJson('/Metadata/MetaEntity/Single', {name: name})
     }
 
+}
+
+export interface IViewContract extends IContract {
+    getMainMenu(): Promise<model.MenuItem[]>
+}
+
+export class ViewContract extends AbstractContract implements IViewContract {
+    async getMainMenu(): Promise<model.MenuItem[]> {
+        let path = '/Metadata/View/MainMenu'
+        return await this.httpClient.getAsJson(path)
+    }
 }
 
 export interface IDynamicRestEntityContract extends IContract {

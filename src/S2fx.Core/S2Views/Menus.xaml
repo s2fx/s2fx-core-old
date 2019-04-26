@@ -2,7 +2,7 @@
 <S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas" 
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <MenuItemDefinition Name="Menu.Admin" Text="Administration" Order="100" Icon="fa-wrench" BackgroundColor="red" />
-    <MenuItemDefinition Name="Menu.Auth" Parent="Menu.Admin" Text="User Management" />
+    <MenuItemDefinition Name="Menu.Admin" Text="Administration" Order="10000" Icon="fa-wrench" BackgroundColor="red" />
+    <MenuItemDefinition Name="Menu.Security" Parent="Menu.Admin" Text="Security Management" />
 
 </S2ViewDefinitions>

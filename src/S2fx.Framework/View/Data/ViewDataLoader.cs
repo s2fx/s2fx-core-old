@@ -126,6 +126,8 @@ namespace S2fx.View.Data {
             menu.Action = action;
             menu.Order = menuDef.Order;
             menu.Text = menuDef.Text;
+            menu.BackgroundColor = menuDef.BackgroundColor;
+            menu.Icon = menuDef.Icon;
             menu._Parent = parent;
 
             await _menuEntityRepo.InsertOrUpdateAsync(menu);
