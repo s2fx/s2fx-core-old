@@ -11,14 +11,12 @@ namespace S2fx.Data.Importing.Model {
     public class ImportingTaskDescriptor {
         public bool IsSudo { get; }
         public string Feature { get; }
-        public string Directory { get; }
         public AbstractFileDataSourceDefinition DataSource { get; }
         public ImportEntity ImportEntity { get; }
 
-        public ImportingTaskDescriptor(bool isSudo, string feature, string directory, AbstractFileDataSourceDefinition ds, ImportEntity importEntity) {
+        public ImportingTaskDescriptor(bool isSudo, string feature, AbstractFileDataSourceDefinition ds, ImportEntity importEntity) {
             this.IsSudo = isSudo;
             this.Feature = feature;
-            this.Directory = directory;
             this.DataSource = ds;
             this.ImportEntity = importEntity;
         }

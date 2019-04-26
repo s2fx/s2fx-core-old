@@ -28,7 +28,7 @@ namespace S2fx.Data {
             services.AddSingleton<ICurrentTransactionAccessor, DefaultCurrentTransactionAccessor>();
 
             //seeding
-            services.AddScoped<ISeedHarvester, FileSystemSeedHarvester>();
+            services.AddScoped<ISeedHarvester, ModularSeedHarvester>();
             services.AddScoped<ISeedLoader, SeedDataLoader>();
 
             services.AddScoped(typeof(GenericRecordImporter<>));
