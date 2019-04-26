@@ -4,9 +4,9 @@ using System.Text;
 
 namespace S2fx.Environment.Configuration {
 
-    public class S2Settings {
+    public class S2AppSettings {
         public string DefaultTimezone { get; set; } = "UTC";
-        public DbSettings Db { get; set; }
+        public string DbProvider { get; set; }
     }
 
 }

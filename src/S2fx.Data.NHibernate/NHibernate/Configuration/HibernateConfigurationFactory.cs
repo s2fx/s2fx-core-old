@@ -9,6 +9,8 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using S2fx.Data.NHibernate.DbProviders;
 using NHibernate;
+using OrchardCore.Environment.Shell.Configuration;
+using OrchardCore.Environment.Shell;
 
 namespace S2fx.Data.NHibernate {
 
@@ -20,19 +22,23 @@ namespace S2fx.Data.NHibernate {
 
     public class HibernateConfigurationFactory : IHibernateConfigurationFactory {
         readonly IModelMapper _mapper;
-        readonly S2Settings _settings;
+        readonly S2AppSettings _settings;
+        readonly ShellSettings _shellSettings;
         readonly IInterceptor _interceptor;
-        IHibernateDbProviderAccessor _providerAccessor;
+        readonly IHibernateDbProviderAccessor _providerAccessor;
+
         public ILogger Logger { get; }
 
         public HibernateConfigurationFactory(
             ILogger<HibernateConfigurationFactory> logger,
-            S2Settings settings,
+            S2AppSettings settings,
+            ShellSettings shellSettings,
             IModelMapper mapper,
             IHibernateDbProviderAccessor providerAccessor,
             IInterceptor interceptor) {
             this.Logger = logger;
             _settings = settings;
+            _shellSettings = shellSettings;
             _mapper = mapper;
             _providerAccessor = providerAccessor;
             _interceptor = interceptor;
@@ -46,8 +52,11 @@ namespace S2fx.Data.NHibernate {
             provider.SetupConfiguration(cfg);
 
             cfg.SetInterceptor(_interceptor);
-
-            cfg.SetConnectionString(_settings.Db.DefaultConnectionString);
+            var connStr = _shellSettings["ConnectionString"];
+            if (string.IsNullOrEmpty(connStr)) {
+                throw new InvalidOperationException($"Must set the connection string for tenant '{_shellSettings.Name}'");
+            }
+            cfg.SetConnectionString(connStr);
             cfg.SetProperty("hbm2ddl.keywords", "auto-quote");
             this.Logger.LogDebug("Loading NHibernate mapping...");
             _mapper.MapAllEntities(cfg);

@@ -86,7 +86,7 @@ namespace S2fx.Mvc {
             }
         }
 
-        private static S2Settings LoadSettings(IConfiguration configuration) {
+        private static S2AppSettings LoadSettings(IConfiguration configuration) {
             var loader = new MvcConfigurationLoader(configuration);
             return loader.GetSettings();
         }

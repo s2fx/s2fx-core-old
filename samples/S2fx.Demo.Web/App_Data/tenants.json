@@ -1,16 +1,15 @@
 {
     "Default": {
         "State": "Running",
-        // "RequestUrlHost": "contoso.com",
-        "RequestUrlPrefix": "default",
-        "Features": [ "Module1", "Module2", "OrchardCore.Mvc" ],
-        "MyConnectionString": "connectionstring1"
+        //"RequestUrlHost": "",
+        "RequestUrlPrefix": "Default",
+        "Features": [ "Module1", "Module2", "OrchardCore.Mvc" ]
     },
     "Tenant1": {
         "State": "Running",
+        "TablePrefix": "",
         // "RequestUrlHost": "acme.com, acme.org",
         "RequestUrlPrefix": "tenant1",
-        "Features": [ "Module1", "Module2", "OrchardCore.Mvc" ],
-        "MyConnectionString": "connectionstring2"
+        "Features": [ "Module1", "Module2", "OrchardCore.Mvc" ]
     }
 }

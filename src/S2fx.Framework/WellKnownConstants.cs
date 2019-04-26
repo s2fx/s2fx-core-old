@@ -8,7 +8,7 @@ namespace S2fx {
         public const string EntityTypeSuffix = "Entity";
         public const string CoreModuleId = "S2fx.Core";
         public const string CoreModuleKey = "Core";
-        public const string SlipstreamConfigurationSection = "Slipstream";
+        public const string S2AppConfigurationSection = "S2App";
     }
 
 }

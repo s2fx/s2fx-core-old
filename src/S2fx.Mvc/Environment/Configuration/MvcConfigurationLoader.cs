@@ -13,8 +13,8 @@ namespace S2fx.Mvc.Environment.Configuration {
             _cfg = cfg;
         }
 
-        public S2Settings GetSettings() =>
-            _cfg.GetSection(WellKnownConstants.SlipstreamConfigurationSection).Get<S2Settings>();
+        public S2AppSettings GetSettings() =>
+            _cfg.GetSection(WellKnownConstants.S2AppConfigurationSection).Get<S2AppSettings>();
 
 
     }
