@@ -28,26 +28,26 @@ namespace S2fx.Data.Importing.Seeds {
             _xaml = xaml;
         }
 
-        public Task<IEnumerable<ImportingTaskDescriptor>> HarvestInitDataAsync(IFeatureInfo feature) =>
+        public Task<IEnumerable<ImportingJobDescriptor>> HarvestInitDataAsync(IFeatureInfo feature) =>
             this.HarvestImportJobAsync(feature, false);
 
-        public Task<IEnumerable<ImportingTaskDescriptor>> HarvestDemoDataAsync(IFeatureInfo feature) =>
+        public Task<IEnumerable<ImportingJobDescriptor>> HarvestDemoDataAsync(IFeatureInfo feature) =>
             this.HarvestImportJobAsync(feature, true);
 
-        private async Task<IEnumerable<ImportingTaskDescriptor>> HarvestImportJobAsync(IFeatureInfo feature, bool isDemo) {
+        private async Task<IEnumerable<ImportingJobDescriptor>> HarvestImportJobAsync(IFeatureInfo feature, bool isDemo) {
             var manifestPath = Path.Combine("Areas", feature.Id, SeedingManifestFileName);
             var manifestFile = _environment.ContentRootFileProvider.GetFileInfo(manifestPath);
             if (manifestFile == null || manifestFile is NotFoundFileInfo) {
-                return new ImportingTaskDescriptor[] { };
+                return new ImportingJobDescriptor[] { };
             }
 
             using (var stream = manifestFile.CreateReadStream()) {
                 var manifest = await _xaml.LoadAsync<SeedingManifest>(stream);
                 var sdd = isDemo ? manifest.DemoData : manifest.InitData;
-                var jobs = new List<ImportingTaskDescriptor>();
+                var jobs = new List<ImportingJobDescriptor>();
                 foreach (var ds in sdd) {
                     foreach (var importEntity in ds.Mappings) {
-                        var job = new ImportingTaskDescriptor(
+                        var job = new ImportingJobDescriptor(
                             true, string.IsNullOrEmpty(importEntity.Feature) ? feature.Id : importEntity.Feature, ds, importEntity);
                         jobs.Add(job);
                     }

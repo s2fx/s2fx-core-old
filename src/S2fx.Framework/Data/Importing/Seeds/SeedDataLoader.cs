@@ -69,12 +69,12 @@ namespace S2fx.Data.Importing.Seeds {
         private async Task DoLoadSeedAsync(IFeatureInfo feature, bool withDemoData = false) {
             this.Logger.LogInformation($"Loading seed data for feature: '{feature.Id}'");
 
-            var initTasks = await _harvester.HarvestInitDataAsync(feature);
-            await _importer.ImportAsync(initTasks);
+            var initDataJobs = await _harvester.HarvestInitDataAsync(feature);
+            await _importer.ImportAsync(initDataJobs);
 
             if (withDemoData) {
-                var demoTasks = await _harvester.HarvestDemoDataAsync(feature);
-                await _importer.ImportAsync(demoTasks);
+                var demoJobs = await _harvester.HarvestDemoDataAsync(feature);
+                await _importer.ImportAsync(demoJobs);
             }
         }
 

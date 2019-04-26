@@ -42,7 +42,7 @@ namespace S2fx.Data.Importing {
             _dataSources = dataSources;
         }
 
-        public async Task ImportAsync(ImportingTaskDescriptor descriptor) {
+        public async Task ImportAsync(ImportingJobDescriptor descriptor) {
             _defferedTaskEngine.AddTask(async defferedTaskContext => {
                 using (var tx = _transactionManager.BeginTransaction()) {
                     var importTask = await this.CreateTaskAsync(descriptor);
@@ -54,7 +54,7 @@ namespace S2fx.Data.Importing {
             await Task.CompletedTask;
         }
 
-        public async Task ImportAsync(IEnumerable<ImportingTaskDescriptor> sortedDescriptors) {
+        public async Task ImportAsync(IEnumerable<ImportingJobDescriptor> sortedDescriptors) {
             _defferedTaskEngine.AddTask(async defferedTaskContext => {
                 using (var tx = _transactionManager.BeginTransaction()) {
                     foreach (var descriptor in sortedDescriptors) {
@@ -68,7 +68,7 @@ namespace S2fx.Data.Importing {
             await Task.CompletedTask;
         }
 
-        async Task DoImportAsync(ImportingTask importingTask, ImportingTaskContext context) {
+        async Task DoImportAsync(ImportingJob importingTask, ImportingTaskContext context) {
             var dataSource = _dataSources.Single(x => x.Format == importingTask.Descriptor.DataSource.Format);
 
             using (var stream = importingTask.ImportFileInfo.CreateReadStream()) {
@@ -87,7 +87,7 @@ namespace S2fx.Data.Importing {
         }
 
         async Task ImportSingleRecordAsync(
-            ImportingTask importingTask, ImportingTaskContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, IDataSourceReader reader) {
+            ImportingJob importingTask, ImportingTaskContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, IDataSourceReader reader) {
 
             var propValues = new Dictionary<string, object>(importingTask.Descriptor.ImportEntity.Fields.Count);
             foreach (var fieldMapping in importingTask.Descriptor.ImportEntity.Fields) {
@@ -127,7 +127,7 @@ namespace S2fx.Data.Importing {
             this.EntityRecordImported?.Invoke(this, new EntityRecordImportedEventArgs(importingTask.Entity, record));
         }
 
-        async Task<ImportingTask> CreateTaskAsync(ImportingTaskDescriptor job) {
+        async Task<ImportingJob> CreateTaskAsync(ImportingJobDescriptor job) {
             var entity = _entityManager.GetEntity(job.ImportEntity.Entity);
             var features = await _shellFeaturesManager.GetEnabledFeaturesAsync();
             var feature = features.Where(x => x.Id == job.Feature).Single();
@@ -138,14 +138,14 @@ namespace S2fx.Data.Importing {
                 throw new System.IO.FileNotFoundException(msg, filePath);
             }
 
-            var importingTask = new ImportingTask(job, feature, entity, fileInfo);
+            var importingJob = new ImportingJob(job, feature, entity, fileInfo);
             //Populates property binders
-            var ds = _dataSources.SingleOrDefault(x => x.Format == job.DataSource.Format);
+            var ds = _dataSources.SingleOrDefault(x => x.Format == importingJob.Descriptor.DataSource.Format);
             if (ds == null) {
-                var msg = string.Format("Unsupported format of seeding data: '{0}'", job.DataSource);
+                var msg = string.Format("Unsupported format of seeding data: '{0}'", importingJob.Descriptor.DataSource);
                 throw new NotSupportedException(msg);
             }
-            return importingTask;
+            return importingJob;
         }
 
     }
