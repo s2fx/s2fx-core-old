@@ -16,7 +16,7 @@ using OrchardCore.Environment.Shell;
 using S2fx.Utility;
 using OrchardCore.Environment.Extensions.Features;
 
-namespace S2fx.Data.Seeding {
+namespace S2fx.Data.Importing.Seeds {
 
     public class SeedDataLoader : ISeedLoader {
 

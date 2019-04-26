@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using S2fx.Data.Seeding;
-using S2fx.Remoting;
-using S2fx.Remoting.RemoteServices;
-using S2fx.Remoting.RemoteServices.Metadata;
 using S2fx.Setup.RemoteService;
 using S2fx.Setup.Services;
 

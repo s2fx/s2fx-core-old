@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using OrchardCore.Environment.Extensions.Features;
 using S2fx.Data.Importing.Model;
 
-namespace S2fx.Data.Seeding {
+namespace S2fx.Data.Importing.Seeds {
 
     public interface ISeedHarvester {
 

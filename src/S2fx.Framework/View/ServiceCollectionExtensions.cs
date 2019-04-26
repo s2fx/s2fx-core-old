@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using S2fx.Conventions;
-using S2fx.Data.Importing;
-using S2fx.Data.Importing.DataSources;
-using S2fx.Data.Repositories;
-using S2fx.Data.Seeding;
-using S2fx.Data.Transactions;
+using S2fx.View.Data;
 
 namespace S2fx.View {
 
@@ -17,6 +13,8 @@ namespace S2fx.View {
         }
 
         internal static void AddS2fxViewTenant(this IServiceCollection services) {
+            services.AddTransient<IViewDataHarvester, ModularViewDataHarvester>();
+            services.AddScoped<IViewDataLoader, ViewDataLoader>();
         }
     }
 

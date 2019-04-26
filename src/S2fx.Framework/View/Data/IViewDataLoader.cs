@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace S2fx.View.Data {
 
     public interface IViewDataLoader {
-        Task LoadViewAsync(string featureId);
+        Task LoadViewsAsync(string featureId);
         Task LoadAllViewsAsync();
     }
 

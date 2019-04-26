@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S2fx.Data.Seeding {
+namespace S2fx.Data.Importing.Seeds {
 
     public interface ISeedLoader {
 

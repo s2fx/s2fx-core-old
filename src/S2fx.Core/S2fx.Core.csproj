@@ -22,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="ViewsManifest.xaml">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="SeedingManifest.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

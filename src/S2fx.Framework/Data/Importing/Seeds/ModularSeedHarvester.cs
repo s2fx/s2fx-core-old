@@ -12,11 +12,10 @@ using OrchardCore.Environment.Extensions.Features;
 using OrchardCore.Environment.Shell;
 using S2fx.Data.Importing.Model;
 using S2fx.Data.Importing.Schemas;
-using S2fx.Data.Sedding.Model;
 using S2fx.Environment.Shell;
 using S2fx.Xaml;
 
-namespace S2fx.Data.Seeding {
+namespace S2fx.Data.Importing.Seeds {
 
     public class ModularSeedHarvester : ISeedHarvester {
         public const string SeedingManifestFileName = "SeedingManifest.xaml";

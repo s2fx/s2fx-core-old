@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Environment.Shell;
 using S2fx.Data;
-using S2fx.Data.Seeding;
+using S2fx.Data.Importing.Seeds;
 using S2fx.Remoting;
 using S2fx.Setup.Model;
 using S2fx.Setup.Services;
+using S2fx.View.Data;
 
 namespace S2fx.Setup.RemoteService {
 
@@ -52,8 +53,10 @@ namespace S2fx.Setup.RemoteService {
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
         public async Task LoadSeedsAsync() {
-            var loader = _services.GetRequiredService<ISeedLoader>();
-            await loader.LoadAllSeedsAsync();
+            var seedsLoader = _services.GetRequiredService<ISeedLoader>();
+            await seedsLoader.LoadAllSeedsAsync();
+            var viewLoader = _services.GetRequiredService<IViewDataLoader>();
+            await viewLoader.LoadAllViewsAsync();
         }
     }
 

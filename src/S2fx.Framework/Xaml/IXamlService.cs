@@ -12,6 +12,7 @@ namespace S2fx.Xaml {
         Task<T> LoadAsync<T>(Stream stream);
         Task<T> LoadAsync<T>(TextReader reader);
         Task<T> LoadAsync<T>(XmlReader reader);
+        string Save(object instance);
     }
 
     public static class XamlServiceExtensions {

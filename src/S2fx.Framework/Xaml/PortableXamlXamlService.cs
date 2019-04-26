@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -37,11 +38,25 @@ namespace S2fx.Xaml {
             }
         }
 
+        public string Save(object instance) {
+            return XamlServices.Save(instance);
+        }
+
         private Task<T> InternalLoadAsync<T>(XamlXmlReader xamlReader) {
             using (var writer = new XamlObjectWriter(xamlReader.SchemaContext)) {
                 XamlServices.Transform(xamlReader, writer, false);
                 var result = (T)writer.Result;
                 return Task.FromResult(result);
+            }
+        }
+
+        private Task<string> InternalSaveAsync(XamlObjectReader objectReader) {
+            var sctx = new XamlSchemaContext(new Assembly[] { this.GetType().Assembly }, null);
+            using (var sw = new StringWriter())
+            using (var writer = new XamlXmlWriter(sw, sctx)) {
+                XamlServices.Transform(objectReader, writer, false);
+                sw.Flush();
+                return Task.FromResult(sw.ToString());
             }
         }
 

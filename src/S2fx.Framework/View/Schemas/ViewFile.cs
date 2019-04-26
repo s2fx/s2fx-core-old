@@ -4,11 +4,8 @@ using System.Text;
 
 namespace S2fx.View.Schemas {
 
-    public class EntityListView : EntityView {
-
-
-
-
+    public class ViewFile {
+        public string File { get; set; }
     }
 
 }

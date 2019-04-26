@@ -6,10 +6,10 @@ using Portable.Xaml.Markup;
 
 namespace S2fx.View.Schemas {
 
-    [ContentProperty(nameof(ViewName))]
-    public class ViewActionItem {
+    [ContentProperty(nameof(View))]
+    public class ActionView {
         [Required]
-        public string ViewName { get; set; }
+        public string View { get; set; }
     }
 
 }

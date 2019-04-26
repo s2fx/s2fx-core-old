@@ -26,12 +26,6 @@ namespace S2fx.View.Model.Model {
 
         public virtual int Order { get; set; }
 
-        [Required]
-        public virtual string Definition { get; set; }
-
-        [Required, MaxLength(256)]
-        public virtual string DefinitionKey { get; set; }
-
         [DisplayName("Related Roles")]
         [ManyToManyField(mappedBy: nameof(RoleEntity.Menus), joinTable: "core_role_menu")]
         public virtual ICollection<RoleEntity> Roles { get; set; }
