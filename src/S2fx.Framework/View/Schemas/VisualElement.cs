@@ -5,6 +5,7 @@ using System.Text;
 namespace S2fx.View.Schemas {
 
     public abstract class VisualElement : Element {
+        public bool IsVisible { get; set; }
     }
 
 }

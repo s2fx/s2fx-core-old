@@ -14,9 +14,11 @@ namespace S2fx.View.RemoteServices {
     [RemoteService(name: "View", Area = MvcControllerAreas.MetadataArea)]
     public class ViewRemoteService {
         readonly IMenuService _menuService;
+        readonly IViewManager _viewManager;
 
-        public ViewRemoteService(IMenuService menuService) {
+        public ViewRemoteService(IMenuService menuService, IViewManager viewManager) {
             _menuService = menuService;
+            _viewManager = viewManager;
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: false)]
@@ -24,6 +26,11 @@ namespace S2fx.View.RemoteServices {
             return await _menuService.GetMainMenuTreeAsync();
         }
 
+        [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
+        public virtual async Task<ViewInfo> SingleView([Url]string name) {
+            var composedView = await _viewManager.GetComposedViewAsync(name);
+            return new ViewInfo(name, null, composedView, null);
+        }
     }
 
 }
