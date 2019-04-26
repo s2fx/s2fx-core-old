@@ -12,6 +12,7 @@ using OrchardCore.DeferredTasks;
 using S2fx.Data.Transactions;
 using OrchardCore.Environment.Shell;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace S2fx.Data.Importing {
 
@@ -68,7 +69,7 @@ namespace S2fx.Data.Importing {
         }
 
         async Task DoImportAsync(ImportingTask importingTask, ImportingTaskContext context) {
-            var dataSource = _dataSources.Single(x => x.Format == importingTask.Descriptor.DataSource);
+            var dataSource = _dataSources.Single(x => x.Format == importingTask.Descriptor.DataSource.Format);
 
             using (var stream = importingTask.ImportFileInfo.CreateReadStream()) {
                 var recordFinderType = typeof(GenericRecordFinder<>).MakeGenericType(importingTask.Entity.ClrType);
@@ -77,7 +78,7 @@ namespace S2fx.Data.Importing {
                 var recordImporterType = typeof(GenericRecordImporter<>).MakeGenericType(importingTask.Entity.ClrType);
                 var recordImporter = context.ServiceProvider.GetRequiredService(recordImporterType) as IRecordImporter;
 
-                var reader = dataSource.Open(stream, importingTask.Descriptor.EntityMapping.Selector); //GetAllRows(stream, descriptor.EntityMapping.Selector);
+                var reader = dataSource.Open(stream, importingTask.Descriptor.ImportEntity.Selector); //GetAllRows(stream, descriptor.EntityMapping.Selector);
                 await reader.Initialize();
                 while (await reader.ReadAsync()) {
                     await ImportSingleRecordAsync(importingTask, context, recordFinder, recordImporter, reader);
@@ -88,11 +89,11 @@ namespace S2fx.Data.Importing {
         async Task ImportSingleRecordAsync(
             ImportingTask importingTask, ImportingTaskContext context, IRecordFinder recordFinder, IRecordImporter recordImporter, IDataSourceReader reader) {
 
-            var propValues = new Dictionary<string, object>(importingTask.EntityBinding.FieldMappings.Length);
-            foreach (var propBind in importingTask.EntityBinding.FieldMappings) {
-                var propertyValueExpression = reader.GetField(propBind.SourceExpression).ToString();
-                var metaProperty = importingTask.Entity.Fields[propBind.TargetField];
-                if (metaProperty.Type.TryParse(metaProperty, propertyValueExpression, out var propertyValue, propBind.Format)) {
+            var propValues = new Dictionary<string, object>(importingTask.Descriptor.ImportEntity.Fields.Count);
+            foreach (var fieldMapping in importingTask.Descriptor.ImportEntity.Fields) {
+                var propertyValueExpression = reader.GetField(fieldMapping.Selector).ToString();
+                var metaProperty = importingTask.Entity.Fields[fieldMapping.Field];
+                if (metaProperty.Type.TryParse(metaProperty, propertyValueExpression, out var propertyValue, fieldMapping.Format)) {
                     propValues.Add(metaProperty.Name, propertyValue);
                 }
                 else {
@@ -109,7 +110,7 @@ namespace S2fx.Data.Importing {
 
             var needsImportRecord =
                 (existedRecord == null)
-                || (existedRecord != null && importingTask.EntityBinding.CanUpdate);
+                || (existedRecord != null && importingTask.Descriptor.ImportEntity.CanUpdate);
 
             if (!needsImportRecord) {
                 return;
@@ -122,23 +123,24 @@ namespace S2fx.Data.Importing {
                 metaProperty.ClrPropertyInfo.SetValue(record, propPair.Value);
             }
 
-            await recordImporter.InsertOrUpdateEntityAsync(importingTask, record, importingTask.EntityBinding.CanUpdate);
+            await recordImporter.InsertOrUpdateEntityAsync(importingTask, record, importingTask.Descriptor.ImportEntity.CanUpdate);
             this.EntityRecordImported?.Invoke(this, new EntityRecordImportedEventArgs(importingTask.Entity, record));
         }
 
         async Task<ImportingTask> CreateTaskAsync(ImportingTaskDescriptor job) {
-            var entity = _entityManager.GetEntity(job.Entity);
+            var entity = _entityManager.GetEntity(job.ImportEntity.Entity);
             var features = await _shellFeaturesManager.GetEnabledFeaturesAsync();
             var feature = features.Where(x => x.Id == job.Feature).Single();
-            var fileInfo = _environment.ContentRootFileProvider.GetFileInfo(job.File);
+            var filePath = Path.Combine(job.Directory, job.DataSource.File);
+            var fileInfo = _environment.ContentRootFileProvider.GetFileInfo(filePath);
             if (!fileInfo.Exists) {
-                var msg = $"Failed to import seed data. File not found: '{job.File}'";
-                throw new System.IO.FileNotFoundException(msg, job.File);
+                var msg = $"Failed to import seed data. File not found: '{filePath}'";
+                throw new System.IO.FileNotFoundException(msg, filePath);
             }
 
-            var importingTask = new ImportingTask(job, feature, entity, job.EntityMapping, fileInfo);
+            var importingTask = new ImportingTask(job, feature, entity, fileInfo);
             //Populates property binders
-            var ds = _dataSources.SingleOrDefault(x => x.Format == job.DataSource);
+            var ds = _dataSources.SingleOrDefault(x => x.Format == job.DataSource.Format);
             if (ds == null) {
                 var msg = string.Format("Unsupported format of seeding data: '{0}'", job.DataSource);
                 throw new NotSupportedException(msg);
