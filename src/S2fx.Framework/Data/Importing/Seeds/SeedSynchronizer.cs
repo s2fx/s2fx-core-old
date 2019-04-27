@@ -18,7 +18,7 @@ using OrchardCore.Environment.Extensions.Features;
 
 namespace S2fx.Data.Importing.Seeds {
 
-    public class SeedDataLoader : ISeedLoader {
+    public class SeedSynchronizer : ISeedSynchronizer {
 
         readonly IHostingEnvironment _environment;
         readonly IShellFeaturesManager _shellFeaturesManager;
@@ -28,12 +28,12 @@ namespace S2fx.Data.Importing.Seeds {
 
         public ILogger Logger { get; }
 
-        public SeedDataLoader(IHostingEnvironment environment,
+        public SeedSynchronizer(IHostingEnvironment environment,
             IShellFeaturesManager shellFeaturesManager,
             IDataImporter importer,
             ISeedHarvester harvester,
             IClock clock,
-            ILogger<SeedDataLoader> logger) {
+            ILogger<SeedSynchronizer> logger) {
             _environment = environment;
             _shellFeaturesManager = shellFeaturesManager;
             _importer = importer;
@@ -42,7 +42,7 @@ namespace S2fx.Data.Importing.Seeds {
             this.Logger = logger;
         }
 
-        public async Task LoadAllSeedsAsync(bool withDemoData = false) {
+        public async Task SynchronizeAllSeedsAsync(bool withDemoData = false) {
             this.Logger.LogInformation("Loading all seed data for initialization...");
 
             var startedOn = _clock.UtcNow;
@@ -51,22 +51,22 @@ namespace S2fx.Data.Importing.Seeds {
                 .DependencySort(x => x.Id, x => x.Dependencies);
 
             foreach (var feature in sortedFeatures) {
-                await this.DoLoadSeedAsync(feature, withDemoData);
+                await this.InternalSynchronizeSeedForFeatureAsync(feature, withDemoData);
             }
 
             var elapsedTime = _clock.UtcNow - startedOn;
             this.Logger.LogInformation("All seed data loaded. Elapsed time: {0}", elapsedTime.ToString());
         }
 
-        public async Task LoadSeedAsync(string featureId, bool withDemoData = false) {
+        public async Task SynchronizeSeedAsync(string featureId, bool withDemoData = false) {
             if (string.IsNullOrEmpty(featureId)) {
                 throw new ArgumentNullException(nameof(featureId));
             }
             var feature = (await _shellFeaturesManager.GetEnabledFeaturesAsync()).Single(x => x.Id == featureId);
-            await this.DoLoadSeedAsync(feature, withDemoData);
+            await this.InternalSynchronizeSeedForFeatureAsync(feature, withDemoData);
         }
 
-        private async Task DoLoadSeedAsync(IFeatureInfo feature, bool withDemoData = false) {
+        private async Task InternalSynchronizeSeedForFeatureAsync(IFeatureInfo feature, bool withDemoData = false) {
             this.Logger.LogInformation($"Loading seed data for feature: '{feature.Id}'");
 
             var initDataJobs = await _harvester.HarvestInitDataAsync(feature);

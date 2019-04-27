@@ -53,10 +53,10 @@ namespace S2fx.Setup.RemoteService {
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
         public async Task LoadSeedsAsync() {
-            var seedsLoader = _services.GetRequiredService<ISeedLoader>();
-            await seedsLoader.LoadAllSeedsAsync();
-            var viewLoader = _services.GetRequiredService<IViewDataLoader>();
-            await viewLoader.LoadAllViewsAsync();
+            var seedsLoader = _services.GetRequiredService<ISeedSynchronizer>();
+            await seedsLoader.SynchronizeAllSeedsAsync();
+            var viewLoader = _services.GetRequiredService<IViewDataSynchronizer>();
+            await viewLoader.SynchronizeAllViewsAsync();
         }
     }
 

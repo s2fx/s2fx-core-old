@@ -10,6 +10,7 @@ using OrchardCore.Environment.Shell;
 using OrchardCore.Modules;
 using S2fx.Data;
 using S2fx.Data.Importing;
+using S2fx.Model;
 using S2fx.Utility;
 using S2fx.View.Model.Model;
 using S2fx.View.Schemas;
@@ -17,7 +18,7 @@ using S2fx.Xaml;
 
 namespace S2fx.View.Data {
 
-    public class ViewDataLoader : IViewDataLoader {
+    public class ViewDataSynchronizer : IViewDataSynchronizer {
 
         readonly IHostingEnvironment _environment;
         readonly IShellFeaturesManager _shellFeaturesManager;
@@ -27,11 +28,12 @@ namespace S2fx.View.Data {
         readonly IRepository<MenuItemEntity> _menuEntityRepo;
         readonly IRepository<ViewEntity> _viewRepo;
         readonly IRepository<ActionEntity> _actionRepo;
+        readonly IRepository<ViewFragmentEntity> _viewFragmentRepo;
         readonly IXamlService _xaml;
 
         public ILogger Logger { get; }
 
-        public ViewDataLoader(IHostingEnvironment environment,
+        public ViewDataSynchronizer(IHostingEnvironment environment,
             IShellFeaturesManager shellFeaturesManager,
             IDataImporter importer,
             IViewDataHarvester harvester,
@@ -39,8 +41,9 @@ namespace S2fx.View.Data {
             IRepository<MenuItemEntity> menuEntityRepo,
             IRepository<ViewEntity> viewRepo,
             IRepository<ActionEntity> actionRepo,
+            IRepository<ViewFragmentEntity> viewFragmentRepo,
             IXamlService xaml,
-            ILogger<ViewDataLoader> logger) {
+            ILogger<ViewDataSynchronizer> logger) {
             _environment = environment;
             _shellFeaturesManager = shellFeaturesManager;
             _importer = importer;
@@ -49,12 +52,13 @@ namespace S2fx.View.Data {
             _menuEntityRepo = menuEntityRepo;
             _viewRepo = viewRepo;
             _actionRepo = actionRepo;
+            _viewFragmentRepo = viewFragmentRepo;
             _xaml = xaml;
             this.Logger = logger;
         }
 
-        public async Task LoadAllViewsAsync() {
-            this.Logger.LogInformation("Loading all views data for initialization...");
+        public async Task SynchronizeAllViewsAsync() {
+            this.Logger.LogInformation("Synchronizing all views for initialization...");
 
             var startedOn = _clock.UtcNow;
 
@@ -62,23 +66,23 @@ namespace S2fx.View.Data {
                 .DependencySort(x => x.Id, x => x.Dependencies);
 
             foreach (var feature in sortedFeatures) {
-                await this.DoLoadViewsAsync(feature);
+                await this.InternalSynchronizeViewsAsync(feature);
             }
 
             var elapsedTime = _clock.UtcNow - startedOn;
-            this.Logger.LogInformation("All seed data loaded. Elapsed time: {0}", elapsedTime.ToString());
+            this.Logger.LogInformation("All views has been synchronized. Elapsed time: {0}", elapsedTime.ToString());
         }
 
-        public async Task LoadViewsAsync(string featureId) {
+        public async Task SynchronizeViewsAsync(string featureId) {
             if (string.IsNullOrEmpty(featureId)) {
                 throw new ArgumentNullException(nameof(featureId));
             }
             var feature = (await _shellFeaturesManager.GetEnabledFeaturesAsync()).Single(x => x.Id == featureId);
-            await this.DoLoadViewsAsync(feature);
+            await this.InternalSynchronizeViewsAsync(feature);
         }
 
-        private async Task DoLoadViewsAsync(IFeatureInfo feature) {
-            this.Logger.LogInformation($"Loading seed data for feature: '{feature.Id}'");
+        private async Task InternalSynchronizeViewsAsync(IFeatureInfo feature) {
+            this.Logger.LogInformation($"Synchronizing view data for feature: '{feature.Id}'");
 
             var viewDefinitions = await _harvester.HarvestAsync(feature);
 
@@ -105,9 +109,12 @@ namespace S2fx.View.Data {
                     await this.ImportActionDefinitionAsync(action);
                     break;
 
-                default:
-                    // Unknown view type
+                case ViewFragment fragment:
+                    await this.ImportViewFragmentDefinitionAsync(fragment);
                     break;
+
+                default:
+                    throw new NotSupportedException($"Unsupported view definition '{vd.GetType().Name}' to import");
             }
 
         }
@@ -134,36 +141,44 @@ namespace S2fx.View.Data {
         }
 
         private async Task ImportViewDefinitionAsync(AbstractEntityViewDefinition viewDef) {
-            var view = await _viewRepo.FirstOrDefaultAsync(x => x.Feature == viewDef.Feature && x.Name == viewDef.Name);
-
-            if (view == null) {
-                view = new ViewEntity();
-                view.Feature = viewDef.Feature;
-                view.Name = viewDef.Name;
-            }
-
-            view.DisplayName = viewDef.Title;
-            view.Entity = viewDef.Entity;
-            view.Priority = viewDef.Priority;
-            view.ViewType = viewDef.ViewType;
-            view.Definition = _xaml.Save(viewDef);
-            await _viewRepo.InsertOrUpdateAsync(view);
+            await this.InternalImportDefinitionAsync(viewDef, _viewRepo, view => {
+                view.DisplayName = viewDef.Title;
+                view.Entity = viewDef.Entity;
+                view.Priority = viewDef.Priority;
+                view.ViewType = viewDef.ViewType;
+            });
         }
 
         private async Task ImportActionDefinitionAsync(AbstractActionDefinition actionDef) {
-            var action = await _actionRepo.FirstOrDefaultAsync(x => x.Feature == actionDef.Feature && x.Name == actionDef.Name);
+            await this.InternalImportDefinitionAsync(actionDef, _actionRepo, action => {
+                action.DisplayName = actionDef.Text;
+                action.Entity = actionDef.Entity;
+                action.ActionType = actionDef.ActionType;
+            });
+        }
 
-            if (action == null) {
-                action = new ActionEntity();
-                action.Feature = actionDef.Feature;
-                action.Name = actionDef.Name;
+        private async Task ImportViewFragmentDefinitionAsync(ViewFragment fragmentDef) {
+            var extendsView = fragmentDef.Extends != null ? await _viewRepo.SingleAsync(x => x.Name == fragmentDef.Extends) : null;
+            await this.InternalImportDefinitionAsync(fragmentDef, _viewFragmentRepo, fragment => {
+                fragment.DisplayName = fragmentDef.Title;
+                fragment.Priority = fragmentDef.Priority;
+                fragment.Extends = extendsView;
+            });
+        }
+
+        private async Task InternalImportDefinitionAsync<TEntity, TDefinition>(TDefinition definition, IRepository<TEntity> repo, Action<TEntity> config)
+            where TEntity : AbstractDefinitionEntity, new()
+            where TDefinition : IViewDefinition {
+            var record = await repo.FirstOrDefaultAsync(x => x.Feature == definition.Feature && x.Name == definition.Name);
+
+            if (record == null) {
+                record = new TEntity();
+                record.Feature = definition.Feature;
+                record.Name = definition.Name;
+                record.Definition = _xaml.Save(definition);
             }
-
-            action.DisplayName = actionDef.Text;
-            action.Entity = actionDef.Entity;
-            action.ActionType = actionDef.ActionType;
-            action.Definition = _xaml.Save(actionDef);
-            await _actionRepo.InsertOrUpdateAsync(action);
+            config(record);
+            await repo.InsertOrUpdateAsync(record);
         }
 
     }

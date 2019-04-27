@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
 using OrchardCore.Environment.Extensions.Features;
 using S2fx.Data.Importing.Model;
 using S2fx.View.Schemas;
@@ -18,9 +19,12 @@ namespace S2fx.View.Data {
         readonly IHostingEnvironment _environment;
         readonly IXamlService _xaml;
 
-        public ModularViewDataHarvester(IHostingEnvironment environment, IXamlService xaml) {
+        public ILogger Logger { get; }
+
+        public ModularViewDataHarvester(IHostingEnvironment environment, IXamlService xaml, ILogger<ModularViewDataHarvester> logger) {
             _environment = environment;
             _xaml = xaml;
+            this.Logger = logger;
         }
 
         public async Task<IEnumerable<IViewDefinition>> HarvestAsync(IFeatureInfo feature) {
@@ -37,6 +41,10 @@ namespace S2fx.View.Data {
                     //读取文件
                     var viewFilePath = Path.Combine("Areas", feature.Id, vf.File);
                     var viewFileInfo = _environment.ContentRootFileProvider.GetFileInfo(viewFilePath);
+                    if (!viewFileInfo.Exists) {
+                        throw new FileNotFoundException($"File not found: '{viewFilePath}'", viewFilePath);
+                    }
+                    this.Logger.LogInformation($"View definition file found: {viewFilePath}");
                     using (var vfs = viewFileInfo.CreateReadStream()) {
                         var viewDefinitions = await _xaml.LoadAsync<S2ViewDefinitions>(vfs);
                         foreach (var vd in viewDefinitions.Definitions) {

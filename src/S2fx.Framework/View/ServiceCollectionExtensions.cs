@@ -15,7 +15,7 @@ namespace S2fx.View {
 
         internal static void AddS2fxViewTenant(this IServiceCollection services) {
             services.AddTransient<IViewDataHarvester, ModularViewDataHarvester>();
-            services.AddScoped<IViewDataLoader, ViewDataLoader>();
+            services.AddScoped<IViewDataSynchronizer, ViewDataSynchronizer>();
 
             services.AddTransient<IViewCompositor, ViewCompositor>();
 

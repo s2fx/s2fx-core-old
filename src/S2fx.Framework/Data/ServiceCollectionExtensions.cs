@@ -29,7 +29,7 @@ namespace S2fx.Data {
 
             //seeding
             services.AddScoped<ISeedHarvester, ModularSeedHarvester>();
-            services.AddScoped<ISeedLoader, SeedDataLoader>();
+            services.AddScoped<ISeedSynchronizer, SeedSynchronizer>();
 
             services.AddScoped(typeof(GenericRecordImporter<>));
             services.AddScoped(typeof(GenericRecordFinder<>));

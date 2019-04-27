@@ -7,14 +7,16 @@ using S2fx.Model.Annotations;
 
 namespace S2fx.View.Model.Model {
 
-    [Entity(EntityName), DisplayName("View Fragment")]
-    public class ViewFragmentEntity : AbstractDefinitionEntity {
-        public const string EntityName = "Core.ViewFragment";
+    [Entity(EntityName), DisplayName("View")]
+    public class ViewEntity : AbstractDefinitionEntity {
+        public const string EntityName = "Core.View";
 
-        [ManyToOneField, Required]
-        public virtual ViewEntity Extends { get; set; }
+        [MaxLength(256)]
+        public virtual string Entity { get; set; }
 
         public virtual int Priority { get; set; }
+
+        public virtual string ViewType { get; set; }
     }
 
 }
