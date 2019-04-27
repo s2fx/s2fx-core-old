@@ -4,7 +4,7 @@ using System.Text;
 
 namespace S2fx.View.Schemas {
 
-    public class MenuItemDefinition : Element, IViewDefinition {
+    public class MenuItem : Element, IViewDefinition {
         public string Name { get; set; }
         public string Feature { get; set; } = null;
         public string Text { get; set; }

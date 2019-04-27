@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<s2-views>
-    <menu-entry name="menu-admin" text="Administration" order="100" icon="fa-wrench" icon-background="red" />
-    <menu-entry name="menu-auth" parent="menu-admin" title="User Management" />
-</s2-views>

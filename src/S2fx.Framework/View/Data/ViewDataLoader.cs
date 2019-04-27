@@ -93,7 +93,7 @@ namespace S2fx.View.Data {
         private async Task ImportViewDefinitionEntryAsync(IViewDefinition vd) {
 
             switch (vd) {
-                case MenuItemDefinition menuItem:
+                case MenuItem menuItem:
                     await this.ImportMenuItemDefinition(menuItem);
                     break;
 
@@ -112,7 +112,7 @@ namespace S2fx.View.Data {
 
         }
 
-        private async Task ImportMenuItemDefinition(MenuItemDefinition menuDef) {
+        private async Task ImportMenuItemDefinition(MenuItem menuDef) {
             var menu = await _menuEntityRepo.FirstOrDefaultAsync(x => x.Feature == menuDef.Feature && x.Name == menuDef.Name);
             var parent = menuDef.Parent != null ? await _menuEntityRepo.SingleAsync(x => x.Name == menuDef.Parent) : null;
             var action = menuDef.Action != null ? await _actionRepo.SingleAsync(x => x.Name == menuDef.Action) : null;

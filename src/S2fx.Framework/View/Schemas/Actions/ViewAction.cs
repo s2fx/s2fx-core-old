@@ -8,7 +8,7 @@ namespace S2fx.View.Schemas {
 
 
     [ContentProperty(nameof(Items))]
-    public class ViewActionDefinition : AbstractActionDefinition {
+    public class ViewAction : AbstractActionDefinition {
         public override string ActionType => "ViewAction";
 
         [Required]

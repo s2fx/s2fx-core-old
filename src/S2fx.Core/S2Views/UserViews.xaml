@@ -2,19 +2,19 @@
 <S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Framework" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <EntityListViewDefinition Name="View.Core.User.List" Entity="Core.User" Title="User List View">
-        <EntityListViewDefinition.Toolbar>
-        </EntityListViewDefinition.Toolbar>
+    <ListView Name="View.Core.User.List" Entity="Core.User" Title="User List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
         <Field Name="UserName" />
         <Field Name="FullName" />
         <Field Name="Email" />
-    </EntityListViewDefinition>
+    </ListView>
 
-    <ViewActionDefinition Entity="Core.User" Name="Action.Core.User" Text="Users" >
+    <ViewAction Entity="Core.User" Name="Action.Core.User" Text="Users" >
         <ActionView View="View.User.List" />
         <ActionView View="View.User.Form" />
-    </ViewActionDefinition>
+    </ViewAction>
 
-    <MenuItemDefinition Name="Menu.Users" Text="Users" Action="Action.Core.User" Parent="Menu.Security" />
+    <MenuItem Name="Menu.Users" Text="Users" Action="Action.Core.User" Parent="Menu.Security" />
 
 </S2ViewDefinitions>
