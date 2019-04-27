@@ -39,6 +39,11 @@ export class ViewContract extends AbstractContract implements IViewContract {
         let path = '/Metadata/View/MainMenu'
         return await this.httpClient.getAsJson(path)
     }
+
+    async singleView(name: string): Promise<model.ViewInfo> {
+        let path = '/Metadata/View/SingleView'
+        return await this.httpClient.getAsJson(path, {name: name})
+    }
 }
 
 export interface IDynamicRestEntityContract extends IContract {

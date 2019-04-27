@@ -1,3 +1,4 @@
+import * as viewSchemas from './view.schemas'
 
 export interface MetaEntity {
     Name:           string
@@ -46,6 +47,16 @@ export interface MenuItem {
     ActionId?:      string
     ActionName?:    string
 }
+
+/**
+ * View information for entity
+ */
+export interface ViewInfo {
+    Name:           string
+    View:           viewSchemas.EntityViewDefinition
+    MetaFields:     MetaField[]
+}
+
 
 export interface EntityQueryParameter {
     filter?:        string

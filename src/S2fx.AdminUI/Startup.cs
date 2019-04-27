@@ -39,14 +39,14 @@ namespace S2fx.AdminUI {
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
 
-            app.Map("/admin", ab => {
+            app.Map("/Admin", ab => {
                 ab.UseSpaStaticFiles();
                 ab.UseSpa(spa => {
                     // To learn more about options for serving an Angular SPA from ASP.NET Core,
                     // see https://go.microsoft.com/fwlink/?linkid=864501
 
                     spa.Options.SourcePath = "Client";
-                    spa.Options.DefaultPage = $"/admin/{AdminUIConstants.DefaultPageName}";
+                    spa.Options.DefaultPage = $"/Admin/{AdminUIConstants.DefaultPageName}";
                     var env = serviceProvider.GetService<IHostingEnvironment>();
                     if (env.IsDevelopment()) {
                         spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");

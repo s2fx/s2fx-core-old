@@ -21,12 +21,20 @@ describe("MetaEntityContrct test", () => {
 
 
 describe("ViewContract test", async () => {
+    let contract = new ViewContract(httpClient)
 
     it("ViewContract can get main menu", async () => {
-        let contract = new ViewContract(httpClient)
         let menus = await contract.getMainMenu()
         expect(menus.length).toBeGreaterThan(0)
         expect(menus[0].Id).toBeGreaterThan(0)
+    })
+
+    it('ViewContract can get user list view', async () => {
+        const VIEW_NAME = 'View.Core.User.List'
+        let viewInfo = await contract.singleView(VIEW_NAME)
+        expect(viewInfo.View.ViewType).toEqual('ListView')
+        expect(viewInfo.Name).toEqual(VIEW_NAME)
+        expect(viewInfo.MetaFields.length).toBeGreaterThan(0)
     })
 
 })

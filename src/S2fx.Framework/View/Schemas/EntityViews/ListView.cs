@@ -5,11 +5,11 @@ using Portable.Xaml.Markup;
 
 namespace S2fx.View.Schemas {
 
-    [ContentProperty(nameof(Content))]
+    [ContentProperty(nameof(Columns))]
     public class ListView : AbstractEntityViewDefinition {
         public override string ViewType => "ListView";
 
-        public ICollection<IEntityListViewDefinitionWidget> Content { get; } = new List<IEntityListViewDefinitionWidget>();
+        public ICollection<IEntityListViewDefinitionColumn> Columns { get; } = new List<IEntityListViewDefinitionColumn>();
     }
 
 }
