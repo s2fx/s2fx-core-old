@@ -1,43 +1,52 @@
-const request = require('request-promise');
+import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 
 export class HttpClient {
 
-    constructor(private readonly BASE_URI: string) {
+    private readonly axiosInstance: AxiosInstance
 
+    constructor(readonly baseUri: string) {
+        this.axiosInstance = axios.create({
+            baseURL: baseUri
+        })
     }
 
-    async getAsJson<TResponseData>(path: string): Promise<TResponseData> //有返回值无参数
-    async getAsJson<TResponseData>(path: string, params: {[key: string]: any}): Promise<TResponseData> //有返回值有参数
-    async getAsJson<TResponseData>(path: string, params?: {[key: string]: any}): Promise<TResponseData> {
-        let req = this.buildJsonRequest(path, params)
-        let result = await request.get(req) as TResponseData
-        return result
+    async getAsJson<TResponseData=any>(path: string): Promise<TResponseData> //有返回值无参数
+    async getAsJson<TResponseData=any>(path: string, params: {[key: string]: any}): Promise<TResponseData> //有返回值有参数
+    async getAsJson<TResponseData=any>(path: string, params?: {[key: string]: any}): Promise<TResponseData> {
+        let req = this.buildJsonRequest(params)
+        let rep = await this.axiosInstance.get<TResponseData>(path, req)
+        return rep.data
     }
 
     async postAsJson<TResponseData>(path: string): Promise<TResponseData> //有返回值无参数
     async postAsJson<TResponseData>(path: string, params:  {[key: string]: any}): Promise<TResponseData> //有返回值有参数
     async postAsJson<TResponseData>(path: string, params?: {[key: string]: any}): Promise<TResponseData> {
-        let req = this.buildJsonRequest(path, params)
-        req.body = params
-        let result = await request.post(req) as TResponseData
-        return result
+        let req = this.buildJsonRequest()
+        req.data = params
+        let result = await this.axiosInstance.post<TResponseData>(path, req)
+        return result.data
+    }
+
+    async putAsJson<TResponseData>(path: string): Promise<TResponseData> //有返回值无参数
+    async putAsJson<TResponseData>(path: string, params:  {[key: string]: any}): Promise<TResponseData> //有返回值有参数
+    async putAsJson<TResponseData>(path: string, params?: {[key: string]: any}): Promise<TResponseData> {
+        let req = this.buildJsonRequest()
+        req.data = params
+        let result = await this.axiosInstance.put<TResponseData>(path, req)
+        return result.data
     }
 
     async delete(path: string, params: {[key: string]: any}): Promise<void>
     async delete(path: string, params?: {[key: string]: any}): Promise<void> {
-        let req = this.buildJsonRequest(path, params)
-        let result = await request.delete(req)
-        return result
+        let req = this.buildJsonRequest(params)
+        await this.axiosInstance.delete(path, req)
     }
 
-    private buildJsonRequest(path: string, params?: {[key: string]: any}): {[key: string]: any} {
+    private buildJsonRequest(params?: {[key: string]: any}): AxiosRequestConfig  {
         return {
-            baseUrl:    this.BASE_URI,
-            uri:        path,
-            qs:         params,
-            json:       true
+            responseType: 'json',
+            params:        params,
         }
     }
-
 
 }

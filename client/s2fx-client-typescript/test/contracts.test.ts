@@ -20,7 +20,7 @@ describe("MetaEntityContrct test", () => {
 })
 
 
-describe("ViewContract test", async () => {
+describe("ViewContract test", () => {
     let contract = new ViewContract(httpClient)
 
     it("ViewContract can get main menu", async () => {
@@ -40,7 +40,7 @@ describe("ViewContract test", async () => {
 })
 
 
-describe("DynamicEntityContract test", async () => {
+describe("DynamicEntityContract test", () => {
 
     it("DynamicEnttiyContract can query", async () => {
         let contract = new DynamicRestEntityContract(httpClient)

@@ -6,8 +6,8 @@ import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { SetupContract } from '../s2fx-client/contracts'
-import { ISetupOptions } from '../s2fx-client/models'
+import { SetupContract } from '../s2fx-client-angular/contracts'
+import { ISetupOptions } from '../s2fx-client-angular/models'
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +16,7 @@ import { ISetupOptions } from '../s2fx-client/models'
 export class SetupPageComponent implements OnInit {
 
     isBusy: boolean = false
-    busyIndicatorText: string 
+    busyIndicatorText: string
 
     options: ISetupOptions = {
         AdminPassword: '',

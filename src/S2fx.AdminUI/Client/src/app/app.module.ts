@@ -26,7 +26,7 @@ import { LoginPageComponent } from './pages/login.page.component'
 import { RegisterComponent } from './views/register/register.component'
 
 // 导入 Midway 客户端模块
-import { S2fxClientModule } from './s2fx-client/s2fx-client.module'
+import { S2fxClientAngularModule } from './s2fx-client-angular/s2fx-client-angular.module'
 
 
 const APP_CONTAINERS = [
@@ -47,7 +47,6 @@ import { AppRoutingModule } from './app.routing'
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { TabsModule } from 'ngx-bootstrap/tabs'
-import { ChartsModule } from 'ng2-charts/ng2-charts'
 
 @NgModule({
     imports: [
@@ -62,11 +61,10 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
         PerfectScrollbarModule,
         BsDropdownModule.forRoot(),
         TabsModule.forRoot(),
-        ChartsModule,
-        FormsModule,    
+        FormsModule,
         NgxSpinnerModule,
 
-        S2fxClientModule,
+        S2fxClientAngularModule,
     ],
     declarations: [
         AppComponent,

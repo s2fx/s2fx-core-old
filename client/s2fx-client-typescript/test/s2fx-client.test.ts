@@ -1,27 +1,11 @@
-import { HelloService, MetaEntityService } from "../src/public-api"
+import { S2fxClient } from "../src/public-api"
 
-describe("HelloService test", async () => {
+const BASE_URI = 'http://localhost:59129/Default'
 
-    it("HelloService is instantiable", async () => {
-        expect(new HelloService()).toBeInstanceOf(HelloService)
+describe("S2fxClient test", () => {
+
+    it("S2fxClient can be created", async () => {
+        expect(new S2fxClient(BASE_URI)).toBeInstanceOf(S2fxClient)
     })
 
 })
-
-describe("MetaEntityService test", async () => {
-
-    it("MetaEntityService can get all meta entities", async () => {
-        let s = new MetaEntityService()
-        let metaEntities = await s.all()
-        expect(metaEntities.length).toBeGreaterThan(0)
-    })
-
-    it("MetaEntityService can get single meta entity", async () => {
-        let s = new MetaEntityService()
-        let me = await s.single('Core.User')
-        expect(me.Name).toEqual('Core.User')
-        expect(me.Fields['UserName'].IsRequired).toBeTruthy()
-    })
-
-})
-
