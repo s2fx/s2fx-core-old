@@ -12,13 +12,6 @@ namespace S2fx.Setup {
 
         internal static void AddSetupServices(this IServiceCollection services) {
             services.AddScoped<ISetupService, SetupService>();
-
-            services.AddInternalRemoteServices();
-        }
-
-        internal static void AddInternalRemoteServices(this IServiceCollection services) {
-            //builtin remote services
-            services.AddScoped<SetupRemoteService>();
         }
     }
 
