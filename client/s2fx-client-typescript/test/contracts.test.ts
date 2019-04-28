@@ -1,7 +1,7 @@
-import { HttpClient } from "../src/http"
+import { S2AxiosHttpClient } from "../src/http.axios"
 import { MetaEntityContract, DynamicRestEntityContract, ViewContract } from "../src/contracts"
 
-let httpClient = new HttpClient('http://localhost:59129/Default')
+let httpClient = new S2AxiosHttpClient('http://localhost:59129/Default')
 
 describe("MetaEntityContrct test", () => {
 

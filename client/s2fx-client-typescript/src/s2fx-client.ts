@@ -1,11 +1,8 @@
-import {HttpClient} from './http'
+import { IS2HttpClient } from './http'
 import * as contracts from './contracts'
 
 export class S2fxClient {
-    private httpClient: HttpClient
-
-    constructor(baseUri: string) {
-        this.httpClient = new HttpClient(baseUri)
+    constructor(private readonly httpClient: IS2HttpClient) {
         this.viewContract = new contracts.ViewContract(this.httpClient)
     }
 

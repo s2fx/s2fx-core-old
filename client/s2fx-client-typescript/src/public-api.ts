@@ -4,5 +4,4 @@
 export * from './model'
 export * from './http'
 export * from './s2fx-client'
-export * from './service'
 export * from './session'

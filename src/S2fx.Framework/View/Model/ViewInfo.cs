@@ -4,7 +4,7 @@ using System.Text;
 using S2fx.Model.Metadata;
 using S2fx.View.Schemas;
 
-namespace S2fx.View.RemoteServices {
+namespace S2fx.View.Model {
 
     public class ViewInfo {
 

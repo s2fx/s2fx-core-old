@@ -1,4 +1,4 @@
-import {HttpClient} from './http'
+import { IS2HttpClient } from './http'
 import * as model from './model'
 import { isUndefined } from 'util';
 
@@ -8,7 +8,7 @@ export interface IContract {
 
 export abstract class AbstractContract implements IContract {
 
-    constructor(protected readonly httpClient: HttpClient) {
+    constructor(protected readonly httpClient: IS2HttpClient) {
 
     }
 }

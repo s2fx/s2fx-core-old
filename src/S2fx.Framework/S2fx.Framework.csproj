@@ -28,4 +28,8 @@
     <Folder Include="Security\Roles\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\S2fx.Common\S2fx.Common.csproj" />
+  </ItemGroup>
+
 </Project>

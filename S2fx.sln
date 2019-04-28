@@ -56,6 +56,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Demo.Web", "samples\S2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.SampleModule", "test\S2fx.Tests.Modules\S2fx.SampleModule\S2fx.SampleModule.csproj", "{70976EBB-67C8-44BB-B136-5752DB073ADA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2fx.Common", "src\S2fx.Common\S2fx.Common.csproj", "{A9D13904-05B6-4F9D-9164-0BD5C86B066A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -122,6 +124,10 @@ Global
 		{70976EBB-67C8-44BB-B136-5752DB073ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70976EBB-67C8-44BB-B136-5752DB073ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70976EBB-67C8-44BB-B136-5752DB073ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9D13904-05B6-4F9D-9164-0BD5C86B066A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D13904-05B6-4F9D-9164-0BD5C86B066A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D13904-05B6-4F9D-9164-0BD5C86B066A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D13904-05B6-4F9D-9164-0BD5C86B066A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +154,7 @@ Global
 		{8894BE41-FB67-4A8F-940A-96EBF927D4B2} = {56D5DCC2-F956-402F-AE23-D782C148374F}
 		{F941F45B-D5DA-41FC-9D56-189BC8B09F7E} = {5EB152A5-14AD-4075-975C-8776A45E1693}
 		{70976EBB-67C8-44BB-B136-5752DB073ADA} = {E407C4D5-0C2A-4903-AC5E-B1FBB1194B11}
+		{A9D13904-05B6-4F9D-9164-0BD5C86B066A} = {56D5DCC2-F956-402F-AE23-D782C148374F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59F4E74C-DAE3-4194-BDFF-7EFF3A7D1921}
