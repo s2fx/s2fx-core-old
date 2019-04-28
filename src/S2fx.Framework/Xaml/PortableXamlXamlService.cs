@@ -18,6 +18,7 @@ namespace S2fx.Xaml {
                 LocalAssembly = this.GetType().Assembly,
             };
             _readerSettings.AddNamespaces(this.GetType().Assembly);
+            _readerSettings.AddNamespaces(typeof(View.Schemas.S2ViewDefinitions).Assembly);
         }
 
         public Task<T> LoadAsync<T>(TextReader reader) {

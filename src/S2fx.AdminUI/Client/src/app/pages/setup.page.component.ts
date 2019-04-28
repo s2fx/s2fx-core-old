@@ -6,8 +6,12 @@ import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { SetupContract } from '../s2fx-client-angular/contracts'
-import { ISetupOptions } from '../s2fx-client-angular/models'
+interface ISetupOptions{
+    AdminPassword:      string
+    DbName:             string
+    IsDemo:             boolean
+    EnabledFeatures:    string[]
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +30,7 @@ export class SetupPageComponent implements OnInit {
     };
 
 
-    constructor(private setupContract: SetupContract, private spinner: NgxSpinnerService) {
+    constructor(private spinner: NgxSpinnerService) {
     }
 
     async ngOnInit() {
@@ -46,9 +50,11 @@ export class SetupPageComponent implements OnInit {
         this.busyIndicatorText = "Processing..."
         this.spinner.show()
         try {
+            /*
             await this.setupContract.startSetup(this.options)
             console.log(this.options)
             await new Promise((resolve) => setTimeout(resolve, 1000));
+            */
         }
         finally {
             this.isBusy = false

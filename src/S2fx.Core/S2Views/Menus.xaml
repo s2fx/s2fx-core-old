@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas" 
+<S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Common" 
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <MenuItem Name="Menu.Admin" Text="Administration" Order="10000" Icon="fa-wrench" BackgroundColor="red" />

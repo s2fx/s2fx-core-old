@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { CommonModule } from '@angular/common'
+import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { LocationStrategy, HashLocationStrategy } from '@angular/common'
@@ -52,6 +53,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
     imports: [
         BrowserModule,
         CommonModule,
+        HttpModule,
         AppRoutingModule,
         AppAsideModule,
         AppBreadcrumbModule.forRoot(),
