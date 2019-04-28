@@ -1,11 +1,11 @@
 {
     "name": "s2fx-client",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "",
     "keywords": [],
-    "main": "dist/s2fx-client.umd.js",
-    "module": "dist/s2fx-client.es5.js",
-    "typings": "dist/types/s2fx-client.d.ts",
+    "main": "dist/index.umd.js",
+    "module": "dist/index.es5.js",
+    "typings": "dist/index.d.ts",
     "files": [
         "dist",
         "dist.browser"
