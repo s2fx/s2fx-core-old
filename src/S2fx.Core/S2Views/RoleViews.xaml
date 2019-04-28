@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Common" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ListView Name="View.Core.Role.List" Entity="Core.Role" Title="Role List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
+        <Field Name="Name" />
+        <Field Name="DisplayName" />
+    </ListView>
+
+    <ViewAction Entity="Core.Role" Name="Action.Core.Role" Text="Roles" >
+        <ActionView View="View.Role.List" />
+        <ActionView View="View.Role.Form" />
+    </ViewAction>
+
+    <MenuItem Name="Menu.Roles" Text="Roles" Action="Action.Core.Role" Parent="Menu.Security" />
+
+</S2ViewDefinitions>

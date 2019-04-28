@@ -9,4 +9,10 @@ describe("S2fxClient test", () => {
         expect(new S2fxClient(httpClient)).toBeInstanceOf(S2fxClient)
     })
 
+    it("S2fxClient can access its property", async () => {
+        let client = new S2fxClient(httpClient)
+        let menus = await client.viewContract.getMainMenu()
+        expect(menus.length).toBeGreaterThan(0)
+    })
+
 })

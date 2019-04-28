@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Common" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ListView Name="View.Core.Feature.List" Entity="Core.Feature" Title="Feature List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
+        <Field Name="Name" />
+        <Field Name="DisplayName" />
+        <Field Name="IsInstalled" />
+        <Field Name="IsEnabled" />
+    </ListView>
+
+    <ViewAction Entity="Core.Feature" Name="Action.Core.Feature" Text="Features" >
+        <ActionView View="View.Feature.List" />
+        <ActionView View="View.Feature.Form" />
+    </ViewAction>
+
+    <MenuItem Name="Menu.Features" Text="Features" Action="Action.Core.Feature" Parent="Menu.Metadata.Module" />
+
+</S2ViewDefinitions>

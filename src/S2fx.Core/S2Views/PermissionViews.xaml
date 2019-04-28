@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Common" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ListView Name="View.Core.Permission.List" Entity="Core.Permission" Title="Permission List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
+        <Field Name="Name" />
+        <Field Name="Description" />
+        <Field Name="Target" />
+        <Field Name="CanRead" />
+        <Field Name="CanCreate" />
+        <Field Name="CanUpdate" />
+        <Field Name="CanDelete" />
+    </ListView>
+
+    <ViewAction Entity="Core.Permission" Name="Action.Core.Permission" Text="Permissions" >
+        <ActionView View="View.Permission.List" />
+        <ActionView View="View.Permission.Form" />
+    </ViewAction>
+
+    <MenuItem Name="Menu.Permissions" Text="Permissions" Action="Action.Core.Permission" Parent="Menu.Security" />
+
+</S2ViewDefinitions>

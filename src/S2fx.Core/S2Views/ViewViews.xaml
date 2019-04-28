@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Common" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <MenuItem Name="Menu.Admin.View" Text="View Management" Parent="Menu.Security" Order="3000" />
+
+    <!-- Menus -->
+    <ListView Name="View.Core.MenuItem.List" Entity="Core.MenuItem" Title="Menu List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
+        <Field Name="Feature" />
+        <Field Name="Name" />
+        <Field Name="DisplayName" />
+        <Field Name="Action" />
+    </ListView>
+
+    <ViewAction Entity="Core.MenuItem" Name="Action.Core.MenuItem" Text="Menu Items" >
+        <ActionView View="View.MenuItem.List" />
+        <ActionView View="View.MenuItem.Form" />
+    </ViewAction>
+
+    <MenuItem Name="Menu.Core.MenuItem" Text="Menus" Action="Action.Core.MenuItem" Parent="Menu.Admin.View" />
+
+    <!-- Views -->
+    <ListView Name="View.Core.View.List" Entity="Core.View" Title="View List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
+        <Field Name="Feature" />
+        <Field Name="Name" />
+        <Field Name="DisplayName" />
+        <Field Name="ViewType" />
+    </ListView>
+
+    <ViewAction Entity="Core.View" Name="Action.Core.View" Text="Views" >
+        <ActionView View="View.View.List" />
+        <ActionView View="View.View.Form" />
+    </ViewAction>
+
+    <MenuItem Name="Menu.Core.View" Text="Views" Action="Action.Core.View" Parent="Menu.Admin.View" />
+
+    <!-- View Fragments -->
+    <ListView Name="View.Core.ViewFragment.List" Entity="Core.ViewFragment" Title="View Fragment List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
+        <Field Name="Feature" />
+        <Field Name="Name" />
+        <Field Name="DisplayName" />
+        <Field Name="Extends" />
+    </ListView>
+
+    <ViewAction Entity="Core.ViewFragment" Name="Action.Core.ViewFragment" Text="View Fragments" >
+        <ActionView View="View.ViewFragment.List" />
+        <ActionView View="View.ViewFragment.Form" />
+    </ViewAction>
+
+    <MenuItem Name="Menu.Core.ViewFragment" Text="View Fragments" Action="Action.Core.ViewFragment" Parent="Menu.Admin.View" />
+
+    <!-- Action -->
+    <ListView Name="View.Core.Action.List" Entity="Core.Action" Title="Action List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
+        <Field Name="Feature" />
+        <Field Name="Name" />
+        <Field Name="DisplayName" />
+        <Field Name="ActionType" />
+    </ListView>
+
+    <ViewAction Entity="Core.Action" Name="Action.Core.Action" Text="Actions" >
+        <ActionView View="View.Action.List" />
+        <ActionView View="View.Action.Form" />
+    </ViewAction>
+
+    <MenuItem Name="Menu.Core.Action" Text="Actions" Action="Action.Core.Action" Parent="Menu.Admin.View" />
+
+</S2ViewDefinitions>

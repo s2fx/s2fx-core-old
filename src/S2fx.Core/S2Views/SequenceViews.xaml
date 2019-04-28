@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S2ViewDefinitions xmlns="clr-namespace:S2fx.View.Schemas;assembly=S2fx.Common" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ListView Name="View.Core.Sequence.List" Entity="Core.Sequence" Title="Sequence List View">
+        <ListView.Toolbar>
+        </ListView.Toolbar>
+        <Field Name="Name" />
+        <Field Name="Prefix" />
+        <Field Name="Suffix" />
+        <Field Name="InitialValue" />
+        <Field Name="Step" />
+        <Field Name="Padding" />
+    </ListView>
+
+    <ViewAction Entity="Core.Sequence" Name="Action.Core.Sequence" Text="Sequences" >
+        <ActionView View="View.Sequence.List" />
+        <ActionView View="View.Sequence.Form" />
+    </ViewAction>
+
+    <MenuItem Name="Menu.Sequences" Text="Sequences" Action="Action.Core.Sequence" Parent="Menu.Metadata" />
+
+</S2ViewDefinitions>

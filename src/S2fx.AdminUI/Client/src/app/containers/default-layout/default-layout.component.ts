@@ -2,7 +2,7 @@ import { Component, OnDestroy, Inject, OnInit } from '@angular/core';
 
 import { DOCUMENT } from '@angular/common';
 import { NgS2fxClient } from '../../s2fx-client-angular/s2client'
-import { MenuItem } from "s2fx-client"
+import { MenuItem, ViewContract } from "s2fx-client"
 //import { navItems } from '../../_nav';
 
 interface NavAttributes {
@@ -71,10 +71,11 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
 
     private async loadMenu(): Promise<void> {
         let self = this
-        this.navMenu = await this.client.viewContract.getMainMenu() as any[]
+        let viewContract = new ViewContract(this.client.httpClient)
+        this.navMenu = await viewContract.getMainMenu() as any[]
         let newNavItems = []
         for (let nm of this.navMenu) {
-            let ni = self.navMenuToNavItem(nm)
+            let ni = self.navMenuToNavItem(nm, true)
             newNavItems.push(ni)
         }
         self.navItems = newNavItems
@@ -84,9 +85,9 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
         let self = this;
         let children = (navMenu.Children as any[]).map<NavData>(x => self.navMenuToNavItem(x))
         return {
-            name: navMenu.Text,
-            url: '/',
-            children: children.length > 0 ? children : null,
+            name:       navMenu.Text,
+            url:        '/',
+            children:   children.length > 0 ? children : null,
             //icon: navMenu.Icon,
         }
     }

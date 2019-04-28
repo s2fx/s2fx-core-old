@@ -22,6 +22,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="S2Views\SequenceViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="S2Views\RoleViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="S2Views\PermissionViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="S2Views\ModuleViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="S2Views\ViewViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="ViewsManifest.xaml">
       <Generator></Generator>
     </EmbeddedResource>

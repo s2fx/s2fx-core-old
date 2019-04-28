@@ -4,5 +4,10 @@
 
     <ViewFile File="S2Views/Menus.xaml" />
     <ViewFile File="S2Views/UserViews.xaml" />
+    <ViewFile File="S2Views/RoleViews.xaml" />
+    <ViewFile File="S2Views/PermissionViews.xaml" />
+    <ViewFile File="S2Views/ModuleViews.xaml" />
+    <ViewFile File="S2Views/SequenceViews.xaml" />
+    <ViewFile File="S2Views/ViewViews.xaml" />
 
 </ViewsManifest>
