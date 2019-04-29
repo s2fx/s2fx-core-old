@@ -5,6 +5,7 @@ stage('compile') {
         checkout scm
         sh 'dotnet restore'
         dir('client/s2fx-client-typescript') {
+            sh 'yarn install'
             sh 'yarn build'
         }
         sh 'dotnet build -c Release'
