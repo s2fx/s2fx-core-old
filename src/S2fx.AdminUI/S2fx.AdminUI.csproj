@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
@@ -49,7 +49,7 @@
         </Exec>
         <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
         <Message Importance="high" Text="Restoring dependencies using 'yarn'. This may take several minutes..." />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install --silent" />
     </Target>
 
     <Target Name="ReleaseNgBuild" BeforeTargets="BeforeBuild" Condition=" '$(Configuration)' == 'Release' ">
@@ -59,10 +59,10 @@
         </Exec>
         <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
         <Message Importance="high" Text="Restoring dependencies using 'yarn'. This may take several minutes..." />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install --silent" />
         <!-- 执行 ng 构建 -->
         <Message Importance="high" Text="Building Angular App for release configuration..." />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run msbuild-release" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run msbuild-release --silent" />
         <Message Importance="high" Text="Copying files in 'dist' to 'wwwroot'..." />
         <Copy SourceFiles="@(NgDistFiles)" DestinationFiles="@(NgDistFiles->'wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
         <Message Importance="high" Text="Adding static files as embedded resource..." />
