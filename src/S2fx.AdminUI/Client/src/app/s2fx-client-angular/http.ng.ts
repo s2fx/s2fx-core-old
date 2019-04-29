@@ -3,12 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { IS2HttpClient } from 's2fx-client'
 
 
-@Injectable()
 export class NgS2HttpClient implements IS2HttpClient {
-    readonly baseUri: string
 
-    constructor(private readonly http: HttpClient) {
-        this.baseUri = 'http://localhost:59129/Default'
+    constructor(private readonly http: HttpClient, public readonly baseUri: string) {
     }
 
     async getAsJson<TResponseData = any>(path: string): Promise<TResponseData> //有返回值无参数

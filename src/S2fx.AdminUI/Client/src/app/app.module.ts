@@ -4,7 +4,6 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { LocationStrategy, HashLocationStrategy } from '@angular/common'
-
 import { NgxSpinnerModule } from 'ngx-spinner'
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'
@@ -28,7 +27,6 @@ import { RegisterComponent } from './views/register/register.component'
 
 // 导入 Midway 客户端模块
 import { S2fxClientAngularModule } from './s2fx-client-angular/s2fx-client-angular.module'
-
 
 const APP_CONTAINERS = [
     DefaultLayoutComponent
