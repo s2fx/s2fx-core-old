@@ -8,7 +8,7 @@ using S2fx.View.Schemas;
 
 namespace S2fx.View.Data {
 
-    public interface IViewDataHarvester {
+    public interface IViewHarvester {
         Task<IEnumerable<IViewDefinition>> HarvestAsync(IFeatureInfo feature);
     }
 

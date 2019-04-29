@@ -3,22 +3,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OrchardCore.Modules;
-using OrchardCore.Environment.Shell;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.FileProviders;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.StaticFiles;
 using S2fx.AdminUI.StaticFiles;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using S2fx.Modules;
 
 namespace S2fx.AdminUI {
-    public class Startup : StartupBase {
+    public class Startup : S2StartupBase {
         public const string NgClientUrlPrefix = "ng-client";
 
         private readonly IConfiguration _configuration;

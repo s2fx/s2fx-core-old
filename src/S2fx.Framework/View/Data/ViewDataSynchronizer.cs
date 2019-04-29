@@ -23,7 +23,7 @@ namespace S2fx.View.Data {
         readonly IHostingEnvironment _environment;
         readonly IShellFeaturesManager _shellFeaturesManager;
         readonly IDataImporter _importer;
-        readonly IViewDataHarvester _harvester;
+        readonly IViewHarvester _harvester;
         readonly IClock _clock;
         readonly IRepository<MenuItemEntity> _menuEntityRepo;
         readonly IRepository<ViewEntity> _viewRepo;
@@ -36,7 +36,7 @@ namespace S2fx.View.Data {
         public ViewDataSynchronizer(IHostingEnvironment environment,
             IShellFeaturesManager shellFeaturesManager,
             IDataImporter importer,
-            IViewDataHarvester harvester,
+            IViewHarvester harvester,
             IClock clock,
             IRepository<MenuItemEntity> menuEntityRepo,
             IRepository<ViewEntity> viewRepo,
