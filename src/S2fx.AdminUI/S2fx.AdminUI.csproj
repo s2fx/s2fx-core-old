@@ -62,7 +62,7 @@
         <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install --silent" />
         <!-- 执行 ng 构建 -->
         <Message Importance="high" Text="Building Angular App for release configuration..." />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run msbuild-release --silent" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run msbuild-release" />
         <Message Importance="high" Text="Copying files in 'dist' to 'wwwroot'..." />
         <Copy SourceFiles="@(NgDistFiles)" DestinationFiles="@(NgDistFiles->'wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
         <Message Importance="high" Text="Adding static files as embedded resource..." />
