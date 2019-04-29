@@ -32,5 +32,6 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\S2fx.Application.Targets\S2fx.Application.Targets.csproj" />
+        <ProjectReference Include="..\..\test\S2fx.Tests.Modules\S2fx.SampleModule\S2fx.SampleModule.csproj" />
     </ItemGroup>
 </Project>

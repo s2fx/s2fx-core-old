@@ -25,12 +25,16 @@ namespace S2fx.View.Services {
         public async Task<IEnumerable<MenuItem>> GetMainMenuTreeAsync() {
             var menus = await _menuItemRepo.GetAllAsync();
             var parents = menus.ToLookup(x => x._Parent?.Id);
-            Func<long?, IEnumerable<MenuItem>> buildTree = null;
-            buildTree = pid => parents[pid]
-                     .OrderBy(x => x.Order)
-                     .Select(x => new MenuItem(x.Id, x.Name, x.Text, x.Order, x._Parent?.Id, buildTree(x.Id), x.Action?.Id, x.Action?.Name, x.Icon, x.BackgroundColor));
+            Func<long?, int, IEnumerable<MenuItem>> buildTree = null;
+            buildTree = (pid, depth) => {
+                return parents[pid]
+                    .OrderBy(x => x.Order)
+                    .Select(x =>
+                        new MenuItem(x.Id, x.Name, x.Text, x.Order, x._Parent?.Id, buildTree(x.Id, depth + 1), x.Action?.Id, x.Action?.Name, depth, x.Icon, x.BackgroundColor)
+                    );
+            };
 
-            return buildTree(null);
+            return buildTree(null, 0);
         }
     }
 }

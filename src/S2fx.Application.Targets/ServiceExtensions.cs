@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// <summary>
         /// Adds Orchard CMS services to the application. 
         /// </summary>
-        public static IServiceCollection AddS2fx(this IServiceCollection services) {
+        public static IServiceCollection AddS2fx(this IServiceCollection services, Action<OrchardCoreBuilder> config = null) {
 
             // Add ASP.NET MVC and support for modules
             var builder = services
@@ -28,6 +28,9 @@ namespace Microsoft.Extensions.DependencyInjection {
                 .WithTenants()
                 ;
 
+            if (config != null) {
+                config(builder);
+            }
 
             return services;
         }

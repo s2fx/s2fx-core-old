@@ -15,10 +15,11 @@ namespace S2fx.View.Model {
         public string BackgroundColor { get; }
         public long? ActionId { get; }
         public string ActionName { get; }
+        public int Depth { get; }
 
         public MenuItem(
             long id, string name, string text, int order, long? parentId, IEnumerable<MenuItem> children,
-            long? actionId, string actionName, string icon = null, string backgroundColor = null) {
+            long? actionId, string actionName, int depth = 0, string icon = null, string backgroundColor = null) {
 
             this.Id = id;
             this.Name = name;
@@ -26,6 +27,7 @@ namespace S2fx.View.Model {
             this.Order = order;
             this.Children = children;
             this.ActionName = actionName;
+            this.Depth = depth;
             this.Icon = icon;
             this.BackgroundColor = backgroundColor;
         }

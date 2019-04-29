@@ -47,8 +47,7 @@ namespace S2fx.Data.Importing.Seeds {
 
             var startedOn = _clock.UtcNow;
 
-            var sortedFeatures = (await _shellFeaturesManager.GetEnabledFeaturesAsync())
-                .DependencySort(x => x.Id, x => x.Dependencies);
+            var sortedFeatures = await _shellFeaturesManager.GetEnabledFeaturesAsync();
 
             foreach (var feature in sortedFeatures) {
                 await this.InternalSynchronizeSeedForFeatureAsync(feature, withDemoData);

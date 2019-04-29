@@ -62,8 +62,7 @@ namespace S2fx.View.Data {
 
             var startedOn = _clock.UtcNow;
 
-            var sortedFeatures = (await _shellFeaturesManager.GetEnabledFeaturesAsync())
-                .DependencySort(x => x.Id, x => x.Dependencies);
+            var sortedFeatures = (await _shellFeaturesManager.GetEnabledFeaturesAsync());
 
             foreach (var feature in sortedFeatures) {
                 await this.InternalSynchronizeViewsAsync(feature);

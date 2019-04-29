@@ -31,7 +31,9 @@ namespace S2fx.Demo.Web {
             //services.AddMvc();
 
             // Add ASP.NET MVC and support for modules
-            services.AddS2fx();
+            services.AddS2fx(builder => {
+                builder.AddTenantFeatures("S2fx.SampleModule");
+            });
 
             //services.AddRouteAnalyzer(); // Add
         }
