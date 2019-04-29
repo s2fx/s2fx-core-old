@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace S2fx.Data.Importing.Schemas {
-    public abstract class AbstractFileDataSourceDefinition : AbstractDataSourceDefinition {
-        public abstract string Format { get; }
+    public abstract class AbstractFileDataSourceDefinition : AbstractDataSourceDefinition, IFileDataSourceInfo {
 
         [Required]
-        public string File { get; set; }
+        public string Path { get; set; }
 
     }
 }

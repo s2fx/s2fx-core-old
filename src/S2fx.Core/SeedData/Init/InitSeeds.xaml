@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SeedingManifest 
-                    xmlns="clr-namespace:S2fx.Data.Importing.Schemas;assembly=S2fx.Framework" 
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Seeds 
+       xmlns="clr-namespace:S2fx.Data.Importing.Schemas;assembly=S2fx.Framework" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SeedingManifest.InitData>
 
         <XmlFileDataSource File="SeedData/Init/CoreSelectionData.xml" >
             <ImportEntity Entity="Core.Selection" Selector="/Data/CoreSelections/CoreSelection">
@@ -39,6 +38,4 @@
             </ImportEntity>
         </XmlFileDataSource>
 
-    </SeedingManifest.InitData>
-
-</SeedingManifest>
+</Seeds>

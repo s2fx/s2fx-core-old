@@ -131,7 +131,7 @@ namespace S2fx.Data.Importing {
             var entity = _entityManager.GetEntity(job.ImportEntity.Entity);
             var features = await _shellFeaturesManager.GetEnabledFeaturesAsync();
             var feature = features.Where(x => x.Id == job.Feature).Single();
-            var filePath = Path.Combine("Areas", feature.Id, job.DataSource.File);
+            var filePath = Path.Combine("Areas", feature.Id, job.DataSource.Path);
             var fileInfo = _environment.ContentRootFileProvider.GetFileInfo(filePath);
             if (!fileInfo.Exists) {
                 var msg = $"Failed to import seed data. File not found: '{filePath}'";

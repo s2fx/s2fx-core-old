@@ -12,6 +12,7 @@ using S2fx.Environment.Shell;
 using S2fx.View.Schemas;
 using S2fx.Xaml;
 using S2fx.Modules;
+using S2fx.Modules.Services;
 
 namespace S2fx.View.Data {
 
@@ -20,24 +21,22 @@ namespace S2fx.View.Data {
         readonly IHostingEnvironment _environment;
         readonly IXamlService _xaml;
         readonly IShellFeatureEntityService _shellFeatureEntityService;
-        readonly IEnumerable<OrchardCore.Modules.IStartup> _orchardStartups;
+        readonly IS2StartupService _s2StartupService;
 
         public ILogger Logger { get; }
 
         public S2StartupViewHarvester(IHostingEnvironment environment,
             IXamlService xaml,
-            IShellFeatureEntityService shellFeatureEntityService,
-            IEnumerable<OrchardCore.Modules.IStartup> orchardStartups,
+            IS2StartupService s2StartupService,
             ILogger<S2StartupViewHarvester> logger) {
             _environment = environment;
             _xaml = xaml;
-            _shellFeatureEntityService = shellFeatureEntityService;
-            _orchardStartups = orchardStartups;
+            _s2StartupService = s2StartupService;
             this.Logger = logger;
         }
 
         public async Task<IEnumerable<IViewDefinition>> HarvestAsync(IFeatureInfo feature) {
-            var featureStartup = await this.GetOrDefaultS2StartupAsync(feature);
+            var featureStartup = await _s2StartupService.GetOrDefaultByFeatureAsync(feature);
             if (featureStartup == null) {
                 return new IViewDefinition[] { };
             }
@@ -64,14 +63,6 @@ namespace S2fx.View.Data {
             }
             return defs;
 
-        }
-
-        private async Task<IS2Startup> GetOrDefaultS2StartupAsync(IFeatureInfo feature) {
-            var s2StartupType = typeof(IS2Startup);
-            var features = await _shellFeatureEntityService.GetEnabledFeatureEntriesAsync();
-            var featureEntry = features.Single(x => x.FeatureInfo.Id == feature.Id);
-            var startupType = featureEntry.ExportedTypes.SingleOrDefault(x => s2StartupType.IsAssignableFrom(x));
-            return _orchardStartups.SingleOrDefault(x => x.GetType() == startupType) as IS2Startup;
         }
 
     }
