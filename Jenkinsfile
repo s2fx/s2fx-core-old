@@ -11,7 +11,7 @@ stage('compile') {
         }
         dir('client/s2fx-coreui-angular') {
             sh 'yarn install -silent'
-            sh 'yarn "build-lib" --silent'
+            sh 'yarn --silent "build-lib"'
         }
         sh 'dotnet build -c Release'
     }
