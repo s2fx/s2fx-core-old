@@ -2,7 +2,6 @@
 
 stage('compile') {
     node {
-        checkout scm
         // GIT submodule recursive checkout
         checkout scm: [
             $class: 'GitSCM',
