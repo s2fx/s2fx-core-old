@@ -17,6 +17,13 @@
     <EmbeddedResource Update="S2Views\Menus.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="SeedData\Demo\Manifest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SeedData\Init\" />
   </ItemGroup>
 
 </Project>

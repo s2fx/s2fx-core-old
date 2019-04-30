@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { Routes, RouterModule } from '@angular/router'
+import { Routes, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers'
@@ -9,8 +9,10 @@ import { P500Component } from './views/error/500.component'
 import { RegisterComponent } from './views/register/register.component'
 import { LoginPageComponent } from './pages/login.page.component'
 import { SetupPageComponent } from './pages/setup.page.component'
+import { CanActivateAction } from './route-guards/can-activate-action'
+import { WorkspaceComponent } from './views/workspace/workspace.component';
 
-export const routes: Routes = [
+export const APP_ROUTES: Routes = [
     {
         path: '',
         redirectTo: 'dashboard',
@@ -52,6 +54,11 @@ export const routes: Routes = [
         },
         children: [
             {
+                path: 'workspace',
+                component: WorkspaceComponent,
+                canActivate: [CanActivateAction]
+            },
+            {
                 path: 'base',
                 loadChildren: './views/base/base.module#BaseModule'
             },
@@ -84,8 +91,15 @@ export const routes: Routes = [
     { path: '**', component: P404Component }
 ];
 
+
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    imports: [RouterModule.forRoot(APP_ROUTES)],
+    exports: [RouterModule],
+    providers: [
+        {
+            provide: CanActivateAction,
+            useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => true
+        }
+    ]
 })
 export class AppRoutingModule { }

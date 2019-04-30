@@ -1,0 +1,3 @@
+[submodule "client/s2fx-coreui-angular"]
+	path = client/s2fx-coreui-angular
+	url = git@github.com:s2fx/s2fx-coreui-angular.git

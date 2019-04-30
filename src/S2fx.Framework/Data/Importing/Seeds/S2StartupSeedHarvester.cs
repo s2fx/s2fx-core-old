@@ -40,6 +40,9 @@ namespace S2fx.Data.Importing.Seeds {
             var initManifests = new SeedManifestCollection();
             var demoManifests = new SeedManifestCollection();
             var startup = await _s2StartupService.GetOrDefaultByFeatureAsync(feature);
+            if (startup == null) {
+                return new ImportingJobDescriptor[] { };
+            }
             startup.ConfigureSeeds(initManifests, demoManifests);
             var descriptors = isDemo ? demoManifests : initManifests;
             var allJobs = new List<ImportingJobDescriptor>();

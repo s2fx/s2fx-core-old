@@ -3,9 +3,10 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <MenuItem Name="Menu.Sample" Text="Sample Module" Order="1000" BackgroundColor="green" />
+    <MenuItem Name="Menu.Departments" Parent="Menu.Sample" Text="Departments" Order="500" />
     <MenuItem Name="Menu.Employees" Parent="Menu.Sample" Text="Employees" Order="1000" />
     <MenuItem Name="Menu.Products" Parent="Menu.Sample" Text="Products" Order="2000" />
-    <MenuItem Name="Menu.Customers" Parent="Menu.Sample" Text="Customers" Order="3000" />
-    <MenuItem Name="Menu.Sales" Parent="Menu.Admin" Text="Sale Orders" Order="4000" />
+    <MenuItem Name="Menu.Partners" Parent="Menu.Sample" Text="Business Partners" Order="3000" />
+    <MenuItem Name="Menu.Sales" Parent="Menu.Sample" Text="Sale Orders" Order="4000" />
 
 </S2ViewDefinitions>

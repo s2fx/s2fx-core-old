@@ -12,7 +12,7 @@ namespace S2fx.SampleModule.Model {
         public const string EntityName = "Sample.SalesOrder";
 
         [ManyToOneField]
-        public virtual CustomerEntity Customer { get; set; }
+        public virtual PartnerrEntity Customer { get; set; }
 
         [ManyToOneField]
         public virtual EmployeeEntity Salesman { get; set; }

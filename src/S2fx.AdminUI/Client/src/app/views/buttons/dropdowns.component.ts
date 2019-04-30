@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   templateUrl: 'dropdowns.component.html',
-  styleUrls: ['dropdowns.component.css']
+  styleUrls: ['dropdowns.component.scss']
 })
 export class DropdownsComponent {
 

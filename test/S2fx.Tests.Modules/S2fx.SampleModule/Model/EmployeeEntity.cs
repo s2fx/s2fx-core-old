@@ -12,6 +12,9 @@ namespace S2fx.SampleModule.Model {
         public const string EntityName = "Sample.Employee";
 
         public virtual string Name { get; set; }
+
+        [ManyToManyField(mappedBy: nameof(DepartmentEntity.Employees), joinTable: "sample_department_employee")]
+        public virtual ICollection<DepartmentEntity> Departments { get; set; }
     }
 
 }

@@ -3,6 +3,7 @@
 stage('compile') {
     node {
         checkout scm
+        sh 'git submodule update --init --recursive'
         sh 'dotnet restore'
         dir('client/s2fx-client-typescript') {
             sh 'yarn install -silent'

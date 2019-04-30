@@ -1,0 +1,8 @@
+<tabset *ngIf="documents.length > 0">
+    <tab *ngFor="let document of documents; index as documentIndex; first as firstDocument; trackBy: trackByDocumentId">
+        <ng-template tabHeading><i class="icon-calculator"></i> {{document.title}}</ng-template>
+
+        <div class="container-fluid">
+        </div><!-- /.container-fluid -->
+    </tab>
+</tabset>

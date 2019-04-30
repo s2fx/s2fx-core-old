@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SeedManifest 
+       xmlns="clr-namespace:S2fx.Data.Importing.Schemas;assembly=S2fx.Framework" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <XmlFileDataSource Path="SeedData/Demo/Partners.csv" >
+            <ImportEntity Entity="Sample.Partner" CanUpdate="false" Where="it.Name == Name">
+                <FieldMapping Field="Name" Selector="Name" />
+                <FieldMapping Field="IsCustomer" Selector="IsCustomer" />
+                <FieldMapping Field="IsSupplier" Selector="IsSupplier" />
+            </ImportEntity>
+        </XmlFileDataSource>
+
+</SeedManifest>

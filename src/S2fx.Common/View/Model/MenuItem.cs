@@ -26,6 +26,7 @@ namespace S2fx.View.Model {
             this.Text = text;
             this.Order = order;
             this.Children = children;
+            this.ActionId = actionId;
             this.ActionName = actionName;
             this.Depth = depth;
             this.Icon = icon;

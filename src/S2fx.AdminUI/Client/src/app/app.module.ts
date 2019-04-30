@@ -25,6 +25,8 @@ import { SetupPageComponent } from './pages/setup.page.component'
 import { LoginPageComponent } from './pages/login.page.component'
 import { RegisterComponent } from './views/register/register.component'
 
+import { WorkspaceComponent } from './views/workspace/workspace.component'
+
 // 导入 Midway 客户端模块
 import { S2fxClientAngularModule } from './s2fx-client-angular/s2fx-client-angular.module'
 
@@ -74,6 +76,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
         RegisterComponent,
         SetupPageComponent,
         LoginPageComponent,
+        WorkspaceComponent,
     ],
     providers: [{
         provide: LocationStrategy,

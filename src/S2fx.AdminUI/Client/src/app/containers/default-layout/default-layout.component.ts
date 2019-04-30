@@ -84,12 +84,14 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
     private navMenuToNavItem(navMenu: any, isTopLevel?: boolean): NavData {
         let self = this;
         let children = (navMenu.Children as any[]).map<NavData>(x => self.navMenuToNavItem(x))
-        return {
-            name:       navMenu.Text,
-            url:        '/',
-            children:   children.length > 0 ? children : null,
+        let navData = {
+            name:           navMenu.Text,
+            url:            navMenu.ActionId != null && navMenu.ActionId > 0 ? 'workspace' : null,       // `workspace?action=${navMenu.ActionId}` : null,
+            children:       children.length > 0 ? children : null,
+            queryParams:    navMenu.ActionId != null? { action: 1 } : {}
             //icon: navMenu.Icon,
         }
+        return navData
     }
 
 }
