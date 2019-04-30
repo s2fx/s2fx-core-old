@@ -6,7 +6,6 @@ stage('compile') {
         // GIT submodule recursive checkout
         checkout scm: [
             $class: 'GitSCM',
-            branches: scm.branches,
             doGenerateSubmoduleConfigurations: false,
             extensions: [[$class: 'SubmoduleOption',
             disableSubmodules: false,
