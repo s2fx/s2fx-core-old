@@ -13,8 +13,7 @@ stage('compile') {
             recursiveSubmodules: true,
             reference: '',
             trackingSubmodules: false]],
-            submoduleCfg: [],
-            userRemoteConfigs: scm.userRemoteConfigs
+            submoduleCfg: []
         ]
         sh 'dotnet restore'
         dir('client/s2fx-client-typescript') {
