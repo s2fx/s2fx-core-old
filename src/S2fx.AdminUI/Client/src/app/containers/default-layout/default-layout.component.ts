@@ -37,6 +37,7 @@ export interface NavData {
     class?: string;
     label?: NavLabel;
     wrapper?: NavWrapper;
+    queryParams?: any
 }
 
 @Component({
@@ -81,15 +82,28 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
         self.navItems = newNavItems
     }
 
-    private navMenuToNavItem(navMenu: any, isTopLevel?: boolean): NavData {
+    private navMenuToNavItem(navMenu: any, isTopLevel: boolean): NavData {
         let self = this;
-        let children = (navMenu.Children as any[]).map<NavData>(x => self.navMenuToNavItem(x))
-        let navData = {
-            name:           navMenu.Text,
-            url:            navMenu.ActionId != null && navMenu.ActionId > 0 ? 'workspace' : null,       // `workspace?action=${navMenu.ActionId}` : null,
-            children:       children.length > 0 ? children : null,
-            queryParams:    navMenu.ActionId != null? { action: 1 } : {}
-            //icon: navMenu.Icon,
+        let navData: NavData = {
+            //name:           navMenu.Text,
+            //url:            navMenu.ActionId != null && navMenu.ActionId > 0 ? 'workspace' : null,       // `workspace?action=${navMenu.ActionId}` : null,
+            //queryParams:    navMenu.ActionId != null? { action: 1 } : {}
+            icon: navMenu.Icon,
+        }
+
+        // dropdown
+        if(navMenu.Children && navMenu.Children.length > 0) {
+            let children = (navMenu.Children as any[]).map<NavData>(x => self.navMenuToNavItem(x, false))
+            navData.children = children
+            navData.name = navMenu.Text
+            return navData
+        }
+
+        // link
+        navData.name = navMenu.Text
+        navData.url = '/workspace'
+        navData.queryParams = {
+            action: navMenu.ActionId
         }
         return navData
     }
