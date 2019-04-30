@@ -6,6 +6,8 @@ import { PlatformLocation } from '@angular/common';
 
 import { NgS2HttpClient } from './http.ng'
 import { NgS2fxClient } from './s2client';
+import { ListViewComponent } from './components/list-view.component';
+import { DocumentComponent } from './components/document.component';
 
 @NgModule({
     imports: [
@@ -15,6 +17,8 @@ import { NgS2fxClient } from './s2client';
     ],
     declarations: [],
     exports: [
+        ListViewComponent,
+        DocumentComponent
     ],
     providers: [
         {
