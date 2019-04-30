@@ -9,6 +9,10 @@ stage('compile') {
             sh 'yarn install -silent'
             sh 'yarn build --silent'
         }
+        dir('client/s2fx-coreui-angular/projects/coreui/angular') {
+            sh 'yarn install -silent'
+            sh 'yarn build --silent'
+        }
         sh 'dotnet build -c Release'
     }
 }

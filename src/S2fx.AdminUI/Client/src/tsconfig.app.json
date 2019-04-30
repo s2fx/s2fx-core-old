@@ -1,18 +1,33 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../out-tsc/app",
-    "baseUrl": "./",
-    "module": "es2015",
-    "types": [],
-    "paths": {
-      "@angular/*": [
-        "../node_modules/@angular/*"
-      ]
-    }
-  },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ]
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../out-tsc/app",
+        "baseUrl": "./",
+        "module": "es2015",
+        "types": [],
+        "paths": {
+            "@angular/*": [
+                "../node_modules/@angular/*"
+            ],
+            "@coreui/*": [
+                "../node_modules/@coreui/*"
+            ],
+            "s2fx-client": [
+                "../node_modules/s2fx-client/dist"
+            ],
+            "s2fx-client/*": [
+                "../node_modules/s2fx-client/dist/*"
+            ],
+            "@coreui/angular": [
+                "../../../../client/s2fx-coreui-angular/dist/@coreui/angular"
+            ],
+            "@coreui/angular/*": [
+                "../../../../client/s2fx-coreui-angular/dist/@coreui/angular/*"
+            ]
+        }
+    },
+    "exclude": [
+        "test.ts",
+        "**/*.spec.ts"
+    ]
 }
