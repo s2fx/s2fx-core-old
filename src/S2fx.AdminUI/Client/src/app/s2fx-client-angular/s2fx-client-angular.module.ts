@@ -15,10 +15,11 @@ import { DocumentComponent } from './components/document.component';
         HttpModule,
         HttpClientModule
     ],
-    declarations: [],
-    exports: [
+    declarations: [
         ListViewComponent,
         DocumentComponent
+    ],
+    exports: [
     ],
     providers: [
         {

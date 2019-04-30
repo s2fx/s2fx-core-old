@@ -4721,7 +4721,7 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   resolved "https://registry.npm.taobao.org/neo-async/download/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha1-udFeTXHGdikIZUtRg+04t1M0CDU=
 
-ng-packagr@^4.2.0:
+ng-packagr@^4.7.1:
   version "4.7.1"
   resolved "https://registry.npm.taobao.org/ng-packagr/download/ng-packagr-4.7.1.tgz#a3e8fd2a7b70573a3a7759c4c57408a3b0e8ce11"
   integrity sha1-o+j9KntwVzo6d1nExXQIo7DozhE=
