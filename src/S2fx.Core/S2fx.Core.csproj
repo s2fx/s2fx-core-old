@@ -37,10 +37,7 @@
     <EmbeddedResource Update="S2Views\ViewViews.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="SeedData\Init\InitSeeds.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="SeedingManifest.xaml">
+    <EmbeddedResource Update="SeedData\Init\InitSeeds.Manifest.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -12,7 +12,7 @@ namespace S2fx.Modules {
         public virtual void ConfigureViews(IViewDefinitionsCollection views) {
         }
 
-        public virtual void ConfigureSeeds(IFileDataSourceCollection initSeeds, IFileDataSourceCollection demoSeeds) {
+        public virtual void ConfigureSeeds(ISeedManifestCollection initSeeds, ISeedManifestCollection demoSeeds) {
         }
     }
 

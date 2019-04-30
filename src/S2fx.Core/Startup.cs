@@ -13,17 +13,18 @@ namespace S2fx.Core {
             services.AddTransient<ITestService, TestService>();
         }
 
-        public override void ConfigureSeeds(IFileDataSourceCollection initSeeds, IFileDataSourceCollection demoSeeds) {
+        public override void ConfigureSeeds(ISeedManifestCollection initSeeds, ISeedManifestCollection demoSeeds) {
+            initSeeds.AddManifestFile("SeedData/Init/InitSeeds.xaml");
         }
 
         public override void ConfigureViews(IViewDefinitionsCollection views) {
-            views.AddViewDefinitionsFile("S2Views/Menus.xaml");
-            views.AddViewDefinitionsFile("S2Views/UserViews.xaml");
-            views.AddViewDefinitionsFile("S2Views/RoleViews.xaml");
-            views.AddViewDefinitionsFile("S2Views/PermissionViews.xaml");
-            views.AddViewDefinitionsFile("S2Views/ModuleViews.xaml");
-            views.AddViewDefinitionsFile("S2Views/SequenceViews.xaml");
-            views.AddViewDefinitionsFile("S2Views/ViewViews.xaml");
+            views.AddViewFile("S2Views/Menus.xaml");
+            views.AddViewFile("S2Views/UserViews.xaml");
+            views.AddViewFile("S2Views/RoleViews.xaml");
+            views.AddViewFile("S2Views/PermissionViews.xaml");
+            views.AddViewFile("S2Views/ModuleViews.xaml");
+            views.AddViewFile("S2Views/SequenceViews.xaml");
+            views.AddViewFile("S2Views/ViewViews.xaml");
         }
 
     }

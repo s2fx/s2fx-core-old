@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Stubs\" />
+    <Folder Include="View\Data\" />
   </ItemGroup>
 
 </Project>

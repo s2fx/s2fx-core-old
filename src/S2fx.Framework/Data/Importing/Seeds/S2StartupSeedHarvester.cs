@@ -13,19 +13,21 @@ using OrchardCore.Environment.Shell;
 using S2fx.Data.Importing.Model;
 using S2fx.Data.Importing.Schemas;
 using S2fx.Environment.Shell;
+using S2fx.Modules.Services;
 using S2fx.Xaml;
 
 namespace S2fx.Data.Importing.Seeds {
 
-    public class ModularSeedHarvester : ISeedHarvester {
-        public const string SeedingManifestFileName = "SeedingManifest.xaml";
+    public class S2StartupSeedHarvester : ISeedHarvester {
 
         readonly IHostingEnvironment _environment;
         readonly IXamlService _xaml;
+        readonly IS2StartupService _s2StartupService;
 
-        public ModularSeedHarvester(IHostingEnvironment environment, IXamlService xaml) {
+        public S2StartupSeedHarvester(IHostingEnvironment environment, IXamlService xaml, IS2StartupService s2StartupService) {
             _environment = environment;
             _xaml = xaml;
+            _s2StartupService = s2StartupService;
         }
 
         public Task<IEnumerable<ImportingJobDescriptor>> HarvestInitDataAsync(IFeatureInfo feature) =>
@@ -35,27 +37,38 @@ namespace S2fx.Data.Importing.Seeds {
             this.HarvestImportJobAsync(feature, true);
 
         private async Task<IEnumerable<ImportingJobDescriptor>> HarvestImportJobAsync(IFeatureInfo feature, bool isDemo) {
-            var manifestPath = Path.Combine("Areas", feature.Id, SeedingManifestFileName);
+            var initManifests = new SeedManifestCollection();
+            var demoManifests = new SeedManifestCollection();
+            var startup = await _s2StartupService.GetOrDefaultByFeatureAsync(feature);
+            startup.ConfigureSeeds(initManifests, demoManifests);
+            var descriptors = isDemo ? demoManifests : initManifests;
+            var allJobs = new List<ImportingJobDescriptor>();
+            foreach (var descriptor in descriptors) {
+                var jobs = await this.HarvestManifestAsync(feature, descriptor.Path);
+                allJobs.AddRange(jobs);
+            }
+            return allJobs;
+        }
+
+        private async Task<IEnumerable<ImportingJobDescriptor>> HarvestManifestAsync(IFeatureInfo feature, string path) {
+            var manifestPath = Path.Combine("Areas", feature.Id, path);
             var manifestFile = _environment.ContentRootFileProvider.GetFileInfo(manifestPath);
             if (manifestFile == null || manifestFile is NotFoundFileInfo) {
                 return new ImportingJobDescriptor[] { };
             }
-
             using (var stream = manifestFile.CreateReadStream()) {
-                var manifest = await _xaml.LoadAsync<SeedingManifest>(stream);
-                var sdd = isDemo ? manifest.DemoData : manifest.InitData;
+                var manifest = await _xaml.LoadAsync<SeedManifest>(stream);
+                var dataSources = manifest.DataSources;
                 var jobs = new List<ImportingJobDescriptor>();
-                foreach (var ds in sdd) {
+                foreach (var ds in dataSources) {
                     foreach (var importEntity in ds.Mappings) {
                         var job = new ImportingJobDescriptor(
-                            true, string.IsNullOrEmpty(importEntity.Feature) ? feature.Id : importEntity.Feature, ds, importEntity);
+                            true, feature, ds, importEntity);
                         jobs.Add(job);
                     }
                 }
-
                 return jobs;
             }
-
         }
 
 

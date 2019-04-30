@@ -10,10 +10,10 @@ namespace S2fx.View {
 
     internal static class ServiceCollectionExtensions {
 
-        internal static void AddS2fxViewGlobal(this IServiceCollection services) {
+        internal static void AddS2ViewGlobal(this IServiceCollection services) {
         }
 
-        internal static void AddS2fxViewTenant(this IServiceCollection services) {
+        internal static void AddS2ViewTenant(this IServiceCollection services) {
             services.AddTransient<IViewHarvester, S2StartupViewHarvester>();
             services.AddScoped<IViewDataSynchronizer, ViewDataSynchronizer>();
 

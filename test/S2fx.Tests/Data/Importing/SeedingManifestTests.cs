@@ -15,11 +15,11 @@ namespace S2fx.Tests.Data.Importing {
         public async Task LoadXamlSeedingManifestFileShouldBeOk() {
             var xamlService = new PortableXamlXamlService();
             var assembly = typeof(OrganizationEntity).Assembly;
-            var obj = await xamlService.LoadFromEmbeddedResourceAsync<object>(assembly, "S2fx.Core.SeedingManifest.xaml");
+            var obj = await xamlService.LoadFromEmbeddedResourceAsync<object>(assembly, "S2fx.Core.SeedData>Init>InitSeeds.Manifest.xaml");
             Assert.NotNull(obj);
-            Assert.IsType<SeedingManifest>(obj);
-            var sm = obj as SeedingManifest;
-            Assert.NotEmpty(sm.InitData);
+            Assert.IsType<SeedManifest>(obj);
+            var sm = obj as SeedManifest;
+            Assert.NotEmpty(sm.DataSources);
         }
 
     }

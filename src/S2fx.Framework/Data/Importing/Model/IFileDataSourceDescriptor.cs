@@ -4,8 +4,8 @@ using System.Text;
 
 namespace S2fx.Data.Importing {
 
-    public interface IDataSourceInfo {
-        string Format { get; }
+    public interface IFileDataSourceDescriptor : IDataSourceDescriptor {
+        string Path { get; }
     }
 
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Seeds 
+<SeedManifest 
        xmlns="clr-namespace:S2fx.Data.Importing.Schemas;assembly=S2fx.Framework" 
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-        <XmlFileDataSource File="SeedData/Init/CoreSelectionData.xml" >
+    <XmlFileDataSource Path="SeedData/Init/CoreSelectionData.xml" >
             <ImportEntity Entity="Core.Selection" Selector="/Data/CoreSelections/CoreSelection">
                 <FieldMapping Selector="@Name" Field="Name" />
                 <FieldMapping Selector="@DisplayName" Field="DisplayName" />
@@ -12,7 +12,7 @@
             </ImportEntity>
         </XmlFileDataSource>
 
-        <XmlFileDataSource File="SeedData/Init/SecurityData.xml" >
+        <XmlFileDataSource Path="SeedData/Init/SecurityData.xml" >
             <ImportEntity Entity="Core.Role" Selector="/Data/Roles/Role" CanUpdate="false" Where="it.Name == Name">
                 <FieldMapping Selector="@Name" Field="Name"/>
                 <FieldMapping Selector="@DisplayName" Field="DisplayName"/>
@@ -25,7 +25,7 @@
             </ImportEntity>
         </XmlFileDataSource>
 
-        <XmlFileDataSource File="SeedData/Init/CorePermissions.csv" >
+    <XmlFileDataSource Path="SeedData/Init/CorePermissions.csv" >
             <ImportEntity Entity="Core.Permission" CanUpdate="true"  Where="it.Name == Name">
                 <FieldMapping Field="Name" Selector="Name" />
                 <FieldMapping Field="Description" Selector="Description" />
@@ -38,4 +38,4 @@
             </ImportEntity>
         </XmlFileDataSource>
 
-</Seeds>
+</SeedManifest>

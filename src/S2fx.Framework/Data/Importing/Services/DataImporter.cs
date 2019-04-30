@@ -13,6 +13,7 @@ using S2fx.Data.Transactions;
 using OrchardCore.Environment.Shell;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using S2fx.Data.Importing.DataSources;
 
 namespace S2fx.Data.Importing {
 
@@ -71,14 +72,14 @@ namespace S2fx.Data.Importing {
         async Task DoImportAsync(ImportingJob importingTask, ImportingTaskContext context) {
             var dataSource = _dataSources.Single(x => x.Format == importingTask.Descriptor.DataSource.Format);
 
-            using (var stream = importingTask.ImportFileInfo.CreateReadStream()) {
-                var recordFinderType = typeof(GenericRecordFinder<>).MakeGenericType(importingTask.Entity.ClrType);
-                var recordFinder = context.ServiceProvider.GetRequiredService(recordFinderType) as IRecordFinder;
+            var recordFinderType = typeof(GenericRecordFinder<>).MakeGenericType(importingTask.Entity.ClrType);
+            var recordFinder = context.ServiceProvider.GetRequiredService(recordFinderType) as IRecordFinder;
 
-                var recordImporterType = typeof(GenericRecordImporter<>).MakeGenericType(importingTask.Entity.ClrType);
-                var recordImporter = context.ServiceProvider.GetRequiredService(recordImporterType) as IRecordImporter;
+            var recordImporterType = typeof(GenericRecordImporter<>).MakeGenericType(importingTask.Entity.ClrType);
+            var recordImporter = context.ServiceProvider.GetRequiredService(recordImporterType) as IRecordImporter;
 
-                var reader = dataSource.Open(stream, importingTask.Descriptor.ImportEntity.Selector); //GetAllRows(stream, descriptor.EntityMapping.Selector);
+            using (var stream = importingTask.ImportFileInfo.CreateReadStream())
+            using (var reader = dataSource.Open(stream, importingTask.Descriptor.ImportEntity.Selector)) {
                 await reader.Initialize();
                 while (await reader.ReadAsync()) {
                     await ImportSingleRecordAsync(importingTask, context, recordFinder, recordImporter, reader);
@@ -130,7 +131,7 @@ namespace S2fx.Data.Importing {
         async Task<ImportingJob> CreateTaskAsync(ImportingJobDescriptor job) {
             var entity = _entityManager.GetEntity(job.ImportEntity.Entity);
             var features = await _shellFeaturesManager.GetEnabledFeaturesAsync();
-            var feature = features.Where(x => x.Id == job.Feature).Single();
+            var feature = features.Where(x => x.Id == job.Feature.Id).Single();
             var filePath = Path.Combine("Areas", feature.Id, job.DataSource.Path);
             var fileInfo = _environment.ContentRootFileProvider.GetFileInfo(filePath);
             if (!fileInfo.Exists) {

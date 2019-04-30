@@ -6,10 +6,8 @@ using Portable.Xaml.Markup;
 namespace S2fx.Data.Importing.Schemas {
 
     [ContentProperty(nameof(DataSources))]
-    public class SeedDataDefinitions {
+    public class SeedManifest {
 
         public List<AbstractFileDataSourceDefinition> DataSources { get; } = new List<AbstractFileDataSourceDefinition>();
-
     }
-
 }

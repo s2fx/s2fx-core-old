@@ -13,13 +13,13 @@ namespace S2fx.Data {
 
     internal static class ServiceCollectionExtensions {
 
-        internal static void AddS2fxDataAccessGlobal(this IServiceCollection services) {
+        internal static void AddS2DataAccessGlobal(this IServiceCollection services) {
             // services.AddTransient<IDynamicEntityRepositoryResolver, DynamicEntityRepositoryResolver>();
             services.AddSingleton<IDbNameConvention, S2DbNameConvention>();
 
         }
 
-        internal static void AddS2fxDataAccessTenant(this IServiceCollection services) {
+        internal static void AddS2DataAccessTenant(this IServiceCollection services) {
 
             services.AddScoped(typeof(ISafeRepository<>), typeof(DefaultSafeRepository<>));
 
@@ -28,7 +28,7 @@ namespace S2fx.Data {
             services.AddSingleton<ICurrentTransactionAccessor, DefaultCurrentTransactionAccessor>();
 
             //seeding
-            services.AddScoped<ISeedHarvester, ModularSeedHarvester>();
+            services.AddScoped<ISeedHarvester, S2StartupSeedHarvester>();
             services.AddScoped<ISeedSynchronizer, SeedSynchronizer>();
 
             services.AddScoped(typeof(GenericRecordImporter<>));

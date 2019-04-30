@@ -8,7 +8,7 @@ using S2fx.View;
 namespace S2fx.Modules {
 
     public interface IS2Startup : IStartup {
-        void ConfigureSeeds(IFileDataSourceCollection initSeeds, IFileDataSourceCollection demoSeeds);
+        void ConfigureSeeds(ISeedManifestCollection initSeeds, ISeedManifestCollection demoSeeds);
         void ConfigureViews(IViewDefinitionsCollection views);
     }
 

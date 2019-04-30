@@ -8,7 +8,6 @@ namespace S2fx.Data.Importing.Schemas {
     [ContentProperty(nameof(Fields))]
     public class ImportEntity : AbstractMapping {
         public string Entity { get; set; }
-        public string Feature { get; set; }
         public List<FieldMapping> Fields { get; } = new List<FieldMapping>();
     }
 
