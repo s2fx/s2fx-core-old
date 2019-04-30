@@ -3,7 +3,20 @@
 stage('compile') {
     node {
         checkout scm
-        sh 'git submodule update --init --recursive'
+        // GIT submodule recursive checkout
+        checkout scm: [
+            $class: 'GitSCM',
+            branches: scm.branches,
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [[$class: 'SubmoduleOption',
+            disableSubmodules: false,
+            parentCredentials: false,
+            recursiveSubmodules: true,
+            reference: '',
+            trackingSubmodules: false]],
+            submoduleCfg: [],
+            userRemoteConfigs: scm.userRemoteConfigs
+        ]
         sh 'dotnet restore'
         dir('client/s2fx-client-typescript') {
             sh 'yarn install -silent'
