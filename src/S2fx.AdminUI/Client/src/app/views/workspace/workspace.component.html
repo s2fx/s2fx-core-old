@@ -1,6 +1,9 @@
-<tabset *ngIf="documents.length > 0">
-    <tab *ngFor="let document of documents; index as documentIndex; first as firstDocument; trackBy: trackByDocumentId">
-        <ng-template tabHeading><i class="icon-calculator"></i> {{document.title}}</ng-template>
+<tabset #documentTabs *ngIf="documents.length > 0">
+    <tab *ngFor="let document of documents; index as documentIndex; first as firstDocument; trackBy: trackByDocumentId"
+         [active]="document.active"
+         (selectTab)="document.active = true"
+         (deselect)="document.active = false">
+        <ng-template tabHeading><i class="icon-list"></i> <span>{{document.title}}</span></ng-template>
 
         <div class="container-fluid">
         </div><!-- /.container-fluid -->

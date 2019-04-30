@@ -102,8 +102,10 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
         // link
         navData.name = navMenu.Text
         navData.url = '/workspace'
-        navData.queryParams = {
-            action: navMenu.ActionId
+        if(navMenu.ActionId != null) {
+            navData.queryParams = {
+                action: navMenu.ActionId
+            }
         }
         return navData
     }
