@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <NgDistFiles Include="$(SpaRoot)dist\**;" />
+        <NgDistFiles Include="$(SpaRoot)dist\s2fx-ngapp\**;" />
     </ItemGroup>
 
     <ItemGroup>
