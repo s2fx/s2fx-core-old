@@ -20,7 +20,6 @@ namespace S2fx.View.Data {
 
         readonly IHostingEnvironment _environment;
         readonly IXamlService _xaml;
-        readonly IShellFeatureEntityService _shellFeatureEntityService;
         readonly IS2StartupService _s2StartupService;
 
         public ILogger Logger { get; }

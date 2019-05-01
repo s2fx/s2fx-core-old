@@ -8,7 +8,7 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {TabsetComponent} from 'ngx-bootstrap'
 
-import { NgS2fxClient  } from '../../s2fx-client-angular/s2client'
+import { NgS2fxClient  } from '@s2fx/client-angular'
 import * as utils from '../../utils'
 import { combineLatest, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';

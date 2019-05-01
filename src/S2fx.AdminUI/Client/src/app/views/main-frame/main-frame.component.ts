@@ -4,8 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import * as utils from '../../utils'
-import { NgS2fxClient } from '../../s2fx-client-angular/s2client'
-import { MenuItem, ViewContract } from "s2fx-client"
+import { NgS2fxClient } from '@s2fx/client-angular'
 import { BusyIndicatedExecutor } from '../../services/busy-indicated-executor'
 //import { navItems } from '../../_nav';
 
@@ -80,8 +79,8 @@ export class MainFrameComponent implements OnDestroy, OnInit {
 
     private async loadMenu(): Promise<void> {
         let self = this
-        let viewContract = new ViewContract(this.client.httpClient)
-        this.navMenu = await viewContract.getMainMenu() as any[]
+        this.client.httpClient
+        this.navMenu = await this.client.metaDataRpcService.getMainMenu() as any[]
         let newNavItems = []
         for (let nm of this.navMenu) {
             let ni = self.navMenuToNavItem(nm, true)

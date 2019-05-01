@@ -11,30 +11,30 @@ using S2fx.View.Model.Model;
 using Schemas = S2fx.View.Schemas;
 using S2fx.View.Services;
 using S2fx.Model.Metadata;
+using Microsoft.Extensions.DependencyInjection;
+using S2fx.Xaml;
 
 namespace S2fx.View.RemoteServices {
 
     [RemoteService(name: "View", Area = MvcControllerAreas.MetadataArea)]
     public class ViewRemoteService {
-        readonly IMenuService _menuService;
-        readonly IViewManager _viewManager;
-        readonly IEntityManager _entityManager;
-
-        public ViewRemoteService(IMenuService menuService, IViewManager viewManager, IEntityManager entityManager) {
-            _menuService = menuService;
-            _viewManager = viewManager;
-            _entityManager = entityManager;
+        readonly IServiceProvider _serviceProvider;
+        public ViewRemoteService(IServiceProvider serviceProvider) {
+            _serviceProvider = serviceProvider;
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: false)]
         public virtual async Task<IEnumerable<MenuItem>> MainMenu() {
-            return await _menuService.GetMainMenuTreeAsync();
+            var menuService = _serviceProvider.GetRequiredService<IMenuService>();
+            return await menuService.GetMainMenuTreeAsync();
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
         public virtual async Task<ViewInfo> SingleView([Url]string name) {
-            var composedView = await _viewManager.GetComposedViewAsync(name);
-            var metaEntity = _entityManager.GetEntity(composedView.Entity);
+            var viewManager = _serviceProvider.GetRequiredService<IViewManager>();
+            var entityManager = _serviceProvider.GetRequiredService<IEntityManager>();
+            var composedView = await viewManager.GetComposedViewAsync(name);
+            var metaEntity = entityManager.GetEntity(composedView.Entity);
 
             IEnumerable<MetaField> fields = null;
             if (composedView is Schemas.ListView listView) {
@@ -45,6 +45,7 @@ namespace S2fx.View.RemoteServices {
             return new ViewInfo(name, composedView, fields);
 
         }
+
     }
 
 }

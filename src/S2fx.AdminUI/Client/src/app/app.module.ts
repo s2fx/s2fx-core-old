@@ -10,6 +10,9 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar'
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+// 导入 Midway 客户端模块
+import { S2fxClientAngularModule } from '@s2fx/client-angular'
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true
 }
@@ -27,8 +30,6 @@ import { RegisterComponent } from './views/register/register.component'
 
 import { WorkspaceComponent } from './views/workspace/workspace.component'
 
-// 导入 Midway 客户端模块
-import { S2fxClientAngularModule } from './s2fx-client-angular/s2fx-client-angular.module'
 
 const APP_CONTAINERS = [
     MainFrameComponent

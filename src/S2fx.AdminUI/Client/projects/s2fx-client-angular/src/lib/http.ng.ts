@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IS2HttpClient } from 's2fx-client'
+import { IS2HttpClient } from '@s2fx/client'
 
 
 export class NgS2HttpClient implements IS2HttpClient {

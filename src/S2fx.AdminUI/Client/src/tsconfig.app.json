@@ -12,17 +12,17 @@
             "@coreui/*": [
                 "../node_modules/@coreui/*"
             ],
-            "s2fx-client": [
-                "../node_modules/s2fx-client/dist"
-            ],
-            "s2fx-client/*": [
-                "../node_modules/s2fx-client/dist/*"
-            ],
             "@coreui/angular": [
                 "../../../../client/s2fx-coreui-angular/dist/@coreui/angular"
             ],
             "@coreui/angular/*": [
                 "../../../../client/s2fx-coreui-angular/dist/@coreui/angular/*"
+            ],
+            "@s2fx/client-angular": [
+                "../dist/@s2fx/client-angular"
+            ],
+            "@s2fx/client-angular/*": [
+                "../dist/@s2fx/client-angular/*"
             ]
         }
     },

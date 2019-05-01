@@ -11,6 +11,8 @@ namespace S2fx.View.Schemas {
     public class ViewAction : AbstractActionDefinition {
         public override string ActionType => "ViewAction";
 
+        public bool CanBeHome { get; set; } = false;
+
         [Required]
         public List<ActionView> Items { get; } = new List<ActionView>();
     }

@@ -15,9 +15,10 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
-        "msbuild-debug": "ng build --no-progress --source-map=false",
-        "msbuild-release": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --no-progress",
+        "build-libs": "ng build @s2fx/client-angular --prod",
+        "build": "ng build @s2fx/client-angular --prod && ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
+        "msbuild-debug": "ng build @s2fx/client-angular && ng build --no-progress --source-map=false",
+        "msbuild-release": "ng build @s2fx/client-angular --prod && ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --no-progress",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"
@@ -47,7 +48,6 @@
         "ngx-perfect-scrollbar": "^7.2.1",
         "ngx-spinner": "^7.1.4",
         "rxjs": "^6.4.0",
-        "s2fx-client": "file:../../../client/s2fx-client-typescript",
         "simple-line-icons": "^2.4.1",
         "ts-helpers": "^1.1.2",
         "tsickle": "^0.34.3",

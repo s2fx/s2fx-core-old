@@ -17,17 +17,11 @@
             "dom"
         ],
         "paths": {
-            "s2fx-client": [
-                "dist/s2fx-client"
+            "@s2fx/client-angular": [
+                "dist/@s2fx/client-angular"
             ],
-            "s2fx-client/*": [
-                "dist/s2fx-client/*"
-            ],
-            "s2fx-client-angular": [
-                "dist/s2fx-client-angular"
-            ],
-            "s2fx-client-angular/*": [
-                "dist/s2fx-client-angular/*"
+            "@s2fx/client-angular/*": [
+                "dist/@s2fx/client-angular/*"
             ]
         }
     }

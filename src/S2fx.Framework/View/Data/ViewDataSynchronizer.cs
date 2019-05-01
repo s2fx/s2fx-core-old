@@ -153,6 +153,10 @@ namespace S2fx.View.Data {
                 action.DisplayName = actionDef.Text;
                 action.Entity = actionDef.Entity;
                 action.ActionType = actionDef.ActionType;
+                action.Priority = actionDef.Priority;
+                if (actionDef is ViewAction va) {
+                    action.CanBeHome = va.CanBeHome;
+                }
             });
         }
 
