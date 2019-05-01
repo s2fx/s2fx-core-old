@@ -4,11 +4,11 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { LocationStrategy, HashLocationStrategy } from '@angular/common'
-import { NgxSpinnerModule } from 'ngx-spinner'
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar'
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true
@@ -17,7 +17,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { AppComponent } from './app.component'
 
 // Import containers
-import { DefaultLayoutComponent } from './containers'
+import { MainFrameComponent } from './views/main-frame/main-frame.component'
 
 import { P404Component } from './views/error/404.component'
 import { P500Component } from './views/error/500.component'
@@ -31,7 +31,7 @@ import { WorkspaceComponent } from './views/workspace/workspace.component'
 import { S2fxClientAngularModule } from './s2fx-client-angular/s2fx-client-angular.module'
 
 const APP_CONTAINERS = [
-    DefaultLayoutComponent
+    MainFrameComponent
 ];
 
 import {
@@ -51,6 +51,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
 
 @NgModule({
     imports: [
+        // Angular modules:
         BrowserModule,
         CommonModule,
         HttpModule,
@@ -64,9 +65,12 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
         BsDropdownModule.forRoot(),
         TabsModule.forRoot(),
         FormsModule,
+
+        // 3rd-party modules:
         NgxSpinnerModule,
 
-        S2fxClientAngularModule,
+        // App modules:
+        S2fxClientAngularModule.forRoot(),
     ],
     declarations: [
         AppComponent,
@@ -78,10 +82,12 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
         LoginPageComponent,
         WorkspaceComponent,
     ],
-    providers: [{
-        provide: LocationStrategy,
-        useClass: HashLocationStrategy
-    }],
+    providers: [
+        {
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

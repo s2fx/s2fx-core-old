@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { NgModule, ModuleWithProviders } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http'
@@ -34,4 +34,12 @@ import { DocumentComponent } from './components/document.component';
         }
     ]
 })
-export class S2fxClientAngularModule { }
+export class S2fxClientAngularModule {
+    static forRoot(providers = []): ModuleWithProviders {
+        return {
+            ngModule: S2fxClientAngularModule,
+            providers: [...providers]
+        };
+    }
+
+}

@@ -45,7 +45,7 @@
         "mutationobserver-shim": "^0.3.3",
         "ngx-bootstrap": "^3.2.0",
         "ngx-perfect-scrollbar": "^7.2.1",
-        "ngx-spinner": "^7.1.1",
+        "ngx-spinner": "^7.1.4",
         "rxjs": "^6.4.0",
         "s2fx-client": "file:../../../client/s2fx-client-typescript",
         "simple-line-icons": "^2.4.1",

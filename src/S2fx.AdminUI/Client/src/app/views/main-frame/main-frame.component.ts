@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as utils from '../../utils'
 import { NgS2fxClient } from '../../s2fx-client-angular/s2client'
 import { MenuItem, ViewContract } from "s2fx-client"
+import { BusyIndicatedExecutor } from '../../services/busy-indicated-executor'
 //import { navItems } from '../../_nav';
 
 interface NavAttributes {
@@ -44,19 +45,18 @@ export interface NavData {
 }
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './default-layout.component.html'
+    templateUrl: './main-frame.component.html'
 })
-export class DefaultLayoutComponent implements OnDestroy, OnInit {
+export class MainFrameComponent implements OnDestroy, OnInit {
     private changes: MutationObserver
-    isBusy = false
     navItems: NavData[] = []
     sidebarMinimized = true
     element: HTMLElement
     navMenu: any[]
+    isBusy = false
     busyIndicatorText: string
 
-    constructor(private spinner: NgxSpinnerService, private readonly client: NgS2fxClient, @Inject(DOCUMENT) _document?: any) {
+    constructor(private readonly busyIndicator: BusyIndicatedExecutor, private readonly client: NgS2fxClient, @Inject(DOCUMENT) _document?: any) {
 
         this.changes = new MutationObserver((mutations) => {
             this.sidebarMinimized = _document.body.classList.contains('sidebar-minimized');
@@ -69,28 +69,26 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        await this.spinner.hide()
-        await this.loadMenu()
+        await this.busyIndicator.executeAppBlockedTask(async context => {
+            await this.loadMenu()
+        });
     }
 
     async ngOnDestroy(): Promise<void> {
-        await this.spinner.hide()
         this.changes.disconnect();
     }
 
     private async loadMenu(): Promise<void> {
         let self = this
-        await this.runLongTimeTask(async () => {
-            let viewContract = new ViewContract(this.client.httpClient)
-            this.navMenu = await viewContract.getMainMenu() as any[]
-            let newNavItems = []
-            for (let nm of this.navMenu) {
-                let ni = self.navMenuToNavItem(nm, true)
-                newNavItems.push(ni)
-            }
-            self.navItems = newNavItems
-            await utils.wait(5000)
-        });
+        let viewContract = new ViewContract(this.client.httpClient)
+        this.navMenu = await viewContract.getMainMenu() as any[]
+        let newNavItems = []
+        for (let nm of this.navMenu) {
+            let ni = self.navMenuToNavItem(nm, true)
+            newNavItems.push(ni)
+        }
+        self.navItems = newNavItems
+        await utils.wait(3000) //TODO
     }
 
     private navMenuToNavItem(navMenu: any, isTopLevel: boolean): NavData {
@@ -119,20 +117,6 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
             }
         }
         return navData
-    }
-
-    private async runLongTimeTask(action: () => Promise<void>): Promise<void> {
-        this.isBusy = true
-        this.busyIndicatorText = "Loading..."
-        this.spinner.show()
-        try {
-            await action()
-        }
-        finally {
-            this.isBusy = false
-            this.spinner.hide()
-        }
-
     }
 
 }

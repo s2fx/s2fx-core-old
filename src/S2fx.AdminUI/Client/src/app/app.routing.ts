@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { Routes, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
 
 // Import Containers
-import { DefaultLayoutComponent } from './containers'
+import { MainFrameComponent } from './views/main-frame/main-frame.component'
 
 import { P404Component } from './views/error/404.component'
 import { P500Component } from './views/error/500.component'
@@ -48,7 +48,7 @@ export const APP_ROUTES: Routes = [
     },
     {
         path: '',
-        component: DefaultLayoutComponent,
+        component: MainFrameComponent,
         data: {
             title: 'Home'
         },
