@@ -1,7 +1,12 @@
 import { IS2HttpClient } from './http'
 import * as contracts from './contracts'
 
-export class S2fxClient {
+export interface IS2fxClient {
+    readonly metadataContract:      contracts.IMetadataContract
+    readonly entityContract:        contracts.IDynamicRestEntityContract
+}
+
+export class S2fxClient implements IS2fxClient {
     public readonly metadataContract:      contracts.IMetadataContract
     public readonly entityContract:        contracts.IDynamicRestEntityContract
 

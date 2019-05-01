@@ -4,7 +4,9 @@
 import * as model from './model'
 export { model }
 
-export * from './contracts'
+import * as contracts from './contracts'
+export { contracts }
+
 export * from './http'
 export * from './s2fx-client'
 export * from './session'

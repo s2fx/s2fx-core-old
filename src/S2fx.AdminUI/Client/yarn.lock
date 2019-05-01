@@ -355,6 +355,9 @@
     tree-kill "1.2.1"
     webpack-sources "1.3.0"
 
+"@s2fx/client@file:../../../client/s2fx-client-typescript":
+  version "0.1.6"
+
 "@schematics/angular@7.3.8":
   version "7.3.8"
   resolved "https://registry.npm.taobao.org/@schematics/angular/download/@schematics/angular-7.3.8.tgz#9cded496b79830164acbc2fc382b66e5b5f7cf02"

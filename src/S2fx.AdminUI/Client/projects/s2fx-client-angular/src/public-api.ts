@@ -5,4 +5,5 @@
 export * from './lib/components/index';
 export * from './lib/s2client';
 export * from './lib/s2fx-client-angular.module';
-export { model } from 's2fx-client'
+export * from './lib/options'
+export { model } from '@s2fx/client'

@@ -4,9 +4,8 @@ import { DOCUMENT } from '@angular/common';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import * as utils from '../../utils'
-import { NgS2fxClient } from '@s2fx/client-angular'
+import { NgS2fxClient, model } from '@s2fx/client-angular'
 import { BusyIndicatedExecutor } from '../../services/busy-indicated-executor'
-//import { navItems } from '../../_nav';
 
 interface NavAttributes {
     [propName: string]: any;
@@ -51,7 +50,7 @@ export class MainFrameComponent implements OnDestroy, OnInit {
     navItems: NavData[] = []
     sidebarMinimized = true
     element: HTMLElement
-    navMenu: any[]
+    navMenu: model.MenuItem[]
     isBusy = false
     busyIndicatorText: string
 
@@ -80,7 +79,7 @@ export class MainFrameComponent implements OnDestroy, OnInit {
     private async loadMenu(): Promise<void> {
         let self = this
         this.client.httpClient
-        this.navMenu = await this.client.metaDataRpcService.getMainMenu() as any[]
+        this.navMenu = await (this.client as any).metadataContract.getMainMenu() as model.MenuItem[]
         let newNavItems = []
         for (let nm of this.navMenu) {
             let ni = self.navMenuToNavItem(nm, true)
@@ -90,7 +89,7 @@ export class MainFrameComponent implements OnDestroy, OnInit {
         await utils.wait(3000) //TODO
     }
 
-    private navMenuToNavItem(navMenu: any, isTopLevel: boolean): NavData {
+    private navMenuToNavItem(navMenu: model.MenuItem, isTopLevel: boolean): NavData {
         let self = this;
         let navData: NavData = {
             //name:           navMenu.Text,
@@ -101,7 +100,7 @@ export class MainFrameComponent implements OnDestroy, OnInit {
 
         // dropdown
         if(navMenu.Children && navMenu.Children.length > 0) {
-            let children = (navMenu.Children as any[]).map<NavData>(x => self.navMenuToNavItem(x, false))
+            let children = (navMenu.Children as model.MenuItem[]).map<NavData>(x => self.navMenuToNavItem(x, false))
             navData.children = children
             navData.name = navMenu.Text
             return navData

@@ -20,7 +20,7 @@ export function __ngs2fxClientFactory(http: HttpClient, pl: PlatformLocation) {
     imports: [
         CommonModule,
         HttpModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     declarations: [
         ListViewComponent,
