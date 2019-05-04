@@ -18,13 +18,15 @@ stage('compile') {
 }
 
 stage('test') {
-    parallel unitTests: {
-        test('Test')
-    }, 
+
+    unitTests: {
+        test('DotnetUnitTest')
+        test('JsUnitTest')
+    } 
+
     integrationTests: {
         test('IntegrationTest')
-    },
-    failFast: false
+    }
 }
 
 stage('pack') {
@@ -34,8 +36,18 @@ stage('pack') {
 }
 
 def test(type) {
-    node {
-        sh 'dotnet test -c Release ./test/S2fx.Tests/S2fx.Tests.csproj'
+    if (type == 'DotnetUnitTest') {
+        node {
+            sh 'dotnet test -c Release ./test/S2fx.Tests/S2fx.Tests.csproj'
+        }
+    }
+    else if (type == 'JsUnitTest') {
+        //TODO
+    }
+    else if (type == 'IntegrationTest') {
+        dir('client/s2fx-client-typescript') {
+            sh 'yarn test'
+        }
     }
 }
 

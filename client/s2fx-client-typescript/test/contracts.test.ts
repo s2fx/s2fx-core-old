@@ -3,6 +3,8 @@ import { DynamicRestEntityContract, MetadataContract } from "../src/contracts"
 
 let httpClient = new S2AxiosHttpClient('http://localhost:59129/Default')
 
+jest.setTimeout(30000)
+
 describe("MetadataContrct test", () => {
      let metadataRpcService = new MetadataContract(httpClient)
 
