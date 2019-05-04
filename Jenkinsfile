@@ -21,7 +21,6 @@ stage('test') {
 
     unitTests: {
         test('DotnetUnitTest')
-        test('JsUnitTest')
     } 
 
     integrationTests: {
@@ -42,7 +41,8 @@ def test(type) {
         }
     }
     else if (type == 'JsUnitTest') {
-        //TODO
+        node {
+        }
     }
     else if (type == 'IntegrationTest') {
         node {
