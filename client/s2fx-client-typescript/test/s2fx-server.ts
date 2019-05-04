@@ -36,6 +36,8 @@ const DEFAULT_TENANT_SETTINGS = {
     "ConnectionString": "Host=localhost;Database=s2fx_test;Username=s2fx;Password=s2fx"
 }
 
+
+
 export class S2fxServer {
     private server: any = null
     private readonly axiosInstance = axios.create({
@@ -136,7 +138,13 @@ export class S2fxServer {
     }
 
     private async ensureTenantStarted() {
+        let startTime = new Date()
         while(true) {
+            var now = new Date()
+            let timeDelta: number = now.getTime() - startTime.getTime()
+            if(timeDelta > 30000) {
+                break
+            }
             if(await this.tryRequestServer()) {
                 break
             }
