@@ -1,8 +1,7 @@
 #!/usr/bin/env groovy
 
-stages {
-
-    stage('compile') {
+stage('compile') {
+    node {
         // GIT submodule recursive checkout
         checkout scm 
         sh 'dotnet restore'
@@ -16,16 +15,19 @@ stages {
         }
         sh 'dotnet build -c Release'
     }
+}
 
-    stage('test') {
+stage('test') {
+    node {
         sh 'dotnet test -c Release ./test/S2fx.Tests/S2fx.Tests.csproj'
         dir('client/s2fx-client-typescript') {
             sh 'yarn test'
         }
     }
+}
 
-    stage('pack') {
+stage('pack') {
+    node {
         sh 'dotnet pack -c Release --no-build'
     }
-
 }
