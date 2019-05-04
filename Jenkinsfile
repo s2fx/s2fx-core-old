@@ -18,12 +18,8 @@ stage('compile') {
 }
 
 stage('test') {
-
-    unitTests: {
+    steps {
         test('DotnetUnitTest')
-    } 
-
-    integrationTests: {
         test('IntegrationTest')
     }
 }
