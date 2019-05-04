@@ -45,8 +45,10 @@ def test(type) {
         //TODO
     }
     else if (type == 'IntegrationTest') {
-        dir('client/s2fx-client-typescript') {
-            sh 'yarn test'
+        node {
+            dir('client/s2fx-client-typescript') {
+                sh 'yarn test'
+            }
         }
     }
 }
