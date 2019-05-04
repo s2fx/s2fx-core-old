@@ -18,9 +18,11 @@ stage('compile') {
 }
 
 stage('test') {
-    steps {
-        test('DotnetUnitTest')
-        test('IntegrationTest')
+    node {
+        sh 'dotnet test -c Release ./test/S2fx.Tests/S2fx.Tests.csproj'
+        dir('client/s2fx-client-typescript') {
+            sh 'yarn test'
+        }
     }
 }
 
@@ -29,23 +31,3 @@ stage('pack') {
         sh 'dotnet pack -c Release --no-build'
     }
 }
-
-def test(type) {
-    if (type == 'DotnetUnitTest') {
-        node {
-            sh 'dotnet test -c Release ./test/S2fx.Tests/S2fx.Tests.csproj'
-        }
-    }
-    else if (type == 'JsUnitTest') {
-        node {
-        }
-    }
-    else if (type == 'IntegrationTest') {
-        node {
-            dir('client/s2fx-client-typescript') {
-                sh 'yarn test'
-            }
-        }
-    }
-}
-
