@@ -58,6 +58,12 @@ namespace S2fx.Setup.RemoteService {
             var viewLoader = _services.GetRequiredService<IViewDataSynchronizer>();
             await viewLoader.SynchronizeAllViewsAsync();
         }
+
+
+        [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
+        public string Version() {
+            return "0.1.0";
+        }
     }
 
 }

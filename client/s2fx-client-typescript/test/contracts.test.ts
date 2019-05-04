@@ -42,6 +42,7 @@ describe("MetadataContrct test", () => {
 
 describe("DynamicEntityContract test", () => {
 
+    /*
     it("DynamicEnttiyContract can query", async () => {
         let rpc = new DynamicRestEntityContract(httpClient)
         let queryParam = {
@@ -56,6 +57,7 @@ describe("DynamicEntityContract test", () => {
         expect(queryResult.Entities).toBeDefined()
         expect(queryResult.Entities.length).toEqual(1)
     })
+    */
 
     /*
     it("DynamicEntityContract can get single", async() => {
