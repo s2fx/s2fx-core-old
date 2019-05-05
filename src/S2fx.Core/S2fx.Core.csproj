@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SeedData\Demo\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="S2Views\SequenceViews.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -37,7 +33,10 @@
     <EmbeddedResource Update="S2Views\ViewViews.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="SeedData\Init\InitSeeds.Manifest.xaml">
+    <EmbeddedResource Update="SeedData\Demo\Manifest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SeedData\Init\Manifest.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

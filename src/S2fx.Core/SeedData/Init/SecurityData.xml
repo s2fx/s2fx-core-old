@@ -6,8 +6,4 @@
         <Role Name="role.user" DisplayName="Normal Users/Employees" />
     </Roles>
 
-    <Users>
-        <User UserName="admin" Password="admin" FullName="Administrator" />
-    </Users>
-
 </Data>

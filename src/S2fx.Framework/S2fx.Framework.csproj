@@ -19,7 +19,7 @@
     <PackageReference Include="OrchardCore.Users.Abstractions" Version="1.0.0-beta3-71077" />
     <PackageReference Include="Portable.Xaml" Version="0.24.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.12" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.13" />
   </ItemGroup>
 
   <ItemGroup>

@@ -17,12 +17,10 @@ namespace S2fx.Setup.RemoteService {
     [RemoteService(name: "Setup", Area = MvcControllerAreas.SystemArea)]
     public class SetupRemoteService {
         readonly ISetupService _setupService;
-        readonly IDbMigrator _dbMigrator;
         readonly IServiceProvider _services;
 
-        public SetupRemoteService(ISetupService setupService, IDbMigrator dbMigrator, IServiceProvider serviceProvider) {
+        public SetupRemoteService(ISetupService setupService, IServiceProvider serviceProvider) {
             _setupService = setupService;
-            _dbMigrator = dbMigrator;
             _services = serviceProvider;
         }
 
@@ -48,7 +46,8 @@ namespace S2fx.Setup.RemoteService {
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
         public async Task InitDbAsync() {
-            await _dbMigrator.MigrateSchemaAsync();
+            var dbMigrator = _services.GetRequiredService<IDbMigrator>();
+            await dbMigrator.MigrateSchemaAsync();
         }
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]

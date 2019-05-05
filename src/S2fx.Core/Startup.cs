@@ -14,7 +14,9 @@ namespace S2fx.Core {
         }
 
         public override void ConfigureSeeds(ISeedManifestCollection initSeeds, ISeedManifestCollection demoSeeds) {
-            initSeeds.AddManifestFile("SeedData/Init/InitSeeds.xaml");
+            initSeeds.AddManifestFile("SeedData/Init/Manifest.xaml");
+            
+            demoSeeds.AddManifestFile("SeedData/demo/Manifest.xaml");
         }
 
         public override void ConfigureViews(IViewDefinitionsCollection views) {

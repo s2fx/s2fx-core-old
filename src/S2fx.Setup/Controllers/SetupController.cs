@@ -8,9 +8,8 @@ namespace S2fx.Setup.Controllers {
 
     public class SetupController : Controller {
 
-        public async Task<ActionResult> Index() {
-            await Task.CompletedTask;
-            return View();
+        public ActionResult Index() {
+            return Redirect("~/Admin/#/setup");
         }
 
     }

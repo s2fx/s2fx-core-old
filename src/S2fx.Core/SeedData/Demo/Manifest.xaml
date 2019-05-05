@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SeedManifest 
+       xmlns="clr-namespace:S2fx.Data.Importing.Schemas;assembly=S2fx.Framework" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+        <XmlFileDataSource Path="SeedData/Demo/SecurityData.xml" >
+            <ImportEntity Entity="Core.User" Selector="/Data/Users/User" CanUpdate="false"  Where="it.UserName == UserName">
+                <FieldMapping Selector="@UserName" Field="UserName" />
+                <FieldMapping Selector="@Password" Field="Password" />
+                <FieldMapping Selector="@FullName" Field="FullName" />
+            </ImportEntity>
+        </XmlFileDataSource>
+
+</SeedManifest>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+
+    <Users>
+        <User UserName="demo" Password="demo" Name="Demo User" />
+    </Users>
+
+</Data>
