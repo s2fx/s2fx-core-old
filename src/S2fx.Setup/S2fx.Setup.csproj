@@ -5,11 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta3-71077" />
+      <PackageReference Include="Microsoft.AspNetCore.DataProtection" />
+      <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity" />
+      <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-beta3-71077" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\S2fx.Framework\S2fx.Framework.csproj" />
+    <ProjectReference Include="..\S2fx.Setup.Abstractions\S2fx.Setup.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>
