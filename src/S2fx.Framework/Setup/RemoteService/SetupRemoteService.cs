@@ -37,7 +37,7 @@ namespace S2fx.Setup.RemoteService {
         public async Task StartSetupAsync(SetupOptions options) {
 
             var ctx = new SetupContext {
-                AdminPassword = options.AdminPassword,
+                RootPassword = options.AdminPassword,
                 DbName = options.DbName,
                 EnabledFeatures = options.EnabledFeatures,
                 IsDemo = options.IsDemo,
@@ -61,8 +61,10 @@ namespace S2fx.Setup.RemoteService {
 
 
         [RemoteServiceMethod(httpMethod: HttpMethod.Get, isRestful: true)]
-        public string Version() {
-            return "0.1.0";
+        public Dictionary<string, object> Version() {
+            return new Dictionary<string, object>() {
+                { "Version", "0.1.0" }
+            };
         }
     }
 

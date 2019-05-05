@@ -15,7 +15,7 @@ namespace S2fx.Setup.Model {
         public string DbName { get; set; }
 
         [DataMember]
-        public string IsDemo { get; set; }
+        public bool IsDemo { get; set; }
 
         [DataMember]
         public IEnumerable<string> EnabledFeatures { get; set; }
