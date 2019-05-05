@@ -13,8 +13,11 @@ using OrchardCore.Environment.Shell.Descriptor;
 using OrchardCore.Environment.Shell.Descriptor.Models;
 using OrchardCore.Environment.Shell.Models;
 using OrchardCore.Modules;
+using OrchardCore.Users;
+using OrchardCore.Users.Services;
 using S2fx.Data;
 using S2fx.Data.Importing.Seeds;
+using S2fx.Security.Model;
 using S2fx.Setup.Events;
 using S2fx.Setup.Model;
 using S2fx.View.Data;
@@ -103,20 +106,19 @@ namespace S2fx.Setup.Services {
 
             using (var shellContext = await _shellContextFactory.CreateDescribedContextAsync(shellSettings, shellDescriptor)) {
                 using (var scope = shellContext.CreateScope()) {
+                    var hasErrors = false;
 
-                    try
-                    {
-                        // Migrate database
-                        var dbMigrator = scope.ServiceProvider.GetRequiredService<IDbMigrator>();
-                        await dbMigrator.MigrateSchemaAsync();
+                    void reportError(string key, string message) {
+                        hasErrors = true;
+                        context.SetError(key, message);
+                    }
+                    try {
+                        await this.InitializeDatabaseForTenantAsync(context, scope, reportError);
 
-                        // Load seed data
-                        var seedsLoader = scope.ServiceProvider.GetRequiredService<ISeedSynchronizer>();
-                        await seedsLoader.SynchronizeAllSeedsAsync();
-
-                        // Load views
-                        var viewLoader = scope.ServiceProvider.GetRequiredService<IViewDataSynchronizer>();
-                        await viewLoader.SynchronizeAllViewsAsync();
+                        if (hasErrors) {
+                            _logger.LogError("An error occurred while initializing the tenant {0}", context.DbName);
+                            return null;
+                        }
                     }
                     catch (Exception e) {
                         // Tables already exist or database was not found
@@ -202,6 +204,28 @@ namespace S2fx.Setup.Services {
             await _shellHost.UpdateShellSettingsAsync(shellSettings);
 
             return executionId;
+        }
+
+        private async Task InitializeDatabaseForTenantAsync(SetupContext context, IServiceScope scope, Action<string, string> reportError) {
+            // Migrate database
+            var dbMigrator = scope.ServiceProvider.GetRequiredService<IDbMigrator>();
+            await dbMigrator.MigrateSchemaAsync();
+
+            // Add root user
+            var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
+            var user = new UserEntity {
+                UserName = context.RootUserName,
+                Password = context.RootPassword,
+            };
+            await userService.CreateUserAsync(user, user.Password, reportError);
+
+            // Load seed data
+            var seedsLoader = scope.ServiceProvider.GetRequiredService<ISeedSynchronizer>();
+            await seedsLoader.SynchronizeAllSeedsAsync(withDemoData: context.IsDemo);
+
+            // Load views
+            var viewLoader = scope.ServiceProvider.GetRequiredService<IViewDataSynchronizer>();
+            await viewLoader.SynchronizeAllViewsAsync();
         }
     }
 }
