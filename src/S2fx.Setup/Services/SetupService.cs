@@ -24,11 +24,6 @@ using S2fx.View.Data;
 
 namespace S2fx.Setup.Services {
 
-    public interface ISetupService {
-        Task<string> SetupAsync(SetupContext context);
-    }
-
-
     public class SetupService : ISetupService {
         private readonly IShellHost _shellHost;
         private readonly IShellContextFactory _shellContextFactory;

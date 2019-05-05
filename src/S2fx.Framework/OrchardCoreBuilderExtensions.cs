@@ -10,7 +10,6 @@ using S2fx.Model;
 using S2fx.Utility;
 using S2fx.Model.Metadata;
 using S2fx.Model.Metadata.Types;
-using S2fx.Setup.Services;
 using S2fx.Remoting;
 using S2fx.Model.Metadata.Conventions;
 using S2fx.Xaml;
@@ -63,11 +62,6 @@ namespace S2fx {
                 services.AddInternalRemoteServicesTenant();
 
                 services.AddS2ViewTenant();
-
-                //Setup
-                {
-                    services.AddTransient<ISetupService, SetupService>();
-                }
             });
         }
 

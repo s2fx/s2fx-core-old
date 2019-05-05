@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\S2fx.Common\S2fx.Common.csproj" />
+    <ProjectReference Include="..\S2fx.Setup.Abstractions\S2fx.Setup.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

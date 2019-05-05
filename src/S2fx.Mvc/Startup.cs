@@ -43,6 +43,24 @@ namespace S2fx.Mvc {
 
         public override void ConfigureServices(IServiceCollection services) {
 
+            this.RegisterRemoteServicesAsControllers(services);
+
+            //Add settings to Service Collection
+            var configuration = _serviceProvider.GetRequiredService<IConfiguration>();
+            services.AddSingleton(LoadSettings(configuration));
+
+            services.AddSingleton<IApplicationFeatureProvider<ControllerFeature>, RemoteServiceControllerFeatureProvider>();
+
+            services.AddSingleton<IActionDescriptorChangeProvider>(DummyActionDescriptorChangeProvider.Instance);
+            services.AddSingleton(DummyActionDescriptorChangeProvider.Instance);
+
+            // Notify change
+            //DummyActionDescriptorChangeProvider.Instance.HasChanged = true;
+            //DummyActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
+            // Register an isolated tenant part manager.
+        }
+
+        private void RegisterRemoteServicesAsControllers(IServiceCollection services) {
             var mvcBuilder = services.AddMvcCore();
             //Remote services
             {
@@ -65,25 +83,11 @@ namespace S2fx.Mvc {
                 services.AddTransient<IRemoteServiceProvider, MvcControllerRemoteServiceProvider>();
             }
 
-            //Add settings to Service Collection
-            var configuration = _serviceProvider.GetRequiredService<IConfiguration>();
-            services.AddSingleton(LoadSettings(configuration));
 
-            services.AddSingleton<IApplicationFeatureProvider<ControllerFeature>, RemoteServiceControllerFeatureProvider>();
-
-            services.AddSingleton<IActionDescriptorChangeProvider>(DummyActionDescriptorChangeProvider.Instance);
-            services.AddSingleton(DummyActionDescriptorChangeProvider.Instance);
-
-            // Notify change
-            //DummyActionDescriptorChangeProvider.Instance.HasChanged = true;
-            //DummyActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
-            // Register an isolated tenant part manager.
-            {
-                var appPartManager = mvcBuilder.PartManager;
-                var httpContextAccessor = _serviceProvider.GetRequiredService<IHttpContextAccessor>();
-                var controllerFeatureProvider = new RemoteServiceControllerFeatureProvider(httpContextAccessor);
-                appPartManager.FeatureProviders.Add(controllerFeatureProvider);
-            }
+            var appPartManager = mvcBuilder.PartManager;
+            var httpContextAccessor = _serviceProvider.GetRequiredService<IHttpContextAccessor>();
+            var controllerFeatureProvider = new RemoteServiceControllerFeatureProvider(httpContextAccessor);
+            appPartManager.FeatureProviders.Add(controllerFeatureProvider);
         }
 
         private static S2AppSettings LoadSettings(IConfiguration configuration) {

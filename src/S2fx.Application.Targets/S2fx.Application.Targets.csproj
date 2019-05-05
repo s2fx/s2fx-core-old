@@ -19,6 +19,8 @@
     <ProjectReference Include="..\S2fx.Data.NHibernate\S2fx.Data.NHibernate.csproj" />
     <ProjectReference Include="..\S2fx.Framework\S2fx.Framework.csproj" />
     <ProjectReference Include="..\S2fx.Mvc\S2fx.Mvc.csproj" />
+    <ProjectReference Include="..\S2fx.Setup.Abstractions\S2fx.Setup.Abstractions.csproj" />
+    <ProjectReference Include="..\S2fx.Setup\S2fx.Setup.csproj" />
   </ItemGroup>
 
 
