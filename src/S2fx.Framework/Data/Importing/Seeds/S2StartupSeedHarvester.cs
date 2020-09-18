@@ -20,11 +20,11 @@ namespace S2fx.Data.Importing.Seeds {
 
     public class S2StartupSeedHarvester : ISeedHarvester {
 
-        readonly IHostingEnvironment _environment;
+        readonly IWebHostEnvironment _environment;
         readonly IXamlService _xaml;
         readonly IS2StartupService _s2StartupService;
 
-        public S2StartupSeedHarvester(IHostingEnvironment environment, IXamlService xaml, IS2StartupService s2StartupService) {
+        public S2StartupSeedHarvester(IWebHostEnvironment environment, IXamlService xaml, IS2StartupService s2StartupService) {
             _environment = environment;
             _xaml = xaml;
             _s2StartupService = s2StartupService;

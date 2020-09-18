@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using OrchardCore.DeferredTasks;
 using OrchardCore.Environment.Shell;
 using OrchardCore.Environment.Shell.Builders;
 using OrchardCore.Environment.Shell.Descriptor;
@@ -29,18 +29,18 @@ namespace S2fx.Setup.Services {
         private readonly IShellContextFactory _shellContextFactory;
         private readonly ILogger _logger;
         private readonly IStringLocalizer T;
-        private readonly IApplicationLifetime _applicationLifetime;
+        private readonly IHostApplicationLifetime _applicationLifetime;
         private readonly string _applicationName;
 
         public SetupService(
             IShellHost shellHost,
-            IHostingEnvironment hostingEnvironment,
+            IWebHostEnvironment hostingEnvironment,
             IShellContextFactory shellContextFactory,
             IRunningShellTable runningShellTable,
             ILogger<SetupService> logger,
             IStringLocalizerFactory stringLocalizerFactory,
             IStringLocalizer<SetupService> stringLocalizer,
-            IApplicationLifetime applicationLifetime
+            IHostApplicationLifetime applicationLifetime
             ) {
             _shellHost = shellHost;
             _applicationName = hostingEnvironment.ApplicationName;
@@ -136,12 +136,15 @@ namespace S2fx.Setup.Services {
                             shellContext.Blueprint.Descriptor.Features,
                             shellContext.Blueprint.Descriptor.Parameters);
 
+                    // TODO FIXME
+                    /*
                     var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();
 
                     if (deferredTaskEngine != null && deferredTaskEngine.HasPendingTasks) {
                         var taskContext = new DeferredTaskContext(scope.ServiceProvider);
                         await deferredTaskEngine.ExecuteTasksAsync(taskContext);
                     }
+                    */
                 }
 
                 executionId = Guid.NewGuid().ToString("n");
@@ -165,7 +168,7 @@ namespace S2fx.Setup.Services {
             }
 
             // Reloading the shell context as the recipe  has probably updated its features
-            using (var shellContext = await _shellHost.CreateShellContextAsync(shellSettings)) {
+            using (var shellContext = await _shellHost.GetOrCreateShellContextAsync(shellSettings)) {
                 using (var scope = shellContext.CreateScope()) {
                     var hasErrors = false;
 
@@ -185,12 +188,14 @@ namespace S2fx.Setup.Services {
                         return executionId;
                     }
 
+                    /* TODO FIXME
                     var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();
 
                     if (deferredTaskEngine != null && deferredTaskEngine.HasPendingTasks) {
                         var taskContext = new DeferredTaskContext(scope.ServiceProvider);
                         await deferredTaskEngine.ExecuteTasksAsync(taskContext);
                     }
+                    */
                 }
             }
 

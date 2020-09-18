@@ -34,7 +34,7 @@ namespace S2fx.Mvc {
             _serviceProvider = serviceProvider;
         }
 
-        public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider) {
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
@@ -79,7 +79,8 @@ namespace S2fx.Mvc {
                 services.AddTransient<IModelBinderProvider, EntityQueryParametersModelBinderProvider>();
 
                 services.AddTransient<IConfigureOptions<MvcOptions>, RemoteServiceMvcConfigureOptions>();
-                services.AddTransient<IConfigureOptions<MvcJsonOptions>, RemoteServiceMvcJsonConfigureOptions>();
+                //TODO FIXME
+                //services.AddTransient<IConfigureOptions<MvcJsonOptions>, RemoteServiceMvcJsonConfigureOptions>();
                 services.AddTransient<IRemoteServiceProvider, MvcControllerRemoteServiceProvider>();
             }
 

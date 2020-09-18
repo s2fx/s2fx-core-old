@@ -10,6 +10,16 @@ using Newtonsoft.Json.Serialization;
 
 namespace S2fx.Mvc.Remoting {
 
+    //TODO FIXME
+    /*
+     *     services.AddMvc().AddNewtonsoftJson(options =>
+    {
+       options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
+    */
+
+
+    /*
     public class RemoteServiceMvcJsonConfigureOptions : IConfigureOptions<MvcJsonOptions> {
         private readonly IServiceProvider _services;
 
@@ -23,5 +33,6 @@ namespace S2fx.Mvc.Remoting {
             };
         }
     }
+    */
 
 }

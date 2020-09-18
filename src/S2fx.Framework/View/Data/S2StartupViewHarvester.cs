@@ -18,13 +18,13 @@ namespace S2fx.View.Data {
 
     public class S2StartupViewHarvester : IViewHarvester {
 
-        readonly IHostingEnvironment _environment;
+        readonly IWebHostEnvironment _environment;
         readonly IXamlService _xaml;
         readonly IS2StartupService _s2StartupService;
 
         public ILogger Logger { get; }
 
-        public S2StartupViewHarvester(IHostingEnvironment environment,
+        public S2StartupViewHarvester(IWebHostEnvironment environment,
             IXamlService xaml,
             IS2StartupService s2StartupService,
             ILogger<S2StartupViewHarvester> logger) {

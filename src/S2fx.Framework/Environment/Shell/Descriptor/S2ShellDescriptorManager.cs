@@ -11,7 +11,6 @@ using System.Linq;
 using OrchardCore.Environment.Extensions;
 using OrchardCore.Environment.Shell.Configuration;
 using Microsoft.Extensions.Configuration;
-using OrchardCore.Hosting.ShellBuilders;
 
 namespace S2fx.Environment.Shell.Descriptor {
 
@@ -90,7 +89,8 @@ namespace S2fx.Environment.Shell.Descriptor {
             // Update cached reference
             _shellDescriptor = shellDescriptorRecord;
 
-            await _shellDescriptorManagerEventHandlers.InvokeAsync(e => e.Changed(shellDescriptorRecord, _shellSettings.Name), this.Logger);
+            await _shellDescriptorManagerEventHandlers.InvokeAsync(
+                e => e.ChangedAsync(shellDescriptorRecord, _shellSettings), this.Logger);
         }
 
         private class ConfiguredFeatures {

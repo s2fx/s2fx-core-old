@@ -19,12 +19,11 @@ namespace S2fx.Setup {
             services.AddSetupServices();
         }
 
-        public override void Configure(IApplicationBuilder builder, IRouteBuilder routes, IServiceProvider serviceProvider)
-        {
-            routes.MapAreaRoute(
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider) {
+            routes.MapAreaControllerRoute(
                 name: "Setup",
                 areaName: "S2fx.Setup",
-                template: "",
+                pattern: "",
                 defaults: new { controller = "Setup", action = "Index" }
             );
         }

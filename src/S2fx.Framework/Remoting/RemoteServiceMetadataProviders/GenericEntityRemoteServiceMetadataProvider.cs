@@ -16,10 +16,10 @@ namespace S2fx.Remoting {
     public class GenericEntityRemoteServiceMetadataProvider : AbstractClrTypeBasedRemoteServiceMetadataProvider {
         public const string DefaultEntityRemoteServiceArea = MvcControllerAreas.EntityArea;
 
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private readonly IEntityManager _entityManager;
 
-        public GenericEntityRemoteServiceMetadataProvider(IHostingEnvironment environment, IEntityManager entityManager) {
+        public GenericEntityRemoteServiceMetadataProvider(IWebHostEnvironment environment, IEntityManager entityManager) {
             _entityManager = entityManager;
             _environment = environment;
         }

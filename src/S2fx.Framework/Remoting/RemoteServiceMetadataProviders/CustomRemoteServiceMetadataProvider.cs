@@ -17,12 +17,12 @@ namespace S2fx.Remoting {
 
     public class CustomRemoteServiceMetadataProvider : AbstractClrTypeBasedRemoteServiceMetadataProvider {
         private readonly IShellFeatureEntityService _shellFeatureService;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private readonly ITypeFeatureProvider _typeFeatureProvider;
 
         public CustomRemoteServiceMetadataProvider(
             IShellFeatureEntityService shellFeatureService,
-            IHostingEnvironment environment, 
+            IWebHostEnvironment environment, 
             ITypeFeatureProvider typeFeatureProvider) {
 
             _shellFeatureService = shellFeatureService;

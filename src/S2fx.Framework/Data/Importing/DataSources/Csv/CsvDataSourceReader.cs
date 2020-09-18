@@ -11,7 +11,8 @@ namespace S2fx.Data.Importing.DataSources {
         readonly CsvHelper.CsvReader _csvHelperReader;
 
         public CsvDataSourceReader(TextReader tr) {
-            _csvHelperReader = new CsvHelper.CsvReader(tr, false);
+            // TODO FIXME
+            _csvHelperReader = new CsvHelper.CsvReader(tr, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public async Task Initialize() {

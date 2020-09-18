@@ -12,6 +12,7 @@ using OrchardCore.Environment.Shell;
 using OrchardCore.Environment.Shell.Descriptor;
 using OrchardCore.Environment.Shell.Descriptor.Settings;
 using OrchardCore.Modules;
+using Microsoft.Extensions.Hosting;
 
 namespace S2fx.Demo.Web {
 
@@ -36,10 +37,16 @@ namespace S2fx.Demo.Web {
             });
 
             //services.AddRouteAnalyzer(); // Add
+            foreach (var i in services) {
+                var t = i.ImplementationType ?? i.ServiceType;
+                if (t.FullName.Contains("S2fx")) {
+                    Console.WriteLine(t.FullName);
+                }
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 
 
             if (env.IsDevelopment()) {

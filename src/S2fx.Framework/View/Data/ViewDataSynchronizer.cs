@@ -20,7 +20,7 @@ namespace S2fx.View.Data {
 
     public class ViewDataSynchronizer : IViewDataSynchronizer {
 
-        readonly IHostingEnvironment _environment;
+        readonly IWebHostEnvironment _environment;
         readonly IShellFeaturesManager _shellFeaturesManager;
         readonly IDataImporter _importer;
         readonly IViewHarvester _harvester;
@@ -33,7 +33,7 @@ namespace S2fx.View.Data {
 
         public ILogger Logger { get; }
 
-        public ViewDataSynchronizer(IHostingEnvironment environment,
+        public ViewDataSynchronizer(IWebHostEnvironment environment,
             IShellFeaturesManager shellFeaturesManager,
             IDataImporter importer,
             IViewHarvester harvester,

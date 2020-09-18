@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.SpaServices.StaticFiles;
 using S2fx.AdminUI.StaticFiles;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using S2fx.Modules;
+using Microsoft.Extensions.Hosting;
 
 namespace S2fx.AdminUI {
     public class Startup : S2StartupBase {
@@ -30,8 +31,7 @@ namespace S2fx.AdminUI {
 
         }
 
-        public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider) {
-
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider) {
             app.Map("/Admin", ab => {
                 ab.UseSpaStaticFiles();
                 ab.UseSpa(spa => {
@@ -40,7 +40,7 @@ namespace S2fx.AdminUI {
 
                     spa.Options.SourcePath = "Client";
                     spa.Options.DefaultPage = $"/Admin/{AdminUIConstants.DefaultPageName}";
-                    var env = serviceProvider.GetService<IHostingEnvironment>();
+                    var env = serviceProvider.GetService<IWebHostEnvironment>();
                     if (env.IsDevelopment()) {
                         spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                         //spa.UseAngularCliServer(npmScript: "start");

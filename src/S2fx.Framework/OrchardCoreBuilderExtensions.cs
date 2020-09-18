@@ -14,7 +14,6 @@ using S2fx.Remoting;
 using S2fx.Model.Metadata.Conventions;
 using S2fx.Xaml;
 using S2fx.Environment;
-using OrchardCore.DeferredTasks;
 using S2fx.Services;
 using S2fx.Security;
 using S2fx.View;
@@ -40,9 +39,6 @@ namespace S2fx {
                 // Xaml 
                 services.AddXamlSupportGlobal();
             }
-
-            //tenant services
-            builder.AddDeferredTasks();
 
             return builder.ConfigureServices(services => {
                 //environment

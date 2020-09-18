@@ -8,19 +8,18 @@ using Microsoft.Extensions.DependencyInjection;
 using S2fx.Data.Importing.Model;
 using S2fx.Model;
 using S2fx.Model.Metadata;
-using OrchardCore.DeferredTasks;
 using S2fx.Data.Transactions;
 using OrchardCore.Environment.Shell;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using S2fx.Data.Importing.DataSources;
+using OrchardCore.Environment.Shell.Scope;
 
 namespace S2fx.Data.Importing {
 
     public class DataImporter : IDataImporter {
 
-        readonly IHostingEnvironment _environment;
-        readonly IDeferredTaskEngine _defferedTaskEngine;
+        readonly IWebHostEnvironment _environment;
         readonly ITransactionManager _transactionManager;
         readonly IEntityManager _entityManager;
         readonly IEnumerable<IDataSource> _dataSources;
@@ -29,14 +28,12 @@ namespace S2fx.Data.Importing {
         public event EventHandler<EntityRecordImportedEventArgs> EntityRecordImported;
 
         public DataImporter(
-            IHostingEnvironment environment,
-            IDeferredTaskEngine defferedTaskEngine,
+            IWebHostEnvironment environment,
             ITransactionManager transactionManager,
             IEntityManager entityManager,
             IShellFeaturesManager shellFeaturesManager,
             IEnumerable<IDataSource> dataSources) {
             _environment = environment;
-            _defferedTaskEngine = defferedTaskEngine;
             _transactionManager = transactionManager;
             _entityManager = entityManager;
             _shellFeaturesManager = shellFeaturesManager;
@@ -44,7 +41,7 @@ namespace S2fx.Data.Importing {
         }
 
         public async Task ImportAsync(ImportingJobDescriptor descriptor) {
-            _defferedTaskEngine.AddTask(async defferedTaskContext => {
+            ShellScope.AddDeferredTask(async defferedTaskContext => {
                 using (var tx = _transactionManager.BeginTransaction()) {
                     var importTask = await this.CreateTaskAsync(descriptor);
                     var context = new ImportingTaskContext(defferedTaskContext.ServiceProvider, _environment.ContentRootFileProvider);
@@ -56,7 +53,7 @@ namespace S2fx.Data.Importing {
         }
 
         public async Task ImportAsync(IEnumerable<ImportingJobDescriptor> sortedDescriptors) {
-            _defferedTaskEngine.AddTask(async defferedTaskContext => {
+            ShellScope.AddDeferredTask(async defferedTaskContext => {
                 using (var tx = _transactionManager.BeginTransaction()) {
                     foreach (var descriptor in sortedDescriptors) {
                         var importTask = await this.CreateTaskAsync(descriptor);

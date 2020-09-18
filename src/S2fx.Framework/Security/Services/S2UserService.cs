@@ -215,5 +215,9 @@ namespace S2fx.Security.Services {
                 }
             }
         }
+
+        public Task<bool> ChangeEmailAsync(IUser user, string newEmail, Action<string, string> reportError) {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace S2fx.Data.Importing.Seeds {
 
     public class SeedSynchronizer : ISeedSynchronizer {
 
-        readonly IHostingEnvironment _environment;
+        readonly IWebHostEnvironment _environment;
         readonly IShellFeaturesManager _shellFeaturesManager;
         readonly IDataImporter _importer;
         readonly ISeedHarvester _harvester;
@@ -28,7 +28,7 @@ namespace S2fx.Data.Importing.Seeds {
 
         public ILogger Logger { get; }
 
-        public SeedSynchronizer(IHostingEnvironment environment,
+        public SeedSynchronizer(IWebHostEnvironment environment,
             IShellFeaturesManager shellFeaturesManager,
             IDataImporter importer,
             ISeedHarvester harvester,
