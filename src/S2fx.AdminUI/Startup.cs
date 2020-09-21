@@ -12,7 +12,7 @@ using S2fx.Modules;
 using Microsoft.Extensions.Hosting;
 
 namespace S2fx.AdminUI {
-    public class Startup : S2StartupBase {
+    public class Startup : S2ModuleStartupBase {
         public const string NgClientUrlPrefix = "ng-client";
 
         private readonly IConfiguration _configuration;

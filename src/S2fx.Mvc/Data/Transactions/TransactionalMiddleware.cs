@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Environment.Shell;
 using S2fx.Data.Transactions;
+using S2fx.Remoting;
 
 namespace S2fx.Mvc.Data.Transactions {
 

@@ -7,7 +7,7 @@ using S2fx.View;
 
 namespace S2fx.Core {
 
-    public class Startup : S2StartupBase {
+    public class Startup : S2ModuleStartupBase {
 
         public override void ConfigureServices(IServiceCollection services) {
             services.AddTransient<ITestService, TestService>();

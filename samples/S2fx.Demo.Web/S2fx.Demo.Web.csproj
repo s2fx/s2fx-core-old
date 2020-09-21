@@ -10,6 +10,7 @@
         <None Remove="App_Data\logs\**" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Edi.RouteDebugger" Version="1.2.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.1" />
@@ -29,5 +30,8 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="App_Data\" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="AspNetCore.RouteAnalyzer.csproj" />
     </ItemGroup>
 </Project>

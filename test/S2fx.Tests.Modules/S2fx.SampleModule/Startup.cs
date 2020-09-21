@@ -9,7 +9,7 @@ namespace S2fx.SampleModule {
     /// <summary>
     /// The module startup
     /// </summary>
-    public class Startup : S2StartupBase {
+    public class Startup : S2ModuleStartupBase {
 
         public override void ConfigureServices(IServiceCollection services) {
         }

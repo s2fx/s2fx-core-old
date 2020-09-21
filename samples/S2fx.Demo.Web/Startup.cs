@@ -17,10 +17,8 @@ using Microsoft.Extensions.Hosting;
 namespace S2fx.Demo.Web {
 
     public class Startup {
-        private readonly IServiceProvider _applicationServices;
 
-        public Startup(IServiceProvider applicationServices, IConfiguration configuration) {
-            _applicationServices = applicationServices;
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
@@ -29,14 +27,11 @@ namespace S2fx.Demo.Web {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
 
-            //services.AddMvc();
-
             // Add ASP.NET MVC and support for modules
             services.AddS2fx(builder => {
                 builder.AddTenantFeatures("S2fx.SampleModule");
             });
 
-            //services.AddRouteAnalyzer(); // Add
             foreach (var i in services) {
                 var t = i.ImplementationType ?? i.ServiceType;
                 if (t.FullName.Contains("S2fx")) {
@@ -52,25 +47,13 @@ namespace S2fx.Demo.Web {
             if (env.IsDevelopment()) {
                 // app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                //app.UseRouteDebugger("/_debug/routes");
             }
             else {
                 app.UseExceptionHandler("/Error");
             }
 
             app.UseS2fx();
-
-            /*
-            app.UseMvc(routes => {
-                if (env.IsDevelopment()) {
-                    routes.MapRouteAnalyzer("/_routes"); // Add
-                    routes.MapRoute(
-                        name: "default",
-                        template: "{controller}/{action=Index}/{id?}");
-                }
-            });
-            */
-
-
         }
     }
 }

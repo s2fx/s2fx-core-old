@@ -58,9 +58,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.SampleModule", "test\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Common", "src\S2fx.Common\S2fx.Common.csproj", "{A9D13904-05B6-4F9D-9164-0BD5C86B066A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2fx.Setup.Abstractions", "src\S2fx.Setup.Abstractions\S2fx.Setup.Abstractions.csproj", "{18254DD3-D202-4ECC-AEE4-7981AEB3FF89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Setup.Abstractions", "src\S2fx.Setup.Abstractions\S2fx.Setup.Abstractions.csproj", "{18254DD3-D202-4ECC-AEE4-7981AEB3FF89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2fx.Setup", "src\S2fx.Setup\S2fx.Setup.csproj", "{52888777-D394-4F15-8212-DCB82DB57FE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S2fx.Setup", "src\S2fx.Setup\S2fx.Setup.csproj", "{52888777-D394-4F15-8212-DCB82DB57FE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

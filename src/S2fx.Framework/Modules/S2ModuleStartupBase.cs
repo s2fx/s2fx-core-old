@@ -7,7 +7,7 @@ using S2fx.View;
 
 namespace S2fx.Modules {
 
-    public abstract class S2StartupBase : StartupBase, IS2Startup {
+    public abstract class S2ModuleStartupBase : StartupBase, IS2Startup {
 
         public virtual void ConfigureViews(IViewDefinitionsCollection views) {
         }

@@ -23,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection {
                 .AddS2fxNHMSSQLServer()
                 .AddS2fxNHSQLite()
                 .AddS2fxMvc()
+                //.AddGlobalFeatures("S2fx.Mvc")
                 .AddGlobalFeatures("S2fx.AdminUI")
                 .AddTenantFeatures("S2fx.Core")
                 .AddSetupFeatures("S2fx.Setup")

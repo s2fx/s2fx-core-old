@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -27,18 +26,12 @@ namespace S2fx.Mvc {
     public class Startup : StartupBase {
 
         public override int Order => -100;
+        public override int ConfigureOrder => 100;
 
         private readonly IServiceProvider _serviceProvider;
 
         public Startup(IServiceProvider serviceProvider) {
             _serviceProvider = serviceProvider;
-        }
-
-        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider) {
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-
-            app.UseMiddleware<TransactionalMiddleware>();
         }
 
         public override void ConfigureServices(IServiceCollection services) {
@@ -58,6 +51,13 @@ namespace S2fx.Mvc {
             //DummyActionDescriptorChangeProvider.Instance.HasChanged = true;
             //DummyActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
             // Register an isolated tenant part manager.
+        }
+
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider) {
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.UseMiddleware<TransactionalMiddleware>();
         }
 
         private void RegisterRemoteServicesAsControllers(IServiceCollection services) {

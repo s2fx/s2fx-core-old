@@ -21,10 +21,12 @@ namespace S2fx.Mvc.Remoting {
 
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature) {
             var remoteServiecManager = _httpContextAccessor.HttpContext.RequestServices.GetRequiredService<IRemoteServiceManager>();
+            /*
             var remoteServices = Task.Run(remoteServiecManager.LoadRemoteServicesAsync).Result;
             foreach (var rs in remoteServices) {
                 feature.Controllers.Add(rs.ClrType);
             }
+            */
         }
 
     }
