@@ -28,7 +28,7 @@ namespace S2fx.Remoting {
             Logger = logger;
         }
 
-        public async Task InitializedAsync() {
+        public async Task InitializeAsync() {
             if (_isLoaded) {
                 return;
             }

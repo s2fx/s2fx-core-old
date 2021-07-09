@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using OrchardCore.Modules;
 using S2fx.Remoting.RemoteServices;
 using S2fx.Remoting.RemoteServices.Metadata;
 
@@ -12,6 +13,7 @@ namespace S2fx.Remoting {
 
         public static void AddRemotingTenants(this IServiceCollection services) {
             services.AddSingleton<IRemoteServiceManager, RemoteServiceManager>();
+            services.AddScoped<IModularTenantEvents, RemotingInitializer>();
 
             //metadata providers:
             services.TryAddEnumerable(new[] {

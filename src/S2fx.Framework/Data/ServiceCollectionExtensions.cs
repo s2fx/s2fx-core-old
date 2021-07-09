@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.Modules;
 using S2fx.Conventions;
 using S2fx.Data.Importing;
 using S2fx.Data.Importing.DataSources;
@@ -38,6 +39,8 @@ namespace S2fx.Data {
 
             services.AddTransient<IDataSource, XmlDataSource>();
             services.AddTransient<IDataSource, CsvDataSource>();
+
+            services.AddScoped<IModularTenantEvents, AutoDBMigrator>();
         }
     }
 

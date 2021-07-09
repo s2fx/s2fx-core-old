@@ -18,6 +18,7 @@ using S2fx.Services;
 using S2fx.Security;
 using S2fx.View;
 using S2fx.Modules;
+using OrchardCore.Modules;
 
 namespace S2fx {
 
@@ -38,6 +39,7 @@ namespace S2fx {
 
                 // Xaml 
                 services.AddXamlSupportGlobal();
+
             }
 
             return builder.ConfigureServices(services => {
@@ -58,6 +60,7 @@ namespace S2fx {
                 services.AddInternalRemoteServicesTenant();
 
                 services.AddS2ViewTenant();
+
             });
         }
 
