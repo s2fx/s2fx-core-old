@@ -96,7 +96,8 @@ namespace S2fx.Remoting {
             if (!_isLoaded) {
                 throw new InvalidOperationException("Not initialized");
             }
-            return _remoteServices.Values as IEnumerable<RemoteServiceInfo>;
+            await Task.CompletedTask;
+            return _remoteServices.Values;
         }
 
 
