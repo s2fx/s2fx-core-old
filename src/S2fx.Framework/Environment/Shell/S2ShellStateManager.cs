@@ -12,6 +12,7 @@ namespace S2fx.Environment.Shell {
     /// <summary>
     /// Stores <see cref="ShellState"/> in the database. 
     /// </summary>
+    /*
     public class S2ShellStateManager : IShellStateManager {
         private ShellState _shellState;
 
@@ -91,5 +92,6 @@ namespace S2fx.Environment.Shell {
             //_session.Save(_shellState);
         }
     }
+    */
 
 }

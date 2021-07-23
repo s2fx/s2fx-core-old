@@ -56,7 +56,7 @@ namespace S2fx.Environment.Shell.Descriptor {
             return Task.FromResult(_shellDescriptor);
         }
 
-        public async Task UpdateShellDescriptorAsync(int priorSerialNumber, IEnumerable<ShellFeature> enabledFeatures, IEnumerable<ShellParameter> parameters) {
+        public async Task UpdateShellDescriptorAsync(int priorSerialNumber, IEnumerable<ShellFeature> enabledFeatures) {
             var shellDescriptorRecord = await GetShellDescriptorAsync();
             var serialNumber = shellDescriptorRecord == null
                 ? 0
@@ -78,7 +78,7 @@ namespace S2fx.Environment.Shell.Descriptor {
             }
 
             shellDescriptorRecord.Features = _alwaysEnabledFeatures.Concat(enabledFeatures).Distinct().ToList();
-            shellDescriptorRecord.Parameters = parameters.ToList();
+          //  shellDescriptorRecord.Parameters = parameters.ToList();
 
             if (this.Logger.IsEnabled(LogLevel.Information)) {
                 this.Logger.LogInformation("Shell descriptor updated for tenant '{TenantName}'.", _shellSettings.Name);
