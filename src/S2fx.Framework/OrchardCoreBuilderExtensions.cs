@@ -42,26 +42,28 @@ namespace S2fx {
 
             }
 
-            return builder.ConfigureServices(services => {
+            builder.ConfigureServices(tenantServices => {
                 //environment
-                services.AddS2EnvironmentTenant();
+                tenantServices.AddS2EnvironmentTenant();
 
-                services.AddS2ModuleTenantServices();
+                tenantServices.AddS2ModuleTenantServices();
 
-                services.AddS2DataAccessTenant();
+                tenantServices.AddS2DataAccessTenant();
 
-                services.AddS2Security();
+                tenantServices.AddS2Security();
 
                 //model
-                services.AddS2Model();
+                tenantServices.AddS2Model();
 
                 //Remoting 
-                services.AddRemotingTenants();
-                services.AddInternalRemoteServicesTenant();
+                tenantServices.AddRemotingTenants();
+                tenantServices.AddInternalRemoteServicesTenant();
 
-                services.AddS2ViewTenant();
+                tenantServices.AddS2ViewTenant();
 
             });
+            return builder;
+
         }
 
     }

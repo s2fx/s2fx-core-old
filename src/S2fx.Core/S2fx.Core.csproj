@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <RootNamespace>S2fx</RootNamespace>
     <OutputType>Library</OutputType>
@@ -9,8 +9,8 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.3.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 

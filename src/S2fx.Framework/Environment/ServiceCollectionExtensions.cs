@@ -25,8 +25,6 @@ namespace S2fx.Environment {
 
         static void AddShellDataStorage(this IServiceCollection services) {
             services.Replace(ServiceDescriptor.Scoped<IShellDescriptorManager, S2ShellDescriptorManager>());
-            services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
-            services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
         }
 
         static void AddSitesFolder(this IServiceCollection services) {

@@ -5,6 +5,11 @@ using Microsoft.Extensions.Configuration;
 using S2fx;
 using S2fx.Mvc;
 using S2fx.Data.NHibernate;
+using OrchardCore.Environment.Shell.Configuration;
+using Microsoft.Extensions.Options;
+using OrchardCore.Environment.Shell;
+using S2fx.Environment.Shell.Descriptor;
+using OrchardCore.Environment.Shell.Descriptor;
 
 namespace Microsoft.Extensions.DependencyInjection {
 
@@ -27,7 +32,6 @@ namespace Microsoft.Extensions.DependencyInjection {
                 .AddGlobalFeatures("S2fx.AdminUI")
                 .AddTenantFeatures("S2fx.Core")
                 .AddSetupFeatures("S2fx.Setup")
-                .WithTenants()
                 ;
 
             if (config != null) {
@@ -36,6 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             return services;
         }
+
 
     }
 

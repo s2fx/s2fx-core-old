@@ -56,7 +56,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             //migrator
             services.AddScoped<IDbMigrator, HibernateDbMigrator>();
 
-            //services.AddScoped(sp => sp.GetRequiredService<NH.ISessionFactory>().OpenSession());
+            services.AddScoped(sp => sp.GetRequiredService<NH.ISessionFactory>().OpenSession());
         }
 
         private static void AddBuiltinFieldMappers(IServiceCollection services) {

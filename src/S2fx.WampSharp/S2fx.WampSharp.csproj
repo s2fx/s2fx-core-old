@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>S2fx</RootNamespace>
     <LangVersion>latest</LangVersion>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
-    <PackageReference Include="WampSharp.Default" Version="20.1.1" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.3.0" />
+    <PackageReference Include="WampSharp.Default" Version="22.5.1" />
   </ItemGroup>
 
   <ItemGroup>
