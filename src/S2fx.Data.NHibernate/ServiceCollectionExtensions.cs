@@ -49,9 +49,8 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.AddSingletonLazy(sp => sp.GetRequiredService<IHibernateConfigurationFactory>().Create());
 
             //Register NH's ISessionFactory 
+            // TODO 测试多租户
             services.AddSingletonLazy(sp => sp.GetRequiredService<NHibernate.Cfg.Configuration>().BuildSessionFactory());
-
-
 
             //migrator
             services.AddScoped<IDbMigrator, HibernateDbMigrator>();
